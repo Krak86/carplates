@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Button from '@material-ui/core/Button';
+import Logo from './logo';
 
 function App() {
   return (
-    <Button variant="contained" color="primary">
-      Hello World
-    </Button>
+    <Fragment>
+      <Button variant="contained" color="primary">
+        Hello World
+      </Button>
+      <Logo />
+    </Fragment>
+
   );
 }
 
