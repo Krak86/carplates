@@ -14,3 +14,5 @@ node_modules
 config.gypi
 *.orig
 jest
+dist
+docs

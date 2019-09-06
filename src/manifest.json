@@ -1,17 +1,27 @@
 {
-    "name": "carplates",
-    "short_name": "carplates",
-    "start_url": "https://github.com/Krak86/carplates",
-    "display": "fullscreen",
-    "background_color": "#00008B",
-    "theme_color": "#00008B",
-    "description": "Car plates recognizer",
-    "related_applications": [
-      {
-        "platform": "play",
-        "url": "https://play.google.com/store/apps/details?id=com.krak86.UAWW2"
-      }
-    ],
-    "icons": [    
-    ]
-  }
+  "name": "carplates",
+  "short_name": "carplates",
+  "start_url": "https://github.com/Krak86/carplates",
+  "display": "fullscreen",
+  "background_color": "#00008B",
+  "theme_color": "#00008B",
+  "description": "Car plates recognizer",
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.krak86.UAWW2"
+    }
+  ],
+  "icons": [
+    {
+      "src": "img/touch/manifest-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/touch/manifest-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

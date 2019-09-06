@@ -9,7 +9,7 @@ const WebpackNotifierPlugin = require('webpack-notifier');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require("webpack");
 
-const dist = "docs";
+const dist = "dist";
 const pathToDist = __dirname + "/" + dist;
 
 module.exports = {

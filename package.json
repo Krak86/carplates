@@ -73,7 +73,7 @@
     "dev": "webpack-dev-server --open --mode development",
     "build": "npm run pwa && webpack --mode production",
     "pwa": "pwa-asset-generator ./src/img/touch/homescreen.png ./src/img/touch --icon-only --manifest=./src/manifest.json --index=./src/index.html",
-    "serve": "http-server docs -o",
+    "serve": "http-server dist -o",
     "test": "jest"
   }
 }
