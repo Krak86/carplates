@@ -122,6 +122,10 @@ module.exports = {
       {
         from:'src/manifest.json',
         to:''
+      },
+      {
+        from:'src/robots.txt',
+        to:''
       }
     ]),
     new webpack.HotModuleReplacementPlugin(),
