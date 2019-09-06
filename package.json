@@ -7,10 +7,10 @@
     "car plates",
     "car plate recognizer"
   ],
-  "homepage": "https://krak86.github.io/phaser_3_webpack_4_typescript_3",
+  "homepage": "https://github.com/Krak86/carplates",
   "bugs": {
     "email": "rukrak86@gmail.com",
-    "url": "https://github.com/Krak86/phaser_3_webpack_4_typescript_3/issues"
+    "url": "https://github.com/Krak86/carplates/issues"
   },
   "license": "SEE LICENSE IN LICENSE.md",
   "author": {
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Krak86/phaser_3_webpack_4_typescript_3.git"
+    "url": "git+https://github.com/Krak86/carplates.git"
   },
   "dependencies": {
     "react": "^16.9.0",
