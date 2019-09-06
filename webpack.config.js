@@ -14,7 +14,7 @@ const pathToDist = __dirname + "/" + dist;
 
 module.exports = {
   entry: {
-    main: ["./src/js/app.ts"]
+    main: ["./src/js/index.tsx"]
   },
   output: {
     filename: "[name].[hash].js",
@@ -24,7 +24,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts?$/,
+        test: /\.(ts|tsx)?$/,
         loader: "ts-loader",
         options: {
           transpileOnly: true
@@ -236,6 +236,6 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [".ts", ".js"]
+    extensions: [".tsx", ".ts", ".js"]
   }
 };

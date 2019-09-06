@@ -23,6 +23,13 @@
     "url": "git+https://github.com/Krak86/carplates.git"
   },
   "dependencies": {
+    "@material-ui/core": "4.4.0",
+    "@material-ui/icons": "4.2.1",
+    "@types/react": "16.9.2",
+    "@types/react-dom": "16.9.0",
+    "@types/react-redux": "7.1.2",
+    "@types/webpack-env": "1.14.0",
+    "es6-promise": "4.2.8",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
