@@ -1,5 +1,5 @@
 import "jest";
-import Utils from '../utils/Utils';
+import Utils from '../utils/utils';
 import {window} from '../models/interfaces';
 
 describe("Utils window methods", () => {
