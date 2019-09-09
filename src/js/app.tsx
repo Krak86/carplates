@@ -9,6 +9,9 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import DirectionsIcon from '@material-ui/icons/Directions';
+
+import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
 //import Logo from './logo';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -29,6 +32,9 @@ const useStyles = makeStyles((theme: Theme) =>
     divider: {
       height: 28,
       margin: 4,
+    },
+    depositContext: {
+      flex: 1,
     },
   }),
 );
