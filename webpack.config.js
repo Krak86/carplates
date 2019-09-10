@@ -17,12 +17,13 @@ module.exports = {
     main: ["./src/js/index.tsx"]
   },
   output: {
-    filename: "[name].[hash].js",
+    filename: "js/[name].[hash].js",
     path: pathToDist,
     publicPath: ""
   },
   module: {
     rules: [
+      //TYPESCRIPT
       {
         test: /\.(ts|tsx)?$/,
         loader: "ts-loader",
@@ -31,17 +32,19 @@ module.exports = {
         },
         exclude: /node_modules/
       },
+      //FONTS
       {
         test: /\.(ttf|eot|woff2?)$/i,
         use: [
             {
                 loader: 'file-loader',
                 options: {
-                    name: 'fonts/[name].[ext]'
+                    name: '[name].[ext]'
                 }
             }
         ]
       },
+      //IMAGES
       {
         test: /\.(png|jpe?g|gif|svg|webp)$/i,
         use: [
@@ -75,22 +78,29 @@ module.exports = {
             }
         ]
       },
+      //CSS
       {
         test: /\.(css)$/,
-        use: [
-            {
-                loader: 'style-loader',
-            },        
-            {
-                loader: 'css-loader',
-                options: {
-                    importLoaders: 2,
-                    sourceMap: true
-                }
-            },
-            {
-                loader: 'resolve-url-loader'
-            }           
+        use: [          
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'app.css',
+              outputPath: 'css',
+              publicPath: './'
+            }
+          },
+          {
+              loader: 'extract-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 2,
+              sourceMap: true           
+            }
+          },            
+          'postcss-loader'
         ]
       }
     ]
@@ -130,6 +140,7 @@ module.exports = {
     ]),
     new webpack.HotModuleReplacementPlugin(),
     new WorkboxPlugin.GenerateSW({
+      swDest: 'js/sw.js',
       clientsClaim: true,
       skipWaiting: true,
       precacheManifestFilename: "js/precache-manifest.[manifestHash].js",
@@ -160,7 +171,7 @@ module.exports = {
     //new BundleAnalyzerPlugin({reportFilename: 'BundleAnalyzerReport.html',})
   ],
   devServer: {
-    contentBase: "./" + dist,
+    publicPath: "/",
     compress: true,
     hot: true,
     public: process.env.DEVSERVER_PUBLIC || "http://localhost:8080",

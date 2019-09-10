@@ -12,10 +12,9 @@ import DirectionsIcon from '@material-ui/icons/Directions';
 
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
-//import Logo from './logo';
+import Logo from './logo';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
       padding: '2px 4px',
       display: 'flex',
@@ -53,8 +52,8 @@ function App() {
           <SearchIcon />
         </IconButton>
       </Paper>
+      <Logo />
     </Fragment>
-
   );
 }
 
