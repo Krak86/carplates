@@ -10,9 +10,23 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
-export const mainListItems = (
+export const mainListItems = () => {
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+
+  function handleListItemClick(
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    index: number,
+  ): void {
+    alert("yo");
+    setSelectedIndex(index);
+  }
+  return (
   <div>
-    <ListItem button>
+    <ListItem
+      button
+      selected={selectedIndex === 0}
+      onClick={event => handleListItemClick(event, 0)}
+    >
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
@@ -43,7 +57,8 @@ export const mainListItems = (
       <ListItemText primary="Integrations" />
     </ListItem>
   </div>
-);
+  );
+}
 
 export const secondaryListItems = (
   <div>
