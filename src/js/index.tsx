@@ -5,7 +5,7 @@ import Dashboard from '../js/components/Dashboard'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <App />,
+  <Dashboard />,
   document.getElementById('root')
 );
 

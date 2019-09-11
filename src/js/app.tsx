@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 );
 
 function App() {
-  const classes = useStyles();
+  const classes = useStyles({});
   return (
     <Fragment>
       <Paper className={classes.root}>
