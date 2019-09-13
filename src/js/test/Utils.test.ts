@@ -1,11 +1,11 @@
 import "jest";
 import Utils from '../utils/utils';
-import {window} from '../models/interfaces';
+import { Window } from '../models/Interfaces';
 
 describe("Utils window methods", () => {
 
   test("get Current Domain Url", () => {
-    let window: window = {
+    let window: Window = {
       location: {}
     };
     let resultFinal: string;

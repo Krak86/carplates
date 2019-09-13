@@ -1,4 +1,4 @@
-import { window } from "../models/interfaces";
+import { Window } from "../models/Interfaces";
 
 export default class Utils {
   /**
@@ -6,7 +6,7 @@ export default class Utils {
    * Samples:
    *      "https://domain.sharepoint.com"
    */
-  public static getAbsoluteDomainUrl(windowObj: window): string {
+  public static getAbsoluteDomainUrl(windowObj: Window): string {
     return windowObj.location.protocol + "//" + windowObj.location.host;
   } 
   /**

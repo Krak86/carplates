@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 });
 
 export default function Deposits() {
-  const classes = useStyles();
+  const classes = useStyles({});
   return (
     <React.Fragment>
       <Title>Recent Deposits</Title>

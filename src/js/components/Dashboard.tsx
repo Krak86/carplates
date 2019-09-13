@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
+import SearchField from "./SearchField";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -19,6 +20,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
+import ChartClass from './ChartClass';
 import Deposits from './Deposits';
 import Orders from './Orders';
 
@@ -171,12 +173,16 @@ export default function Dashboard() {
       
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
+        
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
+            <Grid item xs={12} md={8} lg={9}>              
+              <SearchField />
+            </Grid>
             {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                <Chart />
+              <Paper className={classes.paper}>
+                <ChartClass />
               </Paper>
             </Grid>
             {/* Recent Deposits */}

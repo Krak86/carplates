@@ -1,25 +1,18 @@
 import React, { Fragment } from 'react';
-import Button from '@material-ui/core/Button';
-
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import DirectionsIcon from '@material-ui/icons/Directions';
-
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
-import Logo from './logo';
+import ClearIcon from '@material-ui/icons/Clear';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
       padding: '2px 4px',
       display: 'flex',
       alignItems: 'center',
-      maxWidth: 400,
+      maxWidth: 500,
     },
     input: {
       marginLeft: theme.spacing(1),
@@ -38,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }),
 );
 
-function App() {
+function SearchField() {
   const classes = useStyles({});
   return (
     <Fragment>
@@ -51,10 +44,12 @@ function App() {
         <IconButton className={classes.iconButton} aria-label="search">
           <SearchIcon />
         </IconButton>
+        <IconButton className={classes.iconButton} aria-label="clear">
+          <ClearIcon />
+        </IconButton>
       </Paper>
-      <Logo />
     </Fragment>
   );
 }
 
-export default App;
+export default SearchField;
