@@ -1,10 +1,35 @@
-export const GET_ITEM: string = "GET_ITEM";
+import { Item } from "../models/Interfaces";
+
+export const ITEM_FETCH_DATA_SUCCESS: string = "ITEM_FETCH_DATA_SUCCESS";
+export const SET_ITEM_REQUEST: string = "SET_ITEM_REQUEST";
 export const ITEM_HAS_ERRORED: string = "ITEM_HAS_ERRORED";
 export const ITEM_IS_LOADING: string = "ITEM_IS_LOADING";
-export const ITEM_FETCH_DATA_SUCCESS: string = "ITEM_FETCH_DATA_SUCCESS";
+export const GET_ITEMS: string = "GET_ITEMS";
+export const ADD_TO_ITEMS_LIST: string = "ADD_TO_ITEMS_LIST";
 
-interface GetItemAction{
-    type: typeof GET_ITEM;
+export interface SetItemRequestAction{
+    type: typeof SET_ITEM_REQUEST;
+    payload: string;
+}
+export interface ItemFetchDataSuccessAction{
+    type: typeof ITEM_FETCH_DATA_SUCCESS;
+    payload: Item;
+}
+export interface ItemsIsLoadingAction{
+    type: typeof ITEM_IS_LOADING;
+    payload: boolean;
+}
+export interface ItemsHasErroredAction{
+    type: typeof ITEM_HAS_ERRORED;
+    payload: boolean;
+}
+export interface GetItemAction{
+    type: typeof GET_ITEMS;
 }
 
-export type ActionType = GetItemAction;
+export interface AddToItemsList{
+    type: typeof ADD_TO_ITEMS_LIST;
+    payload: Item;
+}
+
+export type ActionType = SetItemRequestAction | GetItemAction | ItemFetchDataSuccessAction | ItemsIsLoadingAction | ItemsHasErroredAction | AddToItemsList;

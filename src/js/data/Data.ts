@@ -14,5 +14,7 @@ export const initialData: ApplicationStates = {
         url: ""
     },
     signedIn: false,
-    drawerToogled: false
+    drawerToogled: false,
+    itemIsLoading: false,
+    itemHasErrored: false,
 }

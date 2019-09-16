@@ -7,6 +7,8 @@ export interface ApplicationStates {
   navigation: Navigation;
   signedIn: boolean;
   drawerToogled: boolean;
+  itemIsLoading: boolean;
+  itemHasErrored: boolean;
 }
 
 export interface Images {
