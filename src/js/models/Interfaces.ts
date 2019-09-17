@@ -46,6 +46,11 @@ export interface Navigation {
   url: string;
 }
 
+export interface ServiceRespond{
+  "odata.metadata": string;
+  "value": Item[];
+}
+
 export interface Window {
   location: Location;
 }
@@ -59,4 +64,8 @@ export interface Location {
   origin?: string;
   pathname?: string;
   port?: string;
+}
+
+export interface Locale{
+    searchInputPlaceholderText: string;
 }

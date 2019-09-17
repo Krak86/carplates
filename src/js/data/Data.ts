@@ -11,7 +11,7 @@ export const initialData: ApplicationStates = {
         pixabay: [],
       },
     navigation: {
-        url: ""
+        url: "home"
     },
     signedIn: false,
     drawerToogled: false,

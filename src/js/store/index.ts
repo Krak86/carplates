@@ -1,5 +1,7 @@
-import { createStore, applyMiddleware, compose, combineReducers } from "redux";
-import thunk from "redux-thunk";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import thunkMiddleware from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
+
 import { getReducer } from "./reducers";
 
 export const rootReducer = combineReducers({
@@ -9,13 +11,14 @@ export const rootReducer = combineReducers({
 export type AppState = ReturnType<typeof rootReducer>;
 
 export const configureStore = () => {
-  const middleware = [thunk];
-  const composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] as typeof compose || compose;
+  const middlewares = [thunkMiddleware];
+  const middleWareEnhancer =  applyMiddleware(...middlewares);
+
   const store = createStore(
     rootReducer,
-    {},
-    composeEnhancers(applyMiddleware(...middleware))
+    composeWithDevTools(middleWareEnhancer)
   );
+
   return store;
 }
 //https://codesandbox.io/s/redux-typescript-example-5bw4y

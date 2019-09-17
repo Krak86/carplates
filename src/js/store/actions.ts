@@ -1,13 +1,17 @@
 import  * as actions from "./types";
 import { Action } from "redux";
-import { Item } from "../models/Interfaces";
+import { Item, ServiceRespond } from "../models/Interfaces";
 import { ThunkAction } from "redux-thunk";
 import { ApplicationStates } from "../models/Interfaces";
 
 export const itemFetchData = (itemRequest: string, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch, getState) => {
     dispatch(setItemRequest(itemRequest));
     dispatch(itemIsLoading(true));
-    fetch(url)
+    fetch(url, {
+        headers:{
+          'Accept': 'application/json'
+        }
+    })
     .then((response) => {
         if (!response.ok){
             throw Error(response.statusText);
@@ -15,12 +19,16 @@ export const itemFetchData = (itemRequest: string, url: string): ThunkAction<voi
         dispatch(itemIsLoading(false));
         return response;
     })
-    .then((response) => response.json())
-    .then((itemResponse: Item) => {
-        dispatch(itemFetchDataSuccess(itemResponse));
-        dispatch(addToItemsList(itemResponse));
+    .then((response) => {
+        return response.json(); })
+    .then((itemResponse: ServiceRespond) => {
+        const data = itemResponse.value[0];
+        dispatch(itemFetchDataSuccess(data));
+        dispatch(addToItemsList(data));
     })
-    .catch(() => dispatch(itemHasErrored(true)));
+    .catch((error) => {
+        dispatch(itemHasErrored(true));
+    });
 };
 
 export const setItemRequest = (itemRequest: string): actions.SetItemRequestAction => ({
@@ -33,7 +41,7 @@ export const itemIsLoading = (bool: boolean): actions.ItemsIsLoadingAction => ({
     payload: bool
 });
 
-export const itemHasErrored = (bool: boolean): actions.ItemsHasErroredAction => ({    
+export const itemHasErrored = (bool: boolean): actions.ItemsHasErroredAction => ({   
     type: actions.ITEM_HAS_ERRORED,
     payload: bool
 });
