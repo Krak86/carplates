@@ -16,3 +16,4 @@ config.gypi
 jest
 dist
 docs
+.env
