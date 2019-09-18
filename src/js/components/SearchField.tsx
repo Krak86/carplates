@@ -11,6 +11,7 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
+import Utils from "../utils/Utils.ts";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 
 interface State {
@@ -41,28 +42,41 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }),
 );
 
+const shapeData = (value: string): string => {
+  return Utils.convertToCyrillic(Utils.shapeData(value));
+};
+
+const shapeURL = (value: string, url: string): string => {
+  return Utils.shapeURL(url, value, Utils.extractPartitionKey(value));
+}
+
 export const SearchField = () => {
   //constructor, componentDidMounted, componentDidUpdated
   const [inputValue, setInputValue] = useState<State>({value: ""});
-  //connect to state
+  //mapStateToProps
   const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
-  //dispatch action creators
+  //mapDispatchToProps
   const dispatch = useDispatch();
   //hook styles
   const classes = useStyles({});
-
-  const url = process.env.AZURE_TABLE_SERVICE_URL || "";
-
+  const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || "";
   const handleChange = (value: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue({...inputValue, [value]: event.target.value });
   };
   const handleSearchClick = () => {
-    dispatch(itemFetchData(inputValue.value, url));
+    const value = shapeData(inputValue.value);
+    const url = shapeURL(value, serviceUrl);
+    dispatch(itemFetchData(value, url));
   };
   const handleClearClick = () => {
     setInputValue({...inputValue, value: "" });
     dispatch(setItemRequest(""));
   };
+  const handlerKeyPress = (e: KeyboardEvent<T>) => {
+    if (e.charCode == 13) {
+      handleSearchClick();
+    }
+  }
   return (
     <Fragment>      
       {JSON.stringify(state.itemResponse)}
@@ -70,9 +84,10 @@ export const SearchField = () => {
         <InputBase
           className={classes.input}
           placeholder={lang.searchInputPlaceholderText}
-          inputProps={{ 'aria-label': 'search google maps' }}
+          inputProps={{ 'aria-label': lang.searchInputPlaceholderText }}
           onChange={handleChange('value')}
           value={inputValue.value}
+          onKeyPress={handlerKeyPress}
         />
         <IconButton 
           className={classes.iconButton} 

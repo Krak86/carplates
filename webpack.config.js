@@ -15,7 +15,13 @@ const pathToDist = __dirname + "/" + dist;
 
 module.exports = {
   entry: {
-    main: ["./src/js/index.tsx"]
+    main: [
+      "./src/js/index.tsx",
+    ],
+    /*polyfill: [
+      "whatwg-fetch",
+      "promise-polyfill"
+    ]*/
   },
   output: {
     filename: "js/[name].[hash].js",
@@ -124,7 +130,7 @@ module.exports = {
         removeStyleLinkTypeAttributes: true,
         useShortDoctype: true
       },
-      xhtml: true
+      xhtml: true,
     }),
     new CopyWebpackPlugin([
       {

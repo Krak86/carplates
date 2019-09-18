@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: 24,
   },
   toolbarIcon: {
     display: 'flex',
@@ -96,6 +96,9 @@ const useStyles = makeStyles(theme => ({
   container: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
+
+    maxWidth: 600,
+    //margin: `${theme.spacing(1)}px auto`,
   },
   paper: {
     padding: theme.spacing(2),
@@ -178,19 +181,8 @@ export default function Dashboard() {
         <div className={classes.appBarSpacer} />
         
         <Container maxWidth="lg" className={classes.container}>
-          <Grid 
-            container 
-            spacing={0} 
-            //direction="row"
-            justify="center"
-            alignItems="center"
-          >
-            <Grid item xs={12} md={12} lg={12} >
-              <SearchField />
-            </Grid>
-          </Grid>
+          <SearchField />
         </Container>
-        <Copyright />
       </main>
       
     </div>
