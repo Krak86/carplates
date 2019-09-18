@@ -68,4 +68,6 @@ export interface Location {
 
 export interface Locale{
     searchInputPlaceholderText: string;
+    dashBoradTitle: string;
+    copyright: string;
 }

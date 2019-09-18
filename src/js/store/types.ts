@@ -6,6 +6,12 @@ export const ITEM_HAS_ERRORED: string = "ITEM_HAS_ERRORED";
 export const ITEM_IS_LOADING: string = "ITEM_IS_LOADING";
 export const GET_ITEMS: string = "GET_ITEMS";
 export const ADD_TO_ITEMS_LIST: string = "ADD_TO_ITEMS_LIST";
+export const TOGGLE_DRAWER: string = "TOGGLE_DRAWER";
+
+export interface ToggleDrawer{
+    type: typeof TOGGLE_DRAWER;
+    payload: boolean;
+}
 
 export interface SetItemRequestAction{
     type: typeof SET_ITEM_REQUEST;

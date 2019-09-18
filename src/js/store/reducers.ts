@@ -30,11 +30,16 @@ export const getReducer = (
         return {
           ...state,
           itemIsLoading: action.payload
-        }
+        };
       case actions.ITEM_HAS_ERRORED:
         return {
           ...state,
           itemHasErrored: action.payload
+        };
+      case actions.TOGGLE_DRAWER:
+        return {
+          ...state,
+          drawerToogled: action.payload
         }
       default:
         return state;

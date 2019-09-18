@@ -58,4 +58,9 @@ export const getItems = (): actions.GetItemAction => ({
 export const addToItemsList = (itemResponse: Item) => ({
     type: actions.ADD_TO_ITEMS_LIST,
     payload: itemResponse
-})
+});
+
+export const toggleDrawer = (drawerState: boolean) => ({
+    type: actions.TOGGLE_DRAWER,
+    payload: drawerState
+});

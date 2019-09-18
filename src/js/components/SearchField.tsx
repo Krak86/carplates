@@ -51,13 +51,12 @@ export const SearchField = () => {
   //hook styles
   const classes = useStyles({});
 
-  const url = "https://krak86.table.core.windows.net/CarsPartitions?sv=2018-03-28&si=CarsPartitions-16C8C16AF0F&tn=carspartitions&sig=ungV9j%2Bdr25VsPqWPq3i1CsApjytU0zHldEFTQB2FiI%3D&$filter=RowKey eq 'ВН0179ІС' and PartitionKey eq 'ВН'";
+  const url = process.env.AZURE_TABLE_SERVICE_URL || "";
 
   const handleChange = (value: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue({...inputValue, [value]: event.target.value });
   };
   const handleSearchClick = () => {
-    //dispatch(setItemRequest(inputValue.value));
     dispatch(itemFetchData(inputValue.value, url));
   };
   const handleClearClick = () => {

@@ -1,7 +1,9 @@
 import React from 'react';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { SearchField } from "./SearchField";
+import { Copyright } from "./CopyRight";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -14,28 +16,16 @@ import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
+
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './Chart';
-import ChartClass from './ChartClass';
-import Deposits from './Deposits';
-import Orders from './Orders';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import lang from "../locale";
+import { toggleDrawer } from "../store/actions";
+import { AppState } from "../store";
+import { ApplicationStates} from "../models/Interfaces";
 
 const drawerWidth = 240;
 
@@ -113,19 +103,32 @@ const useStyles = makeStyles(theme => ({
     overflow: 'auto',
     flexDirection: 'column',
   },
+  paperCenter: {
+    padding: theme.spacing(2),
+    display: 'center',
+    overflow: 'auto',
+    flexDirection: 'column',
+  },
   fixedHeight: {
     height: 240,
   },
 }));
 
 export default function Dashboard() {
+  //connect to state
+  const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
+  //constructor, componentDidMounted, componentDidUpdated
+  const open = state.drawerToogled;
+  //dispatch action creators
+  const dispatch = useDispatch();
+  //hook styles
   const classes = useStyles({});
-  const [open, setOpen] = React.useState(false);
+
   const handleDrawerOpen = () => {
-    setOpen(true);
+    dispatch(toggleDrawer(true));
   };
   const handleDrawerClose = () => {
-    setOpen(false);
+    dispatch(toggleDrawer(false));
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -144,7 +147,7 @@ export default function Dashboard() {
             <MenuIcon />
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+            {lang.dashBoradTitle}
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={1} color="secondary">
@@ -154,7 +157,7 @@ export default function Dashboard() {
         </Toolbar>
       </AppBar>
       <Drawer
-        variant="persistent"
+        variant="temporary"
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
@@ -175,27 +178,15 @@ export default function Dashboard() {
         <div className={classes.appBarSpacer} />
         
         <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={8} lg={9}>              
+          <Grid 
+            container 
+            spacing={0} 
+            //direction="row"
+            justify="center"
+            alignItems="center"
+          >
+            <Grid item xs={12} md={12} lg={12} >
               <SearchField />
-            </Grid>
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={classes.paper}>
-                <ChartClass />
-              </Paper>
-            </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits />
-              </Paper>
-            </Grid>
-            {/* Recent Orders */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Orders />
-              </Paper>
             </Grid>
           </Grid>
         </Container>
