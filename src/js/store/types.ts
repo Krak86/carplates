@@ -4,6 +4,7 @@ export const ITEM_FETCH_DATA_SUCCESS: string = "ITEM_FETCH_DATA_SUCCESS";
 export const SET_ITEM_REQUEST: string = "SET_ITEM_REQUEST";
 export const ITEM_HAS_ERRORED: string = "ITEM_HAS_ERRORED";
 export const ITEM_IS_LOADING: string = "ITEM_IS_LOADING";
+export const ITEM_IS_LOADED: string = "ITEM_IS_LOADED";
 export const GET_ITEMS: string = "GET_ITEMS";
 export const ADD_TO_ITEMS_LIST: string = "ADD_TO_ITEMS_LIST";
 export const TOGGLE_DRAWER: string = "TOGGLE_DRAWER";
@@ -23,6 +24,10 @@ export interface ItemFetchDataSuccessAction{
 }
 export interface ItemsIsLoadingAction{
     type: typeof ITEM_IS_LOADING;
+    payload: boolean;
+}
+export interface ItemsIsLoadedAction{
+    type: typeof ITEM_IS_LOADED;
     payload: boolean;
 }
 export interface ItemsHasErroredAction{

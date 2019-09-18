@@ -11,7 +11,7 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
-import Utils from "../utils/Utils.ts";
+import Utils from "../utils/Utils";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 
 interface State {
@@ -72,14 +72,14 @@ export const SearchField = () => {
     setInputValue({...inputValue, value: "" });
     dispatch(setItemRequest(""));
   };
-  const handlerKeyPress = (e: KeyboardEvent<T>) => {
+  const handlerKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.charCode == 13) {
       handleSearchClick();
     }
   }
   return (
     <Fragment>      
-      {JSON.stringify(state.itemResponse)}
+      {/*JSON.stringify(state.itemResponse)*/}
       <Paper className={classes.root}>
         <InputBase
           className={classes.input}

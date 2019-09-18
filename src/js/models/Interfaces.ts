@@ -9,6 +9,7 @@ export interface ApplicationStates {
   drawerToogled: boolean;
   itemIsLoading: boolean;
   itemHasErrored: boolean;
+  itemIsLoaded: boolean;
 }
 
 export interface Images {

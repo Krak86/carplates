@@ -3,7 +3,7 @@ import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { SearchField } from "./SearchField";
-import { Copyright } from "./CopyRight";
+import { Result } from "./Result";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -14,13 +14,13 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+
 
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import lang from "../locale";
 import { toggleDrawer } from "../store/actions";
@@ -122,6 +122,7 @@ export default function Dashboard() {
   const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
   //constructor, componentDidMounted, componentDidUpdated
   const open = state.drawerToogled;
+  const itemIsLoading = state.itemIsLoading;
   //dispatch action creators
   const dispatch = useDispatch();
   //hook styles
@@ -178,11 +179,13 @@ export default function Dashboard() {
       </Drawer>
       
       <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        
+        <div className={classes.appBarSpacer} />        
         <Container maxWidth="lg" className={classes.container}>
           <SearchField />
+          {/*<LinearProgress />*/} loading: {JSON.stringify(state.itemIsLoading)}
+          <Result />
         </Container>
+        
       </main>
       
     </div>

@@ -82,7 +82,4 @@ export default class Utils {
   public static extractPartitionKey(val: string): string{
     return val.substr(0,2);
   }
-  public static reducer(accumulator: string, currentValue: string): string{
-    return accumulator + currentValue;
-  };
 }

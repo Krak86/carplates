@@ -30,6 +30,11 @@ export const getReducer = (
         return {
           ...state,
           itemIsLoading: action.payload
+        };        
+      case actions.ITEM_IS_LOADED:
+        return {
+          ...state,
+          itemIsLoaded: action.payload
         };
       case actions.ITEM_HAS_ERRORED:
         return {

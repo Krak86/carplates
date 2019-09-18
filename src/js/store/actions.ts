@@ -5,8 +5,9 @@ import { ThunkAction } from "redux-thunk";
 import { ApplicationStates } from "../models/Interfaces";
 
 export const itemFetchData = (itemRequest: string, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch, getState) => {
-    dispatch(setItemRequest(itemRequest));
+    dispatch(itemIsLoaded(true));
     dispatch(itemIsLoading(true));
+    dispatch(setItemRequest(itemRequest));
     fetch(url, {
         headers:{
           'Accept': 'application/json'
@@ -25,6 +26,7 @@ export const itemFetchData = (itemRequest: string, url: string): ThunkAction<voi
         const data = itemResponse.value[0];
         dispatch(itemFetchDataSuccess(data));
         dispatch(addToItemsList(data));
+        dispatch(itemIsLoaded(true));
     })
     .catch((error) => {
         dispatch(itemHasErrored(true));
@@ -38,6 +40,11 @@ export const setItemRequest = (itemRequest: string): actions.SetItemRequestActio
 
 export const itemIsLoading = (bool: boolean): actions.ItemsIsLoadingAction => ({
     type: actions.ITEM_IS_LOADING,
+    payload: bool
+});
+
+export const itemIsLoaded = (bool: boolean): actions.ItemsIsLoadedAction => ({
+    type: actions.ITEM_IS_LOADED,
     payload: bool
 });
 
