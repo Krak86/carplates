@@ -102,3 +102,15 @@ export interface Locale{
 
     region?: string;
 }
+
+export interface VIN{
+  "Count"?: number;
+  "Message"?: string;
+  "SearchCriteria"?: string;
+  "Results"?: {
+    "Value": any;
+    "ValueId": any;
+    "Variable": any;
+    "VariableId": number;
+  }[]
+}

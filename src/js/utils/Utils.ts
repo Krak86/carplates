@@ -25,8 +25,11 @@ export default class Utils {
   /**
     * shapeData
     */  
-  public static shapeData(val: string): string{
-    return val.replace(/ /g,'').toLocaleUpperCase();
+  public static trimData(val: string): string{
+    return val.replace(/ /g,'');
+  }
+  public static toLocaleUpperCaseData(val: string): string{
+    return val.toLocaleUpperCase();
   }
   /**
     * convertToCyrillic
@@ -71,12 +74,12 @@ export default class Utils {
     }
   }
 
-  public static detectPlateOrVin(){
-
-  }
-
   public static shapeURL(url: string, rowKey: string, partitionKey: string): string{
     return `${url}RowKey eq '${rowKey}' and PartitionKey eq '${partitionKey}'`;
+  }
+
+  public static shapeURLVIN(url: string, value: string): string{
+    return `${url}/${value}?format=json`;
   }
 
   public static extractPartitionKey(val: string): string{

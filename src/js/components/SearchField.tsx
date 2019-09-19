@@ -41,17 +41,36 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }),
 );
 
-const shapeData = (value: string): string => {
-  if(Utils.shapeData(value) === ""){
-    return;
+const isEmpty = (value: string): boolean => {
+  if(
+    Utils.trimData(value) === "" ||
+    Utils.trimData(value) === undefined
+    ){
+    return true;
   }
   else{
-    return Utils.convertToCyrillic(Utils.shapeData(value));
+    return false;
   }
+};
+
+const isVin = (value: string): boolean => {
+  return (Utils.trimData(value).length === 17);
+}
+
+const shapeData = (value: string): string => {
+  return Utils.convertToCyrillic(Utils.toLocaleUpperCaseData(Utils.trimData(value)));
 };
 
 const shapeURL = (value: string, url: string): string => {
   return Utils.shapeURL(url, value, Utils.extractPartitionKey(value));
+}
+
+const shapeDataVIN = (value: string): string => {
+  return Utils.trimData(value);
+};
+
+const shapeURLVIN = (value: string, url: string): string => {
+  return Utils.shapeURLVIN(url, value);
 }
 
 export const SearchField = () => {
@@ -72,16 +91,23 @@ export const SearchField = () => {
   //hook styles
   const classes = useStyles({});
   const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || "";
+  const serviceUrlVIN = "https://vpic.nhtsa.dot.gov/api/vehicles/decodevin";
   const handleChange = (value: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue({...inputValue, [value]: event.target.value });
   };
-  const handleSearchClick = () => {
-    const value = shapeData(inputValue.value);
-    if(value === "" || value === undefined){
+  const handleSearchClick = () => {   
+    if(isEmpty(inputValue.value)){
       return;
     }
-    const url = shapeURL(value, serviceUrl);
-    dispatch(itemFetchData(value, url));
+    if(isVin(inputValue.value)){
+      const value = shapeDataVIN(inputValue.value);
+      const url = shapeURLVIN(value, serviceUrlVIN);
+    }
+    else{
+      const value = shapeData(inputValue.value);
+      const url = shapeURL(value, serviceUrl);
+      dispatch(itemFetchData(value, url));
+    }
     searchInput.current.focus();
   };
   const handleClearClick = () => {
