@@ -7,6 +7,11 @@ export const getReducer = (
     action: any
   ): ApplicationStates => {
     switch (action.type) {
+      case actions.RESPONSE_IS_EMPTY:
+        return {
+          ...state,
+          responseIsEmpty: action.payload
+        };
       case actions.SET_ITEM_REQUEST:
         return {
           ...state,

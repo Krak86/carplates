@@ -1,56 +1,40 @@
-import React, { Fragment, useState } from 'react';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import React, { Fragment } from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import lang from "../locale";
-import { itemFetchData, setItemRequest } from "../store/actions";
 import { AppState } from "../store";
 import { ApplicationStates} from "../models/Interfaces";
-import * as actions from "../store/types";
 import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
-import ClearIcon from '@material-ui/icons/Clear';
-import Utils from "../utils/Utils";
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/Image';
-import WorkIcon from '@material-ui/icons/Work';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
-
+import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import LinearScaleIcon from '@material-ui/icons/LinearScale';
 import ColorLensIcon from '@material-ui/icons/ColorLens';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import EventNoteIcon from '@material-ui/icons/EventNote';
-import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import LocalGasStationIcon from '@material-ui/icons/LocalGasStation';
 import MergeTypeIcon from '@material-ui/icons/MergeType';
 import DateRangeIcon from '@material-ui/icons/DateRange';
-import FormatListNumberedRtlIcon from '@material-ui/icons/FormatListNumberedRtl';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import CopyrightIcon from '@material-ui/icons/Copyright';
 import ExploreIcon from '@material-ui/icons/Explore';
-import LineWeightIcon from '@material-ui/icons/LineWeight';
-import HomeIcon from '@material-ui/icons/Home';
 
 import { regions } from "../data/Data";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      padding: '0px 0px',
       //width: '100%',
       maxWidth: 500,
       //backgroundColor: theme.palette.background.paper,
-      padding: theme.spacing(0),
-      margin: theme.spacing(0),
     },
   }),
 );
@@ -63,11 +47,8 @@ export const Result = () => {
 
     return(
         <Fragment>
-            <Paper>            
-            </Paper>
-            <Paper>
-            {state.itemIsLoaded === true &&
-            
+            <Paper className={classes.root}>
+            {state.itemIsLoaded === true && state.responseIsEmpty === false &&            
             <List className={classes.root}>
                 <ListItem>
                     <ListItemAvatar>
@@ -207,6 +188,16 @@ export const Result = () => {
                     <ListItemText primary="reg_addr_koatuu" secondary={state.itemResponse.reg_addr_koatuu} />
                 </ListItem>*/}
             </List> 
+            }
+            {state.itemIsLoaded === true && state.responseIsEmpty === true &&
+            <ListItem>
+                <ListItemAvatar>
+                    <Avatar>
+                        <SentimentVeryDissatisfiedIcon />
+                    </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary={lang.noResultMessage}/>
+            </ListItem>
             }
             </Paper>
         </Fragment>

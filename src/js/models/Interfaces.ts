@@ -10,6 +10,7 @@ export interface ApplicationStates {
   itemIsLoading: boolean;
   itemHasErrored: boolean;
   itemIsLoaded: boolean;
+  responseIsEmpty: boolean;
 }
 
 export interface Images {
@@ -72,6 +73,8 @@ export interface Locale{
     searchInputPlaceholderText: string;
     dashBoradTitle: string;
     copyright: string;
+    documentTitle: string;
+    noResultMessage: string;
 
     rowKey?: string;
     brand?: string;

@@ -5,7 +5,6 @@ import lang from "../locale";
 import { itemFetchData, setItemRequest } from "../store/actions";
 import { AppState } from "../store";
 import { ApplicationStates} from "../models/Interfaces";
-import * as actions from "../store/types";
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,10 +18,11 @@ interface State {
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
-      padding: '2px 4px',
+      padding: '0px 0px',
       display: 'flex',
       alignItems: 'center',
       maxWidth: 500,
+      marginBottom: '20px'
     },
     input: {
       marginLeft: theme.spacing(1),
@@ -42,7 +42,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 );
 
 const shapeData = (value: string): string => {
-  return Utils.convertToCyrillic(Utils.shapeData(value));
+  if(Utils.shapeData(value) === ""){
+    return;
+  }
+  else{
+    return Utils.convertToCyrillic(Utils.shapeData(value));
+  }
 };
 
 const shapeURL = (value: string, url: string): string => {
@@ -52,15 +57,18 @@ const shapeURL = (value: string, url: string): string => {
 export const SearchField = () => {
   //constructor
   const [inputValue, setInputValue] = useState<State>({value: ""});
-  //componentDidMounted, componentDidUpdated
-  const searchInput = useRef(null);
-  useEffect(() => {
-    searchInput.current.focus();
-  }, []);
   //mapStateToProps
   const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
   //mapDispatchToProps
   const dispatch = useDispatch();
+  //componentDidMounted, componentDidUpdated
+  const searchInput = useRef(null);
+  useEffect(() => {
+    document.title = `${lang.documentTitle} ${state.itemRequest}`;
+  });
+  useEffect(() => {
+    searchInput.current.focus();
+  }, []);
   //hook styles
   const classes = useStyles({});
   const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || "";
@@ -69,6 +77,9 @@ export const SearchField = () => {
   };
   const handleSearchClick = () => {
     const value = shapeData(inputValue.value);
+    if(value === "" || value === undefined){
+      return;
+    }
     const url = shapeURL(value, serviceUrl);
     dispatch(itemFetchData(value, url));
     searchInput.current.focus();
@@ -85,7 +96,7 @@ export const SearchField = () => {
   }
   return (
     <Fragment>      
-      {/*JSON.stringify(state.itemResponse)*/}
+      {/*JSON.stringify(state.itemRequest)*/}
       <Paper className={classes.root}>
         <InputBase
           className={classes.input}

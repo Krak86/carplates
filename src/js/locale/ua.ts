@@ -4,6 +4,8 @@ export const lang: Locale = {
     searchInputPlaceholderText: "Введіть номер авто або VIN",
     dashBoradTitle: "Автівки України",
     copyright: "Авторські права © ",
+    documentTitle: "Автівки України",
+    noResultMessage: "Вибачте, результатів немає",
 
     rowKey: "Номер автівки",
     brand: "Бренд",

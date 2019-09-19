@@ -4,6 +4,8 @@ export const lang: Locale = {
     searchInputPlaceholderText: "Enter plate or VIN number",
     dashBoradTitle: "Ukraine car plates",
     copyright: "Copyright © ",
+    documentTitle: "Car plate UA",
+    noResultMessage: "Sorry, there are no results",
 
     rowKey: "Car plate",
     brand: "Brand",

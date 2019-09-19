@@ -5,9 +5,9 @@ import { ThunkAction } from "redux-thunk";
 import { ApplicationStates } from "../models/Interfaces";
 
 export const itemFetchData = (itemRequest: string, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch, getState) => {
-    dispatch(itemIsLoaded(true));
+    dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));
-    dispatch(setItemRequest(itemRequest));
+
     fetch(url, {
         headers:{
           'Accept': 'application/json'
@@ -23,15 +23,29 @@ export const itemFetchData = (itemRequest: string, url: string): ThunkAction<voi
     .then((response) => {
         return response.json(); })
     .then((itemResponse: ServiceRespond) => {
-        const data = itemResponse.value[0];
-        dispatch(itemFetchDataSuccess(data));
-        dispatch(addToItemsList(data));
+        if(itemResponse.value.length > 0){
+            const data = itemResponse.value[0];
+            dispatch(itemFetchDataSuccess(data));
+            dispatch(addToItemsList(data));
+            dispatch(setItemRequest(itemRequest));
+            dispatch(responseIsEmpty(false));
+        }
+        else{
+            dispatch(responseIsEmpty(true));
+        }
         dispatch(itemIsLoaded(true));
     })
     .catch((error) => {
         dispatch(itemHasErrored(true));
+        console.log(error);
     });
 };
+
+
+export const responseIsEmpty = (response: boolean): actions.ResponseIsEmptyAction => ({
+    type: actions.RESPONSE_IS_EMPTY,
+    payload: response
+});
 
 export const setItemRequest = (itemRequest: string): actions.SetItemRequestAction => ({
     type: actions.SET_ITEM_REQUEST,

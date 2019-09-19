@@ -35,7 +35,7 @@ const itemResponse: Item = {
 
 export const initialData: ApplicationStates = {
     itemRequest: "",
-    imageRequest: null,
+    imageRequest: "",
     itemResponse: itemResponse,
     itemsList: [],
     imagesList: {
@@ -51,6 +51,7 @@ export const initialData: ApplicationStates = {
     itemIsLoading: false,
     itemHasErrored: false,
     itemIsLoaded: false,
+    responseIsEmpty: true
 }
 
 export const regions = {
