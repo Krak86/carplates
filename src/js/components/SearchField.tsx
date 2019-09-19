@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useRef, useEffect } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import lang from "../locale";
@@ -11,8 +11,7 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
-import Utils from "../utils/Utils";
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import Utils from "../utils/Utils";;
 
 interface State {
   value: string;
@@ -51,8 +50,13 @@ const shapeURL = (value: string, url: string): string => {
 }
 
 export const SearchField = () => {
-  //constructor, componentDidMounted, componentDidUpdated
+  //constructor
   const [inputValue, setInputValue] = useState<State>({value: ""});
+  //componentDidMounted, componentDidUpdated
+  const searchInput = useRef(null);
+  useEffect(() => {
+    searchInput.current.focus();
+  }, []);
   //mapStateToProps
   const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
   //mapDispatchToProps
@@ -67,10 +71,12 @@ export const SearchField = () => {
     const value = shapeData(inputValue.value);
     const url = shapeURL(value, serviceUrl);
     dispatch(itemFetchData(value, url));
+    searchInput.current.focus();
   };
   const handleClearClick = () => {
     setInputValue({...inputValue, value: "" });
     dispatch(setItemRequest(""));
+    searchInput.current.focus();
   };
   const handlerKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.charCode == 13) {
@@ -88,6 +94,7 @@ export const SearchField = () => {
           onChange={handleChange('value')}
           value={inputValue.value}
           onKeyPress={handlerKeyPress}
+          inputRef={searchInput}
         />
         <IconButton 
           className={classes.iconButton} 

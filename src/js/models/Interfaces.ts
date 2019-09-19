@@ -40,6 +40,7 @@ export interface Item {
   "purpose":string;
   "reg_addr_koatuu": string;
   "total_weight": string;
+  "region"?: string;
   images?: Images;
 }
 
@@ -71,4 +72,30 @@ export interface Locale{
     searchInputPlaceholderText: string;
     dashBoradTitle: string;
     copyright: string;
+
+    rowKey?: string;
+    brand?: string;
+    model?: string;
+    modelBrand?: string;
+    body?: string;
+    capacity?: string;
+    color?: string;
+    d_reg?: string;
+    dep?: string;
+    dep_code?: string;
+    fuel?: string;
+    kind?: string;
+    make_year?: string;
+    oper_code?: string;
+    oper_name?: string;
+    own_weight?: string;
+    total_weight?: string;
+    weight?: string;
+    person?: string;
+    person_private?: string;
+    person_company?: string;
+    purpose?: string;
+    reg_addr_koatuu?: string;
+
+    region?: string;
 }

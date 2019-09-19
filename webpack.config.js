@@ -120,7 +120,7 @@ module.exports = {
       title: "Phaser game",
       filename: "index.html",
       template: "./src/index.html",
-      favicon: "./src/img/favicons/favicon.ico",
+      favicon: "./src/img/favicons/favicon.png",
       meta: {viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'},
       minify: {
         collapseWhitespace: true,

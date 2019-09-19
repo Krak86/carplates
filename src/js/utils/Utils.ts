@@ -40,7 +40,7 @@ export default class Utils {
       }).reduce(Utils.reducer);
   }
 
-  public static latinToCyrillicMatrix(i): string{
+  public static latinToCyrillicMatrix(i: string): string{
     switch(i.charCodeAt(0)){
       case 65:
         return String.fromCharCode(1040);
@@ -82,4 +82,5 @@ export default class Utils {
   public static extractPartitionKey(val: string): string{
     return val.substr(0,2);
   }
+
 }

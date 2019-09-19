@@ -182,7 +182,7 @@ export default function Dashboard() {
         <div className={classes.appBarSpacer} />        
         <Container maxWidth="lg" className={classes.container}>
           <SearchField />
-          {/*<LinearProgress />*/} loading: {JSON.stringify(state.itemIsLoading)}
+          {state.itemIsLoading === true && <LinearProgress />}
           <Result />
         </Container>
         
