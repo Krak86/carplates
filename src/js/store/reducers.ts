@@ -7,6 +7,21 @@ export const getReducer = (
     action: any
   ): ApplicationStates => {
     switch (action.type) {
+      case actions.ITEM_FETCH_DATA_VIN_SUCCESS:
+        return {
+          ...state,
+          vinResponse: action.payload
+        };
+      case actions.SET_VIN_REQUEST:
+        return {
+          ...state,
+          vinRequest: action.payload
+        };
+      case actions.SET_SEARCHING_ITEM_TYPE:
+        return {
+          ...state,
+          itemSearching: action.payload
+        };
       case actions.RESPONSE_IS_EMPTY:
         return {
           ...state,

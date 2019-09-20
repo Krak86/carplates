@@ -1,4 +1,4 @@
-import { ApplicationStates, Item, Images } from "../models/Interfaces";
+import { ApplicationStates, Item, Images, itemSearching, VIN } from "../models/Interfaces";
 
 const Images: Images = {
     platesMania: [],
@@ -32,6 +32,13 @@ const itemResponse: Item = {
     "images": Images,
 }
 
+const vinResponse: VIN = {
+    "Count": 0,
+    "Message": "",
+    "SearchCriteria": "",
+    "Results": [],
+  }
+
 
 export const initialData: ApplicationStates = {
     itemRequest: "",
@@ -51,7 +58,11 @@ export const initialData: ApplicationStates = {
     itemIsLoading: false,
     itemHasErrored: false,
     itemIsLoaded: false,
-    responseIsEmpty: true
+    responseIsEmpty: true,
+    itemSearching: itemSearching.plate,
+    vinRequest: "",
+    vinResponse: vinResponse,
+    vinsList: [],
 }
 
 export const regions = {
@@ -137,3 +148,12 @@ export const regions = {
     "ІЕ": "Черновіцька область",
 }
 
+export const URLs = {
+    "getDataByPlateUrl": "",
+    "getDataByVinUrl": "https://vpic.nhtsa.dot.gov/api/vehicles/decodevin",
+    "getImageByNameUrl": "https://pixabay.com/api/?key=",
+    "getImagesByCarplateUrlTest": "http://platesmania.com/mobile/api_photo_test1.php?nomer=AA-100-AA",
+    "getImagesByCarplateUrl": "http://platesmania.com",
+    "carPlateRecMlApiUrl": "",
+    "riaSearchUrl": "https://developers.ria.com/auto/search?api_key="
+}

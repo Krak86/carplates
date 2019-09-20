@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import lang from "../locale";
 import { AppState } from "../store";
-import { ApplicationStates} from "../models/Interfaces";
+import { ApplicationStates, IVinResultValues } from "../models/Interfaces";
+
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -25,17 +25,30 @@ import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import CopyrightIcon from '@material-ui/icons/Copyright';
 import ExploreIcon from '@material-ui/icons/Explore';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
+import lang from "../locale";
 import { regions } from "../data/Data";
+import { Grid } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: '0px 0px',
+      margin: "0px",
       //width: '100%',
       maxWidth: 500,
       //backgroundColor: theme.palette.background.paper,
     },
+    table: {
+        minWidth: 300,
+        padding: "0px",
+        margin: "0px",
+      },
   }),
 );
 
@@ -48,7 +61,7 @@ export const Result = () => {
     return(
         <Fragment>
             <Paper className={classes.root}>
-            {state.itemIsLoaded === true && state.responseIsEmpty === false &&            
+            {state.itemIsLoaded === true && state.responseIsEmpty === false && state.itemSearching === 0 &&
             <List className={classes.root}>
                 <ListItem>
                     <ListItemAvatar>
@@ -189,7 +202,50 @@ export const Result = () => {
                 </ListItem>*/}
             </List> 
             }
-            {state.itemIsLoaded === true && state.responseIsEmpty === true &&
+            {state.itemIsLoaded === true && state.responseIsEmpty === true && state.itemSearching === 0 &&
+            <ListItem>
+                <ListItemAvatar>
+                    <Avatar>
+                        <SentimentVeryDissatisfiedIcon />
+                    </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary={lang.noResultMessage}/>
+            </ListItem>
+            }
+
+            {state.itemIsLoaded === true && state.responseIsEmpty === false && state.itemSearching === 1 &&
+                <Table className={classes.table} size="small">   
+                    <TableBody>              
+                        <TableRow key="1000">
+                            <TableCell>
+                                VIN number
+                            </TableCell>
+                            <TableCell>
+                                {state.vinResponse.SearchCriteria}
+                            </TableCell>
+                        </TableRow>
+                        <TableRow key="1001">
+                            <TableCell>
+                                Message
+                            </TableCell>
+                            <TableCell>
+                                {state.vinResponse.Message}
+                            </TableCell>
+                        </TableRow>
+                        {state.vinResponse.Results.map((item: IVinResultValues) => {                        
+                        return <TableRow key={item.VariableId}>
+                                    <TableCell>
+                                        {item.Variable}
+                                    </TableCell>
+                                    <TableCell align="justify">
+                                        {item.Value}
+                                    </TableCell>
+                                </TableRow>
+                        })}
+                    </TableBody>
+                </Table>
+            }
+            {state.itemIsLoaded === true && state.responseIsEmpty === true && state.itemSearching === 1 &&
             <ListItem>
                 <ListItemAvatar>
                     <Avatar>

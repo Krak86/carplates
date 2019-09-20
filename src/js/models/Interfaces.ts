@@ -11,6 +11,16 @@ export interface ApplicationStates {
   itemHasErrored: boolean;
   itemIsLoaded: boolean;
   responseIsEmpty: boolean;
+  itemSearching: itemSearching;
+  vinRequest: string;
+  vinResponse: VIN;
+  vinsList: [];
+}
+
+export enum itemSearching{
+  plate = 0,
+  vin = 1,
+  insurance = 2,
 }
 
 export interface Images {
@@ -103,14 +113,16 @@ export interface Locale{
     region?: string;
 }
 
+export interface IVinResultValues{
+  "Value": any;
+  "ValueId": any;
+  "Variable": any;
+  "VariableId": number;
+}
+
 export interface VIN{
   "Count"?: number;
   "Message"?: string;
   "SearchCriteria"?: string;
-  "Results"?: {
-    "Value": any;
-    "ValueId": any;
-    "Variable": any;
-    "VariableId": number;
-  }[]
+  "Results"?: IVinResultValues[];
 }

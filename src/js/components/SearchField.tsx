@@ -1,16 +1,19 @@
 import React, { Fragment, useState, useRef, useEffect } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import lang from "../locale";
-import { itemFetchData, setItemRequest } from "../store/actions";
+import { itemFetchDataForPlate, itemFetchDataForVin, setItemRequest } from "../store/actions";
 import { AppState } from "../store";
 import { ApplicationStates} from "../models/Interfaces";
+import { URLs } from "../data/Data";
+
+import Utils from "../utils/Utils";
+import lang from "../locale";
+
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
-import Utils from "../utils/Utils";;
 
 interface State {
   value: string;
@@ -57,20 +60,27 @@ const isVin = (value: string): boolean => {
   return (Utils.trimData(value).length === 17);
 }
 
-const shapeData = (value: string): string => {
-  return Utils.convertToCyrillic(Utils.toLocaleUpperCaseData(Utils.trimData(value)));
+const shapeDataPlate = (value: string): string => {
+  return Utils.convertToCyrillic(
+      Utils.toLocaleUpperCaseData(
+        Utils.trimData(value)
+      ), 
+      Utils.latinRange, 
+      Utils.latinToCyrillicMatrix, 
+      Utils.reducer
+    );
 };
 
-const shapeURL = (value: string, url: string): string => {
-  return Utils.shapeURL(url, value, Utils.extractPartitionKey(value));
+const shapeUrlPlate = (value: string, url: string): string => {
+  return Utils.shapeUrlPlate(url, value, Utils.extractPartitionKey(value));
 }
 
-const shapeDataVIN = (value: string): string => {
+const shapeDataVin = (value: string): string => {
   return Utils.trimData(value);
 };
 
-const shapeURLVIN = (value: string, url: string): string => {
-  return Utils.shapeURLVIN(url, value);
+const shapeUrlVin = (value: string, url: string): string => {
+  return Utils.shapeUrlVin(url, value);
 }
 
 export const SearchField = () => {
@@ -90,8 +100,10 @@ export const SearchField = () => {
   }, []);
   //hook styles
   const classes = useStyles({});
-  const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || "";
-  const serviceUrlVIN = "https://vpic.nhtsa.dot.gov/api/vehicles/decodevin";
+
+  const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || URLs.getDataByPlateUrl;
+  const serviceUrlVIN = process.env.VIN_SERVICE_URL || URLs.getDataByVinUrl;
+
   const handleChange = (value: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue({...inputValue, [value]: event.target.value });
   };
@@ -100,13 +112,14 @@ export const SearchField = () => {
       return;
     }
     if(isVin(inputValue.value)){
-      const value = shapeDataVIN(inputValue.value);
-      const url = shapeURLVIN(value, serviceUrlVIN);
+      const value = shapeDataVin(inputValue.value);
+      const url = shapeUrlVin(value, serviceUrlVIN);
+      dispatch(itemFetchDataForVin(value, url));
     }
     else{
-      const value = shapeData(inputValue.value);
-      const url = shapeURL(value, serviceUrl);
-      dispatch(itemFetchData(value, url));
+      const value = shapeDataPlate(inputValue.value);
+      const url = shapeUrlPlate(value, serviceUrl);
+      dispatch(itemFetchDataForPlate(value, url));
     }
     searchInput.current.focus();
   };

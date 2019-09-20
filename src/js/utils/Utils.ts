@@ -18,7 +18,7 @@ export default class Utils {
   /**
     * latinRange
     */
-  public static latinRange(val){
+  public static latinRange(val: string): boolean{
     const code = val.charCodeAt(0);
     return (code > 64 || code < 91) ? true : false;
   }
@@ -34,13 +34,13 @@ export default class Utils {
   /**
     * convertToCyrillic
     */  
-  public static convertToCyrillic(s: string): string{
+  public static convertToCyrillic(s: string, latinRange: Function, latinToCyrillicMatrix: Function, reducer: any): string{
     return s.split("").map((i: string) => {
-      if(Utils.latinRange(i)){
-        return Utils.latinToCyrillicMatrix(i);
+      if(latinRange(i)){
+        return latinToCyrillicMatrix(i);
       }
       return i;
-      }).reduce(Utils.reducer);
+      }).reduce(reducer);
   }
 
   public static latinToCyrillicMatrix(i: string): string{
@@ -74,11 +74,11 @@ export default class Utils {
     }
   }
 
-  public static shapeURL(url: string, rowKey: string, partitionKey: string): string{
+  public static shapeUrlPlate(url: string, rowKey: string, partitionKey: string): string{
     return `${url}RowKey eq '${rowKey}' and PartitionKey eq '${partitionKey}'`;
   }
 
-  public static shapeURLVIN(url: string, value: string): string{
+  public static shapeUrlVin(url: string, value: string): string{
     return `${url}/${value}?format=json`;
   }
 
