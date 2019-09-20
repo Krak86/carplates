@@ -21,6 +21,8 @@ export enum itemSearching{
   plate = 0,
   vin = 1,
   insurance = 2,
+  imageAttach = 3,
+  imageTake = 4,
 }
 
 export interface Images {
@@ -127,4 +129,25 @@ export interface VIN{
   "Message"?: string;
   "SearchCriteria"?: string;
   "Results"?: IVinResultValues[];
+}
+
+export interface imageRecognizeResponse{
+  "processing_time": any;
+  "timestamp": any;
+  "results": imageRecognizeResponseResult[],
+  "filename": string;
+  "version": any;
+  "camera_id": any;
+}
+
+export interface imageRecognizeResponseResult{
+  "box": {
+    "xmin": number;
+    "ymin": number;
+    "ymax": number;
+    "xmax": number;
+  },
+  "plate": string;
+  "score": any;
+  "dscore": any;
 }

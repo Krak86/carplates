@@ -1,7 +1,9 @@
 import  * as actions from "./types";
 import { Action } from "redux";
-import { ApplicationStates, Item, ServiceRespond, VIN,  } from "../models/Interfaces";
+import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse } from "../models/Interfaces";
 import { ThunkAction } from "redux-thunk";
+import Utils from "../utils/Utils";
+import { URLs } from "../data/Data";
 
 export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch, getState) => {
     dispatch(setSearchingItemType(0));
@@ -80,40 +82,49 @@ export const itemFetchDataForVin = (vinRequest: string, url: string): ThunkActio
 };
 
 export const imageFetchData = (file: File, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch, getState) => {
-    //dispatch(setSearchingItemType(1));
-    //dispatch(itemIsLoaded(false));
-    //dispatch(itemIsLoading(true));
+    dispatch(setSearchingItemType(3));
+    dispatch(itemIsLoaded(false));
+    dispatch(itemIsLoading(true));
 
-    fetch(url, {
+    let formData = new FormData();
+    formData.append('file', file);
+
+    const options = {
         method: 'POST',
-        headers:{
-          'Accept': 'application/json',
-          'Content-Type': 'multipart/form-data'
-        },
-        body: file
-    })
+        body: formData,
+    };
+
+    fetch(url, options)
     .then((response) => {
         if (!response.ok){
             throw Error(response.statusText);
         }
-        //dispatch(itemIsLoading(false));
+        dispatch(itemIsLoading(false));
         return response;
     })
     .then((response) => {
         return response.json(); })
-    .then((imageResponse: any) => {
-        console.log(imageResponse);
-        /*if(itemResponse.Results.length > 0){
-            const data = itemResponse;
-            dispatch(itemFetchDataVinSuccess(data));
-            dispatch(addToVinsListList(data));
-            dispatch(setVinRequest(vinRequest));
+    .then((imageResponse: imageRecognizeResponse) => {        
+        if(imageResponse.results.length > 0){
+            const carPlate = Utils.convertToCyrillic(                
+                Utils.changeSymbols1toI(
+                    Utils.trimData(imageResponse.results[0].plate)
+                ).toLocaleUpperCase(),
+                Utils.latinRange, 
+                Utils.latinToCyrillicMatrix, 
+                Utils.reducer
+              );
+
+            const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || URLs.getDataByPlateUrl;
+            const url = Utils.shapeUrlPlate(serviceUrl, carPlate, Utils.extractPartitionKey(carPlate));
+            dispatch(itemFetchDataForPlate(carPlate, url));
             dispatch(responseIsEmpty(false));
         }
         else{
             dispatch(responseIsEmpty(true));
         }
-        dispatch(itemIsLoaded(true));*/
+        dispatch(itemIsLoaded(true));
+        
     })
     .catch((error) => {
         dispatch(itemHasErrored(true));

@@ -23,13 +23,10 @@ export default class Utils {
     return (code > 64 || code < 91) ? true : false;
   }
   /**
-    * shapeData
+    * trimData
     */  
   public static trimData(val: string): string{
     return val.replace(/ /g,'');
-  }
-  public static toLocaleUpperCaseData(val: string): string{
-    return val.toLocaleUpperCase();
   }
   /**
     * convertToCyrillic
@@ -84,6 +81,10 @@ export default class Utils {
 
   public static extractPartitionKey(val: string): string{
     return val.substr(0,2);
+  }
+
+  public static changeSymbols1toI(val: string): string{
+    return val.substr(0,2).replace(/1/g,'I') + val.substr(2,4) + val.substr(val.length-2).replace(/1/g,'I');
   }
 
 }

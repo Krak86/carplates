@@ -25,6 +25,8 @@ import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import CopyrightIcon from '@material-ui/icons/Copyright';
 import ExploreIcon from '@material-ui/icons/Explore';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -252,6 +254,17 @@ export const Result = () => {
                     </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary={lang.noResultMessage}/>
+            </ListItem>
+            }
+
+            {state.itemIsLoaded === false && state.itemIsLoading === true && state.itemSearching === 3 &&
+            <ListItem>
+                <ListItemAvatar>
+                    <Avatar>
+                        <CloudUploadIcon />
+                    </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary="Image is recognizing, please wait"/>
             </ListItem>
             }
             </Paper>
