@@ -28,21 +28,17 @@ import ExploreIcon from '@material-ui/icons/Explore';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 import lang from "../locale";
 import { regions } from "../data/Data";
-import { Grid } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: '0px 0px',
       margin: "0px",
-      //width: '100%',
       maxWidth: 500,
-      //backgroundColor: theme.palette.background.paper,
     },
     table: {
         minWidth: 300,
@@ -55,9 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const Result = () => {
     //mapStateToProps
     const state: ApplicationStates = useSelector((state: AppState) => state.Item);
-
     const classes = useStyles({});
-
     return(
         <Fragment>
             <Paper className={classes.root}>
@@ -216,7 +210,7 @@ export const Result = () => {
             {state.itemIsLoaded === true && state.responseIsEmpty === false && state.itemSearching === 1 &&
                 <Table className={classes.table} size="small">   
                     <TableBody>              
-                        <TableRow key="1000">
+                        <TableRow key={`1000_${Date.now()}`}>
                             <TableCell>
                                 VIN number
                             </TableCell>
@@ -224,7 +218,7 @@ export const Result = () => {
                                 {state.vinResponse.SearchCriteria}
                             </TableCell>
                         </TableRow>
-                        <TableRow key="1001">
+                        <TableRow key={`1001_${Date.now()}`}>
                             <TableCell>
                                 Message
                             </TableCell>
@@ -232,15 +226,20 @@ export const Result = () => {
                                 {state.vinResponse.Message}
                             </TableCell>
                         </TableRow>
-                        {state.vinResponse.Results.map((item: IVinResultValues) => {                        
-                        return <TableRow key={item.VariableId}>
-                                    <TableCell>
-                                        {item.Variable}
-                                    </TableCell>
-                                    <TableCell align="justify">
-                                        {item.Value}
-                                    </TableCell>
-                                </TableRow>
+                        {state.vinResponse.Results.map((item: IVinResultValues) => {
+                            if(
+                                item.Value !== "" &&
+                                item.Value !== null
+                            ){
+                            return <TableRow key={Math.random()}>
+                                            <TableCell>
+                                                {item.Variable}
+                                            </TableCell>
+                                            <TableCell align="justify">
+                                                {item.Value}
+                                            </TableCell>
+                                        </TableRow>
+                            }
                         })}
                     </TableBody>
                 </Table>
