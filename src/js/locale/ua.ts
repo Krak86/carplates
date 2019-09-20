@@ -36,4 +36,6 @@ export const lang: Locale = {
     region: "Регіон",
 
     cameraActions: ["Сфотографувати", "Прикріпити зображення"],
+
+    imgRecognizingMessage: "Зображення розпізнається, зачекайте",
 }

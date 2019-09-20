@@ -115,6 +115,7 @@ export interface Locale{
     region?: string;
 
     cameraActions?: string[];
+    imgRecognizingMessage?: string;
 }
 
 export interface IVinResultValues{

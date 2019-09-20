@@ -38,4 +38,5 @@ export const lang: Locale = {
     region: "Region",
 
     cameraActions: ["Take a picture", "Attach image"],
+    imgRecognizingMessage: "Image is recognizing, please wait",
 }

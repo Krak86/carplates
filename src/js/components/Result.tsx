@@ -25,7 +25,7 @@ import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import CopyrightIcon from '@material-ui/icons/Copyright';
 import ExploreIcon from '@material-ui/icons/Explore';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -161,33 +161,9 @@ export const Result = () => {
                         <LocationOnIcon />
                     </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={lang.dep} secondary={state.itemResponse.dep} />
+                    <ListItemText primary={lang.oper_name} secondary={`${state.itemResponse.dep} (${state.itemResponse.dep_code}), ${state.itemResponse.oper_name} (${state.itemResponse.oper_code})`} />
                 </ListItem>
-                <ListItem>
-                    <ListItemAvatar>
-                    <Avatar>
-                        <FingerprintIcon />
-                    </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={lang.oper_name} secondary={state.itemResponse.oper_name} />
-                </ListItem>
-
-                {/*<ListItem>
-                    <ListItemAvatar>
-                    <Avatar>
-                        <FormatListNumberedIcon />
-                    </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="dep_code" secondary={state.itemResponse.dep_code} />
-                </ListItem>
-                <ListItem>
-                    <ListItemAvatar>
-                    <Avatar>
-                        <FormatListNumberedRtlIcon />
-                    </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="oper_code" secondary={state.itemResponse.oper_code} />
-                </ListItem>
+                {/*
                 <ListItem>
                     <ListItemAvatar>
                     <Avatar>
@@ -195,7 +171,8 @@ export const Result = () => {
                     </Avatar>
                     </ListItemAvatar>
                     <ListItemText primary="reg_addr_koatuu" secondary={state.itemResponse.reg_addr_koatuu} />
-                </ListItem>*/}
+                </ListItem>
+                */}
             </List> 
             }
             {state.itemIsLoaded === true && state.responseIsEmpty === true && state.itemSearching === 0 &&
@@ -261,10 +238,10 @@ export const Result = () => {
             <ListItem>
                 <ListItemAvatar>
                     <Avatar>
-                        <CloudUploadIcon />
+                        <HourglassEmptyIcon />
                     </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary="Image is recognizing, please wait"/>
+                <ListItemText primary={lang.imgRecognizingMessage}/>
             </ListItem>
             }
             </Paper>

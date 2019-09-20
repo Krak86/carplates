@@ -114,8 +114,14 @@ const checkImageSize = (blob: File): boolean => {
 
 async function takeAPhoto(){
   if('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices){
-    const stream = await navigator.mediaDevices.getUserMedia({video: true});
-    alert(stream);
+    try{
+      const stream = await navigator.mediaDevices.getUserMedia({video: true});
+      alert(stream);
+    }
+    catch(e){
+      alert("Requested device not found");
+    }  
+      
   }
 }
 
