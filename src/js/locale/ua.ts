@@ -1,7 +1,7 @@
 import { Locale } from "../models/Interfaces";
 
 export const lang: Locale = {
-    searchInputPlaceholderText: "Введіть номер авто або VIN",
+    searchInputPlaceholderText: "Введіть номер або VIN",
     dashBoradTitle: "Автівки України",
     copyright: "Авторські права © ",
     documentTitle: "Автівки України",
@@ -34,4 +34,6 @@ export const lang: Locale = {
     reg_addr_koatuu: "Адреса реєстрації КОАТУУ",
 
     region: "Регіон",
+
+    cameraActions: ["Сфотографувати", "Прикріпити зображення"],
 }

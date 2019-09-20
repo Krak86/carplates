@@ -79,6 +79,49 @@ export const itemFetchDataForVin = (vinRequest: string, url: string): ThunkActio
     });
 };
 
+export const imageFetchData = (file: File, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch, getState) => {
+    //dispatch(setSearchingItemType(1));
+    //dispatch(itemIsLoaded(false));
+    //dispatch(itemIsLoading(true));
+
+    fetch(url, {
+        method: 'POST',
+        headers:{
+          'Accept': 'application/json',
+          'Content-Type': 'multipart/form-data'
+        },
+        body: file
+    })
+    .then((response) => {
+        if (!response.ok){
+            throw Error(response.statusText);
+        }
+        //dispatch(itemIsLoading(false));
+        return response;
+    })
+    .then((response) => {
+        return response.json(); })
+    .then((imageResponse: any) => {
+        console.log(imageResponse);
+        /*if(itemResponse.Results.length > 0){
+            const data = itemResponse;
+            dispatch(itemFetchDataVinSuccess(data));
+            dispatch(addToVinsListList(data));
+            dispatch(setVinRequest(vinRequest));
+            dispatch(responseIsEmpty(false));
+        }
+        else{
+            dispatch(responseIsEmpty(true));
+        }
+        dispatch(itemIsLoaded(true));*/
+    })
+    .catch((error) => {
+        dispatch(itemHasErrored(true));
+        console.log(error);
+    });
+};
+
+
 export const addToVinsListList = (vinResponse: VIN): actions.addToVinsListList => ({
     type: actions.ADD_TO_VINS_LIST,
     payload: vinResponse

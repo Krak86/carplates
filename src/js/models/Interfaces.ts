@@ -111,6 +111,8 @@ export interface Locale{
     reg_addr_koatuu?: string;
 
     region?: string;
+
+    cameraActions?: string[];
 }
 
 export interface IVinResultValues{

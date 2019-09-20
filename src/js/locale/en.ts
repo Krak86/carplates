@@ -1,7 +1,7 @@
 import { Locale } from "../models/Interfaces";
 
 export const lang: Locale = {
-    searchInputPlaceholderText: "Enter plate or VIN number",
+    searchInputPlaceholderText: "Enter plate or VIN",
     dashBoradTitle: "Ukraine car plates",
     copyright: "Copyright © ",
     documentTitle: "Car plate UA",
@@ -36,4 +36,6 @@ export const lang: Locale = {
     reg_addr_koatuu: "KOATUU registration address",
 
     region: "Region",
+
+    cameraActions: ["Take a picture", "Attach image"],
 }
