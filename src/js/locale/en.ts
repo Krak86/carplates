@@ -2,10 +2,15 @@ import { Locale } from "../models/Interfaces";
 
 export const lang: Locale = {
     searchInputPlaceholderText: "Enter plate or VIN",
-    dashBoradTitle: "Ukraine car plates",
+    dashBoradTitle: "Cars UA",
     copyright: "Copyright © ",
     documentTitle: "Car plate UA",
     noResultMessage: "Sorry, there are no results",
+
+    login: "Login",
+    logout: "Logout",
+    login_google: "Увійти через Google",
+    login_facebook: "Увійти через Facebook",
 
     rowKey: "Car plate",
     brand: "Brand",

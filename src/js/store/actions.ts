@@ -1,6 +1,6 @@
 import  * as actions from "./types";
 import { Action } from "redux";
-import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse } from "../models/Interfaces";
+import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse, Auth, IFacebook, IGoogle } from "../models/Interfaces";
 import { ThunkAction } from "redux-thunk";
 import Utils from "../utils/Utils";
 import { URLs } from "../data/Data";
@@ -132,12 +132,25 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, Appli
     });
 };
 
+export const loginGoogle = (login: IGoogle): actions.LoginGoogleAction => ({
+    type: actions.LOGIN_GOOGLE,
+    payload: login
+});
 
-export const addToVinsListList = (vinResponse: VIN): actions.addToVinsListList => ({
+export const loginFacebook = (login: IFacebook): actions.LoginFacebookAction => ({
+    type: actions.LOGIN_FACEBOOK,
+    payload: login
+});
+
+export const login = (authStatus: Auth): actions.LoginAction => ({
+    type: actions.LOGIN,
+    payload: authStatus
+});
+
+export const addToVinsListList = (vinResponse: VIN): actions.AddToVinsListListAction => ({
     type: actions.ADD_TO_VINS_LIST,
     payload: vinResponse
 });
-
 
 export const itemFetchDataVinSuccess = (vinResponse: VIN): actions.ItemFetchDataVinSuccessAction => ({
     type: actions.ITEM_FETCH_DATA_VIN_SUCCESS,
@@ -149,7 +162,7 @@ export const setVinRequest = (vinRequest: string): actions.SetVinRequestAction =
     payload: vinRequest
 });
 
-export const setSearchingItemType = (response: number): actions.SetSearchingItemType => ({
+export const setSearchingItemType = (response: number): actions.SetSearchingItemTypeAction => ({
     type: actions.SET_SEARCHING_ITEM_TYPE,
     payload: response
 });
@@ -188,12 +201,12 @@ export const getItems = (): actions.GetItemAction => ({
     type: actions.GET_ITEMS
 });
 
-export const addToItemsList = (itemResponse: Item) => ({
+export const addToItemsList = (itemResponse: Item): actions.AddToItemsListAction => ({
     type: actions.ADD_TO_ITEMS_LIST,
     payload: itemResponse
 });
 
-export const toggleDrawer = (drawerState: boolean) => ({
+export const toggleDrawer = (drawerState: boolean): actions.ToggleDrawerAction => ({
     type: actions.TOGGLE_DRAWER,
     payload: drawerState
 });

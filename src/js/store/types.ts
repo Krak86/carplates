@@ -1,3 +1,5 @@
+import { Item, VIN, Auth, IFacebook, IGoogle } from "../models/Interfaces";
+
 export const ITEM_FETCH_DATA_SUCCESS: string = "ITEM_FETCH_DATA_SUCCESS";
 export const SET_ITEM_REQUEST: string = "SET_ITEM_REQUEST";
 export const ITEM_HAS_ERRORED: string = "ITEM_HAS_ERRORED";
@@ -11,38 +13,46 @@ export const SET_SEARCHING_ITEM_TYPE: string = "SET_SEARCHING_ITEM_TYPE";
 export const SET_VIN_REQUEST: string = "SET_VIN_REQUEST";
 export const ITEM_FETCH_DATA_VIN_SUCCESS: string = "ITEM_FETCH_DATA_VIN_SUCCESS";
 export const ADD_TO_VINS_LIST: string = "ADD_TO_VINS_LIST";
+export const LOGIN: string = "LOGIN";
+export const LOGIN_FACEBOOK: string = "LOGIN_FACEBOOK";
+export const LOGIN_GOOGLE: string = "LOGIN_GOOGLE";
 
-import { Item, VIN } from "../models/Interfaces";
-
-export interface addToVinsListList{
+export interface LoginFacebookAction{
+    type: typeof LOGIN_FACEBOOK;
+    payload: IFacebook;
+}
+export interface LoginGoogleAction{
+    type: typeof LOGIN_GOOGLE;
+    payload: IGoogle;
+}
+export interface LoginAction{
+    type: typeof LOGIN;
+    payload: Auth;
+}
+export interface AddToVinsListListAction{
     type: typeof ADD_TO_VINS_LIST;
     payload: VIN;
 }
-
 export interface ItemFetchDataVinSuccessAction{
     type: typeof ITEM_FETCH_DATA_VIN_SUCCESS;
     payload: VIN;
 }
-
 export interface SetVinRequestAction{
     type: typeof SET_VIN_REQUEST;
     payload: string;
 }
-
-export interface SetSearchingItemType{
+export interface SetSearchingItemTypeAction{
     type: typeof SET_SEARCHING_ITEM_TYPE;
     payload: number;
 }
-
 export interface ResponseIsEmptyAction{
     type: typeof RESPONSE_IS_EMPTY;
     payload: boolean;
 }
-export interface ToggleDrawer{
+export interface ToggleDrawerAction{
     type: typeof TOGGLE_DRAWER;
     payload: boolean;
 }
-
 export interface SetItemRequestAction{
     type: typeof SET_ITEM_REQUEST;
     payload: string;
@@ -66,8 +76,7 @@ export interface ItemsHasErroredAction{
 export interface GetItemAction{
     type: typeof GET_ITEMS;
 }
-
-export interface AddToItemsList{
+export interface AddToItemsListAction{
     type: typeof ADD_TO_ITEMS_LIST;
     payload: Item;
 }

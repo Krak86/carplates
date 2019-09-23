@@ -2,10 +2,15 @@ import { Locale } from "../models/Interfaces";
 
 export const lang: Locale = {
     searchInputPlaceholderText: "Введіть номер або VIN",
-    dashBoradTitle: "Автівки України",
+    dashBoradTitle: "Авто UA",
     copyright: "Авторські права © ",
     documentTitle: "Автівки України",
     noResultMessage: "Вибачте, результатів немає",
+
+    login: "Увійти",
+    logout: "Вийти",
+    login_google: "Увійти через Google",
+    login_facebook: "Увійти через Facebook",
 
     rowKey: "Номер автівки",
     brand: "Бренд",

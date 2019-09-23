@@ -53,7 +53,7 @@ export const initialData: ApplicationStates = {
     navigation: {
         url: "home"
     },
-    signedIn: false,
+    signedIn: 0,
     drawerToogled: false,
     itemIsLoading: false,
     itemHasErrored: false,
@@ -63,6 +63,22 @@ export const initialData: ApplicationStates = {
     vinRequest: "",
     vinResponse: vinResponse,
     vinsList: [],
+    facebookResponse: {
+        email: "",
+        name: "",
+        picture: {
+            data: {
+                url: "",
+          }
+        },
+    },
+    googleResponse: {
+        profileObj: {
+            email: "",
+            imageUrl: "",
+            name: "",
+        }
+    },
 }
 
 export const regions = {

@@ -186,7 +186,7 @@ module.exports = {
     contentBase: pathToDist,
     host: process.env.DEVSERVER_HOST || "localhost",
     port: process.env.DEVSERVER_PORT || 8080,
-    https: !!parseInt(process.env.DEVSERVER_HTTPS || false),
+    https: !!parseInt(process.env.DEVSERVER_HTTPS || true),
     disableHostCheck: true,
     overlay: true,
     watchContentBase: true,

@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { SearchField } from "./SearchField";
 import { Result } from "./Result";
+import { Login } from "./Login";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -14,7 +15,6 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
-
 
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -153,10 +153,11 @@ export default function Dashboard() {
             {lang.dashBoradTitle}
           </Typography>
           <IconButton color="inherit">
-            <Badge badgeContent={1} color="secondary">
+            <Badge badgeContent={0} color="secondary">
               <NotificationsIcon />
             </Badge>
           </IconButton>
+          <Login />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -181,7 +182,7 @@ export default function Dashboard() {
         <div className={classes.appBarSpacer} />        
         <Container maxWidth="lg" className={classes.container}>
           <SearchField />
-          {state.itemIsLoading === true && <LinearProgress />}
+          {itemIsLoading === true && <LinearProgress />}
           <Result />
         </Container>
         

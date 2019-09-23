@@ -5,7 +5,7 @@ export interface ApplicationStates {
   itemsList: Item[];
   imagesList: Images;
   navigation: Navigation;
-  signedIn: boolean;
+  signedIn: Auth;
   drawerToogled: boolean;
   itemIsLoading: boolean;
   itemHasErrored: boolean;
@@ -15,6 +15,8 @@ export interface ApplicationStates {
   vinRequest: string;
   vinResponse: VIN;
   vinsList: [];
+  facebookResponse: IFacebook;
+  googleResponse: IGoogle;
 }
 
 export enum itemSearching{
@@ -23,6 +25,16 @@ export enum itemSearching{
   insurance = 2,
   imageAttach = 3,
   imageTake = 4,
+}
+
+export enum Auth{
+  none = 0,
+  facebook = 1,
+  google = 2,
+  twitter = 3,
+  github = 4,
+  email = 5,
+  phone = 6
 }
 
 export interface Images {
@@ -88,6 +100,11 @@ export interface Locale{
     documentTitle: string;
     noResultMessage: string;
 
+    login: string;
+    logout: string;
+    login_google: string;
+    login_facebook: string;
+
     rowKey?: string;
     brand?: string;
     model?: string;
@@ -151,4 +168,39 @@ export interface imageRecognizeResponseResult{
   "plate": string;
   "score": any;
   "dscore": any;
+}
+
+export interface IFacebook{
+  accessToken?: string,
+  data_access_expiration_time?: string,
+  email?: string,
+  expiresIn?: string,
+  id?: string,
+  name?: string,
+  picture?: {data?: {
+    height?: number,
+    is_silhouette?: boolean,
+    url?: string,
+    width?: number
+  }},
+  signedRequest?: string, 
+  userID?: string,
+}
+
+export interface IGoogle{
+  El?: any,
+  Zi?: any,
+  accessToken?: any,
+  googleId?: any,
+  profileObj?: {
+    email?: string,
+    familyName?: string,
+    givenName?: string,
+    googleId?: string,
+    imageUrl?: string,
+    name?: string,
+  }
+  tokenId?: any
+  tokenObj?: any,
+  w3?: any,
 }
