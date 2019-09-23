@@ -11,6 +11,7 @@ import lang from "../locale";
 import { login, loginFacebook, loginGoogle } from "../store/actions";
 import { AppState } from "../store";
 import { ApplicationStates, IFacebook, IGoogle } from "../models/Interfaces";
+import { facebookInit, googleInit } from "../data/Data";
 
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
@@ -59,10 +60,16 @@ export const Login = () => {
         dispatch(loginFacebook(response));
     }
 
-    const responseGoogle = (response: IGoogle): void => {
+    const responseGoogle = (response: any): void => {
         console.log(response);
         dispatch(login(2));
         dispatch(loginGoogle(response));
+    }
+
+    const handleFailure = () => {
+        dispatch(login(0));
+        dispatch(loginGoogle(googleInit));
+        dispatch(loginFacebook(facebookInit))
     }
 
     return (
@@ -98,6 +105,7 @@ export const Login = () => {
                     appId={appIdFacebook}
                     fields="name,email,picture"
                     callback={responseFacebook}
+                    onFailure={handleFailure}
                     textButton={lang.login_facebook}
                 />
             </MenuItem>
@@ -106,7 +114,7 @@ export const Login = () => {
                     clientId={appIdGoogle}
                     buttonText={lang.login_google}
                     onSuccess={responseGoogle}
-                    onFailure={responseGoogle}
+                    onFailure={handleFailure}
                 />
             </MenuItem>
           </Menu>

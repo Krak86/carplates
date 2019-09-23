@@ -39,6 +39,22 @@ const vinResponse: VIN = {
     "Results": [],
   }
 
+export const facebookInit = {
+    email: "",
+    name: "",
+    picture: {
+        data: {
+            url: "",
+      }
+    },
+}
+export const googleInit = {
+    profileObj: {
+        email: "",
+        imageUrl: "",
+        name: "",
+    }
+}
 
 export const initialData: ApplicationStates = {
     itemRequest: "",
@@ -63,22 +79,8 @@ export const initialData: ApplicationStates = {
     vinRequest: "",
     vinResponse: vinResponse,
     vinsList: [],
-    facebookResponse: {
-        email: "",
-        name: "",
-        picture: {
-            data: {
-                url: "",
-          }
-        },
-    },
-    googleResponse: {
-        profileObj: {
-            email: "",
-            imageUrl: "",
-            name: "",
-        }
-    },
+    facebookResponse: facebookInit,
+    googleResponse: googleInit,
 }
 
 export const regions = {
