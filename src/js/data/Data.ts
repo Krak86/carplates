@@ -1,10 +1,5 @@
 import { ApplicationStates, Item, Images, itemSearching, VIN } from "../models/Interfaces";
 
-const Images: Images = {
-    platesMania: [],
-    ria: [],
-    pixabay: [],
-}
 
 const itemResponse: Item = {
     "PartitionKey": "",
@@ -29,7 +24,8 @@ const itemResponse: Item = {
     "reg_addr_koatuu": "",
     "total_weight": "",
     "region": "",
-    "images": Images,
+    "imagesPlatesMania": [],
+    "imagesRia": [],
 }
 
 const vinResponse: VIN = {
@@ -173,5 +169,5 @@ export const URLs = {
     "getImagesByCarplateUrlTest": "http://platesmania.com/mobile/api_photo_test1.php?nomer=AA-100-AA",
     "getImagesByCarplateUrl": "http://platesmania.com",
     "carPlateRecMlApiUrl": "",
-    "riaSearchUrl": "https://developers.ria.com/auto/search?api_key="
+    "riaSearchUrl": "https://developers.ria.com/auto",
 }

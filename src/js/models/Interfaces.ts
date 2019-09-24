@@ -66,7 +66,8 @@ export interface Item {
   "reg_addr_koatuu": string;
   "total_weight": string;
   "region"?: string;
-  images?: Images;
+  "imagesPlatesMania"?: [],
+  "imagesRia"?: [],
 }
 
 export interface Navigation {
@@ -203,4 +204,188 @@ export interface IGoogle{
   tokenId?: any
   tokenObj?: any,
   w3?: any,
+}
+
+export interface IRiaCategories { 
+  name: string, 
+  value: number 
+}
+
+export interface IRiaSearch{
+  "additional_params": any;
+  "result": {
+      "search_result": {
+          "ids": string[],
+          "count": number,
+          "last_id": number
+      },
+      "search_result_common": {
+          "count": number,
+          "last_id": number,
+          "data": {
+                  "id": string,
+                  "type": string
+              }[]
+      },
+      "isCommonSearch": boolean,
+      "active_state": any,
+      "active_city": any,
+      "revies": any,
+      "additional": {
+          "user_auto_positions": [],
+          "search_params": {
+              "all": {
+                  "category_id": string,
+                  "marka_id": string[],
+                  "model_id": string[],
+                  "s_yers": string[],
+                  "po_yers": string[],
+                  "auctionPossible": string,
+                  "abroad": string,
+                  "custom": string,
+                  "countpage": number,
+                  "with_photo": string,
+                  "brandOrigin": [],
+                  "excludeMM": [],
+                  "state": [],
+                  "city": [],
+                  "auto_options": [],
+                  "target": string,
+                  "event": string,
+                  "lang_id": number,
+                  "page": number,
+                  "limit_page": any,
+                  "last_id": number,
+                  "last_search_id": number,
+                  "saledParam": number,
+                  "state_id": number,
+                  "city_id": number,
+                  "state_from": number,
+                  "city_from": number,
+                  "m_state": [],
+                  "m_city": [],
+                  "marka": [],
+                  "model": [],
+                  "mm_marka": [],
+                  "mm_model": [],
+                  "mm_marka_filtr": [],
+                  "mm_model_filtr": [],
+                  "useOrigAutoTable": boolean,
+                  "withoutStatus": boolean,
+                  "with_video": boolean,
+                  "under_credit": number,
+                  "confiscated_car": number,
+                  "with_exchange": number,
+                  "exchange_filter": [],
+                  "with_real_exchange": number,
+                  "old_only": boolean,
+                  "user_id": number,
+                  "person_id": number,
+                  "with_discount": boolean,
+                  "auto_id_str": string
+                  "black_user_id": number,
+                  "order_by": number,
+                  "is_online": boolean,
+                  "last_send_id": boolean,
+                  "withoutCache": boolean,
+                  "with_last_id": boolean,
+                  "color": number,
+                  "color_id": number,
+                  "gear_id": number,
+                  "gearbox": number,
+                  "top": number,
+                  "drive_type": number,
+                  "country": number,
+                  "mm_country": [],
+                  "mm_country_exeption": [],
+                  "currency": number,
+                  "currency_id": number,
+                  "currencies_arr": [],
+                  "auto_repairs": number,
+                  "power_name": number,
+                  "powerFrom": number,
+                  "powerTo": number,
+                  "hide_black_list": [],
+                  "fuelRateFrom": number,
+                  "fuelRateTo": number,
+                  "damage": number,
+                  "body_id": [],
+                  "bodyStyleId": [],
+                  "type": number,
+                  "metallic": number,
+                  "engineVolumeFrom": number,
+                  "engineVolumeTo": number,
+                  "raceFrom": number,
+                  "raceTo": number,
+                  "sid": number,
+                  "star_auto": number,
+                  "start_date": string
+                  "drive_id": number,
+                  "door": number,
+                  "price_ot": number,
+                  "price_do": number,
+                  "year": number,
+                  "auto_ids_search_position": number,
+                  "print_qs": number,
+                  "last_auto_id": number,
+                  "is_hot": number,
+                  "deletedAutoSearch": number,
+                  "can_be_checked": number,
+                  "seatsFrom": number,
+                  "seatsTo": number,
+                  "wheelFormulaId": number,
+                  "axleId": number,
+                  "carryingTo": number,
+                  "carryingFrom": number,
+                  "company_id": number,
+                  "company_type": number,
+                  "matched_country": number,
+                  "q": string
+                  "bodystyle": [],
+                  "sellerType": any,
+                  "purpose": any,
+                  "class": any
+              },
+              "cleaned": {
+                  "category_id": string,
+                  "marka_id": string[],
+                  "model_id": string[],
+                  "s_yers": string[],
+                  "po_yers": string[],
+                  "auctionPossible": string,
+                  "abroad": string,
+                  "custom": string,
+                  "countpage": number,
+                  "with_photo": string,
+                  "brandOrigin": [],
+                  "excludeMM": [],
+                  "state": [],
+                  "city": [],
+                  "auto_options": [],
+                  "target": string,
+                  "event": string,
+                  "lang_id": 2,
+                  "m_state": [],
+                  "m_city": [],
+                  "marka": [],
+                  "model": [],
+                  "mm_marka": [],
+                  "mm_model": [],
+                  "mm_marka_filtr": [],
+                  "mm_model_filtr": [],
+                  "exchange_filter": [],
+                  "mm_country": [],
+                  "mm_country_exeption": [],
+                  "currency": number,
+                  "currencies_arr": [],
+                  "hide_black_list": [],
+                  "body_id": [],
+                  "bodyStyleId": [],
+                  "matched_country": number,
+                  "bodystyle": []
+              }
+          },
+          "query_string": string
+      }
+  }
 }

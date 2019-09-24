@@ -1,11 +1,65 @@
 import  * as actions from "./types";
 import { Action } from "redux";
-import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse, Auth, IFacebook, IGoogle } from "../models/Interfaces";
+import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse, Auth, IFacebook, IGoogle, IRiaCategories, IRiaSearch } from "../models/Interfaces";
 import { ThunkAction } from "redux-thunk";
 import Utils from "../utils/Utils";
 import { URLs } from "../data/Data";
 
-export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch, getState) => {
+
+export const fetchDataForRiaModel = (itemResponse: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+    const brand = itemResponse.brand;
+    const model = itemResponse.model;
+    const kind = itemResponse.kind;
+    const make_year = itemResponse.make_year;
+    const url = "";
+    fetch(url, {
+        headers:{
+          'Accept': 'application/json'
+        }
+    })
+    .then((response) => {
+        if (!response.ok){
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then((response) => {
+        return response.json(); })
+    .then((response: IRiaCategories[]) => {
+        if(response.length > 0){
+            const modelValue = response.filter((i: IRiaCategories) => {
+                if(i.name === model){
+                    return i.value;
+                }                
+            });
+            dispatch(fetchDataForRiaSearch(itemResponse, modelValue[0].value));
+        }
+        else{
+        }
+    });
+}
+
+export const fetchDataForRiaSearch = (itemResponse: Item, modelValue: number): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+    const url = "";
+    fetch(url, {
+        headers:{
+          'Accept': 'application/json'
+        }
+    })
+    .then((response) => {
+        if (!response.ok){
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then((response) => {
+        return response.json(); })
+    .then((itemResponse: IRiaSearch) => {
+
+    });
+}
+
+export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => async (dispatch) => {
     dispatch(setSearchingItemType(0));
     dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));
@@ -43,7 +97,7 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
     });
 };
 
-export const itemFetchDataForVin = (vinRequest: string, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch, getState) => {
+export const itemFetchDataForVin = (vinRequest: string, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(setSearchingItemType(1));
     dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));
@@ -81,7 +135,7 @@ export const itemFetchDataForVin = (vinRequest: string, url: string): ThunkActio
     });
 };
 
-export const imageFetchData = (file: File, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch, getState) => {
+export const imageFetchData = (file: File, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(setSearchingItemType(3));
     dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));

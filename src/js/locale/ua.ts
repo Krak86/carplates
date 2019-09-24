@@ -18,7 +18,7 @@ export const lang: Locale = {
     modelBrand: "Бренд",
     make_year: "Рік",
     body: "Кузов",
-    capacity: "Потужність двигуна",
+    capacity: "Об'єм двигуна",
     color: "Колір",
     own_weight: "Власна вага",
     total_weight: "Загальна вага",
