@@ -3,7 +3,9 @@ export interface ApplicationStates {
   imageRequest: any;
   itemResponse: Item;
   itemsList: Item[];
-  imagesList: Images;
+  //imagesList: Images;
+  imagesPlatesMania?: [],
+  imagesRia?: IRiaAds[],
   navigation: Navigation;
   signedIn: Auth;
   drawerToogled: boolean;
@@ -37,11 +39,11 @@ export enum Auth{
   phone = 6
 }
 
-export interface Images {
+/*export interface Images {
   platesMania: [];
-  ria: [];
+  ria: IRiaAds[];
   pixabay: [];
-}
+}*/
 
 export interface Item {
   "PartitionKey": string;
@@ -66,8 +68,6 @@ export interface Item {
   "reg_addr_koatuu": string;
   "total_weight": string;
   "region"?: string;
-  "imagesPlatesMania"?: [],
-  "imagesRia"?: [],
 }
 
 export interface Navigation {
@@ -211,6 +211,11 @@ export interface IRiaCategories {
   value: number 
 }
 
+export interface IRiaSearchData{
+  "id": string,
+  "type": string
+}
+
 export interface IRiaSearch{
   "additional_params": any;
   "result": {
@@ -222,10 +227,7 @@ export interface IRiaSearch{
       "search_result_common": {
           "count": number,
           "last_id": number,
-          "data": {
-                  "id": string,
-                  "type": string
-              }[]
+          "data": IRiaSearchData[]
       },
       "isCommonSearch": boolean,
       "active_state": any,
@@ -388,4 +390,110 @@ export interface IRiaSearch{
           "query_string": string
       }
   }
+}
+
+export interface IRiaAds{
+  "userId": number,
+  "userBlocked": [],
+  "chipsCount": number,
+  "locationCityName": string,
+  "cityLocative": string,
+  "auctionPossible": boolean,
+  "exchangePossible": boolean,
+  "realtyExchange": boolean,
+  "exchangeType": string,
+  "exchangeTypeId": 0,
+  "addDate": string,
+  "updateDate": string,
+  "expireDate": string,
+  "soldDate": string,
+  "userHideADSStatus": boolean,
+  "userPhoneData": {
+      "phoneId": string,
+      "phone": string
+  },
+  "USD": number,
+  "UAH": number,
+  "EUR": number,
+  "isAutoAddedByPartner": boolean,
+  "partnerId": number,
+  "levelData": {
+      "level": number,
+      "label": number,
+      "hotType": string,
+      "expireDate": string
+  },
+  "autoData": {
+      "active": boolean,
+      "description": string,
+      "version": string,
+      "onModeration": boolean,
+      "year": number,
+      "autoId": number,
+      "bodyId": number,
+      "statusId": number,
+      "withVideo": boolean,
+      "race": string,
+      "raceInt": number,
+      "fuelName": string,
+      "fuelNameEng": string,
+      "gearboxName": string,
+      "isSold": boolean,
+      "mainCurrency": string,
+      "fromArchive": boolean,
+      "categoryId": number,
+      "categoryNameEng": string,
+      "subCategoryNameEng": string,
+      "custom": number
+  },
+  "markName": string,
+  "markNameEng": string,
+  "markId": number,
+  "modelName": string,
+  "modelNameEng": string,
+  "modelId": number,
+  "photoData": {
+      "count": number,
+      "seoLinkM": string,
+      "seoLinkSX": string,
+      "seoLinkB": string,
+      "seoLinkF": string
+  },
+  "linkToView": string,
+  "title": string,
+  "stateData": {
+      "name": string,
+      "regionName": string,
+      "regionNameEng": string,
+      "linkToCatalog": string,
+      "title": string,
+      "stateId": number,
+      "cityId": number
+  },
+  "oldTop": {
+      "isActive": boolean,
+      "expireDate": ""
+  },
+  "canSetSpecificPhoneToAdvert": boolean,
+  "dontComment": number,
+  "sendComments": number,
+  "badges": [],
+  "VIN": string,
+  "haveInfotechReport": boolean,
+  "hasWebP": number,
+  "moderatedAbroad": boolean,
+  "secureKey": string,
+  "isLeasing": number,
+  "dealer": {
+      "link": string,
+      "logo": string,
+      "type": string,
+      "id": number,
+      "name": string,
+      "packageId": number,
+      "typeId": number
+  },
+  "withInfoBar": boolean,
+  "infoBarText": string,
+  "optionStyles": []
 }

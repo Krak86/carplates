@@ -1,4 +1,4 @@
-import { ApplicationStates, Item, Images, itemSearching, VIN } from "../models/Interfaces";
+import { ApplicationStates, Item, itemSearching, VIN } from "../models/Interfaces";
 
 
 const itemResponse: Item = {
@@ -24,8 +24,6 @@ const itemResponse: Item = {
     "reg_addr_koatuu": "",
     "total_weight": "",
     "region": "",
-    "imagesPlatesMania": [],
-    "imagesRia": [],
 }
 
 const vinResponse: VIN = {
@@ -57,11 +55,13 @@ export const initialData: ApplicationStates = {
     imageRequest: "",
     itemResponse: itemResponse,
     itemsList: [],
-    imagesList: {
+    imagesPlatesMania: [],
+    imagesRia: [],
+    /*imagesList: {
         platesMania: [],
         ria: [],
         pixabay: [],
-      },
+      },*/
     navigation: {
         url: "home"
     },
@@ -169,5 +169,5 @@ export const URLs = {
     "getImagesByCarplateUrlTest": "http://platesmania.com/mobile/api_photo_test1.php?nomer=AA-100-AA",
     "getImagesByCarplateUrl": "http://platesmania.com",
     "carPlateRecMlApiUrl": "",
-    "riaSearchUrl": "https://developers.ria.com/auto",
+    "riaUrl": "https://developers.ria.com/auto",
 }

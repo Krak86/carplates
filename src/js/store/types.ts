@@ -1,4 +1,4 @@
-import { Item, VIN, Auth, IFacebook, IGoogle } from "../models/Interfaces";
+import { Item, VIN, Auth, IFacebook, IGoogle, IRiaAds } from "../models/Interfaces";
 
 export const ITEM_FETCH_DATA_SUCCESS: string = "ITEM_FETCH_DATA_SUCCESS";
 export const SET_ITEM_REQUEST: string = "SET_ITEM_REQUEST";
@@ -16,7 +16,12 @@ export const ADD_TO_VINS_LIST: string = "ADD_TO_VINS_LIST";
 export const LOGIN: string = "LOGIN";
 export const LOGIN_FACEBOOK: string = "LOGIN_FACEBOOK";
 export const LOGIN_GOOGLE: string = "LOGIN_GOOGLE";
+export const ADD_RIA_ADS: string = "ADD_RIA_ADS";
 
+export interface AddRiaAdsAction{
+    type: typeof ADD_RIA_ADS;
+    payload: IRiaAds[];
+}
 export interface LoginFacebookAction{
     type: typeof LOGIN_FACEBOOK;
     payload: IFacebook;

@@ -1,46 +1,63 @@
 import  * as actions from "./types";
 import { Action } from "redux";
-import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse, Auth, IFacebook, IGoogle, IRiaCategories, IRiaSearch } from "../models/Interfaces";
+import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse, Auth, IFacebook, IGoogle, IRiaCategories, IRiaSearch, IRiaAds, IRiaSearchData } from "../models/Interfaces";
 import { ThunkAction } from "redux-thunk";
 import Utils from "../utils/Utils";
+import UtilsRia from "../utils/UtilsRia";
 import { URLs } from "../data/Data";
 
-
 export const fetchDataForRiaModel = (itemResponse: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
-    const brand = itemResponse.brand;
-    const model = itemResponse.model;
-    const kind = itemResponse.kind;
-    const make_year = itemResponse.make_year;
-    const url = "";
+    const brand = itemResponse.brand.trim();
+    const model = itemResponse.model.trim();
+    const kind = itemResponse.kind.trim();
+    const year = itemResponse.make_year.trim();
+
+    const categoryValue = UtilsRia.detectCategory(kind);
+    const brandArray = UtilsRia.detectBrandMatrix(categoryValue);
+    const brandWithoutModel = UtilsRia.excludeModelFromBrand(brand, model);
+    let brandValue: number;
+    if(brandArray.length > 0){
+        brandValue = UtilsRia.detectModelValue(brandArray, brandWithoutModel);
+    }
+    else{
+        return;
+    }
+    const key = process.env.RIA_KEY || "";
+    const url = UtilsRia.generateUrlToGetModelValue(URLs.riaUrl, categoryValue, brandValue, key);
+
     fetch(url, {
         headers:{
           'Accept': 'application/json'
         }
     })
-    .then((response) => {
+    .then(response => {
         if (!response.ok){
             throw Error(response.statusText);
         }
         return response;
     })
-    .then((response) => {
-        return response.json(); })
+    .then(response => response.json())
     .then((response: IRiaCategories[]) => {
         if(response.length > 0){
             const modelValue = response.filter((i: IRiaCategories) => {
-                if(i.name === model){
+                if(i.name.toUpperCase() === model.toUpperCase()){
                     return i.value;
-                }                
+                }
             });
-            dispatch(fetchDataForRiaSearch(itemResponse, modelValue[0].value));
+            dispatch(fetchDataForRiaSearch(categoryValue, modelValue[0].value, brandValue, year, key));
         }
         else{
+            return;
         }
+    })
+    .catch((error) => {
+        dispatch(itemHasErrored(true));
+        console.log(error);
     });
 }
 
-export const fetchDataForRiaSearch = (itemResponse: Item, modelValue: number): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
-    const url = "";
+export const fetchDataForRiaSearch = (categoryValue: number, modelValue: number, brandValue: number, year: string, key: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+    const url = UtilsRia.generateUrlToSearchAdsIds(URLs.riaUrl, categoryValue, brandValue, modelValue, year, key);
     fetch(url, {
         headers:{
           'Accept': 'application/json'
@@ -55,14 +72,51 @@ export const fetchDataForRiaSearch = (itemResponse: Item, modelValue: number): T
     .then((response) => {
         return response.json(); })
     .then((itemResponse: IRiaSearch) => {
-
+        if(itemResponse.result.search_result.count > 0){
+            const ads: IRiaSearchData[] = itemResponse.result.search_result_common.data;
+            dispatch(fetchDataForRiaAds(key, ads));
+        }
+        else{
+            return;
+        }
+    })
+    .catch((error) => {
+        dispatch(itemHasErrored(true));
+        console.log(error);
     });
+}
+
+export const fetchDataForRiaAds = (key: string, ads: IRiaSearchData[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+    const urls: string[] = ads.map((url: IRiaSearchData) => url.id);
+    Promise.all(urls.map((url: string) =>
+        fetch(UtilsRia.generateUrlToGetAdsContent(URLs.riaUrl, key, url), {
+            headers:{
+              'Accept': 'application/json'
+            }
+        })
+        .then((response) => {
+            if (!response.ok){
+                throw Error(response.statusText);
+            }
+            return response;
+        })
+        .then((response) =>  response.json())
+        .catch((error) => {
+            dispatch(itemHasErrored(true));
+            console.log(error);
+        })
+      ))
+      .then((itemResponse: IRiaAds[]) => {
+        dispatch(addRiaAds(itemResponse));
+        console.log(itemResponse);
+      });
 }
 
 export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => async (dispatch) => {
     dispatch(setSearchingItemType(0));
     dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));
+    dispatch(itemHasErrored(false));
 
     fetch(url, {
         headers:{
@@ -85,6 +139,7 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
             dispatch(addToItemsList(data));
             dispatch(setItemRequest(itemRequest));
             dispatch(responseIsEmpty(false));
+            dispatch(fetchDataForRiaModel(data));
         }
         else{
             dispatch(responseIsEmpty(true));
@@ -101,6 +156,7 @@ export const itemFetchDataForVin = (vinRequest: string, url: string): ThunkActio
     dispatch(setSearchingItemType(1));
     dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));
+    dispatch(itemHasErrored(false));
 
     fetch(url, {
         headers:{
@@ -139,6 +195,7 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, Appli
     dispatch(setSearchingItemType(3));
     dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));
+    dispatch(itemHasErrored(false));
 
     let formData = new FormData();
     formData.append('file', file);
@@ -185,6 +242,11 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, Appli
         console.log(error);
     });
 };
+
+export const addRiaAds = (ads: IRiaAds[]): actions.AddRiaAdsAction => ({
+    type: actions.ADD_RIA_ADS,
+    payload: ads
+});
 
 export const loginGoogle = (login: IGoogle): actions.LoginGoogleAction => ({
     type: actions.LOGIN_GOOGLE,

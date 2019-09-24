@@ -1,6 +1,6 @@
-import { IRiaData } from "../models/Interfaces";
+import { IRiaCategories } from "../models/Interfaces";
 
-export const motos: IRiaData[] = [
+export const motos: IRiaCategories[] = [
     {
         "name": "ABM",
         "value": 3875

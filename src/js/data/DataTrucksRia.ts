@@ -1,6 +1,6 @@
-import { IRiaData } from "../models/Interfaces";
+import { IRiaCategories } from "../models/Interfaces";
 
-export const trucks: IRiaData[] = [
+export const trucks: IRiaCategories[] = [
     {
         "name": "AMCO-VEBA",
         "value": 3019
