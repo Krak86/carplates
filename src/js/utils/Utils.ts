@@ -87,4 +87,22 @@ export default class Utils {
     return val.substr(0,2).replace(/1/g,'I') + val.substr(2,4) + val.substr(val.length-2).replace(/1/g,'I');
   }
 
+  public static checkFileType = (blob: File): boolean => {
+    if(blob.type.indexOf("image") === -1){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+  
+  public static checkImageSize = (blob: File): boolean => {
+    if(blob.size > 5000000){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+
 }

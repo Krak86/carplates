@@ -94,24 +94,6 @@ const shapeUrlVin = (value: string, url: string): string => {
   return Utils.shapeUrlVin(url, value);
 }
 
-const checkFileType = (blob: File): boolean => {
-  if(blob.type.indexOf("image") === -1){
-    return false;
-  }
-  else{
-    return true;
-  }
-}
-
-const checkImageSize = (blob: File): boolean => {
-  if(blob.size > 5000000){
-    return false;
-  }
-  else{
-    return true;
-  }
-}
-
 async function takeAPhoto(){
   if('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices){
     try{
@@ -200,11 +182,11 @@ export const SearchField = () => {
       return;
     }
     let file = value[0];
-    if(!checkFileType(file)){
+    if(!Utils.checkFileType(file)){
       alert("Please choose image file for site logo!");
       return;
     }
-    if(!checkImageSize(file)){
+    if(!Utils.checkImageSize(file)){
       alert("Image logo should be less then 5 MB!");
       return;
     }
