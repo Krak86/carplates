@@ -135,6 +135,11 @@ export interface Locale{
 
     cameraActions?: string[];
     imgRecognizingMessage?: string;
+
+    details?: string;
+    race?: string;
+    gearbox?: string;
+    phone?: string;
 }
 
 export interface IVinResultValues{

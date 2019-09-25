@@ -2,9 +2,12 @@ import React, { Fragment} from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { AppState } from "../store";
-import { ApplicationStates, IVinResultValues, IRiaAds } from "../models/Interfaces";
+import { ApplicationStates, IRiaAds } from "../models/Interfaces";
 import UtilsRia from "../utils/UtilsRia";
+import Utils from "../utils/Utils";
 import { bodyStyles } from "../data/DataStylesRia";
+import lang from "../locale";
+import { URLs } from "../data/Data";
 
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -17,25 +20,15 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
-import PhoneIcon from '@material-ui/icons/Phone';
-import DirectionsRunIcon from '@material-ui/icons/DirectionsRun';
-
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-
-import lang from "../locale";
-import { regions } from "../data/Data";
+import SendIcon from '@material-ui/icons/Send';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     card: {
-      maxWidth: 345,
+      maxWidth: 500,
+      marginTop: theme.spacing(2),
     },
     media: {
       height: 0,
@@ -63,10 +56,29 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 export const ResultCard = (props: {item: IRiaAds}) => {
     const classes = useStyles({});
     const [expanded, setExpanded] = React.useState(false);
-  
+
+    const title = Utils.checkIsUndefinedOrNull(props.item.title) ? "" : props.item.title;
+    const year = Utils.checkIsUndefinedOrNull(props.item.autoData.year) ? "" : `(${props.item.autoData.year})`;
+    const USD = Utils.checkIsUndefinedOrNull(props.item.USD) ? "" : `${props.item.USD} $, `;
+    const stateData = Utils.checkIsUndefinedOrNull(props.item.stateData.name) ? "" : props.item.stateData.name;
+    const image = Utils.checkIsUndefinedOrNull(props.item.photoData.seoLinkB) ? "" : props.item.photoData.seoLinkB;
+    const description = Utils.checkIsUndefinedOrNull(props.item.autoData.description) ? "" : props.item.autoData.description;
+    const race = Utils.checkIsUndefinedOrNull(props.item.autoData.race) ? "" : props.item.autoData.race;
+    const category = Utils.checkIsUndefinedOrNull(props.item.autoData.categoryId) ? "" : UtilsRia.detectTypeByCategory(props.item.autoData.categoryId);
+    const fuelName = Utils.checkIsUndefinedOrNull(props.item.autoData.fuelName) ? "" : props.item.autoData.fuelName;
+    const gearboxName = Utils.checkIsUndefinedOrNull(props.item.autoData.gearboxName) ? "" : props.item.autoData.gearboxName;
+    const body = Utils.checkIsUndefinedOrNull(props.item.autoData.bodyId) ? "" : UtilsRia.detectBodyStyleByValue(bodyStyles, props.item.autoData.bodyId);
+    const phone = Utils.checkIsUndefinedOrNull(props.item.userPhoneData.phone) ? "" : `+380${props.item.userPhoneData.phone}`;
+    const url = Utils.checkIsUndefinedOrNull(props.item.linkToView) ? "" : `${URLs.riaUrlPublic}${props.item.linkToView}`;
+
     const handleExpandClick = () => {
-      setExpanded(!expanded);
-    };
+        setExpanded(!expanded);
+      };
+      const handleShareClick = () => {
+      };
+      const handleRedirectClick = () => {
+          window.open(url);
+      };
 
     return(
         <Card className={classes.card}>
@@ -81,24 +93,30 @@ export const ResultCard = (props: {item: IRiaAds}) => {
                     <MoreVertIcon />
                 </IconButton>
                 }
-                title={`${props.item.title} (${props.item.autoData.year})`}
-                subheader={`${props.item.USD} $, ${props.item.stateData.name}`}
+                title={`${title} ${year}`}
+                subheader={`${USD}${stateData}`}
             />
             <CardMedia
                 className={classes.media}
-                image={props.item.photoData.seoLinkB}
-                title={`${props.item.title} ${props.item.autoData.year}`}
+                image={image}
+                title={`${title} ${year}`}
             />
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
-                {props.item.autoData.description}         
+                {description}         
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
+                <IconButton 
+                    aria-label="open original ads"
+                    onClick={handleRedirectClick}
+                >
+                    <SendIcon />
                 </IconButton>
-                <IconButton aria-label="share">
+                <IconButton 
+                    aria-label="share"
+                    onClick={handleShareClick}
+                >
                     <ShareIcon />
                 </IconButton>
                 <IconButton
@@ -114,30 +132,30 @@ export const ResultCard = (props: {item: IRiaAds}) => {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                    <Typography paragraph>Характеристики:</Typography>
+                    <Typography paragraph>{lang.details}:</Typography>
 
-                    <Typography paragraph>
-                    Пробіг: {props.item.autoData.race}
+                    <Typography >
+                    {`${lang.race}: ${race}`}
                     </Typography>
 
-                    <Typography paragraph>
-                    Тип: {UtilsRia.detectTypeByCategory(props.item.autoData.categoryId)}
+                    <Typography >
+                    {`${lang.kind}: ${category}`}
                     </Typography>
 
-                    <Typography paragraph>
-                    Двигун: {props.item.autoData.fuelName}
+                    <Typography >
+                    {`${lang.fuel}: ${fuelName}`}
                     </Typography>
 
-                    <Typography paragraph>
-                    Коробка передач: {props.item.autoData.gearboxName}
+                    <Typography >
+                    {`${lang.gearbox}: ${gearboxName}`}
                     </Typography>
 
-                    <Typography paragraph>
-                    Кузов: {UtilsRia.detectBodyStyleByValue(bodyStyles, props.item.autoData.bodyId)}
+                    <Typography >
+                    {`${lang.body}: ${body}`}
                     </Typography>
 
-                    <Typography paragraph>
-                    Мобільний: <a href={`tel:+380${props.item.userPhoneData.phone}`}>{`+380${props.item.userPhoneData.phone}`}</a> 
+                    <Typography >
+                    {lang.phone}: <a href={`tel:${phone}`}>{phone}</a>
                     </Typography>
 
                 </CardContent>

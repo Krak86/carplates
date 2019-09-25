@@ -48,15 +48,15 @@ export default class UtilsRia {
     public static detectTypeByCategory(category: number): string {
         switch(category){
             case 1:
-                return "ЛЕГКОВИЙ"; 
+                return "Легковий"; 
             case 2:
-                return "МОТОЦИКЛ";
+                return "Мотоцикл";
             case 5:
-                return "ПРИЧІП";
+                return "Причіп";
             case 6:
-                return "ВАНТАЖНИЙ";
+                return "Вантажний";
             case 7:
-                return "АВТОБУС";
+                return "Автобус";
             default:
                 return "";
         }

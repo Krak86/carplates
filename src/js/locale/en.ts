@@ -44,4 +44,9 @@ export const lang: Locale = {
 
     cameraActions: ["Take a picture", "Attach image"],
     imgRecognizingMessage: "Image is recognizing, please wait",
+
+    details: "Details",
+    race: "Race",
+    gearbox: "Gearbox",
+    phone: "Phone",
 }

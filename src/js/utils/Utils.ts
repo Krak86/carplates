@@ -105,4 +105,13 @@ export default class Utils {
     }
   }
 
+  public static checkIsUndefinedOrNull(value: any): boolean{
+    if(value === undefined || value === null){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
 }

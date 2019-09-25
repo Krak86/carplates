@@ -171,4 +171,5 @@ export const URLs = {
     "getImagesByCarplateUrl": "http://platesmania.com",
     "carPlateRecMlApiUrl": "",
     "riaUrl": "https://developers.ria.com/auto",
+    "riaUrlPublic": "https://auto.ria.com",
 }

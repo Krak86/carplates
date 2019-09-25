@@ -46,7 +46,12 @@ const useStyles = makeStyles((theme: Theme) =>
         minWidth: 300,
         padding: "0px",
         margin: "0px",
-      },
+    },
+    container: {
+        paddingTop: theme.spacing(2),
+        paddingBottom: theme.spacing(2),       
+        maxWidth: 600,
+    },
   }),
 );
 
@@ -248,7 +253,7 @@ export const Result = () => {
 
             {state.itemIsLoaded === true && state.responseIsEmpty === false && state.itemSearching === 0 && 
              state.imageRiaLoaded === true && state.imagesRia.length > 0 &&
-            <div>
+            <div className={classes.container}>
                 {state.imagesRia.map((i: IRiaAds) => {
                     return <ResultCard item={i} key={Math.random()} />
                 })}
