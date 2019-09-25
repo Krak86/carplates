@@ -1,8 +1,6 @@
 import React, { Fragment} from 'react';
-import { useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { AppState } from "../store";
-import { ApplicationStates, IRiaAds } from "../models/Interfaces";
+import { IRiaAds } from "../models/Interfaces";
 import UtilsRia from "../utils/UtilsRia";
 import Utils from "../utils/Utils";
 import { bodyStyles } from "../data/DataStylesRia";
@@ -11,6 +9,7 @@ import { URLs } from "../data/Data";
 
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
+import { ShareDialog } from "./Dialog";
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
@@ -56,6 +55,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 export const ResultCard = (props: {item: IRiaAds}) => {
     const classes = useStyles({});
     const [expanded, setExpanded] = React.useState(false);
+    const [open, setOpen] = React.useState(false);
 
     const title = Utils.checkIsUndefinedOrNull(props.item.title) ? "" : props.item.title;
     const year = Utils.checkIsUndefinedOrNull(props.item.autoData.year) ? "" : `(${props.item.autoData.year})`;
@@ -70,96 +70,95 @@ export const ResultCard = (props: {item: IRiaAds}) => {
     const body = Utils.checkIsUndefinedOrNull(props.item.autoData.bodyId) ? "" : UtilsRia.detectBodyStyleByValue(bodyStyles, props.item.autoData.bodyId);
     const phone = Utils.checkIsUndefinedOrNull(props.item.userPhoneData.phone) ? "" : `+380${props.item.userPhoneData.phone}`;
     const url = Utils.checkIsUndefinedOrNull(props.item.linkToView) ? "" : `${URLs.riaUrlPublic}${props.item.linkToView}`;
-
+  
+    const handleClose = () => {
+        setOpen(false);
+    };
     const handleExpandClick = () => {
         setExpanded(!expanded);
-      };
-      const handleShareClick = () => {
-      };
-      const handleRedirectClick = () => {
-          window.open(url);
-      };
-
+    };
+    const handleShareClick = () => {
+        setOpen(true);
+    };
+    const handleRedirectClick = () => {
+        window.open(url);
+    };
     return(
-        <Card className={classes.card}>
-            <CardHeader
-                avatar={
-                <Avatar aria-label="recipe" className={classes.avatar}>
-                    RIA
-                </Avatar>
-                }
-                action={
-                <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                </IconButton>
-                }
-                title={`${title} ${year}`}
-                subheader={`${USD}${stateData}`}
-            />
-            <CardMedia
-                className={classes.media}
-                image={image}
-                title={`${title} ${year}`}
-            />
-            <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">
-                {description}         
-                </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-                <IconButton 
-                    aria-label="open original ads"
-                    onClick={handleRedirectClick}
-                >
-                    <SendIcon />
-                </IconButton>
-                <IconButton 
-                    aria-label="share"
-                    onClick={handleShareClick}
-                >
-                    <ShareIcon />
-                </IconButton>
-                <IconButton
-                    className={clsx(classes.expand, {
-                        [classes.expandOpen]: expanded,
-                    })}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                >
-                    <ExpandMoreIcon />
-                </IconButton>
-            </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Fragment>
+            <Card className={classes.card}>
+                <CardHeader
+                    avatar={
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                        RIA
+                    </Avatar>
+                    }
+                    action={
+                    <IconButton aria-label="settings">
+                        <MoreVertIcon />
+                    </IconButton>
+                    }
+                    title={`${title} ${year}`}
+                    subheader={`${USD}${stateData}`}
+                />
+                <CardMedia
+                    className={classes.media}
+                    image={image}
+                    title={`${title} ${year}`}
+                />
                 <CardContent>
-                    <Typography paragraph>{lang.details}:</Typography>
-
-                    <Typography >
-                    {`${lang.race}: ${race}`}
+                    <Typography variant="body2" color="textSecondary" component="p">
+                    {description}         
                     </Typography>
-
-                    <Typography >
-                    {`${lang.kind}: ${category}`}
-                    </Typography>
-
-                    <Typography >
-                    {`${lang.fuel}: ${fuelName}`}
-                    </Typography>
-
-                    <Typography >
-                    {`${lang.gearbox}: ${gearboxName}`}
-                    </Typography>
-
-                    <Typography >
-                    {`${lang.body}: ${body}`}
-                    </Typography>
-
-                    <Typography >
-                    {lang.phone}: <a href={`tel:${phone}`}>{phone}</a>
-                    </Typography>
-
                 </CardContent>
-            </Collapse>
-        </Card>
+                <CardActions disableSpacing>
+                    <IconButton 
+                        aria-label="open original ads"
+                        onClick={handleRedirectClick}
+                    >
+                        <SendIcon />
+                    </IconButton>
+                    <IconButton 
+                        aria-label="share"
+                        onClick={handleShareClick}
+                    >
+                        <ShareIcon />
+                    </IconButton>
+                    <IconButton
+                        className={clsx(classes.expand, {
+                            [classes.expandOpen]: expanded,
+                        })}
+                        onClick={handleExpandClick}
+                        aria-expanded={expanded}
+                        aria-label="show more"
+                    >
+                        <ExpandMoreIcon />
+                    </IconButton>
+                </CardActions>
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <CardContent>
+                        <Typography paragraph>{lang.details}:</Typography>
+                        <Typography >
+                        {`${lang.race}: ${race}`}
+                        </Typography>
+                        <Typography >
+                        {`${lang.kind}: ${category}`}
+                        </Typography>
+                        <Typography >
+                        {`${lang.fuel}: ${fuelName}`}
+                        </Typography>
+                        <Typography >
+                        {`${lang.gearbox}: ${gearboxName}`}
+                        </Typography>
+                        <Typography >
+                        {`${lang.body}: ${body}`}
+                        </Typography>
+                        <Typography >
+                        {lang.phone}: <a href={`tel:${phone}`}>{phone}</a>
+                        </Typography>
+                    </CardContent>
+                </Collapse>
+            </Card>
+            <ShareDialog open={open} onClose={handleClose} url={url} />
+        </Fragment>
     )
 }

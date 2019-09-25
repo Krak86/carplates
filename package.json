@@ -35,6 +35,7 @@
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.0.5",
     "react-redux": "^7.1.1",
+    "react-share": "^3.0.1",
     "recharts": "1.7.1",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
