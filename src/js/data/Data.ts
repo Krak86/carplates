@@ -77,6 +77,7 @@ export const initialData: ApplicationStates = {
     vinsList: [],
     facebookResponse: facebookInit,
     googleResponse: googleInit,
+    imageRiaLoaded: false,
 }
 
 export const regions = {

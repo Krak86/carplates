@@ -45,6 +45,23 @@ export default class UtilsRia {
         }
     }
 
+    public static detectTypeByCategory(category: number): string {
+        switch(category){
+            case 1:
+                return "ЛЕГКОВИЙ"; 
+            case 2:
+                return "МОТОЦИКЛ";
+            case 5:
+                return "ПРИЧІП";
+            case 6:
+                return "ВАНТАЖНИЙ";
+            case 7:
+                return "АВТОБУС";
+            default:
+                return "";
+        }
+    }
+
     public static detectBrandMatrix(categoryValue: number){
         switch(categoryValue){
             case 1:
@@ -66,6 +83,10 @@ export default class UtilsRia {
 
     public static detectModelValue(brandArray: IRiaCategories[], brand: string): number{
         return brandArray.filter((i: IRiaCategories) => i.name.toLowerCase() === brand.toLowerCase())[0].value;
+    }
+
+    public static detectBodyStyleByValue(brandArray: IRiaCategories[], value: number): string{
+        return brandArray.filter((i: IRiaCategories) => i.value === value)[0].name;
     }
 
 }

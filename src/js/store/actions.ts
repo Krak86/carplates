@@ -7,6 +7,7 @@ import UtilsRia from "../utils/UtilsRia";
 import { URLs } from "../data/Data";
 
 export const fetchDataForRiaModel = (itemResponse: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+    dispatch(imgRiaLoaded(false));
     const brand = itemResponse.brand.trim();
     const model = itemResponse.model.trim();
     const kind = itemResponse.kind.trim();
@@ -106,9 +107,10 @@ export const fetchDataForRiaAds = (key: string, ads: IRiaSearchData[]): ThunkAct
             console.log(error);
         })
       ))
-      .then((itemResponse: IRiaAds[]) => {
-        dispatch(addRiaAds(itemResponse));
-        console.log(itemResponse);
+      .then((imagesRiaResponse: IRiaAds[]) => {
+        dispatch(addRiaAds(imagesRiaResponse));
+        dispatch(imgRiaLoaded(true));
+        console.log(imagesRiaResponse);
       });
 }
 
@@ -243,9 +245,15 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, Appli
     });
 };
 
-export const addRiaAds = (ads: IRiaAds[]): actions.AddRiaAdsAction => ({
+export const imgRiaLoaded = (status: boolean): actions.ImgRiaLoadedAction => ({
+    type: actions.IMG_RIA_LOADED,
+    payload: status
+});
+
+
+export const addRiaAds = (imagesRia: IRiaAds[]): actions.AddRiaAdsAction => ({
     type: actions.ADD_RIA_ADS,
-    payload: ads
+    payload: imagesRia
 });
 
 export const loginGoogle = (login: IGoogle): actions.LoginGoogleAction => ({

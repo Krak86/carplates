@@ -19,6 +19,7 @@ export interface ApplicationStates {
   vinsList: [];
   facebookResponse: IFacebook;
   googleResponse: IGoogle;
+  imageRiaLoaded: boolean;
 }
 
 export enum itemSearching{

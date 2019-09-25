@@ -7,11 +7,16 @@ export const getReducer = (
     action: any
   ): ApplicationStates => {
     switch (action.type) {
+      case actions.IMG_RIA_LOADED:
+        return {
+          ...state,
+          imageRiaLoaded: action.payload
+        };
       case actions.ADD_RIA_ADS:
         return {
-            ...state,
-            imagesRia: action.payload
-          };
+          ...state,
+          imagesRia: action.payload
+        };
       case actions.LOGIN_GOOGLE:
         return {
           ...state,

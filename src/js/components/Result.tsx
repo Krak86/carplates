@@ -2,7 +2,8 @@ import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { AppState } from "../store";
-import { ApplicationStates, IVinResultValues } from "../models/Interfaces";
+import { ApplicationStates, IVinResultValues, IRiaAds } from "../models/Interfaces";
+import { ResultCard } from "./Card";
 
 import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
@@ -21,7 +22,6 @@ import EventNoteIcon from '@material-ui/icons/EventNote';
 import LocalGasStationIcon from '@material-ui/icons/LocalGasStation';
 import MergeTypeIcon from '@material-ui/icons/MergeType';
 import DateRangeIcon from '@material-ui/icons/DateRange';
-import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import CopyrightIcon from '@material-ui/icons/Copyright';
 import ExploreIcon from '@material-ui/icons/Explore';
@@ -243,8 +243,17 @@ export const Result = () => {
                 </ListItemAvatar>
                 <ListItemText primary={lang.imgRecognizingMessage}/>
             </ListItem>
-            }
+            }            
             </Paper>
+
+            {state.itemIsLoaded === true && state.responseIsEmpty === false && state.itemSearching === 0 && 
+             state.imageRiaLoaded === true && state.imagesRia.length > 0 &&
+            <div>
+                {state.imagesRia.map((i: IRiaAds) => {
+                    return <ResultCard item={i} key={Math.random()} />
+                })}
+            </div>
+            }
         </Fragment>
     )
 }

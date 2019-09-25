@@ -17,7 +17,12 @@ export const LOGIN: string = "LOGIN";
 export const LOGIN_FACEBOOK: string = "LOGIN_FACEBOOK";
 export const LOGIN_GOOGLE: string = "LOGIN_GOOGLE";
 export const ADD_RIA_ADS: string = "ADD_RIA_ADS";
+export const IMG_RIA_LOADED: string = "IMG_RIA_LOADED";
 
+export interface ImgRiaLoadedAction{
+    type: typeof IMG_RIA_LOADED;
+    payload: boolean;
+}
 export interface AddRiaAdsAction{
     type: typeof ADD_RIA_ADS;
     payload: IRiaAds[];
