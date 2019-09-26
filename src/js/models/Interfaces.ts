@@ -140,6 +140,9 @@ export interface Locale{
     race?: string;
     gearbox?: string;
     phone?: string;
+
+    messageChooseImage?: string;
+    messageImageLimit?: string;
 }
 
 export interface IVinResultValues{

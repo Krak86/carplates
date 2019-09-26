@@ -18,9 +18,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
-import WarningIcon from '@material-ui/icons/Warning';
 import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 const options = lang.cameraActions;
 const ITEM_HEIGHT = 48;
@@ -191,14 +189,12 @@ export const SearchField = () => {
     let file = value[0];
     if(!Utils.checkFileType(file)){
       setOpenSnackbar(true);
-      handleSnackbarMessage("Please choose image file for site logo!");
-      //alert("Please choose image file for site logo!");
+      handleSnackbarMessage(lang.messageChooseImage);
       return;
     }
     if(!Utils.checkImageSize(file)){
       setOpenSnackbar(true);
-      handleSnackbarMessage("Image logo should be less then 5 MB!");
-      //alert("Image logo should be less then 5 MB!");
+      handleSnackbarMessage(lang.messageImageLimit);
       return;
     }
     dispatch(imageFetchData(file, serviceRecognizeImageUrl));  

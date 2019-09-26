@@ -47,4 +47,7 @@ export const lang: Locale = {
     race: "Пробіг",
     gearbox: "Коробка передач",
     phone: "Мобільний",
+
+    messageChooseImage: "Виберіть зображення!",
+    messageImageLimit: "Файл повинен бути менше 5 Мб!",
 }

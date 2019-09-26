@@ -49,4 +49,7 @@ export const lang: Locale = {
     race: "Race",
     gearbox: "Gearbox",
     phone: "Phone",
+
+    messageChooseImage: "Please choose image file!",
+    messageImageLimit: "File should be less then 5 MB!",
 }
