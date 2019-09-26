@@ -51,6 +51,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     link: {
         display: 'none',
     },
+
+    bullet: {
+        display: 'inline-block',
+        margin: '0 2px',
+        transform: 'scale(0.8)',
+    },
+    title: {
+        fontSize: 14,
+    },
+    pos: {
+        marginBottom: 12,
+    },
   }),
 );
 
@@ -67,7 +79,7 @@ export const MainCard = (props: {item: Item}) => {
     const body = `${lang.body}: ${props.item.body}`;
     const capacity = `${lang.capacity}: ${props.item.capacity}`;
     const color = `${lang.color}: ${props.item.color}`;
-    const weight = `${lang.own_weight}: ${props.item.own_weight}/${props.item.total_weight}`;
+    const weight = `${lang.weight}: ${props.item.own_weight}/${props.item.total_weight}`;
     const fuel = `${lang.fuel}: ${props.item.fuel}`;
 
     const kind = `${lang.kind}: ${props.item.kind}`;
@@ -107,20 +119,20 @@ export const MainCard = (props: {item: Item}) => {
                     subheader={`${secondary}`}
                 />
                 <CardContent>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                    {body}
+                    <Typography className={classes.title} color="textSecondary" gutterBottom>
+                        {body}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                    {capacity}
+                    <Typography variant="h6" component="h2">
+                        {capacity}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                    {color}
+                    <Typography className={classes.pos} color="textSecondary">
+                        {weight}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                    {weight}
+                    <Typography variant="body2" component="p">
+                        {fuel}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                    {fuel}
+                    <Typography variant="button" color="textSecondary" gutterBottom>
+                        {color}
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
@@ -149,22 +161,22 @@ export const MainCard = (props: {item: Item}) => {
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                        <Typography variant="body2" color="textSecondary" gutterBottom>
+                        <Typography variant="body2" component="p">
                         {kind}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" gutterBottom>
+                        <Typography className={classes.pos} color="textSecondary">
                         {purpose}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" gutterBottom>
+                        <Typography variant="body2" component="p">
                         {person}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" gutterBottom>
+                        <Typography className={classes.pos} color="textSecondary">
                         {d_reg}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" gutterBottom>
+                        <Typography variant="body2" component="p">
                         {oper_name}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary">
+                        <Typography className={classes.pos} color="textSecondary">
                         {reg_addr_koatuu}
                         </Typography>
                     </CardContent>

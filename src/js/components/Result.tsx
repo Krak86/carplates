@@ -123,7 +123,7 @@ export const Result = () => {
              state.imageRiaLoaded === true && state.imagesRia.length > 0 &&
             <div className={classes.container}>
                 {state.imagesRia.map((i: IRiaAds) => {
-                    return <ResultCard item={i} key={Math.random()} />
+                    return i.status !== 404 ? <ResultCard item={i} key={Math.random()}/> : null 
                 })}
             </div>
             }

@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     link: {
         display: 'none',
     },
+    pos: {
+        marginBottom: 12,
+    },
   }),
 );
 
@@ -135,24 +138,24 @@ export const ResultCard = (props: {item: IRiaAds}) => {
                     </IconButton>
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <CardContent>                 
-                        <Typography variant="body2" color="textSecondary" gutterBottom>
-                        {`${lang.race}: ${race}`}
+                    <CardContent>   
+                        <Typography variant="body2" component="p">
+                            {`${lang.race}: ${race}`}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" gutterBottom>
-                        {`${lang.kind}: ${category}`}
+                        <Typography className={classes.pos} color="textSecondary">
+                            {`${lang.kind}: ${category}`}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" gutterBottom>
-                        {`${lang.fuel}: ${fuelName}`}
+                        <Typography variant="body2" component="p">
+                            {`${lang.fuel}: ${fuelName}`}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" gutterBottom>
-                        {`${lang.gearbox}: ${gearboxName}`}
+                        <Typography className={classes.pos} color="textSecondary">
+                            {`${lang.gearbox}: ${gearboxName}`}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" gutterBottom>
-                        {`${lang.body}: ${body}`}
+                        <Typography variant="body2" component="p">
+                            {`${lang.body}: ${body}`}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary">
-                        {lang.phone}: <a href={`tel:${phone}`}>{phone}</a>
+                        <Typography className={classes.pos} color="textSecondary">
+                            {lang.phone}: <a href={`tel:${phone}`}>{phone}</a>
                         </Typography>
                     </CardContent>
                 </Collapse>

@@ -501,5 +501,7 @@ export interface IRiaAds{
   },
   "withInfoBar": boolean,
   "infoBarText": string,
-  "optionStyles": []
+  "optionStyles": [],
+  status?: number,
+  message?: string,
 }
