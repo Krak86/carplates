@@ -1,13 +1,13 @@
-import React, { Fragment, useState, useRef, useEffect } from 'react';
+import React, { SyntheticEvent, Fragment, useState, useRef, useEffect } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { itemFetchDataForPlate, itemFetchDataForVin, setItemRequest, imageFetchData } from "../store/actions";
 import { AppState } from "../store";
 import { ApplicationStates} from "../models/Interfaces";
 import { URLs } from "../data/Data";
-
 import Utils from "../utils/Utils";
 import lang from "../locale";
+import { SnackbarContentWrapper } from "./SnackbarContentWrapper";
 
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
@@ -15,10 +15,12 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
 import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import WarningIcon from '@material-ui/icons/Warning';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
 
 const options = lang.cameraActions;
 const ITEM_HEIGHT = 48;
@@ -53,6 +55,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     upload: {
       display: 'none',
+    },
+    margin: {
+      margin: theme.spacing(1),
     },
   }),
 );
@@ -112,6 +117,8 @@ export const SearchField = () => {
   const [inputValue, setInputValue] = useState<State>({value: ""});
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const [snackbarMessage, setSnackbarMessage] = React.useState("");
   //mapStateToProps
   const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
   //mapDispatchToProps
@@ -183,16 +190,29 @@ export const SearchField = () => {
     }
     let file = value[0];
     if(!Utils.checkFileType(file)){
-      alert("Please choose image file for site logo!");
+      setOpenSnackbar(true);
+      handleSnackbarMessage("Please choose image file for site logo!");
+      //alert("Please choose image file for site logo!");
       return;
     }
     if(!Utils.checkImageSize(file)){
-      alert("Image logo should be less then 5 MB!");
+      setOpenSnackbar(true);
+      handleSnackbarMessage("Image logo should be less then 5 MB!");
+      //alert("Image logo should be less then 5 MB!");
       return;
     }
-    dispatch(imageFetchData(file, serviceRecognizeImageUrl));
-  
+    dispatch(imageFetchData(file, serviceRecognizeImageUrl));  
   }
+  const handleCloseSnackBar = (event?: SyntheticEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenSnackbar(false);
+  };
+  const handleSnackbarMessage = (message: string) => {
+    setSnackbarMessage(message);
+  }
+
   return (
     <Fragment>      
       {/*JSON.stringify(state.itemRequest)*/}
@@ -257,6 +277,21 @@ export const SearchField = () => {
           onChange={(e) => handleFiles(e.target.files) }
         />
       </Paper>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackBar}
+      >
+        <SnackbarContentWrapper
+          onClose={handleCloseSnackBar}
+          variant="error"
+          message={snackbarMessage}
+        />
+      </Snackbar>
     </Fragment>
   );
 }
