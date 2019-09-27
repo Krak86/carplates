@@ -1,10 +1,10 @@
 {
   "name": "carplates",
   "short_name": "carplates",
-  "start_url": "https://github.com/Krak86/carplates",
+  "start_url": "http://localhost:8080/index.html",
   "display": "fullscreen",
-  "background_color": "#00008B",
-  "theme_color": "#00008B",
+  "background_color": "#3f51b5",
+  "theme_color": "#3f51b5",
   "description": "Car plates recognizer",
   "related_applications": [
     {

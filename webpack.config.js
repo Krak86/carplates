@@ -148,10 +148,10 @@ module.exports = {
     ]),
     new webpack.HotModuleReplacementPlugin(),
     new WorkboxPlugin.GenerateSW({
-      swDest: 'js/sw.js',
+      swDest: 'service-worker.js',
       clientsClaim: true,
       skipWaiting: true,
-      precacheManifestFilename: "js/precache-manifest.[manifestHash].js",
+      precacheManifestFilename: "precache-manifest.[manifestHash].js",
       exclude: [
           /\.(png|jpe?g|gif|svg|webp)$/i,
           /\.map$/,
