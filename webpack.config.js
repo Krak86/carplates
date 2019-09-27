@@ -10,7 +10,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const webpack = require("webpack");
 const Dotenv = require('dotenv-webpack');
 
-const dist = "dist";
+const dist = "docs";
 const pathToDist = __dirname + "/" + dist;
 
 module.exports = {

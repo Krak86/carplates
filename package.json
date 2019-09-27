@@ -95,7 +95,7 @@
   "scripts": {
     "dev": "webpack-dev-server --open --mode development",
     "build": "webpack --mode production && npm run pwa",
-    "pwa": "pwa-asset-generator ./dist/img/touch/homescreen.png ./dist/img/touch --icon-only --manifest=./dist/manifest.json --index=./dist/index.html",
+    "pwa": "pwa-asset-generator ./docs/img/touch/homescreen.png ./docs/img/touch --icon-only --manifest=./docs/manifest.json --index=./docs/index.html",
     "serve": "http-server dist -o",
     "test": "jest"
   }
