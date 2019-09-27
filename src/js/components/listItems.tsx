@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo, forwardRef } from 'react';
 import ListItem from '@material-ui/core/ListItem';
+import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -9,6 +10,32 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import { Link, LinkProps } from 'react-router-dom';
+
+interface ListItemLinkProps {
+  icon?: React.ReactElement;
+  primary: string;
+  to: string;
+}
+
+const ListItemLink = (props: ListItemLinkProps) => {
+  const { icon, primary, to } = props;
+  const renderLink = useMemo(() => forwardRef<HTMLAnchorElement, Omit<LinkProps, 'innerRef' | 'to'>>(
+        (itemProps, ref) => (
+          <Link to={to} {...itemProps} innerRef={ref} />
+        ),
+      ),
+    [to],
+  );
+  return (
+    <li>
+      <ListItem button component={renderLink}>
+        {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+        <ListItemText primary={primary} />
+      </ListItem>
+    </li>
+  );
+}
 
 export const mainListItems = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
@@ -21,42 +48,33 @@ export const mainListItems = () => {
     setSelectedIndex(index);
   }
   return (
-  <div>
-    <ListItem
-      button
-      selected={selectedIndex === 0}
-      onClick={event => handleListItemClick(event, 0)}
-    >
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Dashboard" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Orders" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Customers" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItem>
-  </div>
+    <List>
+      <ListItemLink 
+        to="/Dashboard" 
+        primary="Dashboard" 
+        icon={<DashboardIcon />} 
+      />
+      <ListItemLink 
+        to="/about" 
+        primary="About" 
+        icon={<ShoppingCartIcon />} 
+      />
+      <ListItemLink 
+        to="/settings" 
+        primary="Settings" 
+        icon={<PeopleIcon />} 
+      />
+      <ListItemLink 
+        to="/language" 
+        primary="Language" 
+        icon={<BarChartIcon />} 
+      />
+      <ListItemLink 
+        to="/favorites" 
+        primary="Favorites" 
+        icon={<LayersIcon />} 
+      />
+    </List>
   );
 }
 

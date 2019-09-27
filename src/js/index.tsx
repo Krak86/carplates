@@ -4,12 +4,15 @@ import Dashboard from './components/Dashboard';
 import { Provider } from "react-redux";
 import { configureStore } from "./store";
 import * as serviceWorker from './registerServiceWorker';
+import { BrowserRouter, HashRouter  } from "react-router-dom";
 
 const store = configureStore();
 
 const Root = () => (
   <Provider store={store}>
-    <Dashboard />
+    <HashRouter >
+      <Dashboard />
+    </HashRouter >
   </Provider>
 );
 

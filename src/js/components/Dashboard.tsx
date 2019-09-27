@@ -1,8 +1,10 @@
 import React from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { Route, Switch } from "react-router-dom";
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { SearchField } from "./SearchField";
+import { CopyRight } from "./CopyRight";
 import { Result } from "./Result";
 import { Login } from "./Login";
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -184,10 +186,37 @@ export default function Dashboard() {
           <SearchField />
           {itemIsLoading === true && <LinearProgress />}
           <Result />
+          <Switch>           
+            <Route path="/about" component={About} />
+            <Route path="/settings" component={Settings} />
+            <Route path="/language" component={Language} />
+            <Route path="/favorites" component={Favorites} />
+            <Route component={CopyRight} />
+          </Switch>
         </Container>
         
       </main>
       
     </div>
   );
+}
+
+function NoMatch() {
+  return <h2></h2>;
+}
+
+function Language() {
+  return <h2></h2>;
+}
+
+function About() {
+  return <h2></h2>;
+}
+
+function Settings() {
+  return <h2></h2>;
+}
+
+function Favorites() {
+  return <h2></h2>;
 }

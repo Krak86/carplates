@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import lang from "../locale";
 
-export const Copyright = () => {
+export const CopyRight = () => {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
         {lang.copyright}
