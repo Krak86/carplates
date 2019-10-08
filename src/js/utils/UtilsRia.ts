@@ -11,7 +11,7 @@ export default class UtilsRia {
     }
 
     public static generateUrlToSearchAdsIds(url: string, categoryValue: number, brandValue: number, modelValue: number, make_year: string, key: string): string {
-        return `${url}/search?api_key=${key}&category_id=${categoryValue}&marka_id[0]=${brandValue}&model_id[0]=${modelValue}&s_yers[0]=${make_year}&abroad=2&custom=1&countpage=5&with_photo=1`;
+        return `${url}/search?api_key=${key}&category_id=${categoryValue}&marka_id[0]=${brandValue}&model_id[0]=${modelValue}&s_yers[0]=${make_year}&abroad=2&custom=1&countpage=10&with_photo=1`;
     }
 
     public static generateUrlToGetAdsContent(url: string, key: string, adsId: string): string{

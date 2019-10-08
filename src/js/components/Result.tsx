@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { AppState } from "../store";
 import { ApplicationStates, IVinResultValues, IRiaAds } from "../models/Interfaces";
-import { ResultCard } from "./Card";
+import { ResultCard } from "./ResultRiaCard";
 import { MainCard } from "./ResultCard";
 import lang from "../locale";
 

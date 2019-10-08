@@ -1,9 +1,6 @@
 import React, { Fragment} from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Item } from "../models/Interfaces";
-import UtilsRia from "../utils/UtilsRia";
-import Utils from "../utils/Utils";
-import { bodyStyles } from "../data/DataStylesRia";
 import lang from "../locale";
 import { regions } from "../data/Data";
 
