@@ -7,11 +7,11 @@ import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
-import lang from "../locale";
-import { login, loginFacebook, loginGoogle } from "../store/actions";
-import { AppState } from "../store";
-import { ApplicationStates, IFacebook, IGoogle } from "../models/Interfaces";
-import { facebookInit, googleInit } from "../data/Data";
+import lang from "../../locale";
+import { login, loginFacebook, loginGoogle } from "../../store/actions";
+import { AppState } from "../../store";
+import { ApplicationStates, IFacebook, IGoogle } from "../../models/Interfaces";
+import { facebookInit, googleInit } from "../../data/Data";
 
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';

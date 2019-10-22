@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { Route, Switch } from "react-router-dom";
 
-import { Login } from "./Login";
+import { Login } from "./login/Login";
 import lang from "../locale";
 import { toggleDrawer } from "../store/actions";
 import { AppState } from "../store";
