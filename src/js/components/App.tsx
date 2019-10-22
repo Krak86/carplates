@@ -137,6 +137,7 @@ export default function App() {
   const handleDrawerClose = () => {
     dispatch(toggleDrawer(false));
   };
+  
 
   return (
     <main className={classes.root}>
@@ -169,6 +170,7 @@ export default function App() {
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
         open={open}
+        onClose={handleDrawerClose}
       >
         <div className={classes.toolbarIcon}>
           <IconButton onClick={handleDrawerClose}>
