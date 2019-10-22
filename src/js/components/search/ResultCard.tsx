@@ -18,6 +18,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red, blue } from '@material-ui/core/colors';
 import ShareIcon from '@material-ui/icons/Share';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SendIcon from '@material-ui/icons/Send';
@@ -95,8 +96,8 @@ export const MainCard = (props: {item: Item}) => {
     const handleShareClick = () => {
         setOpen(true);
     };
-    const handleRedirectClick = () => {
-        window.open(url);
+    const handleAddToFavs = () => {
+        
     };
     return(
         <Fragment>
@@ -108,7 +109,10 @@ export const MainCard = (props: {item: Item}) => {
                     </Avatar>
                     }
                     action={
-                    <IconButton aria-label="settings">
+                    <IconButton 
+                        aria-label="settings"
+                        title="settings"
+                    >
                         <MoreVertIcon />
                     </IconButton>
                     }
@@ -134,13 +138,15 @@ export const MainCard = (props: {item: Item}) => {
                 </CardContent>
                 <CardActions disableSpacing>
                     <IconButton 
-                        aria-label="open original ads"
-                        onClick={handleRedirectClick}
+                        aria-label="share"
+                        title="Add to Favorites"
+                        onClick={handleAddToFavs}
                     >
-                        <SendIcon />
+                        <FavoriteIcon />
                     </IconButton>
                     <IconButton 
                         aria-label="share"
+                        title="Share"
                         onClick={handleShareClick}
                     >
                         <ShareIcon />
@@ -152,6 +158,7 @@ export const MainCard = (props: {item: Item}) => {
                         onClick={handleExpandClick}
                         aria-expanded={expanded}
                         aria-label="show more"
+                        title="show more"
                     >
                         <ExpandMoreIcon />
                     </IconButton>

@@ -96,7 +96,10 @@ export const ResultCard = (props: {item: IRiaAds}) => {
                     </Avatar>
                     }
                     action={
-                    <IconButton aria-label="settings">
+                    <IconButton 
+                        aria-label="settings"
+                        title="settings"
+                    >
                         <MoreVertIcon />
                     </IconButton>
                     }
@@ -116,12 +119,14 @@ export const ResultCard = (props: {item: IRiaAds}) => {
                 <CardActions disableSpacing>
                     <IconButton 
                         aria-label="open original ads"
+                        title="Open original ads"
                         onClick={handleRedirectClick}
                     >
                         <SendIcon />
                     </IconButton>
                     <IconButton 
                         aria-label="share"
+                        title="Share"
                         onClick={handleShareClick}
                     >
                         <ShareIcon />
@@ -133,6 +138,7 @@ export const ResultCard = (props: {item: IRiaAds}) => {
                         onClick={handleExpandClick}
                         aria-expanded={expanded}
                         aria-label="show more"
+                        title="Show more"
                     >
                         <ExpandMoreIcon />
                     </IconButton>
