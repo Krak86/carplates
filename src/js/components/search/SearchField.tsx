@@ -1,13 +1,13 @@
 import React, { SyntheticEvent, Fragment, useState, useRef, useEffect } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { itemFetchDataForPlate, itemFetchDataForVin, setItemRequest, imageFetchData } from "../store/actions";
-import { AppState } from "../store";
-import { ApplicationStates} from "../models/Interfaces";
-import { URLs } from "../data/Data";
-import Utils from "../utils/Utils";
-import lang from "../locale";
-import { SnackbarContentWrapper } from "./SnackbarContentWrapper";
+import { itemFetchDataForPlate, itemFetchDataForVin, setItemRequest, imageFetchData } from "../../store/actions";
+import { AppState } from "../../store";
+import { ApplicationStates} from "../../models/Interfaces";
+import { URLs } from "../../data/Data";
+import Utils from "../../utils/Utils";
+import lang from "../../locale";
+import { SnackbarContentWrapper } from "../SnackbarContentWrapper";
 
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';

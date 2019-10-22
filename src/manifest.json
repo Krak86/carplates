@@ -6,12 +6,7 @@
   "background_color": "#3f51b5",
   "theme_color": "#3f51b5",
   "description": "Car plates recognizer",
-  "related_applications": [
-    {
-      "platform": "play",
-      "url": "https://play.google.com/store/apps/details?id=com.krak86.UAWW2"
-    }
-  ],
+  "prefer_related_applications": false,
   "icons": [
   ]
 }

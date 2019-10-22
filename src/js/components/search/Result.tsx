@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { AppState } from "../store";
-import { ApplicationStates, IVinResultValues, IRiaAds } from "../models/Interfaces";
+import { AppState } from "../../store";
+import { ApplicationStates, IVinResultValues, IRiaAds } from "../../models/Interfaces";
 import { ResultCard } from "./ResultRiaCard";
 import { MainCard } from "./ResultCard";
-import lang from "../locale";
+import lang from "../../locale";
 
 import Paper from '@material-ui/core/Paper';
 import ListItem from '@material-ui/core/ListItem';

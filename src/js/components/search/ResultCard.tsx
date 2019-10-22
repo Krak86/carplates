@@ -1,28 +1,27 @@
 import React, { Fragment} from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { IRiaAds } from "../models/Interfaces";
-import UtilsRia from "../utils/UtilsRia";
-import Utils from "../utils/Utils";
-import { bodyStyles } from "../data/DataStylesRia";
-import lang from "../locale";
-import { URLs } from "../data/Data";
+import { Item } from "../../models/Interfaces";
+import lang from "../../locale";
+import { regions } from "../../data/Data";
 
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
-import { ShareDialog } from "./Dialog";
+import { ShareDialog } from "../Dialog";
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
+import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
+import { red, blue } from '@material-ui/core/colors';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SendIcon from '@material-ui/icons/Send';
+import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     card: {
@@ -44,10 +43,19 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       transform: 'rotate(180deg)',
     },
     avatar: {
-      backgroundColor: red[500],
+      backgroundColor: blue[500],
     },
     link: {
         display: 'none',
+    },
+
+    bullet: {
+        display: 'inline-block',
+        margin: '0 2px',
+        transform: 'scale(0.8)',
+    },
+    title: {
+        fontSize: 14,
     },
     pos: {
         marginBottom: 12,
@@ -55,25 +63,29 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }),
 );
 
-export const ResultCard = (props: {item: IRiaAds}) => {
+export const MainCard = (props: {item: Item}) => {
     const classes = useStyles({});
     const [expanded, setExpanded] = React.useState(false);
     const [open, setOpen] = React.useState(false);
 
-    const title = Utils.checkIsUndefinedOrNull(props.item.title) ? "" : props.item.title;
-    const year = Utils.checkIsUndefinedOrNull(props.item.autoData.year) ? "" : `(${props.item.autoData.year})`;
-    const USD = Utils.checkIsUndefinedOrNull(props.item.USD) ? "" : `${props.item.USD} $, `;
-    const stateData = Utils.checkIsUndefinedOrNull(props.item.stateData.name) ? "" : props.item.stateData.name;
-    const image = Utils.checkIsUndefinedOrNull(props.item.photoData.seoLinkB) ? "" : props.item.photoData.seoLinkB;
-    const description = Utils.checkIsUndefinedOrNull(props.item.autoData.description) ? "" : props.item.autoData.description;
-    const race = Utils.checkIsUndefinedOrNull(props.item.autoData.race) ? "" : props.item.autoData.race;
-    const category = Utils.checkIsUndefinedOrNull(props.item.autoData.categoryId) ? "" : UtilsRia.detectTypeByCategory(props.item.autoData.categoryId);
-    const fuelName = Utils.checkIsUndefinedOrNull(props.item.autoData.fuelName) ? "" : props.item.autoData.fuelName;
-    const gearboxName = Utils.checkIsUndefinedOrNull(props.item.autoData.gearboxName) ? "" : props.item.autoData.gearboxName;
-    const body = Utils.checkIsUndefinedOrNull(props.item.autoData.bodyId) ? "" : UtilsRia.detectBodyStyleByValue(bodyStyles, props.item.autoData.bodyId);
-    const phone = Utils.checkIsUndefinedOrNull(props.item.userPhoneData.phone) ? "" : `+380${props.item.userPhoneData.phone}`;
-    const url = Utils.checkIsUndefinedOrNull(props.item.linkToView) ? "" : `${URLs.riaUrlPublic}${props.item.linkToView}`;
-  
+    const url = "";
+
+    const primary = `${props.item.brand}/${props.item.model} (${props.item.make_year})`;
+    const secondary = `${props.item.n_reg_new}, ${regions[props.item.PartitionKey]}`;
+    
+    const body = `${lang.body}: ${props.item.body}`;
+    const capacity = `${lang.capacity}: ${props.item.capacity}`;
+    const color = `${lang.color}: ${props.item.color}`;
+    const weight = `${lang.weight}: ${props.item.own_weight}/${props.item.total_weight}`;
+    const fuel = `${lang.fuel}: ${props.item.fuel}`;
+
+    const kind = `${lang.kind}: ${props.item.kind}`;
+    const purpose = `${lang.purpose}: ${props.item.purpose}`;
+    const person = `${lang.person}: ${props.item.person === "P" ? lang.person_private : lang.person_company}`;
+    const d_reg = `${lang.d_reg}: ${props.item.d_reg}`;
+    const oper_name = `${lang.oper_name}: ${props.item.dep} (${props.item.dep_code}), ${props.item.oper_name} (${props.item.oper_code})`;
+    const reg_addr_koatuu = `${lang.reg_addr_koatuu}: ${props.item.reg_addr_koatuu}`;
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -92,7 +104,7 @@ export const ResultCard = (props: {item: IRiaAds}) => {
                 <CardHeader
                     avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
-                        RIA
+                         <DirectionsCarIcon />
                     </Avatar>
                     }
                     action={
@@ -100,17 +112,24 @@ export const ResultCard = (props: {item: IRiaAds}) => {
                         <MoreVertIcon />
                     </IconButton>
                     }
-                    title={`${title} ${year}`}
-                    subheader={`${USD}${stateData}`}
-                />
-                <CardMedia
-                    className={classes.media}
-                    image={image}
-                    title={`${title} ${year}`}
+                    title={`${primary}`}
+                    subheader={`${secondary}`}
                 />
                 <CardContent>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                    {description}         
+                    <Typography className={classes.title} color="textSecondary" gutterBottom>
+                        {body}
+                    </Typography>
+                    <Typography variant="h6" component="h2">
+                        {capacity}
+                    </Typography>
+                    <Typography className={classes.pos} color="textSecondary">
+                        {weight}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                        {fuel}
+                    </Typography>
+                    <Typography variant="button" color="textSecondary" gutterBottom>
+                        {color}
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
@@ -138,24 +157,24 @@ export const ResultCard = (props: {item: IRiaAds}) => {
                     </IconButton>
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <CardContent>   
+                    <CardContent>
                         <Typography variant="body2" component="p">
-                            {`${lang.race}: ${race}`}
+                        {kind}
                         </Typography>
                         <Typography className={classes.pos} color="textSecondary">
-                            {`${lang.kind}: ${category}`}
+                        {purpose}
                         </Typography>
                         <Typography variant="body2" component="p">
-                            {`${lang.fuel}: ${fuelName}`}
+                        {person}
                         </Typography>
                         <Typography className={classes.pos} color="textSecondary">
-                            {`${lang.gearbox}: ${gearboxName}`}
+                        {d_reg}
                         </Typography>
                         <Typography variant="body2" component="p">
-                            {`${lang.body}: ${body}`}
+                        {oper_name}
                         </Typography>
                         <Typography className={classes.pos} color="textSecondary">
-                            {lang.phone}: <a href={`tel:${phone}`}>{phone}</a>
+                        {reg_addr_koatuu}
                         </Typography>
                     </CardContent>
                 </Collapse>

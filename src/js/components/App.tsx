@@ -1,33 +1,36 @@
 import React from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { Route, Switch } from "react-router-dom";
+
+import { Login } from "./Login";
+import lang from "../locale";
+import { toggleDrawer } from "../store/actions";
+import { AppState } from "../store";
+import { ApplicationStates} from "../models/Interfaces";
+import { routesLinks } from './routesLinks';
+import { SearchPage } from './routes/SearchPage';
+import { FavoritesPage } from "./routes/FavoritesPage";
+
+import { AboutPage } from './routes/AboutPage';
+import { ProfilePage } from './routes/ProfilePage';
+import { LanguagePage } from './routes/LanguagePage';
+import { DisqusPage } from './routes/DisqusPage';
+import { StorePage } from './routes/StorePage';
+
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { SearchField } from "./SearchField";
-import { CopyRight } from "./CopyRight";
-import { Result } from "./Result";
-import { Login } from "./Login";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Container from '@material-ui/core/Container';
-
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
-import LinearProgress from '@material-ui/core/LinearProgress';
-
-import lang from "../locale";
-import { toggleDrawer } from "../store/actions";
-import { AppState } from "../store";
-import { ApplicationStates} from "../models/Interfaces";
 
 const drawerWidth = 240;
 
@@ -118,12 +121,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Dashboard() {
+export default function App() {
   //connect to state
   const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
   //constructor, componentDidMounted, componentDidUpdated
   const open = state.drawerToogled;
-  const itemIsLoading = state.itemIsLoading;
   //dispatch action creators
   const dispatch = useDispatch();
   //hook styles
@@ -135,10 +137,9 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     dispatch(toggleDrawer(false));
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
-    <div className={classes.root}>
+    <main className={classes.root}>
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
@@ -174,49 +175,23 @@ export default function Dashboard() {
             <ChevronLeftIcon />
           </IconButton>
         </div>
-        <Divider />
-        <List>{mainListItems()}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
-      </Drawer>
-      
-      <main className={classes.content}>
+        <Divider /> 
+        {routesLinks()}
+      </Drawer>      
+      <section className={classes.content}>
         <div className={classes.appBarSpacer} />        
         <Container maxWidth="lg" className={classes.container}>
-          <SearchField />
-          {itemIsLoading === true && <LinearProgress />}
-          <Result />
-          <Switch>           
-            <Route path="/about" component={About} />
-            <Route path="/settings" component={Settings} />
-            <Route path="/language" component={Language} />
-            <Route path="/favorites" component={Favorites} />
-            <Route component={CopyRight} />
+          <Switch>    
+            <Route exact path="/" component={SearchPage} />
+            <Route path="/favorites" component={FavoritesPage} />
+            <Route path="/about" component={AboutPage} />
+            <Route path="/profile" component={ProfilePage} />
+            <Route path="/language" component={LanguagePage} />
+            <Route path="/disqus" component={DisqusPage} />
+            <Route path="/store" component={StorePage} />
           </Switch>
-        </Container>
-        
-      </main>
-      
-    </div>
+        </Container>        
+      </section>      
+    </main>
   );
-}
-
-function NoMatch() {
-  return <h2></h2>;
-}
-
-function Language() {
-  return <h2></h2>;
-}
-
-function About() {
-  return <h2></h2>;
-}
-
-function Settings() {
-  return <h2></h2>;
-}
-
-function Favorites() {
-  return <h2></h2>;
 }
