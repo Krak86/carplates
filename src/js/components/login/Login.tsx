@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -31,10 +31,9 @@ export const Login = () => {
     //connect to state
     const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
     //constructor, componentDidMounted, componentDidUpdated
-    const [anchorEl1, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const [anchorEl2, setAnchorEl2] = React.useState<null | HTMLElement>(null);
+    const [anchorEl1, setAnchorEl] = React.useState<null | HTMLElement>(null);   
     const open = Boolean(anchorEl1);
-    const open2 = Boolean(anchorEl2);
+   
     //dispatch action creators
     const dispatch = useDispatch();
     const classes = useStyles({});
@@ -47,25 +46,17 @@ export const Login = () => {
     };    
     const handleClose1 = (): void => {
         setAnchorEl(null);
-    };    
-    const handleMenu2 = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl2(event.currentTarget);
-    };    
-    const handleClose2 = (): void => {
-        setAnchorEl2(null);
     };
     const responseFacebook = (response: IFacebook): void => {
         console.log(response);
         dispatch(login(1));
         dispatch(loginFacebook(response));
     }
-
     const responseGoogle = (response: any): void => {
         console.log(response);
         dispatch(login(2));
         dispatch(loginGoogle(response));
     }
-
     const handleFailure = () => {
         dispatch(login(0));
         dispatch(loginGoogle(googleInit));
@@ -73,7 +64,7 @@ export const Login = () => {
     }
 
     return (
-    <>
+    <Fragment>
         {state.signedIn === 0 ? 
         <div>
             <Button 
@@ -125,35 +116,15 @@ export const Login = () => {
             <Avatar 
                 alt={state.facebookResponse.name}
                 src={state.facebookResponse.picture.data.url} className={classes.avatar}
-                onClick={handleMenu2}
             />
             :
             <Avatar 
                 alt={state.googleResponse.profileObj.name}
                 src={state.googleResponse.profileObj.imageUrl} className={classes.avatar}
-                onClick={handleMenu2}
             />
             }
-            <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl2}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={open2}
-                onClose={handleClose2}
-              >
-                <MenuItem onClick={handleClose2}>Profile</MenuItem>
-                <MenuItem onClick={handleClose2}>My account</MenuItem>
-            </Menu>
         </div>
         }
-    </>
+    </Fragment>
   );
 }

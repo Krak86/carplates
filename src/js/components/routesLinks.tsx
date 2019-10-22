@@ -1,5 +1,7 @@
 import React, { Fragment, useMemo, forwardRef } from 'react';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { Link, LinkProps } from 'react-router-dom';
+import { toggleDrawer } from "../store/actions";
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -18,10 +20,11 @@ interface ListItemLinkProps {
   icon?: React.ReactElement;
   primary: string;
   to: string;
+  callbackFunc?: Function;
 }
 
 const ListItemLink = (props: ListItemLinkProps) => {
-  const { icon, primary, to } = props;
+  const { icon, primary, to, callbackFunc } = props;
   const renderLink = useMemo(() => forwardRef<HTMLAnchorElement, Omit<LinkProps, 'innerRef' | 'to'>>(
         (itemProps, ref) => (
           <Link to={to} {...itemProps} innerRef={ref} />
@@ -31,7 +34,11 @@ const ListItemLink = (props: ListItemLinkProps) => {
   );
   return (
     <li>
-      <ListItem button component={renderLink}>
+      <ListItem 
+        button 
+        component={renderLink} 
+        onClick={() => callbackFunc()}
+      >
         {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
         <ListItemText primary={primary} />
       </ListItem>
@@ -41,31 +48,40 @@ const ListItemLink = (props: ListItemLinkProps) => {
 
 export const routesLinks = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
+  //dispatch action creators
+  const dispatch = useDispatch();
 
-  function handleInstallClick(
+  const handleInstallClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number,
-  ): void {
+  ): void => {
     alert("Add to Home Screen");
     setSelectedIndex(index);
-  }
+  };
+  const handleDrawerClose = () => {
+    dispatch(toggleDrawer(false));
+  };
+
   return (
     <Fragment>
       <List>
         <ListItemLink 
           to="/" 
           primary="Search" 
-          icon={<SearchIcon />} 
+          icon={<SearchIcon />}
+          callbackFunc={handleDrawerClose}
         />
         <ListItemLink 
           to="/favorites" 
           primary="Favorites" 
           icon={<FavoriteIcon />} 
+          callbackFunc={handleDrawerClose}
         />
         <ListItemLink 
           to="/about" 
           primary="About" 
           icon={<InfoIcon />} 
+          callbackFunc={handleDrawerClose}
         />
       </List>
       <Divider />
@@ -74,6 +90,7 @@ export const routesLinks = () => {
           to="/profile" 
           primary="Profile" 
           icon={<PermIdentityIcon />} 
+          callbackFunc={handleDrawerClose}
         />
         <ListItemLink 
           to="/language" 
@@ -84,6 +101,7 @@ export const routesLinks = () => {
           to="/disqus" 
           primary="Disqus" 
           icon={<ChatIcon />} 
+          callbackFunc={handleDrawerClose}
         />
       </List>
       <Divider />
@@ -92,6 +110,7 @@ export const routesLinks = () => {
           to="/store" 
           primary="Store"
           icon={<ShopIcon />} 
+          callbackFunc={handleDrawerClose}
         />
         <ListItem 
           button
