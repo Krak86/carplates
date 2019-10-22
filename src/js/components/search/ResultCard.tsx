@@ -6,7 +6,7 @@ import { regions } from "../../data/Data";
 
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
-import { ShareDialog } from "../Dialog";
+import { ShareDialog } from "../share/ShareDialog";
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
@@ -112,6 +112,7 @@ export const MainCard = (props: {item: Item}) => {
                     <IconButton 
                         aria-label="settings"
                         title="settings"
+                        onClick={handleShareClick}
                     >
                         <MoreVertIcon />
                     </IconButton>

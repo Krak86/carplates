@@ -9,7 +9,7 @@ import { URLs } from "../../data/Data";
 
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
-import { ShareDialog } from "../Dialog";
+import { ShareDialog } from "../share/ShareDialog";
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
@@ -99,6 +99,7 @@ export const ResultCard = (props: {item: IRiaAds}) => {
                     <IconButton 
                         aria-label="settings"
                         title="settings"
+                        onClick={handleShareClick}
                     >
                         <MoreVertIcon />
                     </IconButton>
