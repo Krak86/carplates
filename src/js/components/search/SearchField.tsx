@@ -1,5 +1,6 @@
 import React, { SyntheticEvent, Fragment, useState, useRef, useEffect } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { itemFetchDataForPlate, itemFetchDataForVin, setItemRequest, imageFetchData } from "../../store/actions";
 import { AppState } from "../../store";
@@ -129,6 +130,22 @@ export const SearchField = () => {
   useEffect(() => {
     searchInput.current.focus();
   }, []);
+  useEffect(() => {
+    const hashValue = decodeURIComponent(window.location.hash.split("#/")[1].trim());
+    if(hashValue !== ""){
+      if(isVin(hashValue)){
+        const value = shapeDataVin(hashValue);
+        const url = shapeUrlVin(value, serviceUrlVIN);
+        dispatch(itemFetchDataForVin(value, url));
+      }
+      else{
+        const value = shapeDataPlate(hashValue);
+        const url = shapeUrlPlate(value, serviceUrl);
+        dispatch(itemFetchDataForPlate(value, url));
+      }
+    };
+  },[]);
+  let history = useHistory();
   //hook styles
   const classes = useStyles({});
 
@@ -139,21 +156,26 @@ export const SearchField = () => {
   const handleChange = (value: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue({...inputValue, [value]: event.target.value });
   };
-  const handleSearchClick = () => {   
+  const handleSearchClick = () => {
+    let value = "";
     if(isEmpty(inputValue.value)){
       return;
     }
     if(isVin(inputValue.value)){
-      const value = shapeDataVin(inputValue.value);
+      value = shapeDataVin(inputValue.value);
       const url = shapeUrlVin(value, serviceUrlVIN);
       dispatch(itemFetchDataForVin(value, url));
     }
     else{
-      const value = shapeDataPlate(inputValue.value);
+      value = shapeDataPlate(inputValue.value);
       const url = shapeUrlPlate(value, serviceUrl);
       dispatch(itemFetchDataForPlate(value, url));
     }
     searchInput.current.focus();
+    handleAddResultToHash(value);
+  };
+  const handleAddResultToHash = (value: string) => {
+    history.push(`/${value}`);
   };
   const handleClearClick = () => {
     setInputValue({...inputValue, value: "" });

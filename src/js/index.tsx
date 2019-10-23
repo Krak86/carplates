@@ -4,7 +4,7 @@ import App from './components/App';
 import { Provider } from "react-redux";
 import { configureStore } from "./store";
 import * as serviceWorker from './registerServiceWorker';
-import { BrowserRouter, HashRouter  } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 const store = configureStore();
 

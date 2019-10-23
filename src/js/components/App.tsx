@@ -181,9 +181,9 @@ export default function App() {
         {routesLinks()}
       </Drawer>      
       <section className={classes.content}>
-        <div className={classes.appBarSpacer} />        
+        <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Switch>    
+          <Switch>
             <Route exact path="/" component={SearchPage} />
             <Route path="/favorites" component={FavoritesPage} />
             <Route path="/about" component={AboutPage} />
@@ -191,9 +191,10 @@ export default function App() {
             <Route path="/language" component={LanguagePage} />
             <Route path="/disqus" component={DisqusPage} />
             <Route path="/store" component={StorePage} />
+            <Route component={SearchPage} />
           </Switch>
-        </Container>        
-      </section>      
+        </Container>
+      </section>
     </main>
   );
 }

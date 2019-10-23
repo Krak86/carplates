@@ -8,7 +8,6 @@ import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import { ShareDialog } from "../share/ShareDialog";
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
@@ -16,13 +15,11 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red, blue } from '@material-ui/core/colors';
+import { blue } from '@material-ui/core/colors';
 import ShareIcon from '@material-ui/icons/Share';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import SendIcon from '@material-ui/icons/Send';
-import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     card: {
@@ -69,7 +66,7 @@ export const MainCard = (props: {item: Item}) => {
     const [expanded, setExpanded] = React.useState(false);
     const [open, setOpen] = React.useState(false);
 
-    const url = "";
+    const url = window.location;
 
     const primary = `${props.item.brand}/${props.item.model} (${props.item.make_year})`;
     const secondary = `${props.item.n_reg_new}, ${regions[props.item.PartitionKey]}`;
