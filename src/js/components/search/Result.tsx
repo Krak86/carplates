@@ -5,6 +5,7 @@ import { AppState } from "../../store";
 import { ApplicationStates, IVinResultValues, IRiaAds } from "../../models/Interfaces";
 import { ResultCard } from "./ResultRiaCard";
 import { MainCard } from "./ResultCard";
+import { ResultPlatesmaniaCard } from "./ResultPlatesmaniaCard";
 import lang from "../../locale";
 
 import Paper from '@material-ui/core/Paper';
@@ -118,6 +119,8 @@ export const Result = () => {
             </ListItem>
             }            
             </Paper>
+
+            <ResultPlatesmaniaCard/>
 
             {state.itemIsLoaded === true && state.responseIsEmpty === false && state.itemSearching === 0 && 
              state.imageRiaLoaded === true && state.imagesRia.length > 0 &&

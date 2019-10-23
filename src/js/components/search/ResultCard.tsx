@@ -66,7 +66,7 @@ export const MainCard = (props: {item: Item}) => {
     const [expanded, setExpanded] = React.useState(false);
     const [open, setOpen] = React.useState(false);
 
-    const url = window.location;
+    const url = decodeURIComponent(window.location.href).trim();
 
     const primary = `${props.item.brand}/${props.item.model} (${props.item.make_year})`;
     const secondary = `${props.item.n_reg_new}, ${regions[props.item.PartitionKey]}`;
