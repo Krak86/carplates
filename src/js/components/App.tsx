@@ -13,7 +13,6 @@ import { FavoritesPage } from "./routes/FavoritesPage";
 
 import { AboutPage } from './routes/AboutPage';
 import { ProfilePage } from './routes/ProfilePage';
-import { LanguagePage } from './routes/LanguagePage';
 import { DisqusPage } from './routes/DisqusPage';
 import { StorePage } from './routes/StorePage';
 
@@ -188,7 +187,6 @@ export default function App() {
             <Route path="/favorites" component={FavoritesPage} />
             <Route path="/about" component={AboutPage} />
             <Route path="/profile" component={ProfilePage} />
-            <Route path="/language" component={LanguagePage} />
             <Route path="/disqus" component={DisqusPage} />
             <Route path="/store" component={StorePage} />
             <Route component={SearchPage} />

@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { AppState } from "../../store";
 import { ApplicationStates} from "../../models/Interfaces";
+import { CopyRight } from "../CopyRight";
 
 export const AboutPage = () => {
     //connect to state
@@ -9,7 +10,7 @@ export const AboutPage = () => {
     //constructor, componentDidMounted, componentDidUpdated
     return (
         <Fragment>
-            About Page
+           <CopyRight />
         </Fragment>
     )
 }

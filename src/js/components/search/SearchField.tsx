@@ -8,7 +8,7 @@ import { ApplicationStates} from "../../models/Interfaces";
 import { URLs } from "../../data/Data";
 import Utils from "../../utils/Utils";
 import lang from "../../locale";
-import { SnackbarContentWrapper } from "../SnackbarContentWrapper";
+import { SnackbarContentWrapper } from "../snackbar/SnackbarContentWrapper";
 
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
