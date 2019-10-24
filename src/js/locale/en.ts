@@ -57,8 +57,8 @@ export const lang: Locale = {
     url_favs: "Favorites", 
     url_about: "About",
     url_profile: "Profile",
-    url_lang: "Disqus",
-    url_disqus: "Store",
+    url_lang: "Language",
+    url_disqus: "Disqus",
     url_store: "Store",
     url_install: "Install App",
 

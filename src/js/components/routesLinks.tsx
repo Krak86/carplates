@@ -1,8 +1,7 @@
 import React, { Fragment, useMemo, forwardRef } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { AppState } from "../../store";
-import { ApplicationStates} from "../../models/Interfaces";
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { AppState } from "../store";
+import { ApplicationStates} from "../models/Interfaces";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Lang } from "../models/Interfaces";
 import lang from "../locale";
