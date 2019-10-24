@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { AppState } from "../../store";
 import { ApplicationStates, IVinResultValues, IRiaAds } from "../../models/Interfaces";
-import { ResultCard } from "./ResultRiaCard";
-import { MainCard } from "./ResultCard";
+import { ResultRiaCard } from "./ResultRiaCard";
+import { ResultCard } from "./ResultCard";
 import { ResultPlatesmaniaCard } from "./ResultPlatesmaniaCard";
 import lang from "../../locale";
 
@@ -47,7 +47,7 @@ export const Result = () => {
         <Fragment>
             <Paper className={classes.root}>
             {state.itemIsLoaded === true && state.responseIsEmpty === false && state.itemSearching === 0 &&
-                <MainCard item={state.itemResponse} key={Math.random()} />
+                <ResultCard item={state.itemResponse} key={Math.random()} />
             }
             {state.itemIsLoaded === true && state.responseIsEmpty === true && state.itemSearching === 0 &&
                 <ListItem>
@@ -117,16 +117,21 @@ export const Result = () => {
                 </ListItemAvatar>
                 <ListItemText primary={lang.imgRecognizingMessage}/>
             </ListItem>
-            }            
+            }
             </Paper>
 
-            <ResultPlatesmaniaCard/>
+            {state.itemIsLoaded === true && state.itemSearching === 0 && 
+             state.imageCarsmaniaLoaded === true && state.imagesPlatesMania.length > 0 &&
+                <div className={classes.container}>
+                    <ResultPlatesmaniaCard images={state.imagesPlatesMania} />
+                </div>
+            }
 
             {state.itemIsLoaded === true && state.responseIsEmpty === false && state.itemSearching === 0 && 
              state.imageRiaLoaded === true && state.imagesRia.length > 0 &&
             <div className={classes.container}>
                 {state.imagesRia.map((i: IRiaAds) => {
-                    return i.status !== 404 ? <ResultCard item={i} key={Math.random()}/> : null 
+                    return i.status !== 404 ? <ResultRiaCard item={i} key={Math.random()}/> : null 
                 })}
             </div>
             }

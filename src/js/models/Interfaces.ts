@@ -4,8 +4,8 @@ export interface ApplicationStates {
   itemResponse: Item;
   itemsList: Item[];
   //imagesList: Images;
-  imagesPlatesMania?: [],
-  imagesRia?: IRiaAds[],
+  imagesPlatesMania?: IPlatesmaniaCars[];
+  imagesRia?: IRiaAds[];
   navigation: Navigation;
   signedIn: Auth;
   drawerToogled: boolean;
@@ -20,6 +20,7 @@ export interface ApplicationStates {
   facebookResponse: IFacebook;
   googleResponse: IGoogle;
   imageRiaLoaded: boolean;
+  imageCarsmaniaLoaded: boolean;
 }
 
 export enum itemSearching{
@@ -507,4 +508,23 @@ export interface IRiaAds{
   "optionStyles": [],
   status?: number,
   message?: string,
+}
+
+export interface IPlatesmaniaCars{
+  "make": string;
+  "model": string;
+  "date": string;
+  "photo": {
+      "link": string,
+      "small": string,
+      "medium": string,
+      "original": string
+  }
+}
+
+export interface IPlatesmania{
+  "error": number;
+  "region": any;
+  "informer": string;
+  "cars": IPlatesmaniaCars[];
 }

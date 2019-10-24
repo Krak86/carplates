@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }),
 );
 
-export const MainCard = (props: {item: Item}) => {
+export const ResultCard = (props: {item: Item}) => {
     const classes = useStyles({});
     const [expanded, setExpanded] = React.useState(false);
     const [open, setOpen] = React.useState(false);

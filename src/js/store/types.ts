@@ -1,4 +1,4 @@
-import { Item, VIN, Auth, IFacebook, IGoogle, IRiaAds } from "../models/Interfaces";
+import { Item, VIN, Auth, IFacebook, IGoogle, IRiaAds, IPlatesmaniaCars } from "../models/Interfaces";
 
 export const ITEM_FETCH_DATA_SUCCESS: string = "ITEM_FETCH_DATA_SUCCESS";
 export const SET_ITEM_REQUEST: string = "SET_ITEM_REQUEST";
@@ -17,11 +17,21 @@ export const LOGIN: string = "LOGIN";
 export const LOGIN_FACEBOOK: string = "LOGIN_FACEBOOK";
 export const LOGIN_GOOGLE: string = "LOGIN_GOOGLE";
 export const ADD_RIA_ADS: string = "ADD_RIA_ADS";
+export const ADD_CARSMANIA_CARS: string = "ADD_CARSMANIA_CARS";
 export const IMG_RIA_LOADED: string = "IMG_RIA_LOADED";
+export const IMG_CARSMANIA_LOADED: string = "IMG_CARSMANIA_LOADED";
 
+export interface ImgCarsmaniaLoadedAction{
+    type: typeof IMG_CARSMANIA_LOADED;
+    payload: boolean;
+}
 export interface ImgRiaLoadedAction{
     type: typeof IMG_RIA_LOADED;
     payload: boolean;
+}
+export interface AddCarsmaniaCarsAction{
+    type: typeof ADD_CARSMANIA_CARS;
+    payload: IPlatesmaniaCars[];
 }
 export interface AddRiaAdsAction{
     type: typeof ADD_RIA_ADS;

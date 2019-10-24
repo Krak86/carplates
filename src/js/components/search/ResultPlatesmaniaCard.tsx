@@ -1,5 +1,6 @@
 import React, { Fragment} from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { IPlatesmaniaCars } from "../../models/Interfaces";
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -46,15 +47,46 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }),
 );
 
-export const ResultPlatesmaniaCard = () => {
+export const ResultPlatesmaniaCard = (props: {images: IPlatesmaniaCars[]}) => {
     const classes = useStyles({});
     const handleRedirectClick = (url: string) => {
         window.open(url);
     };
     return (
-    <Fragment>
-        <Card className={classes.card}>
-            <CardActionArea>
+        <Fragment>
+            {props.images.map((imageCard: IPlatesmaniaCars) => {
+                return <Card className={classes.card}>
+                    <CardHeader
+                        avatar={
+                        <Avatar aria-label="recipe" className={classes.avatar}>
+                            PM
+                        </Avatar>
+                        }
+                        title="Result images from"
+                        subheader="http://platesmania.com"        
+                    />
+                    <CardMedia
+                        className={classes.media}
+                        image={imageCard.photo.medium}                
+                    />
+                    <CardContent>
+                        <Typography className={classes.title} color="textSecondary" gutterBottom>
+                            "Дата світлини": {imageCard.date}
+                        </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                        <IconButton 
+                            aria-label="open original image"
+                            title="Open original image"
+                            onClick={ () => handleRedirectClick(imageCard.photo.original)}
+                        >
+                            <SendIcon />
+                        </IconButton>
+                    </CardActions>
+                </Card>
+            })}
+            
+            {/*    
                 <CardHeader
                     avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
@@ -70,13 +102,13 @@ export const ResultPlatesmaniaCard = () => {
                 />
                 <CardContent>
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
-                        "date": "2015-07-11 12:25:24",
+                        "Дата світлини": "2015-07-11 12:25:24"
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
                     <IconButton 
-                        aria-label="open original ads"
-                        title="Open original ads"
+                        aria-label="open original image"
+                        title="Open original image"
                         onClick={ () => handleRedirectClick("http://img02.avto-nomer.ru/150711/o/fr73629.jpg")}
                     >
                         <SendIcon />
@@ -89,20 +121,19 @@ export const ResultPlatesmaniaCard = () => {
                 />
                  <CardContent>
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
-                        "date": "2018-04-01 07:58:04",
+                    "Дата світлини": "2018-04-01 07:58:04"
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
                     <IconButton 
-                        aria-label="open original ads"
-                        title="Open original ads"
+                        aria-label="open original image"
+                        title="Open original image"
                         onClick={ () => handleRedirectClick("http://img03.platesmania.com/180401/o/11146987.jpg")}
                     >
                         <SendIcon />
                     </IconButton>
                 </CardActions>
-            </CardActionArea>
-        </Card>
-    </Fragment>
+                */}  
+        </Fragment>
   );
 }

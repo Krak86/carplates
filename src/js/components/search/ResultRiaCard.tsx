@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }),
 );
 
-export const ResultCard = (props: {item: IRiaAds}) => {
+export const ResultRiaCard = (props: {item: IRiaAds}) => {
     const classes = useStyles({});
     const [expanded, setExpanded] = React.useState(false);
     const [open, setOpen] = React.useState(false);

@@ -1,10 +1,39 @@
 import  * as actions from "./types";
 import { Action } from "redux";
-import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse, Auth, IFacebook, IGoogle, IRiaCategories, IRiaSearch, IRiaAds, IRiaSearchData } from "../models/Interfaces";
+import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse, Auth, IFacebook, IGoogle, IRiaCategories, IRiaSearch, IRiaAds, IRiaSearchData, IPlatesmania, IPlatesmaniaCars } from "../models/Interfaces";
 import { ThunkAction } from "redux-thunk";
 import Utils from "../utils/Utils";
 import UtilsRia from "../utils/UtilsRia";
-import { URLs } from "../data/Data";
+import { URLs, platesManiaDataTest } from "../data/Data";
+
+export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+    dispatch(imgCarsmaniaLoaded(false));
+    const url = Utils.generateUrlforPlatesmania(URLs.getImagesByCarplateUrl, itemRequest);
+    fetch(url, {
+        headers:{
+          'Accept': 'application/json'
+        }
+    })
+    .then((response) => {
+        if (!response.ok){
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then(response => response.json())
+    .then((itemResponse: IPlatesmania) => {
+        if(itemResponse.cars.length > 0){
+           const data = itemResponse.cars;
+           dispatch(addPlatesmaniaCars(data));
+        }
+        dispatch(imgCarsmaniaLoaded(true));
+    })
+    .catch((error) => {
+        dispatch(addPlatesmaniaCars(platesManiaDataTest));
+        dispatch(imgCarsmaniaLoaded(true));
+        console.log(error);
+    });
+}
 
 export const fetchDataForRiaModel = (itemResponse: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(imgRiaLoaded(false));
@@ -142,6 +171,7 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
             dispatch(setItemRequest(itemRequest));
             dispatch(responseIsEmpty(false));
             dispatch(fetchDataForRiaModel(data));
+            dispatch(fetchDataForPlatesmania(itemRequest));
         }
         else{
             dispatch(responseIsEmpty(true));
@@ -245,11 +275,20 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, Appli
     });
 };
 
+export const imgCarsmaniaLoaded = (status: boolean): actions.ImgCarsmaniaLoadedAction => ({
+    type: actions.IMG_CARSMANIA_LOADED,
+    payload: status
+});
+
 export const imgRiaLoaded = (status: boolean): actions.ImgRiaLoadedAction => ({
     type: actions.IMG_RIA_LOADED,
     payload: status
 });
 
+export const addPlatesmaniaCars = (imagesPlatesmania: IPlatesmaniaCars[]): actions.AddCarsmaniaCarsAction => ({
+    type: actions.ADD_CARSMANIA_CARS,
+    payload: imagesPlatesmania
+});
 
 export const addRiaAds = (imagesRia: IRiaAds[]): actions.AddRiaAdsAction => ({
     type: actions.ADD_RIA_ADS,

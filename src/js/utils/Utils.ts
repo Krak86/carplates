@@ -114,4 +114,9 @@ export default class Utils {
     }
   }
 
+  public static generateUrlforPlatesmania(url: string, itemRequest: string): string{
+    //const shapedInputRequest = 'a001aa22';
+    return `${url}/mobile/api_photo_test1.php?nomer=${itemRequest}`;
+  }
+
 }

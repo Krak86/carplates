@@ -7,10 +7,20 @@ export const getReducer = (
     action: any
   ): ApplicationStates => {
     switch (action.type) {
+      case actions.IMG_CARSMANIA_LOADED:
+        return {
+          ...state,
+          imageCarsmaniaLoaded: action.payload
+        };
       case actions.IMG_RIA_LOADED:
         return {
           ...state,
           imageRiaLoaded: action.payload
+        };
+      case actions.ADD_CARSMANIA_CARS:
+        return {
+          ...state,
+          imagesPlatesMania: action.payload
         };
       case actions.ADD_RIA_ADS:
         return {

@@ -1,4 +1,4 @@
-import { ApplicationStates, Item, itemSearching, VIN } from "../models/Interfaces";
+import { ApplicationStates, Item, itemSearching, VIN, IPlatesmaniaCars } from "../models/Interfaces";
 
 
 const itemResponse: Item = {
@@ -78,6 +78,7 @@ export const initialData: ApplicationStates = {
     facebookResponse: facebookInit,
     googleResponse: googleInit,
     imageRiaLoaded: false,
+    imageCarsmaniaLoaded: false,
 }
 
 export const regions = {
@@ -168,8 +169,33 @@ export const URLs = {
     "getDataByVinUrl": "https://vpic.nhtsa.dot.gov/api/vehicles/decodevin",
     "getImageByNameUrl": "https://pixabay.com/api/?key=",
     "getImagesByCarplateUrlTest": "http://platesmania.com/mobile/api_photo_test1.php?nomer=AA-100-AA",
-    "getImagesByCarplateUrl": "http://platesmania.com",
+    "getImagesByCarplateUrl": "http://avto-nomer.ru",
     "carPlateRecMlApiUrl": "",
     "riaUrl": "https://developers.ria.com/auto",
     "riaUrlPublic": "https://auto.ria.com",
 }
+
+export const platesManiaDataTest: IPlatesmaniaCars[] = [
+    {
+        "make": "Audi",
+        "model": "A8",
+        "date": "2013-12-21 19:38:20",
+        "photo": {
+            "link": "http://avto-nomer.ru/ru/nomer4079960",
+            "small": "http://img02.avto-nomer.ru/131221/s/ru4079960.jpg",
+            "medium": "http://img02.avto-nomer.ru/131221/m/ru4079960.jpg",
+            "original": "http://img02.avto-nomer.ru/131221/o/ru4079960.jpg"
+        }
+    },
+    {
+        "make": "Audi",
+        "model": "Q7",
+        "date": "2016-05-11 19:00:27",
+        "photo": {
+            "link": "http://avto-nomer.ru/ru/nomer8424417",
+            "small": "http://img03.platesmania.com/160511/s/8424417.jpg",
+            "medium": "http://img03.platesmania.com/160511/m/8424417.jpg",
+            "original": "http://img03.platesmania.com/160511/o/8424417.jpg"
+        }
+    }
+]
