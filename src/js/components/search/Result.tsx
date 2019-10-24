@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { AppState } from "../../store";
-import { ApplicationStates, IVinResultValues, IRiaAds } from "../../models/Interfaces";
+import { ApplicationStates, IVinResultValues, IRiaAds, IPlatesmaniaCars } from "../../models/Interfaces";
 import { ResultRiaCard } from "./ResultRiaCard";
 import { ResultCard } from "./ResultCard";
 import { ResultPlatesmaniaCard } from "./ResultPlatesmaniaCard";
@@ -123,7 +123,9 @@ export const Result = () => {
             {state.itemIsLoaded === true && state.itemSearching === 0 && 
              state.imageCarsmaniaLoaded === true && state.imagesPlatesMania.length > 0 &&
                 <div className={classes.container}>
-                    <ResultPlatesmaniaCard images={state.imagesPlatesMania} />
+                    {state.imagesPlatesMania.map((i: IPlatesmaniaCars) => {
+                        return <ResultPlatesmaniaCard item={i} key={Math.random()}/>
+                    })}
                 </div>
             }
 

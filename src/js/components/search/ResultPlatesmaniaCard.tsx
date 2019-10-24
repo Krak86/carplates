@@ -47,15 +47,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }),
 );
 
-export const ResultPlatesmaniaCard = (props: {images: IPlatesmaniaCars[]}) => {
+export const ResultPlatesmaniaCard = (props: {item: IPlatesmaniaCars}) => {
+    const { item } = props;
     const classes = useStyles({});
     const handleRedirectClick = (url: string) => {
         window.open(url);
     };
     return (
-        <Fragment>
-            {props.images.map((imageCard: IPlatesmaniaCars) => {
-                return <Card className={classes.card}>
+                <Card className={classes.card}>
                     <CardHeader
                         avatar={
                         <Avatar aria-label="recipe" className={classes.avatar}>
@@ -67,73 +66,22 @@ export const ResultPlatesmaniaCard = (props: {images: IPlatesmaniaCars[]}) => {
                     />
                     <CardMedia
                         className={classes.media}
-                        image={imageCard.photo.medium}                
+                        image={item.photo.medium}                
                     />
                     <CardContent>
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
-                            "Дата світлини": {imageCard.date}
+                            "Дата світлини": {item.date}
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton 
                             aria-label="open original image"
                             title="Open original image"
-                            onClick={ () => handleRedirectClick(imageCard.photo.original)}
+                            onClick={ () => handleRedirectClick(item.photo.original)}
                         >
                             <SendIcon />
                         </IconButton>
                     </CardActions>
                 </Card>
-            })}
-            
-            {/*    
-                <CardHeader
-                    avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                        PM
-                    </Avatar>
-                    }
-                    title="Result images from"
-                    subheader="http://platesmania.com"        
-                />
-                <CardMedia
-                    className={classes.media}
-                    image="http://img02.avto-nomer.ru/150711/m/fr73629.jpg"                
-                />
-                <CardContent>
-                    <Typography className={classes.title} color="textSecondary" gutterBottom>
-                        "Дата світлини": "2015-07-11 12:25:24"
-                    </Typography>
-                </CardContent>
-                <CardActions disableSpacing>
-                    <IconButton 
-                        aria-label="open original image"
-                        title="Open original image"
-                        onClick={ () => handleRedirectClick("http://img02.avto-nomer.ru/150711/o/fr73629.jpg")}
-                    >
-                        <SendIcon />
-                    </IconButton>
-                </CardActions>
-
-                <CardMedia
-                    className={classes.media}
-                    image="http://img03.platesmania.com/180401/m/11146987.jpg"                
-                />
-                 <CardContent>
-                    <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    "Дата світлини": "2018-04-01 07:58:04"
-                    </Typography>
-                </CardContent>
-                <CardActions disableSpacing>
-                    <IconButton 
-                        aria-label="open original image"
-                        title="Open original image"
-                        onClick={ () => handleRedirectClick("http://img03.platesmania.com/180401/o/11146987.jpg")}
-                    >
-                        <SendIcon />
-                    </IconButton>
-                </CardActions>
-                */}  
-        </Fragment>
   );
 }
