@@ -2,6 +2,9 @@ import React, { Fragment} from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { IPlatesmaniaCars } from "../../models/Interfaces";
 import lang from "../../locale";
+import { AppState } from "../../store";
+import { ApplicationStates} from "../../models/Interfaces";
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -50,6 +53,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 export const ResultPlatesmaniaCard = (props: {item: IPlatesmaniaCars}) => {
     const { item } = props;
+    const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
     const classes = useStyles({});
     const handleRedirectClick = (url: string) => {
         window.open(url);
@@ -62,7 +66,7 @@ export const ResultPlatesmaniaCard = (props: {item: IPlatesmaniaCars}) => {
                             PM
                         </Avatar>
                         }
-                        title={lang.card_ResultImagesFrom}
+                        title={lang(state.lang).card_ResultImagesFrom}
                         subheader="http://platesmania.com"        
                     />
                     <CardMedia
@@ -71,13 +75,13 @@ export const ResultPlatesmaniaCard = (props: {item: IPlatesmaniaCars}) => {
                     />
                     <CardContent>
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
-                          {lang.card_ImgDate}: {item.date}
+                          {lang(state.lang).card_ImgDate}: {item.date}
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton 
                             aria-label="open original image"
-                            title={lang.card_openOriginalImage}
+                            title={lang(state.lang).card_openOriginalImage}
                             onClick={ () => handleRedirectClick(item.photo.original)}
                         >
                             <SendIcon />

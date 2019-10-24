@@ -1,5 +1,8 @@
 import React, { Fragment, useMemo, forwardRef } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { AppState } from "../../store";
+import { ApplicationStates} from "../../models/Interfaces";
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Lang } from "../models/Interfaces";
 import lang from "../locale";
@@ -60,6 +63,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 );
 
 export const routesLinks = () => {
+  const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const [open, setOpen] = React.useState(false);
   //dispatch action creators
@@ -88,19 +92,19 @@ export const routesLinks = () => {
       <List>
         <ListItemLink 
           to="/" 
-          primary={lang.url_search} 
+          primary={lang(state.lang).url_search} 
           icon={<SearchIcon />}
           callbackFunc={handleDrawerClose}
         />
         <ListItemLink 
           to="/favorites" 
-          primary={lang.url_favs} 
+          primary={lang(state.lang).url_favs} 
           icon={<FavoriteIcon />} 
           callbackFunc={handleDrawerClose}
         />
         <ListItemLink 
           to="/about" 
-          primary={lang.url_about} 
+          primary={lang(state.lang).url_about} 
           icon={<InfoIcon />} 
           callbackFunc={handleDrawerClose}
         />
@@ -109,7 +113,7 @@ export const routesLinks = () => {
       <List>
         <ListItemLink 
           to="/profile" 
-          primary={lang.url_profile} 
+          primary={lang(state.lang).url_profile} 
           icon={<PermIdentityIcon />} 
           callbackFunc={handleDrawerClose}
         />
@@ -120,7 +124,7 @@ export const routesLinks = () => {
           <ListItemIcon>
             <GTranslateIcon />
           </ListItemIcon>
-          <ListItemText primary={lang.url_lang}  />
+          <ListItemText primary={lang(state.lang).url_lang}  />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -159,7 +163,7 @@ export const routesLinks = () => {
         </Collapse>
         <ListItemLink 
           to="/disqus" 
-          primary={lang.url_disqus} 
+          primary={lang(state.lang).url_disqus} 
           icon={<ChatIcon />} 
           callbackFunc={handleDrawerClose}
         />
@@ -168,7 +172,7 @@ export const routesLinks = () => {
       <List>
         <ListItemLink 
           to="/store" 
-          primary={lang.url_store} 
+          primary={lang(state.lang).url_store} 
           icon={<ShopIcon />} 
           callbackFunc={handleDrawerClose}
         />
@@ -181,7 +185,7 @@ export const routesLinks = () => {
             <VerticalAlignBottomIcon />
           </ListItemIcon>
           <ListItemText 
-            primary={lang.url_install} 
+            primary={lang(state.lang).url_install} 
           />
         </ListItem>
       </List> 

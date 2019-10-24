@@ -74,7 +74,7 @@ export const Login = () => {
                 aria-haspopup="true"
                 onClick={handleMenu1}
             >
-            {lang.login}
+            {lang(state.lang).login}
             </Button>
             <Menu
                 id="menu-appbar"
@@ -97,13 +97,13 @@ export const Login = () => {
                     fields="name,email,picture"
                     callback={responseFacebook}
                     onFailure={handleFailure}
-                    textButton={lang.login_facebook}
+                    textButton={lang(state.lang).login_facebook}
                 />
             </MenuItem>
             <MenuItem onClick={handleClose1}>
                 <GoogleLogin
                     clientId={appIdGoogle}
-                    buttonText={lang.login_google}
+                    buttonText={lang(state.lang).login_google}
                     onSuccess={responseGoogle}
                     onFailure={handleFailure}
                 />

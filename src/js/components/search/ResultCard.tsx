@@ -4,6 +4,10 @@ import { Item } from "../../models/Interfaces";
 import lang from "../../locale";
 import { regions } from "../../data/Data";
 
+import { AppState } from "../../store";
+import { ApplicationStates} from "../../models/Interfaces";
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import { ShareDialog } from "../share/ShareDialog";
@@ -62,6 +66,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 );
 
 export const ResultCard = (props: {item: Item}) => {
+    const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
     const classes = useStyles({});
     const [expanded, setExpanded] = React.useState(false);
     const [open, setOpen] = React.useState(false);
@@ -71,18 +76,18 @@ export const ResultCard = (props: {item: Item}) => {
     const primary = `${props.item.brand}/${props.item.model} (${props.item.make_year})`;
     const secondary = `${props.item.n_reg_new}, ${regions[props.item.PartitionKey]}`;
     
-    const body = `${lang.body}: ${props.item.body}`;
-    const capacity = `${lang.capacity}: ${props.item.capacity}`;
-    const color = `${lang.color}: ${props.item.color}`;
-    const weight = `${lang.weight}: ${props.item.own_weight}/${props.item.total_weight}`;
-    const fuel = `${lang.fuel}: ${props.item.fuel}`;
+    const body = `${lang(state.lang).body}: ${props.item.body}`;
+    const capacity = `${lang(state.lang).capacity}: ${props.item.capacity}`;
+    const color = `${lang(state.lang).color}: ${props.item.color}`;
+    const weight = `${lang(state.lang).weight}: ${props.item.own_weight}/${props.item.total_weight}`;
+    const fuel = `${lang(state.lang).fuel}: ${props.item.fuel}`;
 
-    const kind = `${lang.kind}: ${props.item.kind}`;
-    const purpose = `${lang.purpose}: ${props.item.purpose}`;
-    const person = `${lang.person}: ${props.item.person === "P" ? lang.person_private : lang.person_company}`;
-    const d_reg = `${lang.d_reg}: ${props.item.d_reg}`;
-    const oper_name = `${lang.oper_name}: ${props.item.dep} (${props.item.dep_code}), ${props.item.oper_name} (${props.item.oper_code})`;
-    const reg_addr_koatuu = `${lang.reg_addr_koatuu}: ${props.item.reg_addr_koatuu}`;
+    const kind = `${lang(state.lang).kind}: ${props.item.kind}`;
+    const purpose = `${lang(state.lang).purpose}: ${props.item.purpose}`;
+    const person = `${lang(state.lang).person}: ${props.item.person === "P" ? lang(state.lang).person_private : lang(state.lang).person_company}`;
+    const d_reg = `${lang(state.lang).d_reg}: ${props.item.d_reg}`;
+    const oper_name = `${lang(state.lang).oper_name}: ${props.item.dep} (${props.item.dep_code}), ${props.item.oper_name} (${props.item.oper_code})`;
+    const reg_addr_koatuu = `${lang(state.lang).reg_addr_koatuu}: ${props.item.reg_addr_koatuu}`;
 
     const handleClose = () => {
         setOpen(false);
@@ -108,7 +113,7 @@ export const ResultCard = (props: {item: Item}) => {
                     action={
                     <IconButton 
                         aria-label="settings"
-                        title={lang.card_settings}
+                        title={lang(state.lang).card_settings}
                         onClick={handleShareClick}
                     >
                         <MoreVertIcon />
@@ -137,14 +142,14 @@ export const ResultCard = (props: {item: Item}) => {
                 <CardActions disableSpacing>
                     <IconButton 
                         aria-label="share"
-                        title={lang.card_addToFavs}
+                        title={lang(state.lang).card_addToFavs}
                         onClick={handleAddToFavs}
                     >
                         <FavoriteIcon />
                     </IconButton>
                     <IconButton 
                         aria-label="share"
-                        title={lang.card_share}
+                        title={lang(state.lang).card_share}
                         onClick={handleShareClick}
                     >
                         <ShareIcon />
@@ -156,7 +161,7 @@ export const ResultCard = (props: {item: Item}) => {
                         onClick={handleExpandClick}
                         aria-expanded={expanded}
                         aria-label="show more"
-                        title={lang.card_showMore}
+                        title={lang(state.lang).card_showMore}
                     >
                         <ExpandMoreIcon />
                     </IconButton>

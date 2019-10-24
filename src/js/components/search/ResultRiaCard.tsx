@@ -6,6 +6,9 @@ import Utils from "../../utils/Utils";
 import { bodyStyles } from "../../data/DataStylesRia";
 import lang from "../../locale";
 import { URLs } from "../../data/Data";
+import { AppState } from "../../store";
+import { ApplicationStates} from "../../models/Interfaces";
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -57,6 +60,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 export const ResultRiaCard = (props: {item: IRiaAds}) => {
     const classes = useStyles({});
+    const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
     const [expanded, setExpanded] = React.useState(false);
     const [open, setOpen] = React.useState(false);
 
@@ -98,7 +102,7 @@ export const ResultRiaCard = (props: {item: IRiaAds}) => {
                     action={
                     <IconButton 
                         aria-label="settings"
-                        title={lang.card_settings}
+                        title={lang(state.lang).card_settings}
                         onClick={handleShareClick}
                     >
                         <MoreVertIcon />
@@ -120,14 +124,14 @@ export const ResultRiaCard = (props: {item: IRiaAds}) => {
                 <CardActions disableSpacing>
                     <IconButton 
                         aria-label="open original ads"
-                        title={lang.card_openOriginalAds}
+                        title={lang(state.lang).card_openOriginalAds}
                         onClick={handleRedirectClick}
                     >
                         <SendIcon />
                     </IconButton>
                     <IconButton 
                         aria-label="share"
-                        title={lang.card_share}
+                        title={lang(state.lang).card_share}
                         onClick={handleShareClick}
                     >
                         <ShareIcon />
@@ -139,7 +143,7 @@ export const ResultRiaCard = (props: {item: IRiaAds}) => {
                         onClick={handleExpandClick}
                         aria-expanded={expanded}
                         aria-label="show more"
-                        title={lang.card_showMore}
+                        title={lang(state.lang).card_showMore}
                     >
                         <ExpandMoreIcon />
                     </IconButton>
@@ -147,22 +151,22 @@ export const ResultRiaCard = (props: {item: IRiaAds}) => {
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>   
                         <Typography variant="body2" component="p">
-                            {`${lang.race}: ${race}`}
+                            {`${lang(state.lang).race}: ${race}`}
                         </Typography>
                         <Typography className={classes.pos} color="textSecondary">
-                            {`${lang.kind}: ${category}`}
+                            {`${lang(state.lang).kind}: ${category}`}
                         </Typography>
                         <Typography variant="body2" component="p">
-                            {`${lang.fuel}: ${fuelName}`}
+                            {`${lang(state.lang).fuel}: ${fuelName}`}
                         </Typography>
                         <Typography className={classes.pos} color="textSecondary">
-                            {`${lang.gearbox}: ${gearboxName}`}
+                            {`${lang(state.lang).gearbox}: ${gearboxName}`}
                         </Typography>
                         <Typography variant="body2" component="p">
-                            {`${lang.body}: ${body}`}
+                            {`${lang(state.lang).body}: ${body}`}
                         </Typography>
                         <Typography className={classes.pos} color="textSecondary">
-                            {lang.phone}: <a href={`tel:${phone}`}>{phone}</a>
+                            {lang(state.lang).phone}: <a href={`tel:${phone}`}>{phone}</a>
                         </Typography>
                     </CardContent>
                 </Collapse>

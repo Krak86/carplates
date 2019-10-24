@@ -56,7 +56,7 @@ export const Result = () => {
                             <SentimentVeryDissatisfiedIcon />
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={lang.noResultMessage}/>
+                    <ListItemText primary={lang(state.lang).noResultMessage}/>
                 </ListItem>
             }
 
@@ -104,7 +104,7 @@ export const Result = () => {
                         <SentimentVeryDissatisfiedIcon />
                     </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={lang.noResultMessage}/>
+                <ListItemText primary={lang(state.lang).noResultMessage}/>
             </ListItem>
             }
 
@@ -115,7 +115,7 @@ export const Result = () => {
                         <HourglassEmptyIcon />
                     </Avatar>
                 </ListItemAvatar>
-                <ListItemText primary={lang.imgRecognizingMessage}/>
+                <ListItemText primary={lang(state.lang).imgRecognizingMessage}/>
             </ListItem>
             }
             </Paper>

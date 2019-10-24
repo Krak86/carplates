@@ -21,7 +21,6 @@ import ClearIcon from '@material-ui/icons/Clear';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import Snackbar from '@material-ui/core/Snackbar';
 
-const options = lang.cameraActions;
 const ITEM_HEIGHT = 48;
 const attachImageID = "attachImage";
 
@@ -125,7 +124,7 @@ export const SearchField = () => {
   //componentDidMounted, componentDidUpdated
   const searchInput = useRef(null);
   useEffect(() => {
-    document.title = `${lang.documentTitle} ${state.itemRequest}`;
+    document.title = `${lang(state.lang).documentTitle} ${state.itemRequest}`;
   });
   useEffect(() => {
     searchInput.current.focus();
@@ -152,6 +151,7 @@ export const SearchField = () => {
   const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || URLs.getDataByPlateUrl;
   const serviceUrlVIN = process.env.VIN_SERVICE_URL || URLs.getDataByVinUrl;
   const serviceRecognizeImageUrl = process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL || URLs.carPlateRecMlApiUrl;
+  const options = lang(state.lang).cameraActions;
 
   const handleChange = (value: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue({...inputValue, [value]: event.target.value });
@@ -211,12 +211,12 @@ export const SearchField = () => {
     let file = value[0];
     if(!Utils.checkFileType(file)){
       setOpenSnackbar(true);
-      handleSnackbarMessage(lang.messageChooseImage);
+      handleSnackbarMessage(lang(state.lang).messageChooseImage);
       return;
     }
     if(!Utils.checkImageSize(file)){
       setOpenSnackbar(true);
-      handleSnackbarMessage(lang.messageImageLimit);
+      handleSnackbarMessage(lang(state.lang).messageImageLimit);
       return;
     }
     dispatch(imageFetchData(file, serviceRecognizeImageUrl));  
@@ -237,8 +237,8 @@ export const SearchField = () => {
       <Paper className={classes.root}>
         <InputBase
           className={classes.input}
-          placeholder={lang.searchInputPlaceholderText}
-          inputProps={{ 'aria-label': lang.searchInputPlaceholderText }}
+          placeholder={lang(state.lang).searchInputPlaceholderText}
+          inputProps={{ 'aria-label': lang(state.lang).searchInputPlaceholderText }}
           onChange={handleChange('value')}
           value={inputValue.value}
           onKeyPress={handlerKeyPress}

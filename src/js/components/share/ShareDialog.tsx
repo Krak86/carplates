@@ -1,6 +1,9 @@
 import React from 'react';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
+import { AppState } from "../../store";
+import { ApplicationStates} from "../../models/Interfaces";
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import lang from "../../locale";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import {
@@ -42,13 +45,14 @@ export interface IShareDialog{
 
 export const ShareDialog = (props: IShareDialog) => {
     const { url, open, onClose } = props;
+    const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
     const classes = useStyles({});
     const handleClose = () => {
       onClose();
     };
     return (
       <Dialog onClose={handleClose} aria-labelledby="dialog-title" open={open}>
-        <DialogTitle id="dialog-title">{lang.card_share}</DialogTitle>
+        <DialogTitle id="dialog-title">{lang(state.lang).card_share}</DialogTitle>
         <div>
             <div className={classes.network}>
             <FacebookShareButton
