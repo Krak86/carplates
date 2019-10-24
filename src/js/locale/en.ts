@@ -9,8 +9,8 @@ export const lang: Locale = {
 
     login: "Login",
     logout: "Logout",
-    login_google: "Увійти через Google",
-    login_facebook: "Увійти через Facebook",
+    login_google: "Login with Google",
+    login_facebook: "Login with Facebook",
 
     rowKey: "Car plate",
     brand: "Brand",
@@ -52,4 +52,22 @@ export const lang: Locale = {
 
     messageChooseImage: "Please choose image file!",
     messageImageLimit: "File should be less then 5 MB!",
+
+    url_search: "Search",
+    url_favs: "Favorites", 
+    url_about: "About",
+    url_profile: "Profile",
+    url_lang: "Disqus",
+    url_disqus: "Store",
+    url_store: "Store",
+    url_install: "Install App",
+
+    card_settings: "Settings",
+    card_addToFavs: "Add to Favorites",
+    card_share: "Share",
+    card_showMore: "Show more",
+    card_openOriginalAds: "Open original ads",
+    card_openOriginalImage: "Open original image",
+    card_ResultImagesFrom: "Result images from",
+    card_ImgDate: "Image date",
 }

@@ -50,4 +50,22 @@ export const lang: Locale = {
 
     messageChooseImage: "Виберіть зображення!",
     messageImageLimit: "Файл повинен бути менше 5 Мб!",
+
+    url_search: "Пошук",
+    url_favs: "Обране", 
+    url_about: "Про додаток",
+    url_profile: "Профіль",
+    url_lang: "Мова",
+    url_disqus: "Обговорити",
+    url_store: "Магазин",
+    url_install: "Встановити додаток",
+
+    card_settings: "Налаштування",
+    card_addToFavs: "Додати до обраного",
+    card_share: "Поділитися",
+    card_showMore: "Показати більше",
+    card_openOriginalAds: "Відкрийте оригінальні оголошення",
+    card_openOriginalImage: "Відкрити оригінальне зображення",
+    card_ResultImagesFrom: "Зображення з ресурсу",
+    card_ImgDate: "Дата світлини",
 }

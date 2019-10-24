@@ -151,6 +151,25 @@ export interface Locale{
 
     messageChooseImage?: string;
     messageImageLimit?: string;
+
+    url_search: string;
+    url_favs: string;
+    url_about: string;
+    url_profile: string;
+    url_lang: string;
+    url_disqus: string;
+    url_store: string;
+    url_install: string;
+
+    card_settings: string;
+    card_addToFavs: string;
+    card_share: string;
+    card_showMore: string;
+    card_openOriginalAds: string;
+    card_openOriginalImage: string;
+    card_ResultImagesFrom: string;
+    card_ImgDate: string;
+
 }
 
 export interface IVinResultValues{

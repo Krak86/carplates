@@ -1,6 +1,7 @@
 import React, { Fragment} from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { IPlatesmaniaCars } from "../../models/Interfaces";
+import lang from "../../locale";
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -61,7 +62,7 @@ export const ResultPlatesmaniaCard = (props: {item: IPlatesmaniaCars}) => {
                             PM
                         </Avatar>
                         }
-                        title="Result images from"
+                        title={lang.card_ResultImagesFrom}
                         subheader="http://platesmania.com"        
                     />
                     <CardMedia
@@ -70,13 +71,13 @@ export const ResultPlatesmaniaCard = (props: {item: IPlatesmaniaCars}) => {
                     />
                     <CardContent>
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
-                            "Дата світлини": {item.date}
+                          {lang.card_ImgDate}: {item.date}
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton 
                             aria-label="open original image"
-                            title="Open original image"
+                            title={lang.card_openOriginalImage}
                             onClick={ () => handleRedirectClick(item.photo.original)}
                         >
                             <SendIcon />

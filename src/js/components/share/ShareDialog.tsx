@@ -1,6 +1,7 @@
 import React from 'react';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
+import lang from "../../locale";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import {
     FacebookShareButton,
@@ -47,7 +48,7 @@ export const ShareDialog = (props: IShareDialog) => {
     };
     return (
       <Dialog onClose={handleClose} aria-labelledby="dialog-title" open={open}>
-        <DialogTitle id="dialog-title">Share with your friends</DialogTitle>
+        <DialogTitle id="dialog-title">{lang.card_share}</DialogTitle>
         <div>
             <div className={classes.network}>
             <FacebookShareButton

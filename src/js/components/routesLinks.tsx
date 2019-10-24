@@ -2,6 +2,7 @@ import React, { Fragment, useMemo, forwardRef } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Lang } from "../models/Interfaces";
+import lang from "../locale";
 import { Link, LinkProps } from 'react-router-dom';
 import { toggleDrawer, changeLang } from "../store/actions";
 import ListItem from '@material-ui/core/ListItem';
@@ -87,19 +88,19 @@ export const routesLinks = () => {
       <List>
         <ListItemLink 
           to="/" 
-          primary="Search" 
+          primary={lang.url_search} 
           icon={<SearchIcon />}
           callbackFunc={handleDrawerClose}
         />
         <ListItemLink 
           to="/favorites" 
-          primary="Favorites" 
+          primary={lang.url_favs} 
           icon={<FavoriteIcon />} 
           callbackFunc={handleDrawerClose}
         />
         <ListItemLink 
           to="/about" 
-          primary="About" 
+          primary={lang.url_about} 
           icon={<InfoIcon />} 
           callbackFunc={handleDrawerClose}
         />
@@ -108,7 +109,7 @@ export const routesLinks = () => {
       <List>
         <ListItemLink 
           to="/profile" 
-          primary="Profile" 
+          primary={lang.url_profile} 
           icon={<PermIdentityIcon />} 
           callbackFunc={handleDrawerClose}
         />
@@ -119,7 +120,7 @@ export const routesLinks = () => {
           <ListItemIcon>
             <GTranslateIcon />
           </ListItemIcon>
-          <ListItemText primary="Language" />
+          <ListItemText primary={lang.url_lang}  />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -158,7 +159,7 @@ export const routesLinks = () => {
         </Collapse>
         <ListItemLink 
           to="/disqus" 
-          primary="Disqus" 
+          primary={lang.url_disqus} 
           icon={<ChatIcon />} 
           callbackFunc={handleDrawerClose}
         />
@@ -167,7 +168,7 @@ export const routesLinks = () => {
       <List>
         <ListItemLink 
           to="/store" 
-          primary="Store"
+          primary={lang.url_store} 
           icon={<ShopIcon />} 
           callbackFunc={handleDrawerClose}
         />
@@ -180,7 +181,7 @@ export const routesLinks = () => {
             <VerticalAlignBottomIcon />
           </ListItemIcon>
           <ListItemText 
-            primary="Install App" 
+            primary={lang.url_install} 
           />
         </ListItem>
       </List> 

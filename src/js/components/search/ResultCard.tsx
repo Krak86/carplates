@@ -108,7 +108,7 @@ export const ResultCard = (props: {item: Item}) => {
                     action={
                     <IconButton 
                         aria-label="settings"
-                        title="settings"
+                        title={lang.card_settings}
                         onClick={handleShareClick}
                     >
                         <MoreVertIcon />
@@ -137,14 +137,14 @@ export const ResultCard = (props: {item: Item}) => {
                 <CardActions disableSpacing>
                     <IconButton 
                         aria-label="share"
-                        title="Add to Favorites"
+                        title={lang.card_addToFavs}
                         onClick={handleAddToFavs}
                     >
                         <FavoriteIcon />
                     </IconButton>
                     <IconButton 
                         aria-label="share"
-                        title="Share"
+                        title={lang.card_share}
                         onClick={handleShareClick}
                     >
                         <ShareIcon />
@@ -156,7 +156,7 @@ export const ResultCard = (props: {item: Item}) => {
                         onClick={handleExpandClick}
                         aria-expanded={expanded}
                         aria-label="show more"
-                        title="show more"
+                        title={lang.card_showMore}
                     >
                         <ExpandMoreIcon />
                     </IconButton>

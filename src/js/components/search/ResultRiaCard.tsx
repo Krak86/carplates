@@ -98,7 +98,7 @@ export const ResultRiaCard = (props: {item: IRiaAds}) => {
                     action={
                     <IconButton 
                         aria-label="settings"
-                        title="settings"
+                        title={lang.card_settings}
                         onClick={handleShareClick}
                     >
                         <MoreVertIcon />
@@ -120,14 +120,14 @@ export const ResultRiaCard = (props: {item: IRiaAds}) => {
                 <CardActions disableSpacing>
                     <IconButton 
                         aria-label="open original ads"
-                        title="Open original ads"
+                        title={lang.card_openOriginalAds}
                         onClick={handleRedirectClick}
                     >
                         <SendIcon />
                     </IconButton>
                     <IconButton 
                         aria-label="share"
-                        title="Share"
+                        title={lang.card_share}
                         onClick={handleShareClick}
                     >
                         <ShareIcon />
@@ -139,7 +139,7 @@ export const ResultRiaCard = (props: {item: IRiaAds}) => {
                         onClick={handleExpandClick}
                         aria-expanded={expanded}
                         aria-label="show more"
-                        title="Show more"
+                        title={lang.card_showMore}
                     >
                         <ExpandMoreIcon />
                     </IconButton>
