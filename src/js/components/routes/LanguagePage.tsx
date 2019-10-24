@@ -9,7 +9,7 @@ export const LanguagePage = () => {
     //constructor, componentDidMounted, componentDidUpdated
     return (
         <Fragment>
-            Language Page
+            Language: {state.lang}
         </Fragment>
     )
 }

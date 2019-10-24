@@ -21,6 +21,13 @@ export interface ApplicationStates {
   googleResponse: IGoogle;
   imageRiaLoaded: boolean;
   imageCarsmaniaLoaded: boolean;
+  lang: Lang;
+}
+
+export enum Lang{
+  ua = 0,
+  ru = 1,
+  en = 2,
 }
 
 export enum itemSearching{

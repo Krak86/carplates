@@ -1,4 +1,4 @@
-import { Item, VIN, Auth, IFacebook, IGoogle, IRiaAds, IPlatesmaniaCars } from "../models/Interfaces";
+import { Item, VIN, Auth, IFacebook, IGoogle, IRiaAds, IPlatesmaniaCars, Lang } from "../models/Interfaces";
 
 export const ITEM_FETCH_DATA_SUCCESS: string = "ITEM_FETCH_DATA_SUCCESS";
 export const SET_ITEM_REQUEST: string = "SET_ITEM_REQUEST";
@@ -20,7 +20,12 @@ export const ADD_RIA_ADS: string = "ADD_RIA_ADS";
 export const ADD_CARSMANIA_CARS: string = "ADD_CARSMANIA_CARS";
 export const IMG_RIA_LOADED: string = "IMG_RIA_LOADED";
 export const IMG_CARSMANIA_LOADED: string = "IMG_CARSMANIA_LOADED";
+export const CHANGE_LANG: string = "CHANGE_LANG";
 
+export interface ChangeLangAction{
+    type: typeof CHANGE_LANG;
+    payload: Lang;
+}
 export interface ImgCarsmaniaLoadedAction{
     type: typeof IMG_CARSMANIA_LOADED;
     payload: boolean;

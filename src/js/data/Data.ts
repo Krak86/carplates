@@ -79,6 +79,7 @@ export const initialData: ApplicationStates = {
     googleResponse: googleInit,
     imageRiaLoaded: false,
     imageCarsmaniaLoaded: false,
+    lang: 0,
 }
 
 export const regions = {

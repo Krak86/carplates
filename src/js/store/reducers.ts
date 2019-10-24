@@ -7,6 +7,11 @@ export const getReducer = (
     action: any
   ): ApplicationStates => {
     switch (action.type) {
+      case actions.CHANGE_LANG:
+        return {
+          ...state,
+          lang: action.payload
+        };
       case actions.IMG_CARSMANIA_LOADED:
         return {
           ...state,

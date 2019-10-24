@@ -1,6 +1,7 @@
 import  * as actions from "./types";
 import { Action } from "redux";
-import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse, Auth, IFacebook, IGoogle, IRiaCategories, IRiaSearch, IRiaAds, IRiaSearchData, IPlatesmania, IPlatesmaniaCars } from "../models/Interfaces";
+import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse, Auth, IFacebook, IGoogle, IRiaCategories, IRiaSearch, 
+    IRiaAds, IRiaSearchData, IPlatesmania, IPlatesmaniaCars, Lang } from "../models/Interfaces";
 import { ThunkAction } from "redux-thunk";
 import Utils from "../utils/Utils";
 import UtilsRia from "../utils/UtilsRia";
@@ -274,6 +275,11 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, Appli
         console.log(error);
     });
 };
+
+export const changeLang = (status: Lang): actions.ChangeLangAction => ({
+    type: actions.CHANGE_LANG,
+    payload: status
+});
 
 export const imgCarsmaniaLoaded = (status: boolean): actions.ImgCarsmaniaLoadedAction => ({
     type: actions.IMG_CARSMANIA_LOADED,
