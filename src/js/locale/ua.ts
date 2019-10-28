@@ -64,7 +64,7 @@ export const lang: Locale = {
     card_addToFavs: "Додати до обраного",
     card_share: "Поділитися",
     card_showMore: "Показати більше",
-    card_openOriginalAds: "Відкрийте оригінальні оголошення",
+    card_openOriginalAds: "Відкрити оригінальні оголошення",
     card_openOriginalImage: "Відкрити оригінальне зображення",
     card_ResultImagesFrom: "Зображення з ресурсу",
     card_ImgDate: "Дата світлини",
