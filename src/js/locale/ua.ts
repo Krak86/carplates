@@ -50,6 +50,7 @@ export const lang: Locale = {
 
     messageChooseImage: "Виберіть зображення!",
     messageImageLimit: "Файл повинен бути менше 5 Мб!",
+    messageTurnOnCamera: "Будь ласка, увімкніть камеру або надайте доступ для використання камери!",
 
     url_search: "Пошук",
     url_favs: "Обране", 

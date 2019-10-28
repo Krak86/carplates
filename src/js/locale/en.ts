@@ -52,6 +52,7 @@ export const lang: Locale = {
 
     messageChooseImage: "Please choose image file!",
     messageImageLimit: "File should be less then 5 MB!",
+    messageTurnOnCamera: "Please turn on the camera or give access to use camera!",
 
     url_search: "Search",
     url_favs: "Favorites", 

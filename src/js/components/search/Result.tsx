@@ -118,9 +118,20 @@ export const Result = () => {
                 <ListItemText primary={lang(state.lang).imgRecognizingMessage}/>
             </ListItem>
             }
+
+            {state.itemIsLoaded === true && state.itemIsLoading === true && state.itemSearching === 3 &&
+            <ListItem>
+                <ListItemAvatar>
+                    <Avatar>
+                        <SentimentVeryDissatisfiedIcon />
+                    </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary={lang(state.lang).noResultMessage}/>
+            </ListItem>
+            }
             </Paper>
 
-            {state.itemIsLoaded === true && state.itemSearching === 0 && 
+            {state.itemIsLoaded === true && state.responseIsEmpty === false && state.itemSearching === 0 && 
              state.imageCarsmaniaLoaded === true && state.imagesPlatesMania.length > 0 &&
                 <div className={classes.container}>
                     {state.imagesPlatesMania.map((i: IPlatesmaniaCars) => {

@@ -137,20 +137,16 @@ export const SearchField = () => {
   const options = lang(state.lang).cameraActions;
   const ITEM_HEIGHT = 48;
   const attachImageID = "attachImage";
-  let stream: MediaStream;
 
   const takeAPhoto = async () =>{
     if('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices){
       try{
-        stream = await navigator.mediaDevices.getUserMedia({video: true});
+        await navigator.mediaDevices.getUserMedia({video: true});
         handleClickOpenDialog();
-        //alert(stream);
-        //https://developers.google.com/web/fundamentals/media/capturing-images
-        //player.srcObject = stream;
       }
       catch(e){
         setOpenSnackbar(true);
-        handleSnackbarMessage("Please turn on the camera or give access to use camera!");
+        handleSnackbarMessage(lang(state.lang).messageTurnOnCamera);
       }
     }
   }
@@ -320,8 +316,6 @@ export const SearchField = () => {
         title={options[0]}
         openDialog={openDialog}
         handleClickCloseDialog={handleClickCloseDialog}
-        stream={stream}
-        //Ids={Ids}
       />
     </Fragment>
   );
