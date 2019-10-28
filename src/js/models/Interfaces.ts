@@ -554,3 +554,7 @@ export interface IPlatesmania{
   "informer": string;
   "cars": IPlatesmaniaCars[];
 }
+
+export interface ISearchFieldState {
+  value: string;
+}

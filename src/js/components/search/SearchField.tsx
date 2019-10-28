@@ -1,14 +1,15 @@
 import React, { SyntheticEvent, Fragment, useState, useRef, useEffect } from 'react';
+import Utils from "../../utils/Utils";
+import lang from "../../locale";
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { itemFetchDataForPlate, itemFetchDataForVin, setItemRequest, imageFetchData } from "../../store/actions";
 import { AppState } from "../../store";
-import { ApplicationStates} from "../../models/Interfaces";
+import { ApplicationStates, ISearchFieldState } from "../../models/Interfaces";
 import { URLs } from "../../data/Data";
-import Utils from "../../utils/Utils";
-import lang from "../../locale";
 import { SnackbarContentWrapper } from "../snackbar/SnackbarContentWrapper";
+import { DialogVideoWindow } from "../video/DialogVideoWindow";
 
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
@@ -20,13 +21,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import Snackbar from '@material-ui/core/Snackbar';
-
-const ITEM_HEIGHT = 48;
-const attachImageID = "attachImage";
-
-interface State {
-  value: string;
-}
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
@@ -57,8 +51,14 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     margin: {
       margin: theme.spacing(1),
     },
-  }),
-);
+    appBar: {
+      position: 'relative',
+    },
+    title: {
+      marginLeft: theme.spacing(2),
+      flex: 1,
+    },
+}));
 
 const isEmpty = (value: string): boolean => {
   if(
@@ -71,11 +71,9 @@ const isEmpty = (value: string): boolean => {
     return false;
   }
 };
-
 const isVin = (value: string): boolean => {
   return (Utils.trimData(value).length === 17);
 }
-
 const shapeDataPlate = (value: string): string => {
   return Utils.convertToCyrillic(      
       Utils.trimData(value).toLocaleUpperCase(),
@@ -84,39 +82,24 @@ const shapeDataPlate = (value: string): string => {
       Utils.reducer
     );
 };
-
 const shapeUrlPlate = (value: string, url: string): string => {
   return Utils.shapeUrlPlate(url, value, Utils.extractPartitionKey(value));
 }
-
 const shapeDataVin = (value: string): string => {
   return Utils.trimData(value);
 };
-
 const shapeUrlVin = (value: string, url: string): string => {
   return Utils.shapeUrlVin(url, value);
 }
 
-async function takeAPhoto(){
-  if('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices){
-    try{
-      const stream = await navigator.mediaDevices.getUserMedia({video: true});
-      alert(stream);
-    }
-    catch(e){
-      alert("Requested device not found");
-    }  
-      
-  }
-}
-
 export const SearchField = () => {
   //constructor
-  const [inputValue, setInputValue] = useState<State>({value: ""});
+  const [inputValue, setInputValue] = useState<ISearchFieldState>({value: ""});
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState("");
+  const [openDialog, setOpenDialog] = React.useState(false);
   //mapStateToProps
   const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
   //mapDispatchToProps
@@ -147,13 +130,37 @@ export const SearchField = () => {
   let history = useHistory();
   //hook styles
   const classes = useStyles({});
-
+  //init
   const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || URLs.getDataByPlateUrl;
   const serviceUrlVIN = process.env.VIN_SERVICE_URL || URLs.getDataByVinUrl;
   const serviceRecognizeImageUrl = process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL || URLs.carPlateRecMlApiUrl;
   const options = lang(state.lang).cameraActions;
+  const ITEM_HEIGHT = 48;
+  const attachImageID = "attachImage";
+  let stream: MediaStream;
 
-  const handleChange = (value: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const takeAPhoto = async () =>{
+    if('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices){
+      try{
+        stream = await navigator.mediaDevices.getUserMedia({video: true});
+        handleClickOpenDialog();
+        //alert(stream);
+        //https://developers.google.com/web/fundamentals/media/capturing-images
+        //player.srcObject = stream;
+      }
+      catch(e){
+        setOpenSnackbar(true);
+        handleSnackbarMessage("Please turn on the camera or give access to use camera!");
+      }
+    }
+  }
+  const handleClickOpenDialog = () => {
+    setOpenDialog(true);
+  };
+  const handleClickCloseDialog = () => {
+    setOpenDialog(false);
+  };
+  const handleChange = (value: keyof ISearchFieldState) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue({...inputValue, [value]: event.target.value });
   };
   const handleSearchClick = () => {
@@ -232,8 +239,7 @@ export const SearchField = () => {
   }
 
   return (
-    <Fragment>      
-      {/*JSON.stringify(state.itemRequest)*/}
+    <Fragment>
       <Paper className={classes.root}>
         <InputBase
           className={classes.input}
@@ -310,6 +316,13 @@ export const SearchField = () => {
           message={snackbarMessage}
         />
       </Snackbar>
+      <DialogVideoWindow
+        title={options[0]}
+        openDialog={openDialog}
+        handleClickCloseDialog={handleClickCloseDialog}
+        stream={stream}
+        //Ids={Ids}
+      />
     </Fragment>
   );
 }
