@@ -25,6 +25,26 @@ const useStyles = makeStyles({
       width: 60,
       height: 60,
     },
+    glHeight: {
+        width: '100%',
+        height: '40px',       
+    },
+    fbHeight: {
+        backgroundColor: '#4267b2',
+        color: '#fff',
+        textAlign: 'center',
+        margin: '5px 0',
+        width: '100%',
+        height: '40px',
+        fontSize: '17px',
+        borderRadius: '5px',
+        padding: '12px',
+        border: 'none',
+        opacity: 0.9,
+        display: 'inline-block',
+        lineHeight: '20px',
+        textDecoration: 'none',
+    }
   });
 
 export const Login = () => {
@@ -98,6 +118,7 @@ export const Login = () => {
                     callback={responseFacebook}
                     onFailure={handleFailure}
                     textButton={lang(state.lang).login_facebook}
+                    cssClass={classes.fbHeight}
                 />
             </MenuItem>
             <MenuItem onClick={handleClose1}>
@@ -106,6 +127,7 @@ export const Login = () => {
                     buttonText={lang(state.lang).login_google}
                     onSuccess={responseGoogle}
                     onFailure={handleFailure}
+                    //className={classes.glHeight}
                 />
             </MenuItem>
           </Menu>
