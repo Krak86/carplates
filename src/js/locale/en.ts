@@ -57,6 +57,7 @@ export const lang: Locale = {
 
     url_search: "Search",
     url_favs: "Favorites", 
+    url_notifications: "Notifications",
     url_about: "About",
     url_profile: "Profile",
     url_lang: "Language",

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 
 import { Login } from "./login/Login";
 import lang from "../locale";
@@ -15,6 +15,7 @@ import { AboutPage } from './routes/AboutPage';
 import { ProfilePage } from './routes/ProfilePage';
 import { DisqusPage } from './routes/DisqusPage';
 import { StorePage } from './routes/StorePage';
+import { NotificationPage } from './routes/NotificationPage';
 
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -39,6 +40,7 @@ const useStyles = makeStyles(theme => ({
   },
   toolbar: {
     paddingRight: 24,
+    color: "#fff",
   },
   toolbarIcon: {
     display: 'flex',
@@ -46,6 +48,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end',
     padding: '0 8px',
     ...theme.mixins.toolbar,
+    color: "#fff",
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -154,12 +157,14 @@ export default function App() {
           </IconButton>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             {lang(state.lang).dashBoradTitle}
-          </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={0} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+          </Typography>          
+          <Link to="/notifications">
+            <IconButton >
+              <Badge badgeContent={0} color="secondary">
+                  <NotificationsIcon  color="action" />
+              </Badge>
+            </IconButton>
+          </Link> 
           <Login />
         </Toolbar>
       </AppBar>
@@ -178,13 +183,14 @@ export default function App() {
         </div>
         <Divider /> 
         {routesLinks()}
-      </Drawer>      
+      </Drawer>
       <section className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Switch>
             <Route exact path="/" component={SearchPage} />
             <Route path="/favorites" component={FavoritesPage} />
+            <Route path="/notifications" component={NotificationPage} />
             <Route path="/about" component={AboutPage} />
             <Route path="/profile" component={ProfilePage} />
             <Route path="/disqus" component={DisqusPage} />

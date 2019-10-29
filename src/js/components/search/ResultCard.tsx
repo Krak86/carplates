@@ -71,8 +71,6 @@ export const ResultCard = (props: {item: Item}) => {
     const [expanded, setExpanded] = React.useState(false);
     const [open, setOpen] = React.useState(false);
 
-    const url = decodeURIComponent(window.location.href).trim();
-
     const primary = `${props.item.brand}/${props.item.model} (${props.item.make_year})`;
     const secondary = `${props.item.n_reg_new}, ${regions[props.item.PartitionKey]}`;
     
@@ -88,6 +86,9 @@ export const ResultCard = (props: {item: Item}) => {
     const d_reg = `${lang(state.lang).d_reg}: ${props.item.d_reg}`;
     const oper_name = `${lang(state.lang).oper_name}: ${props.item.dep} (${props.item.dep_code}), ${props.item.oper_name} (${props.item.oper_code})`;
     const reg_addr_koatuu = `${lang(state.lang).reg_addr_koatuu}: ${props.item.reg_addr_koatuu}`;
+
+    //const url = decodeURIComponent(window.location.href).trim();
+    const url = `${window.location.origin}/#/${props.item.n_reg_new}`;
 
     const handleClose = () => {
         setOpen(false);

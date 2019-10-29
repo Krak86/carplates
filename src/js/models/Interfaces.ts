@@ -156,6 +156,7 @@ export interface Locale{
 
     url_search: string;
     url_favs: string;
+    url_notifications: string;
     url_about: string;
     url_profile: string;
     url_lang: string;

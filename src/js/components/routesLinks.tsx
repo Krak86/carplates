@@ -23,6 +23,7 @@ import ShopIcon from '@material-ui/icons/Shop';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import LanguageIcon from '@material-ui/icons/Language';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import Divider from '@material-ui/core/Divider';
 
 interface ListItemLinkProps {
@@ -99,6 +100,12 @@ export const routesLinks = () => {
           to="/favorites" 
           primary={lang(state.lang).url_favs} 
           icon={<FavoriteIcon />} 
+          callbackFunc={handleDrawerClose}
+        />
+        <ListItemLink 
+          to="/notifications" 
+          primary={lang(state.lang).url_notifications} 
+          icon={<NotificationsIcon />} 
           callbackFunc={handleDrawerClose}
         />
         <ListItemLink 

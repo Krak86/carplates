@@ -55,6 +55,7 @@ export const lang: Locale = {
 
     url_search: "Поиск",
     url_favs: "Избранное", 
+    url_notifications: "Уведомления",
     url_about: "Про приложение",
     url_profile: "Профиль",
     url_lang: "Язык",
