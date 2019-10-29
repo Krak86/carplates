@@ -152,6 +152,7 @@ export interface Locale{
     messageChooseImage?: string;
     messageImageLimit?: string;
     messageTurnOnCamera?: string;
+    messageTurnOnFrontCamera?: string;
 
     url_search: string;
     url_favs: string;
