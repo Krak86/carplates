@@ -31,11 +31,11 @@ export const WebcamCapture = (props: {close: any}) => {
   const webcamRef = React.useRef(null);
    
   const videoConstraints = {
-    width: 640,
-    height: 360,
+    width: 1280,
+    height: 720,
     facingMode: frontCamera.checked === true
      ? "user" 
-     : "environment"
+     :  { exact: "environment" }
   };
 
   const capture = React.useCallback(
@@ -62,11 +62,17 @@ export const WebcamCapture = (props: {close: any}) => {
       <Fragment>
         <Webcam
           audio={false}
-          height={360}
+          //height={720}
           ref={webcamRef}
           screenshotFormat="image/jpeg"
-          width={640}
+          //width={1280}
           videoConstraints={videoConstraints}
+          style={{
+            height: "85vh",
+            width: "100%",
+            //objectFit: "fill",
+            //position: "absolute"
+         }}
         />
         <FormGroup row>
           <Button variant="contained" color="primary" className={classes.button} onClick={capture}>
