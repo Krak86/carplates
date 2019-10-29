@@ -82,11 +82,17 @@ export default class UtilsRia {
     }
 
     public static detectModelValue(brandArray: IRiaCategories[], brand: string): number{
-        return brandArray.filter((i: IRiaCategories) => i.name.toLowerCase() === brand.toLowerCase())[0].value;
+        const result = brandArray.filter((i: IRiaCategories) => i.name.toLowerCase() === brand.toLowerCase());
+        return result.length > 0
+            ? result[0].value
+            : 0;
     }
 
     public static detectBodyStyleByValue(brandArray: IRiaCategories[], value: number): string{
-        return brandArray.filter((i: IRiaCategories) => i.value === value)[0].name;
+        const result = brandArray.filter((i: IRiaCategories) => i.value === value);
+        return result.length > 0
+            ? result[0].name
+            : "";
     }
 
 }

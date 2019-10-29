@@ -119,7 +119,7 @@ export const Result = () => {
             </ListItem>
             }
 
-            {state.itemIsLoaded === true && state.itemIsLoading === true && state.itemSearching === 3 &&
+            {state.itemIsLoaded === true && state.responseIsEmpty === true && state.itemSearching === 3 &&
             <ListItem>
                 <ListItemAvatar>
                     <Avatar>
