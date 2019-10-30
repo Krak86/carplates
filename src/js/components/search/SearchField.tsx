@@ -1,16 +1,16 @@
 import React, { SyntheticEvent, Fragment, useState, useRef, useEffect } from 'react';
 import Utils from "../../utils/Utils";
+import UtilsAsync from "../../utils/UtilsAsync";
 import lang from "../../locale";
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { itemFetchDataForPlate, itemFetchDataForVin, setItemRequest, imageFetchData } from "../../store/actions";
 import { AppState } from "../../store";
-import { ApplicationStates, ISearchFieldState } from "../../models/Interfaces";
+import { ApplicationStates, ISearchFieldState, IDevicesState } from "../../models/Interfaces";
 import { URLs } from "../../data/Data";
 import { SnackbarContentWrapper } from "../snackbar/SnackbarContentWrapper";
 import { DialogVideoWindow } from "../video/DialogVideoWindow";
-
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import InputBase from '@material-ui/core/InputBase';
@@ -100,6 +100,7 @@ export const SearchField = () => {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState("");
   const [openDialog, setOpenDialog] = React.useState(false);
+  const [videoDevices, setVideoDevices] = React.useState<IDevicesState>({value: []});
   //mapStateToProps
   const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
   //mapDispatchToProps
@@ -142,6 +143,8 @@ export const SearchField = () => {
     if('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices){
       try{
         await navigator.mediaDevices.getUserMedia({video: true});
+        const videoDevices = await UtilsAsync.getVideoDevices();
+        handleDevicesChange(videoDevices);
         handleClickOpenDialog();
       }
       catch(e){
@@ -150,6 +153,9 @@ export const SearchField = () => {
       }
     }
   }
+  const handleDevicesChange = (values: MediaDeviceInfo[]) => {
+    setVideoDevices({...videoDevices, value: values});
+  };
   const handleClickOpenDialog = () => {
     setOpenDialog(true);
   };
@@ -316,6 +322,7 @@ export const SearchField = () => {
         title={options[0]}
         openDialog={openDialog}
         handleClickCloseDialog={handleClickCloseDialog}
+        videoDevices={videoDevices.value}
       />
     </Fragment>
   );

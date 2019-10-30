@@ -1,5 +1,6 @@
 import React, { Fragment} from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { IDialogVideoWindowProps } from "../../models/Interfaces";
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -26,16 +27,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const Transition = React.forwardRef<unknown, TransitionProps>(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
- });
-
-export interface IDialogVideoWindowProps{
-    title: string;
-    openDialog: boolean;
-    handleClickCloseDialog: any;
-}
+});
 
 export const DialogVideoWindow = (props: IDialogVideoWindowProps) => {
-    const { openDialog, handleClickCloseDialog, title } = props;
+    const { openDialog, handleClickCloseDialog, title, videoDevices } = props;
     const classes = useStyles({});
     return (
         <Fragment>
@@ -50,7 +45,10 @@ export const DialogVideoWindow = (props: IDialogVideoWindowProps) => {
                     </Typography>
                 </Toolbar>
                 </AppBar>
-                <WebcamCapture close={handleClickCloseDialog} />
+                <WebcamCapture 
+                    close={handleClickCloseDialog}
+                    videoDevices={videoDevices}
+                />
             </Dialog>
         </Fragment>
   );

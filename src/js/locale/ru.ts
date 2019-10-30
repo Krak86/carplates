@@ -43,7 +43,7 @@ export const lang: Locale = {
     cameraActions: ["Сфотографировать", "Добавить фотографию"],
     imgRecognizingMessage: "Изображение распознается, подождите",
     messageTurnOnCamera: "Пожалуйста, включите камеру или предоставьте камере права!",
-    messageTurnOnFrontCamera: "Включить фронтальную камеру",
+    messageTurnOnFrontCamera: "Выберите камеру",
 
     details: "Характеристики",
     race: "Пробег",

@@ -561,3 +561,16 @@ export interface IPlatesmania{
 export interface ISearchFieldState {
   value: string;
 }
+export interface IDevicesState {
+  value: MediaDeviceInfo[];
+}
+export interface IDialogVideoWindowProps{
+  title: string;
+  openDialog: boolean;
+  handleClickCloseDialog: any;
+  videoDevices: MediaDeviceInfo[];
+}
+export interface IWebcamCaptureProps{
+  close: any;
+  videoDevices: MediaDeviceInfo[];
+}
