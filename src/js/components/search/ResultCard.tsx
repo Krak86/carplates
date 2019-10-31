@@ -3,11 +3,15 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Item } from "../../models/Interfaces";
 import lang from "../../locale";
 import { regions } from "../../data/Data";
-
 import { AppState } from "../../store";
 import { ApplicationStates} from "../../models/Interfaces";
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-
+import { useHistory } from "react-router-dom";
+import { itemFetchDataForPlate } from "../../store/actions";
+import { URLs } from "../../data/Data";
+import Utils from "../../utils/Utils";
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import { ShareDialog } from "../share/ShareDialog";
@@ -65,11 +69,19 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }),
 );
 
+const shapeUrlPlate = (value: string, url: string): string => {
+    return Utils.shapeUrlPlate(url, value, Utils.extractPartitionKey(value));
+  }
+
 export const ResultCard = (props: {item: Item}) => {
     const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
     const classes = useStyles({});
     const [expanded, setExpanded] = React.useState(false);
     const [open, setOpen] = React.useState(false);
+    const [anchorEl1, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const openSettingsMenu = Boolean(anchorEl1);
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     const primary = `${props.item.brand}/${props.item.model} (${props.item.make_year})`;
     const secondary = `${props.item.n_reg_new}, ${regions[props.item.PartitionKey]}`;
@@ -87,8 +99,8 @@ export const ResultCard = (props: {item: Item}) => {
     const oper_name = `${lang(state.lang).oper_name}: ${props.item.dep} (${props.item.dep_code}), ${props.item.oper_name} (${props.item.oper_code})`;
     const reg_addr_koatuu = `${lang(state.lang).reg_addr_koatuu}: ${props.item.reg_addr_koatuu}`;
 
-    //const url = decodeURIComponent(window.location.href).trim();
     const url = `${window.location.origin}/#/${props.item.n_reg_new}`;
+    const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || URLs.getDataByPlateUrl;
 
     const handleClose = () => {
         setOpen(false);
@@ -97,11 +109,30 @@ export const ResultCard = (props: {item: Item}) => {
         setExpanded(!expanded);
     };
     const handleShareClick = () => {
+        setAnchorEl(null);
         setOpen(true);
     };
     const handleAddToFavs = () => {
-        
+        setAnchorEl(null);
+        //* TODO *//
     };
+    const handleClose1 = (): void => {
+        setAnchorEl(null);
+    };
+    const handleSearchMenuClick = (): void => {
+        setAnchorEl(null);
+        const value = props.item.n_reg_new;
+        const url = shapeUrlPlate(value, serviceUrl);
+        dispatch(itemFetchDataForPlate(value, url));
+        handleAddResultToHash(value);
+    };
+    const handleSettingsClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    }
+    const handleAddResultToHash = (value: string) => {
+        history.push(`/${value}`);
+    };
+
     return(
         <Fragment>
             <Card className={classes.card}>
@@ -115,7 +146,7 @@ export const ResultCard = (props: {item: Item}) => {
                     <IconButton 
                         aria-label="settings"
                         title={lang(state.lang).card_settings}
-                        onClick={handleShareClick}
+                        onClick={handleSettingsClick}
                     >
                         <MoreVertIcon />
                     </IconButton>
@@ -123,6 +154,37 @@ export const ResultCard = (props: {item: Item}) => {
                     title={`${primary}`}
                     subheader={`${secondary}`}
                 />
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorEl1}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={openSettingsMenu}
+                        onClose={handleClose1}
+                    >
+                        <MenuItem 
+                            onClick={handleSearchMenuClick}
+                        >
+                            {lang(state.lang).url_search}
+                        </MenuItem>
+                        <MenuItem 
+                            onClick={handleAddToFavs}
+                        >
+                            {lang(state.lang).card_addToFavs}
+                        </MenuItem>
+                        <MenuItem 
+                            onClick={handleShareClick}
+                        >
+                            {lang(state.lang).card_share}
+                        </MenuItem>
+                    </Menu>
                 <CardContent>
                     <Typography className={classes.title} color="textSecondary" gutterBottom>
                         {body}

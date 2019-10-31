@@ -73,7 +73,7 @@ const isEmpty = (value: string): boolean => {
 };
 const isVin = (value: string): boolean => {
   return (Utils.trimData(value).length === 17);
-}
+};
 const shapeDataPlate = (value: string): string => {
   return Utils.convertToCyrillic(      
       Utils.trimData(value).toLocaleUpperCase(),
@@ -84,13 +84,13 @@ const shapeDataPlate = (value: string): string => {
 };
 const shapeUrlPlate = (value: string, url: string): string => {
   return Utils.shapeUrlPlate(url, value, Utils.extractPartitionKey(value));
-}
+};
 const shapeDataVin = (value: string): string => {
   return Utils.trimData(value);
 };
 const shapeUrlVin = (value: string, url: string): string => {
   return Utils.shapeUrlVin(url, value);
-}
+};
 
 export const SearchField = () => {
   //constructor
@@ -112,7 +112,7 @@ export const SearchField = () => {
   });
   useEffect(() => {
     searchInput.current.focus();
-  }, []);
+  },[]);
   useEffect(() => {
     const hashValue = decodeURIComponent(window.location.hash.split("#/")[1].trim());
     if(hashValue !== ""){
@@ -128,7 +128,7 @@ export const SearchField = () => {
       }
     };
   },[]);
-  let history = useHistory();
+  const history = useHistory();
   //hook styles
   const classes = useStyles({});
   //init
@@ -152,7 +152,7 @@ export const SearchField = () => {
         handleSnackbarMessage(lang(state.lang).messageTurnOnCamera);
       }
     }
-  }
+  };
   const handleDevicesChange = (values: MediaDeviceInfo[]) => {
     setVideoDevices({...videoDevices, value: values});
   };
@@ -195,13 +195,13 @@ export const SearchField = () => {
     if (e.charCode == 13) {
       handleSearchClick();
     }
-  }
+  };
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
-  }
+  };
   const handleClose = () => {
     setAnchorEl(null);
-  }
+  };
   const handleCameraClick = (option: string) => {
     setAnchorEl(null);
 
@@ -211,8 +211,8 @@ export const SearchField = () => {
     else if(options[1] === option){
       document.getElementById(attachImageID).click();
     }
-    
-  }
+    handleClearClick();
+  };
   const handleFiles = (value: FileList): File => {
     if(value.length === 0){
       return;
@@ -229,7 +229,7 @@ export const SearchField = () => {
       return;
     }
     dispatch(imageFetchData(file, serviceRecognizeImageUrl));  
-  }
+  };
   const handleCloseSnackBar = (event?: SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
       return;
@@ -238,7 +238,7 @@ export const SearchField = () => {
   };
   const handleSnackbarMessage = (message: string) => {
     setSnackbarMessage(message);
-  }
+  };
 
   return (
     <Fragment>
