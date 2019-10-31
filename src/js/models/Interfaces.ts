@@ -167,6 +167,7 @@ export interface Locale{
 
     card_settings: string;
     card_addToFavs: string;
+    card_removeFromToFavs: string;
     card_share: string;
     card_showMore: string;
     card_openOriginalAds: string;

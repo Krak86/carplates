@@ -65,6 +65,7 @@ export const lang: Locale = {
 
     card_settings: "Налаштування",
     card_addToFavs: "Додати до обраного",
+    card_removeFromToFavs: "Видалити з обранного",
     card_share: "Поділитися",
     card_showMore: "Показати більше",
     card_openOriginalAds: "Відкрити оригінальні оголошення",

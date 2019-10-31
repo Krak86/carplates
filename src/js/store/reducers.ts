@@ -7,6 +7,16 @@ export const getReducer = (
     action: any
   ): ApplicationStates => {
     switch (action.type) {
+      case actions.REMOVE_FROM_FAVORITES:
+        return {
+          ...state,
+          favorites: state.favorites.filter(item => item !== action.payload)
+        };
+      case actions.ADD_TO_FAVORITES:
+        return {
+          ...state,
+          favorites: [...state.favorites, action.payload]
+        };
       case actions.CHANGE_LANG:
         return {
           ...state,

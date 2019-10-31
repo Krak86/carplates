@@ -1,7 +1,10 @@
 import React, {Fragment} from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { AppState } from "../../store";
-import { ApplicationStates} from "../../models/Interfaces";
+import { ApplicationStates, Item } from "../../models/Interfaces";
+import { ResultCard } from "../search/ResultCard";
+import Typography from '@material-ui/core/Typography';
+import lang from "../../locale";
 
 export const NotificationPage = () => {
     //connect to state
@@ -9,7 +12,12 @@ export const NotificationPage = () => {
     //constructor, componentDidMounted, componentDidUpdated
     return (
         <Fragment>
-            Notification Page
+            <Typography variant="h6" color="textSecondary" align="center">
+                {lang(state.lang).url_notifications}
+            </Typography>
+            {state.itemsList.map((i: Item) => {
+                return <ResultCard item={i} />
+            })}
         </Fragment>
     )
 }

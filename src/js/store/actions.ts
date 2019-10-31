@@ -276,6 +276,15 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, Appli
     });
 };
 
+export const removeFromFavorites = (item: Item): actions.RemoveFromFavoritesAction => ({
+    type: actions.REMOVE_FROM_FAVORITES,
+    payload: item
+});
+export const addToFavorites = (item: Item): actions.AddToFavoritesAction => ({
+    type: actions.ADD_TO_FAVORITES,
+    payload: item
+});
+
 export const changeLang = (status: Lang): actions.ChangeLangAction => ({
     type: actions.CHANGE_LANG,
     payload: status

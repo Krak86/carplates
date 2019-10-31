@@ -7,7 +7,7 @@ import { AppState } from "../../store";
 import { ApplicationStates} from "../../models/Interfaces";
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { itemFetchDataForPlate } from "../../store/actions";
+import { itemFetchDataForPlate, addToFavorites, removeFromFavorites } from "../../store/actions";
 import { URLs } from "../../data/Data";
 import Utils from "../../utils/Utils";
 import Menu from '@material-ui/core/Menu';
@@ -26,6 +26,7 @@ import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
 import ShareIcon from '@material-ui/icons/Share';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
@@ -73,15 +74,20 @@ const shapeUrlPlate = (value: string, url: string): string => {
     return Utils.shapeUrlPlate(url, value, Utils.extractPartitionKey(value));
   }
 
-export const ResultCard = (props: {item: Item}) => {
-    const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
+export const ResultCard = (props: {item: Item}) => {    
+    const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);    
+
     const classes = useStyles({});
     const [expanded, setExpanded] = React.useState(false);
     const [open, setOpen] = React.useState(false);
     const [anchorEl1, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const openSettingsMenu = Boolean(anchorEl1);
+
+    const isItemAlreadyAdded = Utils.isItemAlreadyAdded(state.favorites, props.item.n_reg_new);
+    const [favorite, setFavorite] = React.useState(isItemAlreadyAdded);
+
     const dispatch = useDispatch();
-    const history = useHistory();
+    const history = useHistory();    
 
     const primary = `${props.item.brand}/${props.item.model} (${props.item.make_year})`;
     const secondary = `${props.item.n_reg_new}, ${regions[props.item.PartitionKey]}`;
@@ -114,7 +120,9 @@ export const ResultCard = (props: {item: Item}) => {
     };
     const handleAddToFavs = () => {
         setAnchorEl(null);
-        //* TODO *//
+        favorite === true
+            ? dispatch(removeFromFavorites(props.item))
+            : dispatch(addToFavorites(props.item))
     };
     const handleClose1 = (): void => {
         setAnchorEl(null);
@@ -130,7 +138,7 @@ export const ResultCard = (props: {item: Item}) => {
         setAnchorEl(event.currentTarget);
     }
     const handleAddResultToHash = (value: string) => {
-        history.push(`/${value}`);
+        history.push(`/`);
     };
 
     return(
@@ -177,7 +185,9 @@ export const ResultCard = (props: {item: Item}) => {
                         <MenuItem 
                             onClick={handleAddToFavs}
                         >
-                            {lang(state.lang).card_addToFavs}
+                            {favorite === true 
+                                ? lang(state.lang).card_removeFromToFavs
+                                : lang(state.lang).card_addToFavs}
                         </MenuItem>
                         <MenuItem 
                             onClick={handleShareClick}
@@ -205,10 +215,14 @@ export const ResultCard = (props: {item: Item}) => {
                 <CardActions disableSpacing>
                     <IconButton 
                         aria-label="share"
-                        title={lang(state.lang).card_addToFavs}
+                        title={favorite === true 
+                            ? lang(state.lang).card_removeFromToFavs
+                            : lang(state.lang).card_addToFavs}
                         onClick={handleAddToFavs}
                     >
-                        <FavoriteIcon />
+                        {favorite === true
+                            ? <FavoriteIcon />
+                            : <FavoriteBorderIcon />}
                     </IconButton>
                     <IconButton 
                         aria-label="share"

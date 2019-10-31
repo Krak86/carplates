@@ -1,4 +1,4 @@
-import { Window } from "../models/Interfaces";
+import { Window, Item } from "../models/Interfaces";
 
 export default class Utils {
   /**
@@ -117,6 +117,12 @@ export default class Utils {
   public static generateUrlforPlatesmania(url: string, itemRequest: string): string{
     //const shapedInputRequest = 'a001aa22';
     return `${url}/mobile/api_photo_test1.php?nomer=${itemRequest}`;
+  }
+
+  public static isItemAlreadyAdded(items: Item[], rowNumber: string): boolean{
+    return items.filter((i: Item) => i.n_reg_new === rowNumber).length > 0
+      ? true
+      : false;
   }
 
 }

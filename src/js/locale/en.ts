@@ -67,6 +67,7 @@ export const lang: Locale = {
 
     card_settings: "Settings",
     card_addToFavs: "Add to Favorites",
+    card_removeFromToFavs: "Remove from Favorites",
     card_share: "Share",
     card_showMore: "Show more",
     card_openOriginalAds: "Open original ads",

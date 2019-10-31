@@ -64,7 +64,8 @@ export const lang: Locale = {
     url_install: "Установить",
 
     card_settings: "Настройки",
-    card_addToFavs: "Доюавить в избранное",
+    card_addToFavs: "Добавить в избранное",
+    card_removeFromToFavs: "Убрать из избранного",
     card_share: "Поделится",
     card_showMore: "Показать больше",
     card_openOriginalAds: "Открыть оригинальное объявление",

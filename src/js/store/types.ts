@@ -21,7 +21,17 @@ export const ADD_CARSMANIA_CARS: string = "ADD_CARSMANIA_CARS";
 export const IMG_RIA_LOADED: string = "IMG_RIA_LOADED";
 export const IMG_CARSMANIA_LOADED: string = "IMG_CARSMANIA_LOADED";
 export const CHANGE_LANG: string = "CHANGE_LANG";
+export const ADD_TO_FAVORITES: string = "ADD_TO_FAVORITES";
+export const REMOVE_FROM_FAVORITES: string = "REMOVE_FROM_FAVORITES";
 
+export interface RemoveFromFavoritesAction{
+    type: typeof REMOVE_FROM_FAVORITES;
+    payload: Item;
+}
+export interface AddToFavoritesAction{
+    type: typeof ADD_TO_FAVORITES;
+    payload: Item;
+}
 export interface ChangeLangAction{
     type: typeof CHANGE_LANG;
     payload: Lang;

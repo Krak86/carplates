@@ -96,12 +96,6 @@ export const routesLinks = () => {
           callbackFunc={handleDrawerClose}
         />
         <ListItemLink 
-          to="/notifications" 
-          primary={lang(state.lang).url_notifications} 
-          icon={<NotificationsIcon />} 
-          callbackFunc={handleDrawerClose}
-        />
-        <ListItemLink 
           to="/about" 
           primary={lang(state.lang).url_about} 
           icon={<InfoIcon />} 
