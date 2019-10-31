@@ -1,7 +1,7 @@
 import React, { Fragment, useMemo, forwardRef } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { AppState } from "../store";
-import { ApplicationStates} from "../models/Interfaces";
+import { ApplicationStates, ListItemLinkProps } from "../models/Interfaces";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Lang } from "../models/Interfaces";
 import lang from "../locale";
@@ -26,13 +26,6 @@ import LanguageIcon from '@material-ui/icons/Language';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import Divider from '@material-ui/core/Divider';
 
-interface ListItemLinkProps {
-  icon?: React.ReactElement;
-  primary: string;
-  to: string;
-  callbackFunc?: Function;
-  nestedElement?: React.ReactElement;
-}
 const ListItemLink = (props: ListItemLinkProps) => {
   const { icon, primary, to, callbackFunc, nestedElement } = props;
   const renderLink = useMemo(() => forwardRef<HTMLAnchorElement, Omit<LinkProps, 'innerRef' | 'to'>>(

@@ -1,23 +1,17 @@
 import React from 'react';
 import clsx from 'clsx';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import WarningIcon from '@material-ui/icons/Warning';
 import ErrorIcon from '@material-ui/icons/Error';
 import InfoIcon from '@material-ui/icons/Info';
 import CloseIcon from '@material-ui/icons/Close';
 import { amber, green } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
-import WarningIcon from '@material-ui/icons/Warning';
+
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
-const variantIcon = {
-  success: CheckCircleIcon,
-  warning: WarningIcon,
-  error: ErrorIcon,
-  info: InfoIcon,
-};
-
-const useStyles1 = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   success: {
     backgroundColor: green[600],
   },
@@ -43,15 +37,22 @@ const useStyles1 = makeStyles((theme: Theme) => ({
   },  
 }));
 
-export interface Props {
+const variantIcon = {
+  success: CheckCircleIcon,
+  warning: WarningIcon,
+  error: ErrorIcon,
+  info: InfoIcon,
+};
+
+export interface ISnackbarContentWrapperProps {
   className?: string;
   message?: string;
   onClose?: () => void;
   variant: keyof typeof variantIcon;
 }
 
-export const SnackbarContentWrapper = (props: Props) => {
-    const classes = useStyles1({});
+export const SnackbarContentWrapper = (props: ISnackbarContentWrapperProps) => {
+    const classes = useStyles({});
     const { className, message, onClose, variant, ...other } = props;
     const Icon = variantIcon[variant];
   

@@ -574,3 +574,15 @@ export interface IWebcamCaptureProps{
   close: any;
   videoDevices: MediaDeviceInfo[];
 }
+export interface ListItemLinkProps {
+  icon?: React.ReactElement;
+  primary: string;
+  to: string;
+  callbackFunc?: Function;
+  nestedElement?: React.ReactElement;
+}
+export interface IShareDialog{
+  open: boolean;    
+  onClose: () => void;
+  url: string
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import { AppState } from "../../store";
-import { ApplicationStates} from "../../models/Interfaces";
+import { ApplicationStates, IShareDialog } from "../../models/Interfaces";
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import lang from "../../locale";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -23,7 +23,6 @@ import {
     EmailIcon,
 } from 'react-share';
 
-
 const useStyles = makeStyles((theme: Theme) => createStyles({
     network: {
         verticalAlign: "top",
@@ -34,14 +33,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     network_sharebutton: {
         cursor: 'pointer',
     },
-}),
-);
-
-export interface IShareDialog{
-    open: boolean;    
-    onClose: () => void;
-    url: string
-}
+}));
 
 export const ShareDialog = (props: IShareDialog) => {
     const { url, open, onClose } = props;
