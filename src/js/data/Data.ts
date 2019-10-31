@@ -80,6 +80,7 @@ export const initialData: ApplicationStates = {
     imageRiaLoaded: false,
     imageCarsmaniaLoaded: false,
     lang: 0,
+    favorites: [],
 }
 
 export const regions = {

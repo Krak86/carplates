@@ -7,7 +7,7 @@ import lang from "../locale";
 import { toggleDrawer } from "../store/actions";
 import { AppState } from "../store";
 import { ApplicationStates} from "../models/Interfaces";
-import { routesLinks } from './routesLinks';
+import { routesLinks } from './routes/routesLinks';
 import { SearchPage } from './routes/SearchPage';
 import { FavoritesPage } from "./routes/FavoritesPage";
 

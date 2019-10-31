@@ -22,6 +22,7 @@ export interface ApplicationStates {
   imageRiaLoaded: boolean;
   imageCarsmaniaLoaded: boolean;
   lang: Lang;
+  favorites: Item[];
 }
 
 export enum Lang{

@@ -1,12 +1,12 @@
 import React, { Fragment, useMemo, forwardRef } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { AppState } from "../store";
-import { ApplicationStates, ListItemLinkProps } from "../models/Interfaces";
+import { AppState } from "../../store";
+import { ApplicationStates, ListItemLinkProps } from "../../models/Interfaces";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Lang } from "../models/Interfaces";
-import lang from "../locale";
+import { Lang } from "../../models/Interfaces";
+import lang from "../../locale";
 import { Link, LinkProps } from 'react-router-dom';
-import { toggleDrawer, changeLang } from "../store/actions";
+import { toggleDrawer, changeLang } from "../../store/actions";
 import ListItem from '@material-ui/core/ListItem';
 import List from '@material-ui/core/List';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
