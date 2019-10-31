@@ -16,7 +16,7 @@ export const FavoritesPage = () => {
                 {lang(state.lang).url_favs}
             </Typography>
             {state.favorites.map((i: Item) => {
-                return <ResultCard item={i} />
+                return <ResultCard item={i} key={Math.random()} />
             })}
         </Fragment>
     )

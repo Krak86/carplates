@@ -125,4 +125,28 @@ export default class Utils {
       : false;
   }
 
+  public static loadState(): Item[] {
+    try{
+      const serializedState = localStorage.getItem("carPlateFavoritesState");
+      if(serializedState === null){
+        return [];
+      }
+      return JSON.parse(serializedState);
+    }
+    catch(err){
+      console.log(err);
+      return [];
+    }
+  }
+
+  public static saveState(favorites: Item[]): void{
+    try{
+      const serializedState = JSON.stringify(favorites);
+      localStorage.setItem('carPlateFavoritesState', serializedState);
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+
 }

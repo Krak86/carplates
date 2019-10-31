@@ -1,8 +1,12 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunkMiddleware from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-
+import Utils from "../utils/Utils";
+import { initialData } from "../data/Data";
 import { getReducer } from "./reducers";
+import { throttle } from "lodash.throttle";
+
+const persistedState = Utils.loadState();
 
 export const rootReducer = combineReducers({
   Item: getReducer
@@ -15,9 +19,22 @@ export const configureStore = () => {
   const middleWareEnhancer =  applyMiddleware(...middlewares);
 
   const store = createStore(
-    rootReducer,
+    rootReducer,    
+    {
+      Item: {
+        ...initialData,
+        favorites: persistedState
+      }
+    },
     composeWithDevTools(middleWareEnhancer)
   );
+
+  /*store.subscribe(throttle(() => {
+    Utils.saveState(store.getState().Item.favorites)
+  }, 1000));*/
+  store.subscribe(() => {
+    Utils.saveState(store.getState().Item.favorites)
+  });
 
   return store;
 }

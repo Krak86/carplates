@@ -57,11 +57,6 @@ export const initialData: ApplicationStates = {
     itemsList: [],
     imagesPlatesMania: [],
     imagesRia: [],
-    /*imagesList: {
-        platesMania: [],
-        ria: [],
-        pixabay: [],
-      },*/
     navigation: {
         url: "home"
     },
