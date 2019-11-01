@@ -176,6 +176,15 @@ export interface Locale{
     card_ResultImagesFrom: string;
     card_ImgDate: string;
 
+    about_1_app: string;
+    about_2_mvd: string;
+    about_3_kabMin: string;
+    about_4_portal: string;
+    about_5_sharing: string;
+    about_6_mit: string;
+    about_7_mit_1: string;
+    about_8_mit_2: string;
+    about_9_mit_3: string;
 }
 
 export interface IVinResultValues{
