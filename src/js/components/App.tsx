@@ -162,8 +162,7 @@ export default function App() {
             {lang(state.lang).dashBoradTitle}
           </Typography>          
           <Link to="/notifications">
-            <IconButton
-              onClick={handleOnBadgeClick}
+            <IconButton        
             >
               <Badge badgeContent={badges} color="secondary">
                   <NotificationsIcon  color="action" />

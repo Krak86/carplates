@@ -152,7 +152,7 @@ export const ResultNotificationCard = (props: {item: Item}) => {
     return(
         <Fragment>
             <Card className={classes.card}>
-                <CardActionArea>
+               
                     <CardHeader
                         avatar={
                         <Avatar aria-label="recipe" className={colorClass}>
@@ -192,7 +192,7 @@ export const ResultNotificationCard = (props: {item: Item}) => {
                             {lang(state.lang).url_search}
                         </MenuItem>                        
                     </Menu>
-                </CardActionArea>
+               
             </Card>
         </Fragment>
     )
