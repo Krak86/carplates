@@ -4,7 +4,6 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import Utils from "../utils/Utils";
 import { initialData } from "../data/Data";
 import { getReducer } from "./reducers";
-import { throttle } from "lodash.throttle";
 
 const persistedState = Utils.loadState();
 
@@ -28,10 +27,6 @@ export const configureStore = () => {
     },
     composeWithDevTools(middleWareEnhancer)
   );
-
-  /*store.subscribe(throttle(() => {
-    Utils.saveState(store.getState().Item.favorites)
-  }, 1000));*/
   store.subscribe(() => {
     Utils.saveState(store.getState().Item.favorites)
   });
