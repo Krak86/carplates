@@ -15,7 +15,7 @@ export const getReducer = (
       case actions.ADD_TO_FAVORITES:
         return {
           ...state,
-          favorites: [...state.favorites, action.payload]
+          favorites: [action.payload, ...state.favorites]
         };
       case actions.CHANGE_LANG:
         return {
@@ -94,7 +94,7 @@ export const getReducer = (
       case actions.ADD_TO_ITEMS_LIST:
         return {
           ...state,
-          itemsList: [...state.itemsList, action.payload]
+          itemsList: [action.payload, ...state.itemsList]
         };
       case actions.ITEM_IS_LOADING:
         return {
