@@ -23,6 +23,7 @@ export interface ApplicationStates {
   imageCarsmaniaLoaded: boolean;
   lang: Lang;
   favorites: Item[];
+  badges: number;
 }
 
 export enum Lang{

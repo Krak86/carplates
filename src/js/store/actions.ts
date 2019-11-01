@@ -173,6 +173,7 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
             dispatch(responseIsEmpty(false));
             dispatch(fetchDataForRiaModel(data));
             dispatch(fetchDataForPlatesmania(itemRequest));
+            dispatch(AddBadge());
         }
         else{
             dispatch(responseIsEmpty(true));
@@ -276,6 +277,12 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, Appli
     });
 };
 
+export const ResetBadge = (): actions.ResetBadgeAction => ({
+    type: actions.RESET_BADGE
+});
+export const AddBadge = (): actions.AddBadgeAction => ({
+    type: actions.ADD_BADGE
+});
 export const removeFromFavorites = (item: Item): actions.RemoveFromFavoritesAction => ({
     type: actions.REMOVE_FROM_FAVORITES,
     payload: item
@@ -284,106 +291,85 @@ export const addToFavorites = (item: Item): actions.AddToFavoritesAction => ({
     type: actions.ADD_TO_FAVORITES,
     payload: item
 });
-
 export const changeLang = (status: Lang): actions.ChangeLangAction => ({
     type: actions.CHANGE_LANG,
     payload: status
 });
-
 export const imgCarsmaniaLoaded = (status: boolean): actions.ImgCarsmaniaLoadedAction => ({
     type: actions.IMG_CARSMANIA_LOADED,
     payload: status
 });
-
 export const imgRiaLoaded = (status: boolean): actions.ImgRiaLoadedAction => ({
     type: actions.IMG_RIA_LOADED,
     payload: status
 });
-
 export const addPlatesmaniaCars = (imagesPlatesmania: IPlatesmaniaCars[]): actions.AddCarsmaniaCarsAction => ({
     type: actions.ADD_CARSMANIA_CARS,
     payload: imagesPlatesmania
 });
-
 export const addRiaAds = (imagesRia: IRiaAds[]): actions.AddRiaAdsAction => ({
     type: actions.ADD_RIA_ADS,
     payload: imagesRia
 });
-
 export const loginGoogle = (login: IGoogle): actions.LoginGoogleAction => ({
     type: actions.LOGIN_GOOGLE,
     payload: login
 });
-
 export const loginFacebook = (login: IFacebook): actions.LoginFacebookAction => ({
     type: actions.LOGIN_FACEBOOK,
     payload: login
 });
-
 export const login = (authStatus: Auth): actions.LoginAction => ({
     type: actions.LOGIN,
     payload: authStatus
 });
-
 export const addToVinsListList = (vinResponse: VIN): actions.AddToVinsListListAction => ({
     type: actions.ADD_TO_VINS_LIST,
     payload: vinResponse
 });
-
 export const itemFetchDataVinSuccess = (vinResponse: VIN): actions.ItemFetchDataVinSuccessAction => ({
     type: actions.ITEM_FETCH_DATA_VIN_SUCCESS,
     payload: vinResponse
 });
-
 export const setVinRequest = (vinRequest: string): actions.SetVinRequestAction => ({
     type: actions.SET_VIN_REQUEST,
     payload: vinRequest
 });
-
 export const setSearchingItemType = (response: number): actions.SetSearchingItemTypeAction => ({
     type: actions.SET_SEARCHING_ITEM_TYPE,
     payload: response
 });
-
 export const responseIsEmpty = (response: boolean): actions.ResponseIsEmptyAction => ({
     type: actions.RESPONSE_IS_EMPTY,
     payload: response
 });
-
 export const setItemRequest = (itemRequest: string): actions.SetItemRequestAction => ({
     type: actions.SET_ITEM_REQUEST,
     payload: itemRequest
 });
-
 export const itemIsLoading = (bool: boolean): actions.ItemsIsLoadingAction => ({
     type: actions.ITEM_IS_LOADING,
     payload: bool
 });
-
 export const itemIsLoaded = (bool: boolean): actions.ItemsIsLoadedAction => ({
     type: actions.ITEM_IS_LOADED,
     payload: bool
 });
-
 export const itemHasErrored = (bool: boolean): actions.ItemsHasErroredAction => ({   
     type: actions.ITEM_HAS_ERRORED,
     payload: bool
-});
-  
+});  
 export const itemFetchDataSuccess = (itemResponse: Item): actions.ItemFetchDataSuccessAction => ({
     type: actions.ITEM_FETCH_DATA_SUCCESS,
     payload: itemResponse
 });
-
 export const getItems = (): actions.GetItemAction => ({
     type: actions.GET_ITEMS
 });
-
 export const addToItemsList = (itemResponse: Item): actions.AddToItemsListAction => ({
     type: actions.ADD_TO_ITEMS_LIST,
     payload: itemResponse
 });
-
 export const toggleDrawer = (drawerState: boolean): actions.ToggleDrawerAction => ({
     type: actions.TOGGLE_DRAWER,
     payload: drawerState

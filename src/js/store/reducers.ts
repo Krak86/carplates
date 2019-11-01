@@ -7,6 +7,16 @@ export const getReducer = (
     action: any
   ): ApplicationStates => {
     switch (action.type) {
+      case actions.ADD_BADGE:
+        return {
+          ...state,
+          badges: state.badges + 1
+        };
+      case actions.RESET_BADGE:
+        return {
+          ...state,
+          badges: 0
+        };
       case actions.REMOVE_FROM_FAVORITES:
         return {
           ...state,

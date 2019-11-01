@@ -23,7 +23,15 @@ export const IMG_CARSMANIA_LOADED: string = "IMG_CARSMANIA_LOADED";
 export const CHANGE_LANG: string = "CHANGE_LANG";
 export const ADD_TO_FAVORITES: string = "ADD_TO_FAVORITES";
 export const REMOVE_FROM_FAVORITES: string = "REMOVE_FROM_FAVORITES";
+export const ADD_BADGE: string = "ADD_BADGE";
+export const RESET_BADGE: string = "RESET_BADGE";
 
+export interface ResetBadgeAction{
+    type: typeof RESET_BADGE;
+}
+export interface AddBadgeAction{
+    type: typeof ADD_BADGE;
+}
 export interface RemoveFromFavoritesAction{
     type: typeof REMOVE_FROM_FAVORITES;
     payload: Item;

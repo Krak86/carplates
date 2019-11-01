@@ -76,6 +76,7 @@ export const initialData: ApplicationStates = {
     imageCarsmaniaLoaded: false,
     lang: 0,
     favorites: [],
+    badges: 0,
 }
 
 export const regions = {

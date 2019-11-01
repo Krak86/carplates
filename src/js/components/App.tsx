@@ -4,7 +4,7 @@ import { Route, Switch, Link } from "react-router-dom";
 
 import { Login } from "./login/Login";
 import lang from "../locale";
-import { toggleDrawer } from "../store/actions";
+import { toggleDrawer, ResetBadge } from "../store/actions";
 import { AppState } from "../store";
 import { ApplicationStates} from "../models/Interfaces";
 import { routesLinks } from './routes/routesLinks';
@@ -139,7 +139,10 @@ export default function App() {
   const handleDrawerClose = () => {
     dispatch(toggleDrawer(false));
   };
-  
+  const handleOnBadgeClick = () => {
+    dispatch(ResetBadge());
+  }
+  const badges = state.badges;
 
   return (
     <main className={classes.root}>
@@ -158,9 +161,9 @@ export default function App() {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             {lang(state.lang).dashBoradTitle}
           </Typography>          
-          <Link to="/notifications">
+          <Link to="/notifications" onClick={handleOnBadgeClick}>
             <IconButton >
-              <Badge badgeContent={0} color="secondary">
+              <Badge badgeContent={badges} color="secondary">
                   <NotificationsIcon  color="action" />
               </Badge>
             </IconButton>
