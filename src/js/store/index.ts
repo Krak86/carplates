@@ -22,13 +22,16 @@ export const configureStore = () => {
     {
       Item: {
         ...initialData,
-        favorites: persistedState
+        ...persistedState
       }
     },
     composeWithDevTools(middleWareEnhancer)
   );
   store.subscribe(() => {
-    Utils.saveState(store.getState().Item.favorites)
+    Utils.saveState({
+      favorites: store.getState().Item.favorites,
+      lang: store.getState().Item.lang
+    })
   });
 
   return store;

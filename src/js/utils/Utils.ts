@@ -1,4 +1,4 @@
-import { Window, Item } from "../models/Interfaces";
+import { Window, Item, Lang } from "../models/Interfaces";
 
 export default class Utils {
   /**
@@ -125,21 +125,29 @@ export default class Utils {
       : false;
   }
 
-  public static loadState(): Item[] {
+  public static loadState(): ISaveState {
+    const defaultData: ISaveState = {
+      favorites: [],
+      lang: Lang.ua,
+    };
     try{
-      const serializedState = localStorage.getItem("carPlateFavoritesState");
+      const serializedState = localStorage.getItem("carPlateFavoritesState");      
       if(serializedState === null){
-        return [];
+        return JSON.parse(
+          JSON.stringify(defaultData));
       }
-      return JSON.parse(serializedState);
+      else{
+        return JSON.parse(serializedState);
+      }      
     }
     catch(err){
       console.log(err);
-      return [];
+      return JSON.parse(
+        JSON.stringify(defaultData));
     }
   }
 
-  public static saveState(favorites: Item[]): void{
+  public static saveState(favorites: ISaveState): void{
     try{
       const serializedState = JSON.stringify(favorites);
       localStorage.setItem('carPlateFavoritesState', serializedState);
@@ -178,4 +186,10 @@ export default class Utils {
     }
   }
 
+}
+
+
+export interface ISaveState{
+  favorites: Item[];
+  lang: Lang;
 }
