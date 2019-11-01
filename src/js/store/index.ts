@@ -18,7 +18,7 @@ export const configureStore = () => {
   const middleWareEnhancer =  applyMiddleware(...middlewares);
 
   const store = createStore(
-    rootReducer,    
+    rootReducer,
     {
       Item: {
         ...initialData,
@@ -30,7 +30,8 @@ export const configureStore = () => {
   store.subscribe(() => {
     Utils.saveState({
       favorites: store.getState().Item.favorites,
-      lang: store.getState().Item.lang
+      lang: store.getState().Item.lang,
+      itemsList: store.getState().Item.itemsList,
     })
   });
 

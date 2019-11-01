@@ -1,4 +1,4 @@
-import { Window, Item, Lang } from "../models/Interfaces";
+import { Window, Item, Lang, INotification } from "../models/Interfaces";
 
 export default class Utils {
   /**
@@ -129,6 +129,7 @@ export default class Utils {
     const defaultData: ISaveState = {
       favorites: [],
       lang: Lang.ua,
+      itemsList: [],
     };
     try{
       const serializedState = localStorage.getItem("carPlateFavoritesState");      
@@ -186,10 +187,18 @@ export default class Utils {
     }
   }
 
-}
+  public static generateCurrentDate(): string{
+    const date = new Date;
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${year}/${month}/${day}`;
+  }
 
+}
 
 export interface ISaveState{
   favorites: Item[];
   lang: Lang;
+  itemsList: INotification[];
 }

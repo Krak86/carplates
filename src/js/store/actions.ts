@@ -1,7 +1,7 @@
 import  * as actions from "./types";
 import { Action } from "redux";
 import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse, Auth, IFacebook, IGoogle, IRiaCategories, IRiaSearch, 
-    IRiaAds, IRiaSearchData, IPlatesmania, IPlatesmaniaCars, Lang } from "../models/Interfaces";
+    IRiaAds, IRiaSearchData, IPlatesmania, IPlatesmaniaCars, Lang, INotification } from "../models/Interfaces";
 import { ThunkAction } from "redux-thunk";
 import Utils from "../utils/Utils";
 import UtilsRia from "../utils/UtilsRia";
@@ -168,7 +168,10 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
         if(itemResponse.value.length > 0){
             const data = itemResponse.value[0];
             dispatch(itemFetchDataSuccess(data));
-            dispatch(addToItemsList(data));
+            dispatch(addToItemsList({
+                item: data,
+                timestamp: Utils.generateCurrentDate()
+            }));
             dispatch(setItemRequest(itemRequest));
             dispatch(responseIsEmpty(false));
             dispatch(fetchDataForRiaModel(data));
@@ -366,7 +369,7 @@ export const itemFetchDataSuccess = (itemResponse: Item): actions.ItemFetchDataS
 export const getItems = (): actions.GetItemAction => ({
     type: actions.GET_ITEMS
 });
-export const addToItemsList = (itemResponse: Item): actions.AddToItemsListAction => ({
+export const addToItemsList = (itemResponse: INotification): actions.AddToItemsListAction => ({
     type: actions.ADD_TO_ITEMS_LIST,
     payload: itemResponse
 });

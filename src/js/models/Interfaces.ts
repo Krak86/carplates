@@ -2,7 +2,7 @@ export interface ApplicationStates {
   itemRequest: string;
   imageRequest: any;
   itemResponse: Item;
-  itemsList: Item[];
+  itemsList: INotification[];
   //imagesList: Images;
   imagesPlatesMania?: IPlatesmaniaCars[];
   imagesRia?: IRiaAds[];
@@ -24,6 +24,11 @@ export interface ApplicationStates {
   lang: Lang;
   favorites: Item[];
   badges: number;
+}
+
+export interface INotification{
+  item: Item;
+  timestamp: string;
 }
 
 export enum Lang{

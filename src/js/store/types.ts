@@ -1,4 +1,4 @@
-import { Item, VIN, Auth, IFacebook, IGoogle, IRiaAds, IPlatesmaniaCars, Lang } from "../models/Interfaces";
+import { Item, VIN, Auth, IFacebook, IGoogle, IRiaAds, IPlatesmaniaCars, Lang, INotification } from "../models/Interfaces";
 
 export const ITEM_FETCH_DATA_SUCCESS: string = "ITEM_FETCH_DATA_SUCCESS";
 export const SET_ITEM_REQUEST: string = "SET_ITEM_REQUEST";
@@ -121,7 +121,7 @@ export interface GetItemAction{
 }
 export interface AddToItemsListAction{
     type: typeof ADD_TO_ITEMS_LIST;
-    payload: Item;
+    payload: INotification;
 }
 
 //export type ActionType = SetItemRequestAction | GetItemAction | ItemFetchDataSuccessAction | ItemsIsLoadingAction | ItemsHasErroredAction | AddToItemsList | SetSearchingItemType;

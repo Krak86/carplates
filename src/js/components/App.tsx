@@ -161,8 +161,10 @@ export default function App() {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             {lang(state.lang).dashBoradTitle}
           </Typography>          
-          <Link to="/notifications" onClick={handleOnBadgeClick}>
-            <IconButton >
+          <Link to="/notifications">
+            <IconButton
+              onClick={handleOnBadgeClick}
+            >
               <Badge badgeContent={badges} color="secondary">
                   <NotificationsIcon  color="action" />
               </Badge>

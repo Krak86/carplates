@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { AppState } from "../../store";
-import { ApplicationStates, Item } from "../../models/Interfaces";
+import { ApplicationStates, Item, INotification } from "../../models/Interfaces";
 import { ResultNotificationCard } from "../search/ResultNotificationCard";
 import Typography from '@material-ui/core/Typography';
 import lang from "../../locale";
@@ -15,8 +15,8 @@ export const NotificationPage = () => {
             <Typography variant="h6" color="textSecondary" align="center">
                 {lang(state.lang).url_notifications}
             </Typography>
-            {state.itemsList.map((i: Item) => {
-                return <ResultNotificationCard item={i} key={Math.random()} />
+            {state.itemsList.map((i: INotification) => {
+                return <ResultNotificationCard item={i.item} key={Math.random()} />
             })}
         </Fragment>
     )
