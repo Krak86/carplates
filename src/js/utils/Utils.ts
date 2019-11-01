@@ -149,4 +149,33 @@ export default class Utils {
     }
   }
 
+  public static detectColor(color: string, classes): any {
+    switch(color.toUpperCase()){
+        case 'БЕЖЕВИЙ':
+            return classes.avatarBeige;
+        case 'БІЛИЙ':
+            return classes.avatarWhite;
+        case 'ЖОВТИЙ':
+            return classes.avatarYellow;
+        case 'ЗЕЛЕНИЙ':
+            return classes.avatarGreen;
+        case 'КОРИЧНЕВИЙ':
+            return classes.avatarBrown;
+        case 'ОРАНЖЕВИЙ':
+            return classes.avatarOrange;
+        case 'СИНІЙ':
+            return classes.avatarBlue;
+        case 'СІРИЙ':
+            return classes.avatarGrey;
+        case 'ФІОЛЕТОВИЙ':
+            return classes.avatarPurple;
+        case 'ЧЕРВОНИЙ':
+            return classes.avatarRed;
+        case 'ЧОРНИЙ':
+            return classes.avatarBlack;
+        default:
+            return classes.avatarBlue;
+    }
+  }
+
 }

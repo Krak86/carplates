@@ -23,7 +23,7 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { blue } from '@material-ui/core/colors';
+import { orange, grey, yellow, green, brown, blue, purple, red } from '@material-ui/core/colors';
 import ShareIcon from '@material-ui/icons/Share';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -49,13 +49,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     expandOpen: {
       transform: 'rotate(180deg)',
     },
-    avatar: {
-      backgroundColor: blue[500],
-    },
     link: {
         display: 'none',
     },
-
     bullet: {
         display: 'inline-block',
         margin: '0 2px',
@@ -66,6 +62,39 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     pos: {
         marginBottom: 12,
+    },
+    avatarBeige: {
+        backgroundColor: orange[100],
+    },
+    avatarWhite: {
+        backgroundColor: grey[200],
+    },
+    avatarYellow: {
+        backgroundColor: yellow[500],
+    },
+    avatarGreen: {
+        backgroundColor: green[500],
+    },
+    avatarBrown: {
+        backgroundColor: brown[500],
+    },
+    avatarOrange: {
+        backgroundColor: orange[500],
+    },
+    avatarBlue: {
+        backgroundColor: blue[500],
+    },
+    avatarGrey: {
+        backgroundColor: grey[500],
+    },
+    avatarPurple: {
+        backgroundColor: purple[500],
+    },
+    avatarRed: {
+        backgroundColor: red[500],
+    },
+    avatarBlack: {
+        backgroundColor: grey[900],
     },
   }),
 );
@@ -108,6 +137,8 @@ export const ResultCard = (props: {item: Item}) => {
     const url = `${window.location.origin}/#/${props.item.n_reg_new}`;
     const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || URLs.getDataByPlateUrl;
 
+    const colorClass = Utils.detectColor(props.item.color, classes);
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -146,7 +177,7 @@ export const ResultCard = (props: {item: Item}) => {
             <Card className={classes.card}>
                 <CardHeader
                     avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
+                    <Avatar aria-label="recipe" className={colorClass}>
                          <DirectionsCarIcon />
                     </Avatar>
                     }

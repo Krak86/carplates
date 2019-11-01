@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       transform: 'rotate(180deg)',
     },
     avatar: {
-      backgroundColor: red[500],
+      backgroundColor: red[400],
     },
     link: {
         display: 'none',

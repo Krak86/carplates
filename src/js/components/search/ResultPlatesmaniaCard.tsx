@@ -12,7 +12,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { green } from '@material-ui/core/colors';
+import { indigo } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
 import SendIcon from '@material-ui/icons/Send';
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       transform: 'rotate(180deg)',
     },
     avatar: {
-      backgroundColor: green[500],
+      backgroundColor: indigo[400],
     },
     link: {
         display: 'none',
