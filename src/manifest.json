@@ -1,11 +1,11 @@
 {
-  "name": "carplates",
-  "short_name": "carplates",
+  "name": "Cars UA",
+  "short_name": "Cars UA",
   "start_url": "https://7b01ae6b.ngrok.io/index.html",
   "display": "standalone",
   "background_color": "#3f51b5",
   "theme_color": "#3f51b5",
-  "description": "Car plates recognizer",
+  "description": "UA car plates recognizer",
   "prefer_related_applications": false,
   "icons": [
     {
