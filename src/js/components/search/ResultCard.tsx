@@ -14,7 +14,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
-import { ShareDialog } from "../share/ShareDialog";
+import { ShareDrawerBottom } from "../share/ShareDrawerBottom";
 import CardHeader from '@material-ui/core/CardHeader';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
 import CardContent from '@material-ui/core/CardContent';
@@ -96,12 +96,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     avatarBlack: {
         backgroundColor: grey[900],
     },
-  }),
-);
+}));
 
 const shapeUrlPlate = (value: string, url: string): string => {
     return Utils.shapeUrlPlate(url, value, Utils.extractPartitionKey(value));
-  }
+}
 
 export const ResultCard = (props: {item: Item}) => {    
     const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);    
@@ -297,7 +296,7 @@ export const ResultCard = (props: {item: Item}) => {
                     </CardContent>
                 </Collapse>
             </Card>
-            <ShareDialog open={open} onClose={handleClose} url={url} />
+            <ShareDrawerBottom open={open} onClose={handleClose} url={url} />
         </Fragment>
     )
 }

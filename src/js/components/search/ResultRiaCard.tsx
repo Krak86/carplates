@@ -9,10 +9,9 @@ import { URLs } from "../../data/Data";
 import { AppState } from "../../store";
 import { ApplicationStates} from "../../models/Interfaces";
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-
+import { ShareDrawerBottom } from "../share/ShareDrawerBottom";
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
-import { ShareDialog } from "../share/ShareDialog";
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
@@ -55,8 +54,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     pos: {
         marginBottom: 12,
     },
-  }),
-);
+}));
 
 export const ResultRiaCard = (props: {item: IRiaAds}) => {
     const classes = useStyles({});
@@ -171,7 +169,7 @@ export const ResultRiaCard = (props: {item: IRiaAds}) => {
                     </CardContent>
                 </Collapse>
             </Card>
-            <ShareDialog open={open} onClose={handleClose} url={url} />
+            <ShareDrawerBottom open={open} onClose={handleClose} url={url} />
         </Fragment>
     )
 }
