@@ -23,8 +23,8 @@ import ShopIcon from '@material-ui/icons/Shop';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import LanguageIcon from '@material-ui/icons/Language';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import Divider from '@material-ui/core/Divider';
+import { useAddToHomescreenPrompt } from "../pwa/useAddToHomescreenPrompt";
 
 const ListItemLink = (props: ListItemLinkProps) => {
   const { icon, primary, to, callbackFunc, nestedElement } = props;
@@ -63,12 +63,23 @@ export const routesLinks = () => {
   const dispatch = useDispatch();
   const classes = useStyles({});
 
+  const [prompt, promptToInstall] = useAddToHomescreenPrompt();
+  const [isVisible, setVisibleState] = React.useState(false);
+  const hide = () => setVisibleState(false);
+  React.useEffect(() => {
+      if (prompt) {
+        setVisibleState(true);
+      }
+    },
+    [prompt]
+  );
+
   const handleInstallClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number,
   ): void => {
-    alert("Add to Home Screen");
     setSelectedIndex(index);
+    promptToInstall();
   };
   const handleDrawerClose = () => {
     dispatch(toggleDrawer(false));
@@ -169,19 +180,23 @@ export const routesLinks = () => {
           icon={<ShopIcon />} 
           callbackFunc={handleDrawerClose}
         />
-        <ListItem 
-          button
-          selected={selectedIndex === 0}
-          onClick={event => handleInstallClick(event, 0)}
-        >
-          <ListItemIcon>
-            <VerticalAlignBottomIcon />
-          </ListItemIcon>
-          <ListItemText 
-            primary={lang(state.lang).url_install} 
-          />
-        </ListItem>
-      </List> 
+        {window.matchMedia('(display-mode: standalone)').matches === true
+          ? null
+          : <ListItem 
+              button
+              selected={selectedIndex === 0}
+              onClick={event => handleInstallClick(event, 0)}
+            >
+              <ListItemIcon>
+                <VerticalAlignBottomIcon />
+              </ListItemIcon>
+              <ListItemText 
+                primary={lang(state.lang).url_install} 
+              />
+            </ListItem>
+        }
+
+      </List>
     </Fragment>
   );
 }
