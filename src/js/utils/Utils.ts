@@ -1,4 +1,4 @@
-import { Window, Item, Lang, INotification } from "../models/Interfaces";
+import { Window, Item, Lang, INotification, ISaveState } from "../models/Interfaces";
 
 export default class Utils {
   /**
@@ -195,10 +195,4 @@ export default class Utils {
     return `${year}/${month}/${day}`;
   }
 
-}
-
-export interface ISaveState{
-  favorites: Item[];
-  lang: Lang;
-  itemsList: INotification[];
 }

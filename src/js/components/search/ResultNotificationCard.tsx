@@ -89,12 +89,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     avatarBlack: {
         backgroundColor: grey[900],
     },
-  }),
-);
+}));
 
 const shapeUrlPlate = (value: string, url: string): string => {
     return Utils.shapeUrlPlate(url, value, Utils.extractPartitionKey(value));
-}
+};
 
 export const ResultNotificationCard = (props: INotification) => {    
     const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);    

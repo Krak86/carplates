@@ -603,3 +603,9 @@ export interface IShareDialog{
   onClose: () => void;
   url: string
 }
+
+export interface ISaveState{
+  favorites: Item[];
+  lang: Lang;
+  itemsList: INotification[];
+}
