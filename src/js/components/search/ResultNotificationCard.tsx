@@ -1,6 +1,6 @@
 import React, { Fragment} from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Item } from "../../models/Interfaces";
+import { Item, INotification } from "../../models/Interfaces";
 import lang from "../../locale";
 import { regions } from "../../data/Data";
 import { AppState } from "../../store";
@@ -16,6 +16,8 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import Typography from '@material-ui/core/Typography';
+import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import { orange, grey, yellow, green, brown, blue, purple, red } from '@material-ui/core/colors';
@@ -94,7 +96,7 @@ const shapeUrlPlate = (value: string, url: string): string => {
     return Utils.shapeUrlPlate(url, value, Utils.extractPartitionKey(value));
 }
 
-export const ResultNotificationCard = (props: {item: Item}) => {    
+export const ResultNotificationCard = (props: INotification) => {    
     const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);    
 
     const classes = useStyles({});
@@ -152,7 +154,6 @@ export const ResultNotificationCard = (props: {item: Item}) => {
     return(
         <Fragment>
             <Card className={classes.card}>
-               
                     <CardHeader
                         avatar={
                         <Avatar aria-label="recipe" className={colorClass}>
@@ -190,9 +191,13 @@ export const ResultNotificationCard = (props: {item: Item}) => {
                             onClick={handleSearchMenuClick}
                         >
                             {lang(state.lang).url_search}
-                        </MenuItem>                        
+                        </MenuItem>       
                     </Menu>
-               
+                    <CardContent>
+                    <Typography className={classes.title} color="textSecondary">
+                        {props.timestamp}
+                    </Typography>
+                </CardContent>
             </Card>
         </Fragment>
     )

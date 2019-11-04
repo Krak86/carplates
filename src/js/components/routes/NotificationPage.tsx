@@ -17,7 +17,7 @@ export const NotificationPage = () => {
                 {lang(state.lang).url_notifications}
             </Typography>
             {state.itemsList.map((i: INotification) => {
-                return <ResultNotificationCard item={i.item} key={Math.random()} />
+                return <ResultNotificationCard item={i.item} timestamp={i.timestamp} key={Math.random()} />
             })}
         </Fragment>
     )
