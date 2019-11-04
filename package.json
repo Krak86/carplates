@@ -100,6 +100,7 @@
     "build": "webpack --mode production && npm run pwa",
     "pwa": "pwa-asset-generator ./docs/img/touch/homescreen.png ./docs/img/touch --icon-only --manifest=./docs/manifest.json --index=./docs/index.html",
     "serve": "http-server docs -o",
-    "test": "jest"
+    "test": "jest",
+    "ngrok": "ngrok http 8080"
   }
 }
