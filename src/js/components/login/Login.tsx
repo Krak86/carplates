@@ -45,7 +45,7 @@ const useStyles = makeStyles({
         lineHeight: '20px',
         textDecoration: 'none',
     }
-  });
+});
 
 export const Login = () => {
     //connect to state
@@ -119,6 +119,8 @@ export const Login = () => {
                     onFailure={handleFailure}
                     textButton={lang(state.lang).login_facebook}
                     cssClass={classes.fbHeight}
+                    cookie={true}
+                    autoLoad={false}
                 />
             </MenuItem>
             <MenuItem onClick={handleClose1}>
