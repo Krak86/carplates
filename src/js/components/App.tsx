@@ -1,22 +1,19 @@
-import React from 'react';
+import React, { Fragment, useMemo, forwardRef } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { Route, Switch, Link } from "react-router-dom";
-
+import { Route, Switch, Link, LinkProps, useHistory } from "react-router-dom";
 import { Login } from "./login/Login";
 import lang from "../locale";
 import { toggleDrawer, ResetBadge } from "../store/actions";
 import { AppState } from "../store";
-import { ApplicationStates} from "../models/Interfaces";
+import { ApplicationStates, ListItemLinkProps } from "../models/Interfaces";
 import { routesLinks } from './routes/routesLinks';
 import { SearchPage } from './routes/SearchPage';
 import { FavoritesPage } from "./routes/FavoritesPage";
-
 import { AboutPage } from './routes/AboutPage';
 import { ProfilePage } from './routes/ProfilePage';
 import { DisqusPage } from './routes/DisqusPage';
 import { StorePage } from './routes/StorePage';
 import { NotificationPage } from './routes/NotificationPage';
-
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -31,6 +28,7 @@ import Container from '@material-ui/core/Container';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import Button from '@material-ui/core/Button';
 
 const drawerWidth = 240;
 
@@ -70,9 +68,6 @@ const useStyles = makeStyles(theme => ({
   },
   menuButtonHidden: {
     display: 'none',
-  },
-  title: {
-    flexGrow: 1,
   },
   drawerPaper: {
     position: 'relative',
@@ -121,17 +116,18 @@ const useStyles = makeStyles(theme => ({
   fixedHeight: {
     height: 240,
   },
+  title: {
+    flexGrow: 1,
+    cursor: 'pointer',
+  },
 }));
 
 export default function App() {
-  //connect to state
   const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
-  //constructor, componentDidMounted, componentDidUpdated
   const open = state.drawerToogled;
-  //dispatch action creators
   const dispatch = useDispatch();
-  //hook styles
   const classes = useStyles({});
+  const history = useHistory();
 
   const handleDrawerOpen = () => {
     dispatch(toggleDrawer(true));
@@ -141,6 +137,9 @@ export default function App() {
   };
   const handleOnBadgeClick = () => {
     dispatch(ResetBadge());
+  }
+  const handleClickHome = () => {
+    history.push(`/`);
   }
   const badges = state.badges;
 
@@ -158,12 +157,12 @@ export default function App() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            {lang(state.lang).dashBoradTitle}
-          </Typography>          
+          <Typography component="h1" display="initial"  variant="h6" noWrap className={classes.title} onClick={handleClickHome}>           
+            {lang(state.lang).dashBoradTitle}          
+          </Typography>
+          
           <Link to="/notifications">
-            <IconButton        
-            >
+            <IconButton>
               <Badge badgeContent={badges} color="secondary">
                   <NotificationsIcon  color="action" />
               </Badge>
