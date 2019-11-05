@@ -218,12 +218,12 @@ export const SearchField = () => {
       return;
     }
     let file = value[0];
-    if(!Utils.checkFileType(file)){
+    if(!Utils.checkFileType(file.type)){
       setOpenSnackbar(true);
       handleSnackbarMessage(lang(state.lang).messageChooseImage);
       return;
     }
-    if(!Utils.checkImageSize(file)){
+    if(!Utils.checkImageSize(file.size)){
       setOpenSnackbar(true);
       handleSnackbarMessage(lang(state.lang).messageImageLimit);
       return;

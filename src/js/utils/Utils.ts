@@ -1,4 +1,4 @@
-import { Window, Item, Lang, INotification, ISaveState } from "../models/Interfaces";
+import { Window, Item } from "../models/Interfaces";
 
 export default class Utils {
   /**
@@ -10,26 +10,26 @@ export default class Utils {
     return windowObj.location.protocol + "//" + windowObj.location.host;
   } 
   /**
-    * The reducer function on each member of the array resulting in a single output value
+    * The reduce() method executes a reducer function on each element of the array, resulting in a single output value
     */
   public static reducer(accumulator: string, currentValue: string): string{
     return accumulator + currentValue;
   }
   /**
-    * latinRange
+    * Function to check if valur is Latin character in uppercase
     */
   public static latinRange(val: string): boolean{
     const code = val.charCodeAt(0);
-    return (code > 64 || code < 91) ? true : false;
+    return (code > 64 && code < 91) ? true : false;
   }
   /**
-    * trimData
+    * Function to remove spaces surrounded a value
     */  
   public static trimData(val: string): string{
     return val.replace(/ /g,'');
   }
   /**
-    * convertToCyrillic
+    * Function to combine together converted latin to cyrillic symbols
     */  
   public static convertToCyrillic(s: string, latinRange: Function, latinToCyrillicMatrix: Function, reducer: any): string{
     return s.split("").map((i: string) => {
@@ -39,7 +39,9 @@ export default class Utils {
       return i;
       }).reduce(reducer);
   }
-
+  /**
+    * Function to convert latin symbols to cyrillic, that looks similar: A,B,C,E,H,I,K,M,O,P,T,X
+    */  
   public static latinToCyrillicMatrix(i: string): string{
     switch(i.charCodeAt(0)){
       case 65:
@@ -70,41 +72,61 @@ export default class Utils {
         return i;
     }
   }
-
+  /**
+    * Function to prepare the url to connect to azure table storage to get car plate data by row key and partition key
+    */  
   public static shapeUrlPlate(url: string, rowKey: string, partitionKey: string): string{
     return `${url}RowKey eq '${rowKey}' and PartitionKey eq '${partitionKey}'`;
   }
-
+  /**
+    * Function to prepare the url to connect to external service to get car vin number
+    * Source:
+    *       https://vpic.nhtsa.dot.gov
+    */  
   public static shapeUrlVin(url: string, value: string): string{
     return `${url}/${value}?format=json`;
   }
-
+  /**
+    * Function to exctract the first two characters from provided value
+    */  
   public static extractPartitionKey(val: string): string{
     return val.substr(0,2);
   }
-
+  /**
+    * Function to replace the "1" to "I".
+    * The image car plate recognizer external service doesn't work with "I" symbol.
+    * It detects "I" as "1" and service returns the "1".
+    * Source:
+    *       https://api.platerecognizer.com/v1/plate-reader/
+    */  
   public static changeSymbols1toI(val: string): string{
     return val.substr(0,2).replace(/1/g,'I') + val.substr(2,4) + val.substr(val.length-2).replace(/1/g,'I');
   }
-
-  public static checkFileType = (blob: File): boolean => {
-    if(blob.type.indexOf("image") === -1){
+  /**
+    * Function to check the image file type of the provided blob file 
+    */  
+  public static checkFileType = (type: string): boolean => {
+    if(type.indexOf("image") === -1){
       return false;
     }
     else{
       return true;
     }
   }
-  
-  public static checkImageSize = (blob: File): boolean => {
-    if(blob.size > 5000000){
+    /**
+    * Function to check is the size of blob file more than 5MB
+    */  
+  public static checkImageSize = (size: number): boolean => {
+    if(size > 5000000){
       return false;
     }
     else{
       return true;
     }
   }
-
+  /**
+    * Function to check if the value is undefined or null
+    */  
   public static checkIsUndefinedOrNull(value: any): boolean{
     if(value === undefined || value === null){
       return true;
@@ -113,51 +135,27 @@ export default class Utils {
       return false;
     }
   }
-
+  /**
+    * Function to generate the url for external service to get the car images by providing the car plate
+    * Source:
+    *       http://avto-nomer.ru/mobile/api_photo_test.php?nomer=a001aa22
+    */  
   public static generateUrlforPlatesmania(url: string, itemRequest: string): string{
     //const shapedInputRequest = 'a001aa22';
     return `${url}/mobile/api_photo_test1.php?nomer=${itemRequest}`;
   }
-
+  /**
+    * Function to detect if the item is already added to provided array
+    */  
   public static isItemAlreadyAdded(items: Item[], rowNumber: string): boolean{
     return items.filter((i: Item) => i.n_reg_new === rowNumber).length > 0
       ? true
       : false;
   }
 
-  public static loadState(): ISaveState {
-    const defaultData: ISaveState = {
-      favorites: [],
-      lang: Lang.ua,
-      itemsList: [],
-    };
-    try{
-      const serializedState = localStorage.getItem("carPlateFavoritesState");      
-      if(serializedState === null){
-        return JSON.parse(
-          JSON.stringify(defaultData));
-      }
-      else{
-        return JSON.parse(serializedState);
-      }      
-    }
-    catch(err){
-      console.log(err);
-      return JSON.parse(
-        JSON.stringify(defaultData));
-    }
-  }
-
-  public static saveState(favorites: ISaveState): void{
-    try{
-      const serializedState = JSON.stringify(favorites);
-      localStorage.setItem('carPlateFavoritesState', serializedState);
-    }
-    catch(err){
-      console.log(err);
-    }
-  }
-
+  /**
+    * Function to detect color and return appropriate color
+    */  
   public static detectColor(color: string, classes): any {
     switch(color.toUpperCase()){
         case 'БЕЖЕВИЙ':
@@ -186,19 +184,15 @@ export default class Utils {
             return classes.avatarBlue;
     }
   }
-
+  /**
+    * Function to generate current date string
+    */  
   public static generateCurrentDate(): string{
     const date = new Date;
     const day = date.getDate();
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
     return `${year}/${month}/${day}`;
-  }
-
-  public static playNotification(){
-    const audio_source = "audio/sharp.mp3";
-    const audio = new Audio(audio_source);
-    audio.play();
   }
 
 }

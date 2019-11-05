@@ -5,6 +5,7 @@ import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse, A
 import { ThunkAction } from "redux-thunk";
 import Utils from "../utils/Utils";
 import UtilsRia from "../utils/UtilsRia";
+import UtilsAsync from "../utils/UtilsAsync";
 import { URLs, platesManiaDataTest } from "../data/Data";
 
 export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
@@ -177,7 +178,7 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
             dispatch(fetchDataForRiaModel(data));
             dispatch(fetchDataForPlatesmania(itemRequest));
             dispatch(AddBadge());
-            Utils.playNotification();
+            UtilsAsync.playNotification();
         }
         else{
             dispatch(responseIsEmpty(true));
