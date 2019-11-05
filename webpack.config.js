@@ -144,6 +144,10 @@ module.exports = {
       {
         from:'src/robots.txt',
         to:''
+      },
+      {
+        from:'src/audio',
+        to:'audio'
       }
     ]),
     new webpack.HotModuleReplacementPlugin(),

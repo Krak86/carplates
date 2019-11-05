@@ -177,6 +177,7 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
             dispatch(fetchDataForRiaModel(data));
             dispatch(fetchDataForPlatesmania(itemRequest));
             dispatch(AddBadge());
+            Utils.playNotification();
         }
         else{
             dispatch(responseIsEmpty(true));

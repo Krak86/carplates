@@ -195,4 +195,10 @@ export default class Utils {
     return `${year}/${month}/${day}`;
   }
 
+  public static playNotification(){
+    const audio_source = "audio/sharp.mp3";
+    const audio = new Audio(audio_source);
+    audio.play();
+  }
+
 }
