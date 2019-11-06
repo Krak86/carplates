@@ -1,7 +1,7 @@
 import React from 'react';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-import { AppState } from "../../store";
+import { AppState } from "../../redux";
 import { ApplicationStates, IShareDialog } from "../../models/Interfaces";
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import lang from "../../locale";

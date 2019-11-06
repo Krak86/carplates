@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { AppState } from "../../store";
+import { AppState } from "../../redux";
 import { ApplicationStates, IVinResultValues, IRiaAds, IPlatesmaniaCars } from "../../models/Interfaces";
 import { ResultRiaCard } from "./ResultRiaCard";
 import { ResultCard } from "./ResultCard";

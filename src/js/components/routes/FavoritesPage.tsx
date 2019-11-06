@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { AppState } from "../../store";
+import { AppState } from "../../redux";
 import { ApplicationStates, Item } from "../../models/Interfaces";
 import { ResultCard } from "../search/ResultCard";
 import Typography from '@material-ui/core/Typography';

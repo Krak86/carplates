@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { AppState } from "../../store";
+import { AppState } from "../../redux";
 import { ApplicationStates} from "../../models/Interfaces";
 
 export const DisqusPage = () => {

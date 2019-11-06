@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { AppState } from "../../store";
+import { AppState } from "../../redux";
 import { ApplicationStates, IWebcamCaptureProps } from "../../models/Interfaces";
-import { imageFetchData } from "../../store/actions";
+import { imageFetchData } from "../../redux/actions";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';

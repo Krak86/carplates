@@ -8,8 +8,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
 import lang from "../../locale";
-import { login, loginFacebook, loginGoogle } from "../../store/actions";
-import { AppState } from "../../store";
+import { login, loginFacebook, loginGoogle } from "../../redux/actions";
+import { AppState } from "../../redux";
 import { ApplicationStates, IFacebook, IGoogle } from "../../models/Interfaces";
 import { facebookInit, googleInit } from "../../data/Data";
 

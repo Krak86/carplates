@@ -6,7 +6,7 @@ import Utils from "../../utils/Utils";
 import { bodyStyles } from "../../data/DataStylesRia";
 import lang from "../../locale";
 import { URLs } from "../../data/Data";
-import { AppState } from "../../store";
+import { AppState } from "../../redux";
 import { ApplicationStates} from "../../models/Interfaces";
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { ShareDrawerBottom } from "../share/ShareDrawerBottom";

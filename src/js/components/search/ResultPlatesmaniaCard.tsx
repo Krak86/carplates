@@ -2,7 +2,7 @@ import React, { Fragment} from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { IPlatesmaniaCars } from "../../models/Interfaces";
 import lang from "../../locale";
-import { AppState } from "../../store";
+import { AppState } from "../../redux";
 import { ApplicationStates} from "../../models/Interfaces";
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import Card from '@material-ui/core/Card';
