@@ -56,8 +56,8 @@ describe("Utils window methods", () => {
     expect(Utils.convertToCyrillic("MOPT", Utils.latinRange, Utils.latinToCyrillicMatrix, Utils.reducer)).toBe("МОРТ");
   });
   test("shapeUrlPlate", () => {
-    expect(Utils.shapeUrlPlate("http://localhost:8080/filter=", "AB","ABCH")).toBe("http://localhost:8080/filter=RowKey eq 'AB' and PartitionKey eq 'ABCH'");
-    expect(Utils.shapeUrlPlate("http://localhost:8080/filter=", "12","12CH")).toBe("http://localhost:8080/filter=RowKey eq '12' and PartitionKey eq '12CH'");
+    expect(Utils.shapeUrlPlate("http://localhost:8080/&$filter=", "AB","ABCH")).toBe("http://localhost:8080/&$filter=RowKey eq 'AB' and PartitionKey eq 'ABCH'");
+    expect(Utils.shapeUrlPlate("http://localhost:8080/&$filter=", "12","12CH")).toBe("http://localhost:8080/&$filter=RowKey eq '12' and PartitionKey eq '12CH'");
   });
   test("shapeUrlVin", () => {
     expect(Utils.shapeUrlVin("http://localhost:8080", "3VWD17AJ9GM299880")).toBe("http://localhost:8080/3VWD17AJ9GM299880?format=json");

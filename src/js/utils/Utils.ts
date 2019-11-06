@@ -76,7 +76,7 @@ export default class Utils {
     * Function to prepare the url to connect to azure table storage to get car plate data by row key and partition key
     */  
   public static shapeUrlPlate(url: string, rowKey: string, partitionKey: string): string{
-    return `${url}RowKey eq '${rowKey}' and PartitionKey eq '${partitionKey}'`;
+    return `${url}&$filter=RowKey eq '${rowKey}' and PartitionKey eq '${partitionKey}'`;
   }
   /**
     * Function to prepare the url to connect to external service to get car vin number
