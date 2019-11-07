@@ -148,6 +148,10 @@ module.exports = {
       {
         from:'src/audio',
         to:'audio'
+      },
+      {
+        from:'src/CNAME',
+        to:''
       }
     ]),
     new webpack.HotModuleReplacementPlugin(),

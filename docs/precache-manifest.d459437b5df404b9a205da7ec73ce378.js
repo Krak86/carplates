@@ -1,5 +1,9 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
+    "revision": "b7f4ecdede64dafc8f7f3298a0ed017a",
+    "url": "CNAME"
+  },
+  {
     "revision": "39e098a322e4fbf2aa2073cc6c6d839a",
     "url": "audio/sharp.m4r"
   },
@@ -25,7 +29,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "js/vendors~main.fb2ebae354cbbcccb9d5.js"
   },
   {
-    "revision": "f8e9c5913d6720f0d5c9ecd5191cfc8d",
+    "revision": "51f6bc2e6d261d00d69d547c5bb4c299",
     "url": "manifest.json"
   },
   {
