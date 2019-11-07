@@ -1,9 +1,5 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b7f4ecdede64dafc8f7f3298a0ed017a",
-    "url": "CNAME"
-  },
-  {
     "revision": "39e098a322e4fbf2aa2073cc6c6d839a",
     "url": "audio/sharp.m4r"
   },

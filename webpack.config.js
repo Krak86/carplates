@@ -164,6 +164,7 @@ module.exports = {
           /\.(png|jpe?g|gif|svg|webp)$/i,
           /\.map$/,
           /^manifest.*\\.js(?:on)?$/,
+          /CNAME/
       ],
       offlineGoogleAnalytics: true,
       runtimeCaching: [
