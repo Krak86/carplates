@@ -170,13 +170,13 @@ module.exports = {
       runtimeCaching: [
           {
               urlPattern: /\.(?:png|jpg|jpeg|svg|webp)$/,
-              handler: "CacheFirst",
-              options: {
+              handler: "StaleWhileRevalidate",
+              /*options: {
                   cacheName: "images",
                   expiration: {
                       maxEntries: 20
                   }
-              }
+              }*/
           }
       ]
     }),

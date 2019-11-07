@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.c2502fa154c0410aebb29224db71c181.js"
+  "precache-manifest.da69140939288a8d6301d3aa5f478775.js"
 );
 
 workbox.core.skipWaiting();
@@ -29,6 +29,6 @@ workbox.core.clientsClaim();
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerRoute(/\.(?:png|jpg|jpeg|svg|webp)$/, new workbox.strategies.CacheFirst({ "cacheName":"images", plugins: [new workbox.expiration.Plugin({ maxEntries: 20, purgeOnQuotaError: false })] }), 'GET');
+workbox.routing.registerRoute(/\.(?:png|jpg|jpeg|svg|webp)$/, new workbox.strategies.StaleWhileRevalidate(), 'GET');
 
 workbox.googleAnalytics.initialize({});
