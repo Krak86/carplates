@@ -1,22 +1,12 @@
 {
   "name": "Cars UA",
   "short_name": "Cars UA",
-  "start_url": "https://www.carsua.app",
+  "start_url": "https://carsua.app",
   "display": "standalone",
   "background_color": "#3f51b5",
   "theme_color": "#3f51b5",
   "description": "UA car plates recognizer",
   "prefer_related_applications": false,
   "icons": [
-    {
-      "src": "img/touch/manifest-icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "img/touch/manifest-icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
   ]
 }
