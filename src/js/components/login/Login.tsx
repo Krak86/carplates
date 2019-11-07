@@ -1,20 +1,17 @@
 import React, { Fragment } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-
 import lang from "../../locale";
-import { login, loginFacebook, loginGoogle } from "../../redux/actions";
+import { login } from "../../redux/actions";
 import { AppState } from "../../redux";
 import { ApplicationStates, IFacebook, IGoogle } from "../../models/Interfaces";
-import { facebookInit, googleInit } from "../../data/Data";
-
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
+import { loggedInDefault } from "../../data/Data";
 
 const useStyles = makeStyles({
     avatar: {
@@ -48,13 +45,9 @@ const useStyles = makeStyles({
 });
 
 export const Login = () => {
-    //connect to state
     const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
-    //constructor, componentDidMounted, componentDidUpdated
     const [anchorEl1, setAnchorEl] = React.useState<null | HTMLElement>(null);   
     const open = Boolean(anchorEl1);
-   
-    //dispatch action creators
     const dispatch = useDispatch();
     const classes = useStyles({});
 
@@ -69,23 +62,29 @@ export const Login = () => {
     };
     const responseFacebook = (response: IFacebook): void => {
         console.log(response);
-        dispatch(login(1));
-        dispatch(loginFacebook(response));
+        dispatch(login({
+            vendor: 1,
+            avatar: response.picture.data.url,
+            profileName: response.name,
+            mail: response.email,
+        }));
     }
     const responseGoogle = (response: any): void => {
         console.log(response);
-        dispatch(login(2));
-        dispatch(loginGoogle(response));
+        dispatch(login({
+            vendor: 2,
+            avatar: response.profileObj.imageUrl,
+            profileName: response.profileObj.name,
+            mail: response.profileObj.email,
+        }));
     }
     const handleFailure = () => {
-        dispatch(login(0));
-        dispatch(loginGoogle(googleInit));
-        dispatch(loginFacebook(facebookInit))
+        dispatch(login(loggedInDefault));
     }
 
     return (
     <Fragment>
-        {state.signedIn === 0 ? 
+        {state.loggedIn.vendor  === 0 ? 
         <div>
             <Button 
                 color="inherit"
@@ -135,18 +134,11 @@ export const Login = () => {
           </Menu>
           </div>
         :
-        <div>
-            {state.signedIn === 1 ?
+        <div>           
             <Avatar 
-                alt={state.facebookResponse.name}
-                src={state.facebookResponse.picture.data.url} className={classes.avatar}
-            />
-            :
-            <Avatar 
-                alt={state.googleResponse.profileObj.name}
-                src={state.googleResponse.profileObj.imageUrl} className={classes.avatar}
-            />
-            }
+                alt={state.loggedIn.profileName}
+                src={state.loggedIn.avatar} className={classes.avatar}
+            /> 
         </div>
         }
     </Fragment>

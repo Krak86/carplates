@@ -1,4 +1,4 @@
-import { Item, VIN, Auth, IFacebook, IGoogle, IRiaAds, IPlatesmaniaCars, Lang, INotification } from "../models/Interfaces";
+import { Item, VIN, Auth, IFacebook, IGoogle, IRiaAds, IPlatesmaniaCars, Lang, INotification, ILoggedIn } from "../models/Interfaces";
 
 export const ITEM_FETCH_DATA_SUCCESS: string = "ITEM_FETCH_DATA_SUCCESS";
 export const SET_ITEM_REQUEST: string = "SET_ITEM_REQUEST";
@@ -70,7 +70,7 @@ export interface LoginGoogleAction{
 }
 export interface LoginAction{
     type: typeof LOGIN;
-    payload: Auth;
+    payload: ILoggedIn;
 }
 export interface AddToVinsListListAction{
     type: typeof ADD_TO_VINS_LIST;

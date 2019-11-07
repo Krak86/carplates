@@ -1,7 +1,7 @@
 import  * as actions from "./types";
 import { Action } from "redux";
 import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse, Auth, IFacebook, IGoogle, IRiaCategories, IRiaSearch, 
-    IRiaAds, IRiaSearchData, IPlatesmania, IPlatesmaniaCars, Lang, INotification } from "../models/Interfaces";
+    IRiaAds, IRiaSearchData, IPlatesmania, IPlatesmaniaCars, Lang, INotification, ILoggedIn } from "../models/Interfaces";
 import { ThunkAction } from "redux-thunk";
 import Utils from "../utils/Utils";
 import UtilsRia from "../utils/UtilsRia";
@@ -324,7 +324,7 @@ export const loginFacebook = (login: IFacebook): actions.LoginFacebookAction => 
     type: actions.LOGIN_FACEBOOK,
     payload: login
 });
-export const login = (authStatus: Auth): actions.LoginAction => ({
+export const login = (authStatus: ILoggedIn): actions.LoginAction => ({
     type: actions.LOGIN,
     payload: authStatus
 });

@@ -11,6 +11,7 @@ export const lang: Locale = {
     logout: "Logout",
     login_google: "Login with Google",
     login_facebook: "Login with Facebook",
+    loggedInText: "You are logged in using",
 
     rowKey: "Car plate",
     brand: "Brand",

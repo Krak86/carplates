@@ -2,22 +2,20 @@ import React, { Fragment } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Login } from '../login/Login';
-import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
 import lang from "../../locale";
-import { login, loginFacebook, loginGoogle } from "../../redux/actions";
+import { login } from "../../redux/actions";
 import { AppState } from "../../redux";
-import { ApplicationStates, IFacebook, IGoogle } from "../../models/Interfaces";
-import { facebookInit, googleInit } from "../../data/Data";
+import { ApplicationStates  } from "../../models/Interfaces";
 import CardContent from '@material-ui/core/CardContent';
-import FacebookLogin from 'react-facebook-login';
-import GoogleLogin from 'react-google-login';
+import IconButton from '@material-ui/core/IconButton';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { loggedInDefault } from "../../data/Data";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     card: {
@@ -56,40 +54,71 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 export const Profile = () => {
     const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
+    const [anchorEl1, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const openSettingsMenu = Boolean(anchorEl1);
     const dispatch = useDispatch();
     const classes = useStyles({});
-    let name = "", mail = "", url= "", loggedIn = "";
-    if(state.signedIn === 1){
-        name = state.facebookResponse.name;
-        mail = state.facebookResponse.email;
-        url = state.facebookResponse.picture.data.url;
-        loggedIn = "Facebook";
+    const handleClose1 = (): void => {
+        setAnchorEl(null);
+    };
+    const handleSettingsClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
     }
-    if(state.signedIn === 2){
-        name = state.googleResponse.profileObj.name;
-        mail = state.googleResponse.profileObj.email;
-        url = state.googleResponse.profileObj.imageUrl;
-        loggedIn = "Google";
-    }
+    const handleLogoutMenuClick = (): void => {
+        setAnchorEl(null);
+        dispatch(login(loggedInDefault));
+    };
     return (
     <Fragment>
-        {state.signedIn === 0 ? 
+        {state.loggedIn.vendor === 0 ? 
             <Login />
         :        
         <Card className={classes.card}>
             <CardHeader
                 avatar={
                     <Avatar 
-                        alt={name}
-                        src={url}
+                        alt={state.loggedIn.profileName}
+                        src={state.loggedIn.avatar}
                     />                            
                 }
-                title={name}
-                subheader={mail}
+                action={
+                    <IconButton 
+                        aria-label="settings"
+                        title={lang(state.lang).card_settings}
+                        onClick={handleSettingsClick}
+                    >
+                        <MoreVertIcon />
+                    </IconButton>
+                }
+                title={state.loggedIn.profileName}
+                subheader={state.loggedIn.mail}
             />
+            <Menu
+                        id="menu-appbar"
+                        anchorEl={anchorEl1}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={openSettingsMenu}
+                        onClose={handleClose1}
+                    >
+                        <MenuItem 
+                            onClick={handleLogoutMenuClick}
+                        >
+                            {lang(state.lang).logout}
+                        </MenuItem>
+            </Menu>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary">
-                    You are logged in using {loggedIn}.
+                    {lang(state.lang).loggedInText}{' '}{state.loggedIn.vendor === 1 
+                        ? "Facebook"
+                        : "Google" }.
                 </Typography>
             </CardContent>
         </Card>

@@ -3,11 +3,10 @@ export interface ApplicationStates {
   imageRequest: any;
   itemResponse: Item;
   itemsList: INotification[];
-  //imagesList: Images;
   imagesPlatesMania?: IPlatesmaniaCars[];
   imagesRia?: IRiaAds[];
   navigation: Navigation;
-  signedIn: Auth;
+  loggedIn: ILoggedIn;
   drawerToogled: boolean;
   itemIsLoading: boolean;
   itemHasErrored: boolean;
@@ -17,8 +16,6 @@ export interface ApplicationStates {
   vinRequest: string;
   vinResponse: VIN;
   vinsList: [];
-  facebookResponse: IFacebook;
-  googleResponse: IGoogle;
   imageRiaLoaded: boolean;
   imageCarsmaniaLoaded: boolean;
   lang: Lang;
@@ -55,11 +52,12 @@ export enum Auth{
   phone = 6
 }
 
-/*export interface Images {
-  platesMania: [];
-  ria: IRiaAds[];
-  pixabay: [];
-}*/
+export interface ILoggedIn {
+  vendor: Auth;
+  profileName: string;
+  mail: string;
+  avatar: string;
+}
 
 export interface Item {
   "PartitionKey": string;
@@ -121,6 +119,7 @@ export interface Locale{
     logout: string;
     login_google: string;
     login_facebook: string;
+    loggedInText: string;
 
     rowKey?: string;
     brand?: string;
@@ -608,4 +607,5 @@ export interface ISaveState{
   favorites: Item[];
   lang: Lang;
   itemsList: INotification[];
+  loggedIn: ILoggedIn;
 }

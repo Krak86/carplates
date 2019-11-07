@@ -52,20 +52,10 @@ export const getReducer = (
           ...state,
           imagesRia: action.payload
         };
-      case actions.LOGIN_GOOGLE:
-        return {
-          ...state,
-          googleResponse: action.payload
-        };
-      case actions.LOGIN_FACEBOOK:
-        return {
-          ...state,
-          facebookResponse: action.payload
-        };
       case actions.LOGIN:
         return {
           ...state,
-          signedIn: action.payload
+          loggedIn: action.payload
         };
       case actions.ITEM_FETCH_DATA_VIN_SUCCESS:
         return {

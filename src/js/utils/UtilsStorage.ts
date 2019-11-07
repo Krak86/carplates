@@ -1,4 +1,5 @@
 import { Lang, ISaveState } from "../models/Interfaces";
+import { loggedInDefault } from "../data/Data";
 
  export default class UtilsStorage {
     static localStorageState = "carPlateFavoritesState";    
@@ -11,6 +12,7 @@ import { Lang, ISaveState } from "../models/Interfaces";
             favorites: [],
             lang: Lang.ua,
             itemsList: [],
+            loggedIn: loggedInDefault,
         };
         try{
             const serializedState = localStorage.getItem(UtilsStorage.localStorageState);      

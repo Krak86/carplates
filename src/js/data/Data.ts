@@ -1,4 +1,4 @@
-import { ApplicationStates, Item, itemSearching, VIN, IPlatesmaniaCars } from "../models/Interfaces";
+import { ApplicationStates, Item, itemSearching, VIN, IPlatesmaniaCars, ILoggedIn } from "../models/Interfaces";
 
 
 const itemResponse: Item = {
@@ -49,6 +49,12 @@ export const googleInit = {
         name: "",
     }
 }
+export const loggedInDefault: ILoggedIn = {
+    vendor: 0,
+    profileName: "",
+    avatar: "",
+    mail: "",
+}
 
 export const initialData: ApplicationStates = {
     itemRequest: "",
@@ -60,7 +66,6 @@ export const initialData: ApplicationStates = {
     navigation: {
         url: "home"
     },
-    signedIn: 0,
     drawerToogled: false,
     itemIsLoading: false,
     itemHasErrored: false,
@@ -70,8 +75,7 @@ export const initialData: ApplicationStates = {
     vinRequest: "",
     vinResponse: vinResponse,
     vinsList: [],
-    facebookResponse: facebookInit,
-    googleResponse: googleInit,
+    loggedIn: loggedInDefault,
     imageRiaLoaded: false,
     imageCarsmaniaLoaded: false,
     lang: 0,

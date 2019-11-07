@@ -32,6 +32,7 @@ export const configureStore = () => {
       favorites: store.getState().Item.favorites,
       lang: store.getState().Item.lang,
       itemsList: store.getState().Item.itemsList,
+      loggedIn: store.getState().Item.loggedIn,
     })
   });
 
