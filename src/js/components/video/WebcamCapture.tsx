@@ -81,7 +81,12 @@ export const WebcamCapture = (props: IWebcamCaptureProps) => {
           <FormLabel key={Math.random()} component="legend">{lang(state.lang).messageTurnOnFrontCamera}</FormLabel>
           <RadioGroup aria-label="gender" name="gender1" value={deviceId} onChange={handleChange} key={Math.random()}>
             {videoDevices !== undefined 
-              ? videoDevices.map((d: MediaDeviceInfo) => <FormControlLabel key={Math.random()} value={d.deviceId} control={<Radio key={Math.random()} />} label={d.label} />)
+              ? videoDevices.map((d: MediaDeviceInfo) => <FormControlLabel 
+                key={Math.random()} 
+                value={d.deviceId} 
+                control={<Radio key={Math.random()} />} 
+                label={`${d.label} ${d.deviceId}`} 
+              />)
               : null
             }
           </RadioGroup>
