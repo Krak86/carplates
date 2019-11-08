@@ -177,6 +177,7 @@ export interface Locale{
     card_showMore: string;
     card_openOriginalAds: string;
     card_openOriginalImage: string;
+    card_openOriginalWebSite: string;
     card_ResultImagesFrom: string;
     card_ImgDate: string;
 

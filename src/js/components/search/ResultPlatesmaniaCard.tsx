@@ -61,7 +61,7 @@ export const ResultPlatesmaniaCard = (props: {item: IPlatesmaniaCars}) => {
         window.open(url);
     };
     const handleSiteClick = () => {
-      window.open(siteUrl);
+      window.open(item.photo.link);
   };
     return (
                 <Card className={classes.card}>
@@ -93,7 +93,7 @@ export const ResultPlatesmaniaCard = (props: {item: IPlatesmaniaCars}) => {
                         </IconButton>
                         <IconButton 
                             aria-label="go to web site"
-                            title="Open web site"
+                            title={lang(state.lang).card_openOriginalWebSite}
                             onClick={() => handleSiteClick()}
                         >
                             <LanguageIcon />

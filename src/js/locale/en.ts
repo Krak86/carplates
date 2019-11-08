@@ -73,6 +73,7 @@ export const lang: Locale = {
     card_showMore: "Show more",
     card_openOriginalAds: "Open original ads",
     card_openOriginalImage: "Open original image",
+    card_openOriginalWebSite: "Open original web site",
     card_ResultImagesFrom: "Result images from",
     card_ImgDate: "Image date",
 

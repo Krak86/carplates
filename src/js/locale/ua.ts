@@ -71,6 +71,7 @@ export const lang: Locale = {
     card_showMore: "Показати більше",
     card_openOriginalAds: "Відкрити оригінальні оголошення",
     card_openOriginalImage: "Відкрити оригінальне зображення",
+    card_openOriginalWebSite: "Відкрити оригінальний сайт",
     card_ResultImagesFrom: "Зображення з ресурсу",
     card_ImgDate: "Дата світлини",
 
