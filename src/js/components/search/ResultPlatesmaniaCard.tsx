@@ -16,6 +16,7 @@ import { indigo } from '@material-ui/core/colors';
 import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
 import SendIcon from '@material-ui/icons/Send';
+import LanguageIcon from '@material-ui/icons/Language';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     card: {
@@ -55,9 +56,13 @@ export const ResultPlatesmaniaCard = (props: {item: IPlatesmaniaCars}) => {
     const { item } = props;
     const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
     const classes = useStyles({});
+    const siteUrl = "http://platesmania.com";
     const handleRedirectClick = (url: string) => {
         window.open(url);
     };
+    const handleSiteClick = () => {
+      window.open(siteUrl);
+  };
     return (
                 <Card className={classes.card}>
                     <CardHeader
@@ -67,7 +72,7 @@ export const ResultPlatesmaniaCard = (props: {item: IPlatesmaniaCars}) => {
                         </Avatar>
                         }
                         title={lang(state.lang).card_ResultImagesFrom}
-                        subheader="http://platesmania.com"        
+                        subheader={siteUrl}
                     />
                     <CardMedia
                         className={classes.media}
@@ -85,6 +90,13 @@ export const ResultPlatesmaniaCard = (props: {item: IPlatesmaniaCars}) => {
                             onClick={ () => handleRedirectClick(item.photo.original)}
                         >
                             <SendIcon />
+                        </IconButton>
+                        <IconButton 
+                            aria-label="go to web site"
+                            title="Open web site"
+                            onClick={() => handleSiteClick()}
+                        >
+                            <LanguageIcon />
                         </IconButton>
                     </CardActions>
                 </Card>
