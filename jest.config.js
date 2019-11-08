@@ -28,7 +28,7 @@ module.exports = {
         [ "jest-junit", 
             {
                 "suiteName": "jest tests",
-                "outputDirectory": "./jest",
+                "outputDirectory": "./__tests__",
                 "outputName": "ummary-jest-junit.xml"
             } 
     ]
