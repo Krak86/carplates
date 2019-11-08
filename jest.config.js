@@ -34,7 +34,7 @@ module.exports = {
     ]
       
     ],
-    "coverageDirectory": "<rootDir>/jest",
+    "coverageDirectory": "<rootDir>/__tests__",
     "coverageThreshold": {
       "global": {
         "branches": 40,
