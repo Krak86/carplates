@@ -1,4 +1,4 @@
-import { Window, Item } from "../models/Interfaces";
+import { Window, Item, Auth, IUserKeys, IUser } from "../models/Interfaces";
 
 export default class Utils {
   /**
@@ -193,6 +193,32 @@ export default class Utils {
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
     return `${year}/${month}/${day}`;
+  }
+  /**
+    * Function to check is user was Authenticated
+    */ 
+  public static isUserAuthenticated(vendor: Auth): boolean{
+    return vendor > 0
+      ? true
+      : false
+  }
+  /**
+    * Function to generate the RowKey & PartitionKey to azure service to get user's data
+    */ 
+  public static generateRowKeyAndPartitionKey(email: string): IUserKeys{
+    return Utils.checkIsUndefinedOrNull(email) === true 
+      ? { 
+        "PartitionKey": "",
+        "RowKey": ""
+      }
+      : {
+        "PartitionKey": email,
+        "RowKey": email.split("@")[1]
+      }
+  }
+
+  public static mergeItems(data: IUser[], favorites: Item[]): Item[]{
+    return favorites;
   }
 
 }

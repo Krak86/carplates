@@ -14,8 +14,8 @@ export const SET_VIN_REQUEST: string = "SET_VIN_REQUEST";
 export const ITEM_FETCH_DATA_VIN_SUCCESS: string = "ITEM_FETCH_DATA_VIN_SUCCESS";
 export const ADD_TO_VINS_LIST: string = "ADD_TO_VINS_LIST";
 export const LOGIN: string = "LOGIN";
-export const LOGIN_FACEBOOK: string = "LOGIN_FACEBOOK";
-export const LOGIN_GOOGLE: string = "LOGIN_GOOGLE";
+//export const LOGIN_FACEBOOK: string = "LOGIN_FACEBOOK";
+//export const LOGIN_GOOGLE: string = "LOGIN_GOOGLE";
 export const ADD_RIA_ADS: string = "ADD_RIA_ADS";
 export const ADD_CARSMANIA_CARS: string = "ADD_CARSMANIA_CARS";
 export const IMG_RIA_LOADED: string = "IMG_RIA_LOADED";
@@ -25,7 +25,20 @@ export const ADD_TO_FAVORITES: string = "ADD_TO_FAVORITES";
 export const REMOVE_FROM_FAVORITES: string = "REMOVE_FROM_FAVORITES";
 export const ADD_BADGE: string = "ADD_BADGE";
 export const RESET_BADGE: string = "RESET_BADGE";
+export const GET_USER_DATA: string = "GET_USER_DATA";
+export const PUT_USER_DATA: string = "PUT_USER_DATA";
+export const MERGE_LOCAL_AND_CLOUD_FAVORITES: string = "MERGE_LOCAL_AND_CLOUD_FAVORITES";
 
+export interface MergeLocalAndCloudFavoritesAction{
+    type: typeof MERGE_LOCAL_AND_CLOUD_FAVORITES;
+    payload: Item[];
+}
+export interface PutUserDataAction{
+    type: typeof PUT_USER_DATA;
+}
+export interface GetUserDataAction{
+    type: typeof GET_USER_DATA;
+}
 export interface ResetBadgeAction{
     type: typeof RESET_BADGE;
 }
@@ -60,14 +73,14 @@ export interface AddRiaAdsAction{
     type: typeof ADD_RIA_ADS;
     payload: IRiaAds[];
 }
-export interface LoginFacebookAction{
+/*export interface LoginFacebookAction{
     type: typeof LOGIN_FACEBOOK;
     payload: IFacebook;
 }
 export interface LoginGoogleAction{
     type: typeof LOGIN_GOOGLE;
     payload: IGoogle;
-}
+}*/
 export interface LoginAction{
     type: typeof LOGIN;
     payload: ILoggedIn;

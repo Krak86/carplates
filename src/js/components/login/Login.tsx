@@ -6,7 +6,7 @@ import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import lang from "../../locale";
-import { login } from "../../redux/actions";
+import { login, authoriseUser } from "../../redux/actions";
 import { AppState } from "../../redux";
 import { ApplicationStates, IFacebook, IGoogle } from "../../models/Interfaces";
 import FacebookLogin from 'react-facebook-login';
@@ -62,26 +62,30 @@ export const Login = () => {
     };
     const responseFacebook = (response: IFacebook): void => {
         console.log(response);
-        dispatch(login({
+        dispatch(authoriseUser({
             vendor: 1,
             avatar: response.picture.data.url,
             profileName: response.name,
             mail: response.email,
-        }));
+        },
+        state.favorites));
     }
     const responseGoogle = (response: any): void => {
         console.log(response);
-        dispatch(login({
+        dispatch(authoriseUser({
             vendor: 2,
             avatar: response.profileObj.imageUrl,
             profileName: response.profileObj.name,
             mail: response.profileObj.email,
-        }));
+        },
+        state.favorites));
     }
     const handleFailure = () => {
-        dispatch(login(loggedInDefault));
+        dispatch(authoriseUser(
+            loggedInDefault, 
+            state.favorites)
+        );
     }
-
     return (
     <Fragment>
         {state.loggedIn.vendor  === 0 ? 

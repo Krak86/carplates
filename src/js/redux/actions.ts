@@ -1,7 +1,7 @@
 import  * as actions from "./types";
 import { Action } from "redux";
 import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse, Auth, IFacebook, IGoogle, IRiaCategories, IRiaSearch, 
-    IRiaAds, IRiaSearchData, IPlatesmania, IPlatesmaniaCars, Lang, INotification, ILoggedIn } from "../models/Interfaces";
+    IRiaAds, IRiaSearchData, IPlatesmania, IPlatesmaniaCars, Lang, INotification, ILoggedIn, IUserItem, IUser, IUserKeys } from "../models/Interfaces";
 import { ThunkAction } from "redux-thunk";
 import Utils from "../utils/Utils";
 import UtilsRia from "../utils/UtilsRia";
@@ -35,7 +35,7 @@ export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, 
         dispatch(imgCarsmaniaLoaded(true));
         console.log(error);
     });
-}
+};
 
 export const fetchDataForRiaModel = (itemResponse: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(imgRiaLoaded(false));
@@ -86,7 +86,7 @@ export const fetchDataForRiaModel = (itemResponse: Item): ThunkAction<void, Appl
         dispatch(itemHasErrored(true));
         console.log(error);
     });
-}
+};
 
 export const fetchDataForRiaSearch = (categoryValue: number, modelValue: number, brandValue: number, year: string, key: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     const url = UtilsRia.generateUrlToSearchAdsIds(URLs.riaUrl, categoryValue, brandValue, modelValue, year, key);
@@ -116,7 +116,7 @@ export const fetchDataForRiaSearch = (categoryValue: number, modelValue: number,
         dispatch(itemHasErrored(true));
         console.log(error);
     });
-}
+};
 
 export const fetchDataForRiaAds = (key: string, ads: IRiaSearchData[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     const urls: string[] = ads.map((url: IRiaSearchData) => url.id);
@@ -143,7 +143,7 @@ export const fetchDataForRiaAds = (key: string, ads: IRiaSearchData[]): ThunkAct
         dispatch(imgRiaLoaded(true));
         console.log(imagesRiaResponse);
       });
-}
+};
 
 export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => async (dispatch) => {
     dispatch(setSearchingItemType(0));
@@ -282,6 +282,52 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, Appli
     });
 };
 
+export const authoriseUser = (authStatus: ILoggedIn, favorites: Item[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+    dispatch(login(authStatus));
+    if(!Utils.isUserAuthenticated(authStatus.vendor)){
+        return;
+    }
+   dispatch(getUser(authStatus.mail, favorites, true));
+};
+export const getUser = (email: string, favorites: Item[], addItem?: true): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+    const userKeys = Utils.generateRowKeyAndPartitionKey(email);
+    const serviceUrl = `${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL}${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY}` || "";
+    const url = Utils.shapeUrlPlate(
+        serviceUrl,
+        userKeys.RowKey,
+        userKeys.PartitionKey
+    );   
+    fetch(url, {
+        headers:{
+          'Accept': 'application/json'
+        }
+    })
+    .then((response) => {
+        if (!response.ok){
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then((response) => {
+        return response.json(); })
+    .then((itemResponse: IUserItem) => {
+        const data = itemResponse.value;
+        const items = Utils.mergeItems(data, favorites);
+        dispatch(MergeLocalAndCloudFavorites(items));
+        dispatch(updateUser(userKeys, items));
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+};
+export const updateUser = (userKeys: IUserKeys, items: Item[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+    
+};
+
+export const MergeLocalAndCloudFavorites = (items: Item[]): actions.MergeLocalAndCloudFavoritesAction => ({
+    type: actions.MERGE_LOCAL_AND_CLOUD_FAVORITES,
+    payload: items
+});
 export const ResetBadge = (): actions.ResetBadgeAction => ({
     type: actions.RESET_BADGE
 });
@@ -316,14 +362,14 @@ export const addRiaAds = (imagesRia: IRiaAds[]): actions.AddRiaAdsAction => ({
     type: actions.ADD_RIA_ADS,
     payload: imagesRia
 });
-export const loginGoogle = (login: IGoogle): actions.LoginGoogleAction => ({
+/*export const loginGoogle = (login: IGoogle): actions.LoginGoogleAction => ({
     type: actions.LOGIN_GOOGLE,
     payload: login
 });
 export const loginFacebook = (login: IFacebook): actions.LoginFacebookAction => ({
     type: actions.LOGIN_FACEBOOK,
     payload: login
-});
+});*/
 export const login = (authStatus: ILoggedIn): actions.LoginAction => ({
     type: actions.LOGIN,
     payload: authStatus

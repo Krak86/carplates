@@ -7,6 +7,11 @@ export const getReducer = (
     action: any
   ): ApplicationStates => {
     switch (action.type) {
+      case actions.MERGE_LOCAL_AND_CLOUD_FAVORITES:
+        return {
+          ...state,
+          favorites: action.payload
+        };
       case actions.ADD_BADGE:
         return {
           ...state,

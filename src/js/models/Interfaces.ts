@@ -22,18 +22,15 @@ export interface ApplicationStates {
   favorites: Item[];
   badges: number;
 }
-
 export interface INotification{
   item: Item;
   timestamp: string;
 }
-
 export enum Lang{
   ua = 0,
   ru = 1,
   en = 2,
 }
-
 export enum itemSearching{
   plate = 0,
   vin = 1,
@@ -41,7 +38,6 @@ export enum itemSearching{
   imageAttach = 3,
   imageTake = 4,
 }
-
 export enum Auth{
   none = 0,
   facebook = 1,
@@ -51,14 +47,12 @@ export enum Auth{
   email = 5,
   phone = 6
 }
-
 export interface ILoggedIn {
   vendor: Auth;
   profileName: string;
   mail: string;
   avatar: string;
 }
-
 export interface Item {
   "PartitionKey": string;
   "RowKey": string;
@@ -83,20 +77,16 @@ export interface Item {
   "total_weight": string;
   "region"?: string;
 }
-
 export interface Navigation {
   url: string;
 }
-
 export interface ServiceRespond{
   "odata.metadata": string;
   "value": Item[];
 }
-
 export interface Window {
   location: Location;
 }
-
 export interface Location {
   protocol?: string;
   hash?: string;
@@ -107,7 +97,6 @@ export interface Location {
   pathname?: string;
   port?: string;
 }
-
 export interface Locale{
     searchInputPlaceholderText: string;
     dashBoradTitle: string;
@@ -191,21 +180,18 @@ export interface Locale{
     about_8_mit_2: string;
     about_9_mit_3: string;
 }
-
 export interface IVinResultValues{
   "Value": any;
   "ValueId": any;
   "Variable": any;
   "VariableId": number;
 }
-
 export interface VIN{
   "Count"?: number;
   "Message"?: string;
   "SearchCriteria"?: string;
   "Results"?: IVinResultValues[];
 }
-
 export interface imageRecognizeResponse{
   "processing_time": any;
   "timestamp": any;
@@ -214,7 +200,6 @@ export interface imageRecognizeResponse{
   "version": any;
   "camera_id": any;
 }
-
 export interface imageRecognizeResponseResult{
   "box": {
     "xmin": number;
@@ -226,7 +211,6 @@ export interface imageRecognizeResponseResult{
   "score": any;
   "dscore": any;
 }
-
 export interface IFacebook{
   accessToken?: string,
   data_access_expiration_time?: string,
@@ -243,7 +227,6 @@ export interface IFacebook{
   signedRequest?: string, 
   userID?: string,
 }
-
 export interface IGoogle{
   El?: any,
   Zi?: any,
@@ -261,17 +244,14 @@ export interface IGoogle{
   tokenObj?: any,
   w3?: any,
 }
-
 export interface IRiaCategories { 
   name: string, 
   value: number 
 }
-
 export interface IRiaSearchData{
   "id": string,
   "type": string
 }
-
 export interface IRiaSearch{
   "additional_params": any;
   "result": {
@@ -447,7 +427,6 @@ export interface IRiaSearch{
       }
   }
 }
-
 export interface IRiaAds{
   "userId": number,
   "userBlocked": [],
@@ -555,7 +534,6 @@ export interface IRiaAds{
   status?: number,
   message?: string,
 }
-
 export interface IPlatesmaniaCars{
   "make": string;
   "model": string;
@@ -567,14 +545,12 @@ export interface IPlatesmaniaCars{
       "original": string
   }
 }
-
 export interface IPlatesmania{
   "error": number;
   "region": any;
   "informer": string;
   "cars": IPlatesmaniaCars[];
 }
-
 export interface ISearchFieldState {
   value: string;
 }
@@ -603,10 +579,22 @@ export interface IShareDialog{
   onClose: () => void;
   url: string
 }
-
 export interface ISaveState{
   favorites: Item[];
   lang: Lang;
   itemsList: INotification[];
   loggedIn: ILoggedIn;
+}
+export interface IUserKeys{
+  "PartitionKey": string;
+  "RowKey": string;
+}
+export interface IUser extends IUserKeys{
+  "odata.etag"?: string;
+  "Timestamp"?: string;
+  "Favorites": string;
+}
+export interface IUserItem{
+  "odata.metadata": string;
+  "value": IUser[]
 }
