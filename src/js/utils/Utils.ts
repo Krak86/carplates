@@ -216,9 +216,23 @@ export default class Utils {
         "RowKey": email.split("@")[1]
       }
   }
+  /**
+    * Function to generate the url to azure service to update user's data
+    */ 
+  public static generateUrlToUpdateUser(url: string, query: string, PartitionKey: string, RowKey: string): string{
+    return `${url}(PartitionKey='${PartitionKey}', RowKey='${RowKey}')${query}`;
+  }
 
-  public static mergeItems(data: IUser[], favorites: Item[]): Item[]{
-    return favorites;
+  public static mergeItems(data: IUser[], favorites: Item[], itemToRemove: Item): Item[]{
+      if(data.length > 0){
+        const cloudData = JSON.parse(data[0].Favorites);
+        const localStorageData = favorites;
+        const combinedItemsDuplicates = [...cloudData, ...localStorageData];
+        return combinedItemsDuplicates;
+      }
+      else{
+        return favorites;
+      }
   }
 
 }

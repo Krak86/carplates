@@ -287,9 +287,9 @@ export const authoriseUser = (authStatus: ILoggedIn, favorites: Item[]): ThunkAc
     if(!Utils.isUserAuthenticated(authStatus.vendor)){
         return;
     }
-   dispatch(getUser(authStatus.mail, favorites, true));
+   dispatch(userAddItem(authStatus.mail, favorites));
 };
-export const getUser = (email: string, favorites: Item[], addItem?: true): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+export const userAddItem = (email: string, favorites: Item[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     const userKeys = Utils.generateRowKeyAndPartitionKey(email);
     const serviceUrl = `${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL}${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY}` || "";
     const url = Utils.shapeUrlPlate(
@@ -312,7 +312,7 @@ export const getUser = (email: string, favorites: Item[], addItem?: true): Thunk
         return response.json(); })
     .then((itemResponse: IUserItem) => {
         const data = itemResponse.value;
-        const items = Utils.mergeItems(data, favorites);
+        const items = Utils.mergeItems(data, favorites, null);
         dispatch(MergeLocalAndCloudFavorites(items));
         dispatch(updateUser(userKeys, items));
     })
@@ -320,14 +320,23 @@ export const getUser = (email: string, favorites: Item[], addItem?: true): Thunk
         console.log(error);
     });
 };
-export const updateUser = (userKeys: IUserKeys, items: Item[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
-    
-};
 
+export const userRemoveItem = (email: string, favorites: Item[], itemToRemove: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+
+};
+export const updateUser = (userKeys: IUserKeys, items: Item[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+    const url = Utils.generateUrlToUpdateUser(
+        process.env.AZURE_TABLE_FAVORITES_SERVICE_URL || "",
+        process.env.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY || "",
+        userKeys.PartitionKey,
+        userKeys.RowKey
+    );
+};
 export const MergeLocalAndCloudFavorites = (items: Item[]): actions.MergeLocalAndCloudFavoritesAction => ({
     type: actions.MERGE_LOCAL_AND_CLOUD_FAVORITES,
     payload: items
 });
+
 export const ResetBadge = (): actions.ResetBadgeAction => ({
     type: actions.RESET_BADGE
 });
