@@ -293,9 +293,24 @@ export const authoriseUser = (authStatus: ILoggedIn, favorites: Item[]): ThunkAc
     if(!Utils.isUserAuthenticated(authStatus.vendor)){
         return;
     }
-   //dispatch(userAddItem(authStatus.mail, favorites));
+   dispatch(userSync(authStatus.mail, favorites, null));
 };
-export const userAddItem = (email: string, favorites: Item[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+export const addToFavoritesSync = (authStatus: ILoggedIn, favorites: Item[], item: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+    dispatch(addToFavorites(item));
+    if(!Utils.isUserAuthenticated(authStatus.vendor)){
+        return;
+    }
+   dispatch(userSync(authStatus.mail, favorites, null));
+};
+export const removeFromFavoritesSync = (authStatus: ILoggedIn, favorites: Item[], item: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+    dispatch(removeFromFavorites(item));
+    if(!Utils.isUserAuthenticated(authStatus.vendor)){
+        return;
+    }
+   dispatch(userSync(authStatus.mail, favorites, item));
+};
+
+export const userSync = (email: string, favorites: Item[], itemToRemove: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     const userKeys = Utils.generateRowKeyAndPartitionKey(email);
     const serviceUrl = `${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL}${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY}` || "";
     const url = Utils.shapeUrlPlate(
@@ -328,8 +343,8 @@ export const userAddItem = (email: string, favorites: Item[]): ThunkAction<void,
 };
 
 export const userRemoveItem = (email: string, favorites: Item[], itemToRemove: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
-
 };
+
 export const updateUser = (userKeys: IUserKeys, items: Item[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     const url = Utils.generateUrlToUpdateUser(
         process.env.AZURE_TABLE_FAVORITES_SERVICE_URL || "",
@@ -337,6 +352,29 @@ export const updateUser = (userKeys: IUserKeys, items: Item[]): ThunkAction<void
         userKeys.PartitionKey,
         userKeys.RowKey
     );
+    const options: RequestInit = {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: 'PUT',
+        body: Utils.generateBodyForUpdateUser(items),
+    };
+
+    fetch(url, options)
+    .then((response) => {
+        if (!response.ok){
+            throw Error(response.statusText);
+        }
+        return response;
+    })
+    .then((response) => {
+        return response.json(); })
+    .then((itemResponse: any) => {
+        console.log(itemResponse);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 };
 export const MergeLocalAndCloudFavorites = (items: Item[]): actions.MergeLocalAndCloudFavoritesAction => ({
     type: actions.MERGE_LOCAL_AND_CLOUD_FAVORITES,

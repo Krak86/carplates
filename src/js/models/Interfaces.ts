@@ -598,3 +598,6 @@ export interface IUserItem{
   "odata.metadata": string;
   "value": IUser[]
 }
+export interface IUpdateUserBody{
+  "Favorites": string;
+}

@@ -7,7 +7,7 @@ import { AppState } from "../../redux";
 import { ApplicationStates} from "../../models/Interfaces";
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { itemFetchDataForPlate, addToFavorites, removeFromFavorites } from "../../redux/actions";
+import { itemFetchDataForPlate, addToFavorites, removeFromFavorites, addToFavoritesSync, removeFromFavoritesSync } from "../../redux/actions";
 import { URLs } from "../../data/Data";
 import Utils from "../../utils/Utils";
 import Menu from '@material-ui/core/Menu';
@@ -151,8 +151,10 @@ export const ResultCard = (props: {item: Item}) => {
     const handleAddToFavs = () => {
         setAnchorEl(null);
         favorite === true
-            ? dispatch(removeFromFavorites(props.item))
-            : dispatch(addToFavorites(props.item))
+            //? dispatch(removeFromFavorites(props.item))
+            //: dispatch(addToFavorites(props.item))
+            ? dispatch(removeFromFavoritesSync(state.loggedIn, state.favorites, props.item))
+            : dispatch(addToFavoritesSync(state.loggedIn, state.favorites, props.item))
     };
     const handleClose1 = (): void => {
         setAnchorEl(null);

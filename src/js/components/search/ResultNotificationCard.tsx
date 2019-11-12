@@ -1,13 +1,13 @@
 import React, { Fragment} from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Item, INotification } from "../../models/Interfaces";
+import { INotification } from "../../models/Interfaces";
 import lang from "../../locale";
 import { regions } from "../../data/Data";
 import { AppState } from "../../redux";
 import { ApplicationStates} from "../../models/Interfaces";
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { itemFetchDataForPlate, addToFavorites, removeFromFavorites } from "../../redux/actions";
+import { itemFetchDataForPlate  } from "../../redux/actions";
 import { URLs } from "../../data/Data";
 import Utils from "../../utils/Utils";
 import Menu from '@material-ui/core/Menu';
@@ -15,7 +15,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
@@ -97,42 +96,16 @@ const shapeUrlPlate = (value: string, url: string): string => {
 
 export const ResultNotificationCard = (props: INotification) => {    
     const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);    
-
     const classes = useStyles({});
-    const [expanded, setExpanded] = React.useState(false);
-    const [open, setOpen] = React.useState(false);
     const [anchorEl1, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const openSettingsMenu = Boolean(anchorEl1);
-
-    const isItemAlreadyAdded = Utils.isItemAlreadyAdded(state.favorites, props.item.n_reg_new);
-    const [favorite, setFavorite] = React.useState(isItemAlreadyAdded);
-
     const dispatch = useDispatch();
-    const history = useHistory();    
-
+    const history = useHistory();
     const primary = `${props.item.brand}/${props.item.model} (${props.item.make_year})`;
     const secondary = `${props.item.n_reg_new}, ${regions[props.item.PartitionKey]}`;
-
     const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || URLs.getDataByPlateUrl;
-
     const colorClass = Utils.detectColor(props.item.color, classes);
 
-    const handleClose = () => {
-        setOpen(false);
-    };
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
-    const handleShareClick = () => {
-        setAnchorEl(null);
-        setOpen(true);
-    };
-    const handleAddToFavs = () => {
-        setAnchorEl(null);
-        favorite === true
-            ? dispatch(removeFromFavorites(props.item))
-            : dispatch(addToFavorites(props.item))
-    };
     const handleClose1 = (): void => {
         setAnchorEl(null);
     };

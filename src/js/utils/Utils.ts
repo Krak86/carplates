@@ -1,4 +1,4 @@
-import { Window, Item, Auth, IUserKeys, IUser } from "../models/Interfaces";
+import { Window, Item, Auth, IUserKeys, IUser, IUpdateUserBody } from "../models/Interfaces";
 
 export default class Utils {
   /**
@@ -185,6 +185,12 @@ export default class Utils {
     return `${url}?key=${key}&gal=2&nomer=${itemRequest}`;
   }
   /**
+    * Function to replace https with https protocols in url
+    */ 
+   public static replaceHttpWithHttps(url: string): string{
+    return url.replace("http", "https");
+  }
+  /**
     * Function to detect if the item is already added to provided array
     */  
   public static isItemAlreadyAdded(items: Item[], rowNumber: string): boolean{
@@ -262,21 +268,56 @@ export default class Utils {
   public static generateUrlToUpdateUser(url: string, query: string, PartitionKey: string, RowKey: string): string{
     return `${url}(PartitionKey='${PartitionKey}', RowKey='${RowKey}')${query}`;
   }
-
+  /**
+    * Function to remove duplicate objects from array and leave unique values only
+    */ 
+  public static removeDuplicateObjectsFromArray(items: Item[]): Item[]{
+    return items.filter((thing, index) => {
+      const _thing = JSON.stringify(thing);
+      return index === items.findIndex(obj => {
+        return JSON.stringify(obj) === _thing;
+      });
+    });
+  }
+  /**
+    * Function to remove object from array
+    */ 
+  public static removeObjectFromArray(itemsArray: Item[], itemToRemove: Item): Item[]{
+    return itemsArray.filter(i => i["RowKey"] !== itemToRemove["RowKey"]);
+  }
+  /**
+    * Function to merge the Item's arrays: from local storage and from cloud
+    */ 
   public static mergeItems(data: IUser[], favorites: Item[], itemToRemove: Item): Item[]{
-      if(data.length > 0){
-        const cloudData = JSON.parse(data[0].Favorites);
-        const localStorageData = favorites;
-        const combinedItemsDuplicates = [...cloudData, ...localStorageData];
-        return combinedItemsDuplicates;
+    if(data.length > 0){
+      const cloudData: Item[] = JSON.parse(data[0].Favorites);
+      const localStorageData = favorites;
+      const combinedItemsDuplicates = [...cloudData, ...localStorageData];
+      const combinedItemsUnique = Utils.removeDuplicateObjectsFromArray(combinedItemsDuplicates);
+      if(itemToRemove === null){
+        return combinedItemsUnique;
       }
       else{
+        return Utils.removeObjectFromArray(combinedItemsUnique, itemToRemove);
+      }
+    }
+    else{
+      if(itemToRemove === null){
         return favorites;
       }
+      else{
+        return Utils.removeObjectFromArray(favorites, itemToRemove);
+      }
+    }
   }
-
-  public static replaceHttpWithHttps(url: string): string{
-    return url.replace("http", "https");
+  /**
+    * Function to generate the body for updateUser service
+    */ 
+  public static generateBodyForUpdateUser(items: Item[]): string{
+    const body = {
+      "Favorites": JSON.stringify(items)
+    }
+    return JSON.stringify(body);
   }
 
 }
