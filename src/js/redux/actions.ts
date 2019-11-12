@@ -16,7 +16,7 @@ export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, 
         Utils.cyrillicToLatinToMatrix,
         Utils.reducer);
     const key = process.env.PLATES_MANIA_KEY || "";
-    const url = Utils.generateUrlforPlatesmania(URLs.CarPlatesUrl, key, carPlate);
+    const url = Utils.generateUrlforPlatesmania(URLs.getImagesByCarplateUrl, key, carPlate);
     fetch(url, {
         headers:{
           'Accept': 'application/json'

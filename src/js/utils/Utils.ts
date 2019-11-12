@@ -77,7 +77,7 @@ export default class Utils {
     */
    public static cyrillicRange(val: string): boolean{
     const code = val.charCodeAt(0);
-    return (code > 1040 && code < 1062) ? true : false;
+    return (code > 1029 && code < 1062) ? true : false;
   }
     /**
     * Function to convert cyrillic symbols to latin, that looks similar: A,B,C,E,H,I,K,M,O,P,T,X
