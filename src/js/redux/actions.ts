@@ -367,10 +367,9 @@ export const updateUser = (userKeys: IUserKeys, items: Item[]): ThunkAction<void
         }
         return response;
     })
-    .then((response) => {
-        return response.json(); })
-    .then((itemResponse: any) => {
-        console.log(itemResponse);
+    .then(response => response)
+    .then((response: any) => {
+        console.log(response);
     })
     .catch((error) => {
         console.log(error);
