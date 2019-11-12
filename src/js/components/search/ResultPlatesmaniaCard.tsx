@@ -17,6 +17,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CardActions from '@material-ui/core/CardActions';
 import SendIcon from '@material-ui/icons/Send';
 import LanguageIcon from '@material-ui/icons/Language';
+import Utils from '../../utils/Utils';
+import { URLs } from '../../data/Data';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     card: {
@@ -56,12 +58,16 @@ export const ResultPlatesmaniaCard = (props: {item: IPlatesmaniaCars}) => {
     const { item } = props;
     const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
     const classes = useStyles({});
-    const siteUrl = "http://platesmania.com";
+    const siteUrl = URLs.CarPlatesUrl;
     const handleRedirectClick = (url: string) => {
-        window.open(url);
+        window.open(
+          Utils.replaceHttpWithHttps(url)
+        );
     };
     const handleSiteClick = () => {
-      window.open(item.photo.link);
+      window.open(
+        Utils.replaceHttpWithHttps(item.photo.link)
+      );
   };
     return (
                 <Card className={classes.card}>

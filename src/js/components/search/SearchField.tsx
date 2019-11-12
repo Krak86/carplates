@@ -75,7 +75,7 @@ const isVin = (value: string): boolean => {
   return (Utils.trimData(value).length === 17);
 };
 const shapeDataPlate = (value: string): string => {
-  return Utils.convertToCyrillic(      
+  return Utils.combineConvertedSymbols(      
       Utils.trimData(value).toLocaleUpperCase(),
       Utils.latinRange, 
       Utils.latinToCyrillicMatrix, 

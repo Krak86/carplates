@@ -16,7 +16,7 @@ export default class Utils {
     return accumulator + currentValue;
   }
   /**
-    * Function to check if valur is Latin character in uppercase
+    * Function to check if value is Latin character in uppercase
     */
   public static latinRange(val: string): boolean{
     const code = val.charCodeAt(0);
@@ -29,9 +29,9 @@ export default class Utils {
     return val.replace(/ /g,'');
   }
   /**
-    * Function to combine together converted latin to cyrillic symbols
+    * Function to combine together converted symbols
     */  
-  public static convertToCyrillic(s: string, latinRange: Function, latinToCyrillicMatrix: Function, reducer: any): string{
+  public static combineConvertedSymbols(s: string, latinRange: Function, latinToCyrillicMatrix: Function, reducer: any): string{
     return s.split("").map((i: string) => {
       if(latinRange(i)){
         return latinToCyrillicMatrix(i);
@@ -72,9 +72,49 @@ export default class Utils {
         return i;
     }
   }
+    /**
+    * Function to check if value is Latin character in uppercase
+    */
+   public static cyrillicRange(val: string): boolean{
+    const code = val.charCodeAt(0);
+    return (code > 1040 && code < 1062) ? true : false;
+  }
+    /**
+    * Function to convert cyrillic symbols to latin, that looks similar: A,B,C,E,H,I,K,M,O,P,T,X
+    */  
+   public static cyrillicToLatinToMatrix(i: string): string{
+    switch(i.charCodeAt(0)){
+      case 1040 :
+        return String.fromCharCode(65);
+      case 1042 :
+        return String.fromCharCode(66);
+      case 1057 :
+        return String.fromCharCode(67);
+      case 1045 :
+        return String.fromCharCode(69);
+      case 1053 :
+        return String.fromCharCode(72);
+      case 1030 :
+        return String.fromCharCode(73);
+      case 1050 :
+        return String.fromCharCode(75);
+      case 1052 :
+        return String.fromCharCode(77);
+      case 1054 :
+        return String.fromCharCode(79);
+      case 1056 :
+        return String.fromCharCode(80);
+      case 1058 :
+        return String.fromCharCode(84);
+      case 1061 :
+        return String.fromCharCode(88);
+      default:
+        return i;
+    }
+  }
   /**
     * Function to prepare the url to connect to azure table storage to get car plate data by row key and partition key
-    */  
+    */
   public static shapeUrlPlate(url: string, rowKey: string, partitionKey: string): string{
     return `${url}&$filter=RowKey eq '${rowKey}' and PartitionKey eq '${partitionKey}'`;
   }
@@ -140,9 +180,9 @@ export default class Utils {
     * Source:
     *       http://avto-nomer.ru/mobile/api_photo_test.php?nomer=a001aa22
     */  
-  public static generateUrlforPlatesmania(url: string, itemRequest: string): string{
+  public static generateUrlforPlatesmania(url: string, key: string, itemRequest: string): string{
     //const shapedInputRequest = 'a001aa22';
-    return `${url}/mobile/api_photo_test1.php?nomer=${itemRequest}`;
+    return `${url}?key=${key}&gal=2&nomer=${itemRequest}`;
   }
   /**
     * Function to detect if the item is already added to provided array
@@ -233,6 +273,10 @@ export default class Utils {
       else{
         return favorites;
       }
+  }
+
+  public static replaceHttpWithHttps(url: string): string{
+    return url.replace("http", "https");
   }
 
 }

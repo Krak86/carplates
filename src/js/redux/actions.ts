@@ -10,7 +10,13 @@ import { URLs, platesManiaDataTest } from "../data/Data";
 
 export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(imgCarsmaniaLoaded(false));
-    const url = Utils.generateUrlforPlatesmania(URLs.getImagesByCarplateUrl, itemRequest);
+    const carPlate = Utils.combineConvertedSymbols(
+        Utils.trimData(itemRequest).toLocaleUpperCase(),
+        Utils.cyrillicRange,
+        Utils.cyrillicToLatinToMatrix,
+        Utils.reducer);
+    const key = process.env.PLATES_MANIA_KEY || "";
+    const url = Utils.generateUrlforPlatesmania(URLs.getImagesByCarplateUrl, key, carPlate);
     fetch(url, {
         headers:{
           'Accept': 'application/json'
@@ -31,7 +37,7 @@ export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, 
         dispatch(imgCarsmaniaLoaded(true));
     })
     .catch((error) => {
-        dispatch(addPlatesmaniaCars(platesManiaDataTest));
+        //dispatch(addPlatesmaniaCars(platesManiaDataTest));
         dispatch(imgCarsmaniaLoaded(true));
         console.log(error);
     });
@@ -256,7 +262,7 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, Appli
         return response.json(); })
     .then((imageResponse: imageRecognizeResponse) => {        
         if(imageResponse.results.length > 0){
-            const carPlate = Utils.convertToCyrillic(                
+            const carPlate = Utils.combineConvertedSymbols(
                 Utils.changeSymbols1toI(
                     Utils.trimData(imageResponse.results[0].plate)
                 ).toLocaleUpperCase(),
@@ -287,7 +293,7 @@ export const authoriseUser = (authStatus: ILoggedIn, favorites: Item[]): ThunkAc
     if(!Utils.isUserAuthenticated(authStatus.vendor)){
         return;
     }
-   dispatch(userAddItem(authStatus.mail, favorites));
+   //dispatch(userAddItem(authStatus.mail, favorites));
 };
 export const userAddItem = (email: string, favorites: Item[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     const userKeys = Utils.generateRowKeyAndPartitionKey(email);
