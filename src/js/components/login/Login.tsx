@@ -61,7 +61,7 @@ export const Login = () => {
         setAnchorEl(null);
     };
     const responseFacebook = (response: IFacebook): void => {
-        console.log(response);
+        //console.log(response);
         dispatch(authoriseUser({
             vendor: 1,
             avatar: response.picture.data.url,
@@ -71,7 +71,7 @@ export const Login = () => {
         state.favorites));
     }
     const responseGoogle = (response: any): void => {
-        console.log(response);
+        //console.log(response);
         dispatch(authoriseUser({
             vendor: 2,
             avatar: response.profileObj.imageUrl,

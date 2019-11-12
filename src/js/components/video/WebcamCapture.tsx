@@ -41,7 +41,7 @@ export const WebcamCapture = (props: IWebcamCaptureProps) => {
   };
   const capture = React.useCallback(() => {
       const imageSrc = webcamRef.current.getScreenshot();
-      console.log(imageSrc);
+      //console.log(imageSrc);
       fetch(imageSrc)
       .then(res => {
         return res.blob();
