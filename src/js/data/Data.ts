@@ -1,5 +1,6 @@
 import { ApplicationStates, Item, itemSearching, VIN, IPlatesmaniaCars, ILoggedIn } from "../models/Interfaces";
 
+export const favoritsItemsLimit: number = 50;
 
 const itemResponse: Item = {
     "PartitionKey": "",

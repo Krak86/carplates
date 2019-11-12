@@ -53,6 +53,7 @@ export const lang: Locale = {
 
     messageChooseImage: "Виберите изображение!",
     messageImageLimit: "Файл должен быть менше 5 Мб!",
+    messageMaxFavsLimit: "Вы можете добавлять максимум 50 авто!",
 
     url_search: "Поиск",
     url_favs: "Избранное", 

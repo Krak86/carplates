@@ -1,8 +1,8 @@
-import React, { Fragment} from 'react';
+import React, { Fragment, SyntheticEvent} from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Item } from "../../models/Interfaces";
 import lang from "../../locale";
-import { regions } from "../../data/Data";
+import { regions, favoritsItemsLimit } from "../../data/Data";
 import { AppState } from "../../redux";
 import { ApplicationStates} from "../../models/Interfaces";
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
@@ -29,6 +29,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { SnackbarContentWrapper } from "../snackbar/SnackbarContentWrapper";
+import Snackbar from '@material-ui/core/Snackbar';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     card: {
@@ -111,6 +113,8 @@ export const ResultCard = (props: {item: Item}) => {
     const openSettingsMenu = Boolean(anchorEl1);
     const isItemAlreadyAdded = Utils.isItemAlreadyAdded(state.favorites, props.item.n_reg_new);
     const [favorite, setFavorite] = React.useState(isItemAlreadyAdded);
+    const [openSnackbar, setOpenSnackbar] = React.useState(false);
+    const [snackbarMessage, setSnackbarMessage] = React.useState("");
     const dispatch = useDispatch();
     const history = useHistory();    
 
@@ -147,6 +151,11 @@ export const ResultCard = (props: {item: Item}) => {
     };
     const handleAddToFavs = () => {
         setAnchorEl(null);
+        if(Utils.isLimitExceeded(state.favorites.length, favoritsItemsLimit) === true){
+            setOpenSnackbar(true);
+            handleSnackbarMessage(lang(state.lang).messageMaxFavsLimit);
+            return;
+        }
         favorite === true
             ? dispatch(removeFromFavoritesSync(state.loggedIn, state.favorites, props.item))
             : dispatch(addToFavoritesSync(state.loggedIn, state.favorites, props.item))
@@ -167,6 +176,15 @@ export const ResultCard = (props: {item: Item}) => {
     const handleAddResultToHash = (value: string) => {
         history.push(`/`);
     };
+    const handleCloseSnackBar = (event?: SyntheticEvent, reason?: string) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpenSnackbar(false);
+      };
+      const handleSnackbarMessage = (message: string) => {
+        setSnackbarMessage(message);
+      };
 
     return(
         <Fragment>
@@ -293,6 +311,21 @@ export const ResultCard = (props: {item: Item}) => {
                     </CardContent>
                 </Collapse>
             </Card>
+            <Snackbar
+                anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+                }}
+                open={openSnackbar}
+                autoHideDuration={6000}
+                onClose={handleCloseSnackBar}
+            >
+                <SnackbarContentWrapper
+                onClose={handleCloseSnackBar}
+                variant="error"
+                message={snackbarMessage}
+                />
+            </Snackbar>
             <ShareDrawerBottom open={open} onClose={handleClose} url={url} />
         </Fragment>
     )

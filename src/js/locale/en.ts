@@ -55,6 +55,7 @@ export const lang: Locale = {
     messageImageLimit: "File should be less then 5 MB!",
     messageTurnOnCamera: "Please turn on the camera or give access to use camera!",
     messageTurnOnFrontCamera: "Choose Camera",
+    messageMaxFavsLimit: "You can follow 50 cars maximum!",
 
     url_search: "Search",
     url_favs: "Favorites", 

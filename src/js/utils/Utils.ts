@@ -326,5 +326,13 @@ export default class Utils {
     }
     return JSON.stringify(body);
   }
+  /**
+    * Function to check if the limit is exceeded
+    */ 
+  public static isLimitExceeded(count: number, limit: number): boolean{
+    return count >= limit
+      ? true
+      : false;
+  }
 
 }
