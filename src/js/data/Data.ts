@@ -204,4 +204,30 @@ export const platesManiaDataTest: IPlatesmaniaCars[] = [
             "original": "http://img03.platesmania.com/160511/o/8424417.jpg"
         }
     }
-]
+];
+
+export const items: Item[] = [
+    {        
+        "PartitionKey": "АХ",
+        "RowKey": "АХ0168АА",
+        "body": "АВТОБУС-D",
+        "brand": "ХАЗ  3250.02",
+        "capacity": "3857",
+        "color": "ЗЕЛЕНИЙ",
+        "d_reg": "2014-12-12",
+        "dep": "(6301) ВРЕР ДАІ з обслуговування м. Харків № 1 ГУМВС України в Харківській області",
+        "dep_code": "1363301",
+        "fuel": "ДИЗЕЛЬНЕ ПАЛИВО",
+        "kind": "АВТОБУС",
+        "make_year": "2006",
+        "model": "3250.02",
+        "n_reg_new": "АХ0168АА",
+        "oper_code": "390",
+        "oper_name": "390 - ПЕРЕРЕЄСТРАЦIЯ У ЗВ`ЯЗКУ ЗI ЗМIНОЮ КОЛЬОРУ ТЗ",
+        "own_weight": "4380",
+        "person": "P",
+        "purpose": "ЗАГАЛЬНИЙ",
+        "reg_addr_koatuu": "6310138500",
+        "total_weight": "6800"
+    }
+];
