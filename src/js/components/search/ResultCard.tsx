@@ -7,7 +7,7 @@ import { AppState } from "../../redux";
 import { ApplicationStates} from "../../models/Interfaces";
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-import { itemFetchDataForPlate, addToFavorites, removeFromFavorites, addToFavoritesSync, removeFromFavoritesSync } from "../../redux/actions";
+import { itemFetchDataForPlate, addToFavoritesSync, removeFromFavoritesSync } from "../../redux/actions";
 import { URLs } from "../../data/Data";
 import Utils from "../../utils/Utils";
 import Menu from '@material-ui/core/Menu';
@@ -103,17 +103,14 @@ const shapeUrlPlate = (value: string, url: string): string => {
 }
 
 export const ResultCard = (props: {item: Item}) => {    
-    const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);    
-
+    const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
     const classes = useStyles({});
     const [expanded, setExpanded] = React.useState(false);
     const [open, setOpen] = React.useState(false);
     const [anchorEl1, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const openSettingsMenu = Boolean(anchorEl1);
-
     const isItemAlreadyAdded = Utils.isItemAlreadyAdded(state.favorites, props.item.n_reg_new);
     const [favorite, setFavorite] = React.useState(isItemAlreadyAdded);
-
     const dispatch = useDispatch();
     const history = useHistory();    
 
@@ -151,8 +148,6 @@ export const ResultCard = (props: {item: Item}) => {
     const handleAddToFavs = () => {
         setAnchorEl(null);
         favorite === true
-            //? dispatch(removeFromFavorites(props.item))
-            //: dispatch(addToFavorites(props.item))
             ? dispatch(removeFromFavoritesSync(state.loggedIn, state.favorites, props.item))
             : dispatch(addToFavoritesSync(state.loggedIn, state.favorites, props.item))
     };

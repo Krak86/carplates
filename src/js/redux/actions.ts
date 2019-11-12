@@ -147,7 +147,6 @@ export const fetchDataForRiaAds = (key: string, ads: IRiaSearchData[]): ThunkAct
       .then((imagesRiaResponse: IRiaAds[]) => {
         dispatch(addRiaAds(imagesRiaResponse));
         dispatch(imgRiaLoaded(true));
-        console.log(imagesRiaResponse);
       });
 };
 
@@ -270,7 +269,6 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, Appli
                 Utils.latinToCyrillicMatrix, 
                 Utils.reducer
               );
-
             const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || URLs.getDataByPlateUrl;
             const url = Utils.shapeUrlPlate(serviceUrl, carPlate, Utils.extractPartitionKey(carPlate));
             dispatch(itemFetchDataForPlate(carPlate, url));
@@ -280,7 +278,6 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, Appli
             dispatch(responseIsEmpty(true));
         }
         dispatch(itemIsLoaded(true));
-        
     })
     .catch((error) => {
         dispatch(itemHasErrored(true));
@@ -293,24 +290,27 @@ export const authoriseUser = (authStatus: ILoggedIn, favorites: Item[]): ThunkAc
     if(!Utils.isUserAuthenticated(authStatus.vendor)){
         return;
     }
-   dispatch(userSync(authStatus.mail, favorites, null));
+    dispatch(ItemsMerging(true));
+    dispatch(userSync(authStatus.mail, favorites, null, null));
 };
 export const addToFavoritesSync = (authStatus: ILoggedIn, favorites: Item[], item: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
-    dispatch(addToFavorites(item));
     if(!Utils.isUserAuthenticated(authStatus.vendor)){
+        dispatch(addToFavorites(item));
         return;
     }
-   dispatch(userSync(authStatus.mail, favorites, null));
+    dispatch(ItemsMerging(true));
+    dispatch(userSync(authStatus.mail, favorites, item, true));
 };
 export const removeFromFavoritesSync = (authStatus: ILoggedIn, favorites: Item[], item: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
-    dispatch(removeFromFavorites(item));
     if(!Utils.isUserAuthenticated(authStatus.vendor)){
+        dispatch(removeFromFavorites(item));
         return;
     }
-   dispatch(userSync(authStatus.mail, favorites, item));
+    dispatch(ItemsMerging(true));
+    dispatch(userSync(authStatus.mail, favorites, item, false));
 };
 
-export const userSync = (email: string, favorites: Item[], itemToRemove: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+export const userSync = (email: string, favorites: Item[], item: Item, addRemoveItem: boolean): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     const userKeys = Utils.generateRowKeyAndPartitionKey(email);
     const serviceUrl = `${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL}${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY}` || "";
     const url = Utils.shapeUrlPlate(
@@ -333,18 +333,15 @@ export const userSync = (email: string, favorites: Item[], itemToRemove: Item): 
         return response.json(); })
     .then((itemResponse: IUserItem) => {
         const data = itemResponse.value;
-        const items = Utils.mergeItems(data, favorites, null);
+        const items = Utils.mergeItems(data, favorites, item, addRemoveItem);
         dispatch(MergeLocalAndCloudFavorites(items));
         dispatch(updateUser(userKeys, items));
     })
     .catch((error) => {
         console.log(error);
+        dispatch(ItemsMerging(false));
     });
 };
-
-export const userRemoveItem = (email: string, favorites: Item[], itemToRemove: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
-};
-
 export const updateUser = (userKeys: IUserKeys, items: Item[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     const url = Utils.generateUrlToUpdateUser(
         process.env.AZURE_TABLE_FAVORITES_SERVICE_URL || "",
@@ -369,15 +366,20 @@ export const updateUser = (userKeys: IUserKeys, items: Item[]): ThunkAction<void
     })
     .then(response => response)
     .then((response: any) => {
-        console.log(response);
+        dispatch(ItemsMerging(false));
     })
     .catch((error) => {
         console.log(error);
+        dispatch(ItemsMerging(false));
     });
 };
 export const MergeLocalAndCloudFavorites = (items: Item[]): actions.MergeLocalAndCloudFavoritesAction => ({
     type: actions.MERGE_LOCAL_AND_CLOUD_FAVORITES,
     payload: items
+});
+export const ItemsMerging = (payload: boolean): actions.ItemsMergingAction => ({
+    type: actions.ITEMS_MERGING,
+    payload: payload
 });
 
 export const ResetBadge = (): actions.ResetBadgeAction => ({
@@ -414,14 +416,6 @@ export const addRiaAds = (imagesRia: IRiaAds[]): actions.AddRiaAdsAction => ({
     type: actions.ADD_RIA_ADS,
     payload: imagesRia
 });
-/*export const loginGoogle = (login: IGoogle): actions.LoginGoogleAction => ({
-    type: actions.LOGIN_GOOGLE,
-    payload: login
-});
-export const loginFacebook = (login: IFacebook): actions.LoginFacebookAction => ({
-    type: actions.LOGIN_FACEBOOK,
-    payload: login
-});*/
 export const login = (authStatus: ILoggedIn): actions.LoginAction => ({
     type: actions.LOGIN,
     payload: authStatus

@@ -288,25 +288,32 @@ export default class Utils {
   /**
     * Function to merge the Item's arrays: from local storage and from cloud
     */ 
-  public static mergeItems(data: IUser[], favorites: Item[], itemToRemove: Item): Item[]{
+  public static mergeItems(data: IUser[], favorites: Item[], item: Item, addRemoveItem: boolean): Item[]{
     if(data.length > 0){
       const cloudData: Item[] = JSON.parse(data[0].Favorites);
       const localStorageData = favorites;
-      const combinedItemsDuplicates = [...cloudData, ...localStorageData];
-      const combinedItemsUnique = Utils.removeDuplicateObjectsFromArray(combinedItemsDuplicates);
-      if(itemToRemove === null){
-        return combinedItemsUnique;
+      const combinedItemsDuplicates = [...localStorageData, ...cloudData];
+      if(item === null){
+        return Utils.removeDuplicateObjectsFromArray(combinedItemsDuplicates);
       }
-      else{
-        return Utils.removeObjectFromArray(combinedItemsUnique, itemToRemove);
+      if(addRemoveItem === true){
+        const combinedItems = [item, ...combinedItemsDuplicates];
+        return Utils.removeDuplicateObjectsFromArray(combinedItems);
+      }
+      if(addRemoveItem === false){
+        const combinedItemsUnique = Utils.removeDuplicateObjectsFromArray(combinedItemsDuplicates);
+        return Utils.removeObjectFromArray(combinedItemsUnique, item);
       }
     }
     else{
-      if(itemToRemove === null){
+      if(item === null){
         return favorites;
       }
-      else{
-        return Utils.removeObjectFromArray(favorites, itemToRemove);
+      if(addRemoveItem === true){
+        return [item, ...favorites];
+      }
+      if(addRemoveItem === false){
+        return Utils.removeObjectFromArray(favorites, item);
       }
     }
   }

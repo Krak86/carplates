@@ -81,6 +81,7 @@ export const initialData: ApplicationStates = {
     lang: 0,
     favorites: [],
     badges: 0,
+    itemsMerging: false,
 }
 
 export const regions = {

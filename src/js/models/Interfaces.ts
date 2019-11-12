@@ -21,6 +21,7 @@ export interface ApplicationStates {
   lang: Lang;
   favorites: Item[];
   badges: number;
+  itemsMerging: boolean;
 }
 export interface INotification{
   item: Item;

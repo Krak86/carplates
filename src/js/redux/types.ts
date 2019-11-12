@@ -14,8 +14,6 @@ export const SET_VIN_REQUEST: string = "SET_VIN_REQUEST";
 export const ITEM_FETCH_DATA_VIN_SUCCESS: string = "ITEM_FETCH_DATA_VIN_SUCCESS";
 export const ADD_TO_VINS_LIST: string = "ADD_TO_VINS_LIST";
 export const LOGIN: string = "LOGIN";
-//export const LOGIN_FACEBOOK: string = "LOGIN_FACEBOOK";
-//export const LOGIN_GOOGLE: string = "LOGIN_GOOGLE";
 export const ADD_RIA_ADS: string = "ADD_RIA_ADS";
 export const ADD_CARSMANIA_CARS: string = "ADD_CARSMANIA_CARS";
 export const IMG_RIA_LOADED: string = "IMG_RIA_LOADED";
@@ -28,7 +26,12 @@ export const RESET_BADGE: string = "RESET_BADGE";
 export const GET_USER_DATA: string = "GET_USER_DATA";
 export const PUT_USER_DATA: string = "PUT_USER_DATA";
 export const MERGE_LOCAL_AND_CLOUD_FAVORITES: string = "MERGE_LOCAL_AND_CLOUD_FAVORITES";
+export const ITEMS_MERGING: string = "ITEMS_MERGING";
 
+export interface ItemsMergingAction{
+    type: typeof ITEMS_MERGING;
+    payload: boolean;
+}
 export interface MergeLocalAndCloudFavoritesAction{
     type: typeof MERGE_LOCAL_AND_CLOUD_FAVORITES;
     payload: Item[];

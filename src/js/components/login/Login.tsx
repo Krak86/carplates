@@ -6,9 +6,9 @@ import Avatar from '@material-ui/core/Avatar';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import lang from "../../locale";
-import { login, authoriseUser } from "../../redux/actions";
+import { authoriseUser } from "../../redux/actions";
 import { AppState } from "../../redux";
-import { ApplicationStates, IFacebook, IGoogle } from "../../models/Interfaces";
+import { ApplicationStates, IFacebook } from "../../models/Interfaces";
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import { loggedInDefault } from "../../data/Data";
@@ -50,10 +50,16 @@ export const Login = () => {
     const open = Boolean(anchorEl1);
     const dispatch = useDispatch();
     const classes = useStyles({});
-
-    const appIdFacebook = process.env.FACEBOOK_CLIENT_ID || "";
-    const appIdGoogle = process.env.GOOGLE_CLIENT_ID || "";
-    
+    let appIdFacebook = ""; 
+    let appIdGoogle = "";
+    if(process.env.NODE_ENV === "development"){
+        appIdFacebook = process.env.FACEBOOK_CLIENT_ID_DEV || "";
+        appIdGoogle = process.env.GOOGLE_CLIENT_ID_DEV || "";
+    }
+    else{
+        appIdFacebook = process.env.FACEBOOK_CLIENT_ID || ""; 
+        appIdGoogle = process.env.GOOGLE_CLIENT_ID || "";
+    }    
     const handleMenu1 = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };    
@@ -61,7 +67,6 @@ export const Login = () => {
         setAnchorEl(null);
     };
     const responseFacebook = (response: IFacebook): void => {
-        //console.log(response);
         dispatch(authoriseUser({
             vendor: 1,
             avatar: response.picture.data.url,
@@ -71,7 +76,6 @@ export const Login = () => {
         state.favorites));
     }
     const responseGoogle = (response: any): void => {
-        //console.log(response);
         dispatch(authoriseUser({
             vendor: 2,
             avatar: response.profileObj.imageUrl,
@@ -132,7 +136,6 @@ export const Login = () => {
                     buttonText={lang(state.lang).login_google}
                     onSuccess={responseGoogle}
                     onFailure={handleFailure}
-                    //className={classes.glHeight}
                 />
             </MenuItem>
           </Menu>
