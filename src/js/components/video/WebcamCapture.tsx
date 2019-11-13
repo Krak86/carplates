@@ -6,6 +6,7 @@ import { imageFetchData } from "../../redux/actions";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+import SearchIcon from '@material-ui/icons/Search';
 import { URLs } from "../../data/Data";
 import UtilsAsync from "../../utils/UtilsAsync";
 import lang from "../../locale";
@@ -31,7 +32,7 @@ export const WebcamCapture = (props: IWebcamCaptureProps) => {
   const { close } = props;
   const serviceRecognizeImageUrl = process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL || URLs.carPlateRecMlApiUrl;
   const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
-  const [deviceId, setDeviceId] = React.useState('');
+  const [deviceId, setDeviceId] = React.useState('3991eaf37b0a338f952e799f6c5c1fbf597bea79a397ba8401543510c2baa593');
   const classes = useStyles({});
   const dispatch = useDispatch();
   const webcamRef = React.useRef(null);
@@ -46,7 +47,6 @@ export const WebcamCapture = (props: IWebcamCaptureProps) => {
         const vDevices = await UtilsAsync.getVideoDevices();
         handleDevicesChange(vDevices);
   };
-  //takeAPhoto();
 
   const videoConstraints = {
     width: 1280,
@@ -87,7 +87,10 @@ export const WebcamCapture = (props: IWebcamCaptureProps) => {
             width: "100%",
          }}
         />
-        <Button variant="contained" color="primary" className={classes.button} onClick={takeAPhoto}>
+       <Button variant="contained" color="primary" className={classes.button} onClick={takeAPhoto}>
+              <SearchIcon />
+          </Button>
+      <Button variant="contained" color="primary" className={classes.button} onClick={capture}>
               <PhotoCameraIcon />
           </Button>
         <FormControl component="fieldset" className={classes.formControl} key={Math.random()}>        

@@ -87,7 +87,7 @@ export default class Webcam extends React.Component<WebcamProps & React.HTMLAttr
     if (Webcam.mountedInstances.length === 0 && state.hasUserMedia) {
       if (this.stream.getVideoTracks /*&& this.stream.getAudioTracks*/) {
         this.stream.getVideoTracks().map(track => track.stop());
-        this.stream.getAudioTracks().map(track => track.stop());
+        //this.stream.getAudioTracks().map(track => track.stop());
       } else {
         //((this.stream as unknown) as MediaStreamTrack).stop();
       }
@@ -166,7 +166,7 @@ export default class Webcam extends React.Component<WebcamProps & React.HTMLAttr
 
     const sourceSelected = (audioConstraints, videoConstraints) => {
       const constraints: MediaStreamConstraints = {
-        video: typeof videoConstraints !== "undefined" ? videoConstraints : true
+        video: {deviceId: videoConstraints.deviceId }
       };
 
       if (props.audio) {
@@ -190,7 +190,10 @@ export default class Webcam extends React.Component<WebcamProps & React.HTMLAttr
 
     if ("mediaDevices" in navigator) {
       sourceSelected(props.audioConstraints, props.videoConstraints);
-    } else {
+      console.log(1);
+    } 
+    else {
+      console.log(2);
       const optionalSource = id => ({ optional: [{ sourceId: id }] });
 
       const constraintToSourceId = constraint => {
@@ -201,7 +204,7 @@ export default class Webcam extends React.Component<WebcamProps & React.HTMLAttr
         }
 
         if (Array.isArray(deviceId) && deviceId.length > 0) {
-          return deviceId[0];
+          return deviceId[1];
         }
 
         if (typeof deviceId === "object" && deviceId.ideal) {
@@ -255,18 +258,21 @@ export default class Webcam extends React.Component<WebcamProps & React.HTMLAttr
     }
 
     this.stream = stream;
+    
 
     try {
       if (this.video) {
         this.video.srcObject = stream;
       }
       this.setState({ hasUserMedia: true });
+      console.log(stream);
     } catch (error) {
       this.setState({
         hasUserMedia: true,
         src: window.URL.createObjectURL(stream)
       });
       console.log(error);
+      console.log(stream);
     }
 
     props.onUserMedia();
