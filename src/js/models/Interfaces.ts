@@ -563,11 +563,11 @@ export interface IDialogVideoWindowProps{
   title: string;
   openDialog: boolean;
   handleClickCloseDialog: any;
-  videoDevices: MediaDeviceInfo[];
+  //videoDevices: MediaDeviceInfo[];
 }
 export interface IWebcamCaptureProps{
   close: any;
-  videoDevices: MediaDeviceInfo[];
+  //videoDevices: MediaDeviceInfo[];
 }
 export interface ListItemLinkProps {
   icon?: React.ReactElement;

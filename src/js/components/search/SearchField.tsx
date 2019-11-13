@@ -322,7 +322,7 @@ export const SearchField = () => {
         title={options[0]}
         openDialog={openDialog}
         handleClickCloseDialog={handleClickCloseDialog}
-        videoDevices={videoDevices.value}
+        //videoDevices={videoDevices.value}
       />
     </Fragment>
   );

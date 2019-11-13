@@ -30,7 +30,7 @@ const Transition = React.forwardRef<unknown, TransitionProps>(function Transitio
 });
 
 export const DialogVideoWindow = (props: IDialogVideoWindowProps) => {
-    const { openDialog, handleClickCloseDialog, title, videoDevices } = props;
+    const { openDialog, handleClickCloseDialog, title } = props;
     const classes = useStyles({});
     return (
         <Fragment>
@@ -47,7 +47,7 @@ export const DialogVideoWindow = (props: IDialogVideoWindowProps) => {
                 </AppBar>
                 <WebcamCapture 
                     close={handleClickCloseDialog}
-                    videoDevices={videoDevices}
+                    //videoDevices={videoDevices}
                 />
             </Dialog>
         </Fragment>

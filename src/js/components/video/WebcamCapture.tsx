@@ -1,19 +1,21 @@
 import React, { Fragment } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { AppState } from "../../redux";
-import { ApplicationStates, IWebcamCaptureProps } from "../../models/Interfaces";
+import { ApplicationStates, IWebcamCaptureProps, IDevicesState } from "../../models/Interfaces";
 import { imageFetchData } from "../../redux/actions";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import { URLs } from "../../data/Data";
+import UtilsAsync from "../../utils/UtilsAsync";
 import lang from "../../locale";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import Webcam from "react-webcam";
+//import Webcam from "react-webcam";
+import Webcam from './Webcam';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     button: {
@@ -26,14 +28,26 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 export const WebcamCapture = (props: IWebcamCaptureProps) => {
-  const { close, videoDevices } = props;
+  const { close } = props;
   const serviceRecognizeImageUrl = process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL || URLs.carPlateRecMlApiUrl;
   const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
-  const [deviceId, setDeviceId] = React.useState('3991eaf37b0a338f952e799f6c5c1fbf597bea79a397ba8401543510c2baa593');
+  const [deviceId, setDeviceId] = React.useState('');
   const classes = useStyles({});
   const dispatch = useDispatch();
   const webcamRef = React.useRef(null);
-   
+
+  const [devices, setVideoDevices] = React.useState<IDevicesState>({value: []});
+
+  const handleDevicesChange = (values: MediaDeviceInfo[]) => {
+    setVideoDevices({...devices, value: values});
+  };
+
+  const takeAPhoto = async () =>{
+        const vDevices = await UtilsAsync.getVideoDevices();
+        handleDevicesChange(vDevices);
+  };
+  //takeAPhoto();
+
   const videoConstraints = {
     width: 1280,
     height: 720,
@@ -64,27 +78,23 @@ export const WebcamCapture = (props: IWebcamCaptureProps) => {
   return (
       <Fragment>
         <Webcam
-          audio={false}
-          //height={720}
+          audio={false}          
           ref={webcamRef}
-          screenshotFormat="image/jpeg"
-          //width={1280}
+          screenshotFormat="image/jpeg"          
           videoConstraints={videoConstraints}
           style={{
             height: "50vh",
             width: "100%",
-            //objectFit: "fill",
-            //position: "absolute"
          }}
         />
-        <Button variant="contained" color="primary" className={classes.button} onClick={capture}>
+        <Button variant="contained" color="primary" className={classes.button} onClick={takeAPhoto}>
               <PhotoCameraIcon />
           </Button>
         <FormControl component="fieldset" className={classes.formControl} key={Math.random()}>        
           <FormLabel key={Math.random()} component="legend">{lang(state.lang).messageTurnOnFrontCamera}</FormLabel>
           <RadioGroup aria-label="gender" name="gender1" value={deviceId} onChange={handleChange} key={Math.random()}>
-            {videoDevices !== undefined 
-              ? videoDevices.map((d: MediaDeviceInfo) => <FormControlLabel 
+            {devices !== undefined 
+              ? devices.value.map((d: MediaDeviceInfo) => <FormControlLabel 
                 key={Math.random()} 
                 value={d.deviceId} 
                 control={<Radio key={Math.random()} />} 
@@ -94,6 +104,6 @@ export const WebcamCapture = (props: IWebcamCaptureProps) => {
             }
           </RadioGroup>
         </FormControl>
-      </Fragment>
+      </Fragment>          
     );
 };
