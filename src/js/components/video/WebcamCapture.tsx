@@ -37,7 +37,7 @@ export const WebcamCapture = (props: IWebcamCaptureProps) => {
   const videoConstraints = {
     width: 1280,
     height: 720,
-    deviceId: { exact: deviceId }
+    deviceId: { exact: "environment" }
   };
   const capture = React.useCallback(() => {
       const imageSrc = webcamRef.current.getScreenshot();
