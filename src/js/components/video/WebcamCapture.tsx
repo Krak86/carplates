@@ -15,8 +15,8 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import Webcam from "react-webcam";
-//import Webcam from './Webcam';
+//import Webcam from "react-webcam";
+import { Camera } from './Camera';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     button: {
@@ -74,7 +74,7 @@ export const WebcamCapture = (props: IWebcamCaptureProps) => {
 
   return (
       <Fragment>
-        <Webcam
+        {/*<Webcam
           audio={false}          
           ref={webcamRef}
           screenshotFormat="image/jpeg"          
@@ -83,10 +83,9 @@ export const WebcamCapture = (props: IWebcamCaptureProps) => {
             height: "50vh",
             width: "100%",
          }}
-        />
-       <Button variant="contained" color="primary" className={classes.button} onClick={takeAPhoto}>
-              <SearchIcon />
-          </Button>
+        />*/}
+      <Camera />
+      
       <Button variant="contained" color="primary" className={classes.button} onClick={capture}>
               <PhotoCameraIcon />
           </Button>
