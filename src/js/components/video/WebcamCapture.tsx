@@ -84,7 +84,7 @@ export const WebcamCapture = (props: IWebcamCaptureProps) => {
             width: "100%",
          }}
         />*/}
-      <Camera />
+      <Camera/>
       
       <Button variant="contained" color="primary" className={classes.button} onClick={capture}>
               <PhotoCameraIcon />
