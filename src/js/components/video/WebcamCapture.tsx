@@ -29,7 +29,7 @@ export const WebcamCapture = (props: IWebcamCaptureProps) => {
   const { close, videoDevices } = props;
   const serviceRecognizeImageUrl = process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL || URLs.carPlateRecMlApiUrl;
   const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
-  const [deviceId, setDeviceId] = React.useState('');
+  const [deviceId, setDeviceId] = React.useState('3991eaf37b0a338f952e799f6c5c1fbf597bea79a397ba8401543510c2baa593');
   const classes = useStyles({});
   const dispatch = useDispatch();
   const webcamRef = React.useRef(null);
@@ -37,7 +37,7 @@ export const WebcamCapture = (props: IWebcamCaptureProps) => {
   const videoConstraints = {
     width: 1280,
     height: 720,
-    deviceId: { exact: "environment" }
+    deviceId: { exact: deviceId }
   };
   const capture = React.useCallback(() => {
       const imageSrc = webcamRef.current.getScreenshot();
@@ -57,6 +57,9 @@ export const WebcamCapture = (props: IWebcamCaptureProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDeviceId((event.target as HTMLInputElement).value);
   };
+
+  console.log(`deviceId: ${deviceId}`);
+  console.log(`videoConstraints: ${videoConstraints.deviceId.exact}`);
    
   return (
       <Fragment>

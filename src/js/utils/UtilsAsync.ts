@@ -3,8 +3,7 @@ export default class UtilsAsync {
      */
     public static getVideoDevices = async (): Promise<MediaDeviceInfo[]> => {
         const deviceInfos = await navigator.mediaDevices.enumerateDevices();
-        return deviceInfos;
-        //return deviceInfos.filter((d: MediaDeviceInfo) => d.kind == "videoinput"); 
+        return deviceInfos.filter((d: MediaDeviceInfo) => d.kind == "videoinput"); 
       }
     /**
       * Function to play sound
