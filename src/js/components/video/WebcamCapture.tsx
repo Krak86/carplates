@@ -15,8 +15,8 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-//import Webcam from "react-webcam";
-import Webcam from './Webcam';
+import Webcam from "react-webcam";
+//import Webcam from './Webcam';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     button: {
@@ -51,7 +51,7 @@ export const WebcamCapture = (props: IWebcamCaptureProps) => {
   const videoConstraints = {
     width: 1280,
     height: 720,
-    deviceId: { exact: deviceId }
+    facingMode: { exact: "environment" }
   };
   const capture = React.useCallback(() => {
       const imageSrc = webcamRef.current.getScreenshot();
@@ -72,9 +72,6 @@ export const WebcamCapture = (props: IWebcamCaptureProps) => {
     setDeviceId((event.target as HTMLInputElement).value);
   };
 
-  console.log(`deviceId: ${deviceId}`);
-  console.log(`videoConstraints: ${videoConstraints.deviceId.exact}`);
-   
   return (
       <Fragment>
         <Webcam
