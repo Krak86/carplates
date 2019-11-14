@@ -28,20 +28,23 @@ export const Camera = () => {
         screenshotFormat: "image/webp",
         screenshotQuality: 0.92,
   };
-
+  const [deviceId, setDeviceId] = React.useState("");
   let canvas: HTMLCanvasElement | null = null;
   let ctx: CanvasRenderingContext2D | null = null;
   let stream: MediaStream | null = null;
   let video: HTMLVideoElement | null = null;
   let src: string = null;
-  let videoSource: string = "3991eaf37b0a338f952e799f6c5c1fbf597bea79a397ba8401543510c2baa593";
+  let videoSource: string = "";
 
   const devices: MediaStream[] = [];
 
   const getStream = async (videoSource: string): Promise<void> => {
     const deviceInfos: MediaDeviceInfo[] = await UtilsAsync.getVideoDevices();
     window.deviceInfos = deviceInfos;
+    //3991eaf37b0a338f952e799f6c5c1fbf597bea79a397ba8401543510c2baa593
     //videoSource = deviceInfos.filter(d => d.label === "Logitech QuickCam S5500")[0].deviceId;
+    videoSource = deviceInfos[deviceInfos.length-1].deviceId;
+    setDeviceId(videoSource);
     console.log('Available devices:', deviceInfos);
 
     if(stream){
@@ -70,6 +73,7 @@ export const Camera = () => {
   getStream(videoSource);
     
   return(
+    <Fragment> 
           <video
             autoPlay
             muted
@@ -83,5 +87,7 @@ export const Camera = () => {
                 width: "100%",
             }}
           />
-    );
-  }
+          {deviceId}
+    </Fragment> 
+  );
+}
