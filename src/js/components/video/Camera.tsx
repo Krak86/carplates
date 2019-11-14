@@ -31,7 +31,7 @@ export const Camera = () => {
 
   const [deviceId, setDeviceId] = React.useState("");
   const [streamObj, setStream] = React.useState("");
-  const [error, setError] = React.useState("");
+  const [errorObj, setError] = React.useState("");
 
   let canvas: HTMLCanvasElement | null = null;
   let ctx: CanvasRenderingContext2D | null = null;
@@ -61,18 +61,16 @@ export const Camera = () => {
     stream = await navigator.mediaDevices.getUserMedia(constraints);
     window.stream = stream;
 
-    setStream(`MediaStream: ${JSON.stringify(stream)}`);
+    setStream(`MediaStream: ${JSON.stringify(stream.getTracks())}`);
     console.log('MediaStream: ', stream);
 
     try{
-      if(video){
-        video.srcObject = stream;
-      }
+      if(video){video.srcObject = stream;}
+      //src = window.URL.createObjectURL(stream)
       setError("");
     }
     catch(error){
-      src = window.URL.createObjectURL(stream);
-
+      //src = window.URL.createObjectURL(stream);
       console.error('Error: ', error);
       setError(`Error: ${JSON.stringify(error)}`);
     }
@@ -85,7 +83,7 @@ export const Camera = () => {
           <video
             autoPlay
             muted
-            src={src}
+            //src={src}
             playsInline
             ref={ref => {
               video = ref;
@@ -97,7 +95,7 @@ export const Camera = () => {
           />
           <p>{deviceId}</p>
           <p>{streamObj}</p>
-          <p>{error}</p>
+          <p>{errorObj}</p>
     </Fragment> 
   );
 }
