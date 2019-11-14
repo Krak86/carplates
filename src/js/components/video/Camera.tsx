@@ -16,16 +16,6 @@ declare global{
   }
 }
 
-const gotDevices = (deviceInfos: MediaDeviceInfo[]) => {
-  window.deviceInfos = deviceInfos; // make available to console
-  console.log('Available input and output devices:', deviceInfos);
-}
-
-const getDevices = (): Promise<MediaDeviceInfo[]> => {
-  // AFAICT in Safari this only gets default devices until gUM is called :/
-  return navigator.mediaDevices.enumerateDevices();
-}
-
 export const Camera = () => {
   const classes = useStyles({});
 
@@ -39,40 +29,45 @@ export const Camera = () => {
         screenshotQuality: 0.92,
   };
 
-  const canvas: HTMLCanvasElement | null = null;
-  const ctx: CanvasRenderingContext2D | null = null;  
-  const stream: MediaStream | null = null;  
-  const video: HTMLVideoElement | null = null;
-
+  let canvas: HTMLCanvasElement | null = null;
+  let ctx: CanvasRenderingContext2D | null = null;
+  let stream: MediaStream | null = null;
+  let video: HTMLVideoElement | null = null;
   let src: string = null;
-  let videoSource: string = "";
+  let videoSource: string = "3991eaf37b0a338f952e799f6c5c1fbf597bea79a397ba8401543510c2baa593";
 
   const devices: MediaStream[] = [];
 
-  const getStream = (videoSource: string) => {
-    if (window.stream){
-      window.stream.getTracks().forEach((track: MediaStreamTrack) => {
+  const getStream = async (videoSource: string): Promise<void> => {
+    const deviceInfos: MediaDeviceInfo[] = await UtilsAsync.getVideoDevices();
+    window.deviceInfos = deviceInfos;
+    //videoSource = deviceInfos.filter(d => d.label === "Logitech QuickCam S5500")[0].deviceId;
+    console.log('Available devices:', deviceInfos);
+
+    if(stream){
+      stream.getTracks().forEach((track: MediaStreamTrack) => {
         track.stop();
       });
     }
     const constraints = {
       video: {deviceId: videoSource ? {exact: videoSource} : undefined}
     };
-    return navigator.mediaDevices.getUserMedia(constraints).
-      then(gotStream).catch(handleError);
-  }
-
-  const gotStream = (stream: MediaStream) => {
+    stream = await navigator.mediaDevices.getUserMedia(constraints);
     window.stream = stream;
-    devices.push(stream);
-    video.srcObject = stream;
+    console.log('MediaStream: ', stream);
+
+    try{
+      if(video){
+        video.srcObject = stream;
+      }
+    }
+    catch(error){
+      src = window.URL.createObjectURL(stream);
+      console.error('Error: ', error);
+    }
   }
 
-  const handleError = (error: string) => {
-    console.error('Error: ', error);
-  }
-
-  getStream(videoSource).then(getDevices).then(gotDevices);
+  getStream(videoSource);
     
   return(
           <video
@@ -80,9 +75,9 @@ export const Camera = () => {
             muted
             src={src}
             playsInline
-            /*ref={ref => {
-            this.video = ref;
-            }}*/
+            ref={ref => {
+              video = ref;
+            }}
             style={{
                 height: "50vh",
                 width: "100%",
