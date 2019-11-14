@@ -28,7 +28,11 @@ export const Camera = () => {
         screenshotFormat: "image/webp",
         screenshotQuality: 0.92,
   };
+
   const [deviceId, setDeviceId] = React.useState("");
+  const [streamObj, setStream] = React.useState("");
+  const [error, setError] = React.useState("");
+
   let canvas: HTMLCanvasElement | null = null;
   let ctx: CanvasRenderingContext2D | null = null;
   let stream: MediaStream | null = null;
@@ -36,15 +40,14 @@ export const Camera = () => {
   let src: string = null;
   let videoSource: string = "";
 
-  const devices: MediaStream[] = [];
-
   const getStream = async (videoSource: string): Promise<void> => {
     const deviceInfos: MediaDeviceInfo[] = await UtilsAsync.getVideoDevices();
     window.deviceInfos = deviceInfos;
     //3991eaf37b0a338f952e799f6c5c1fbf597bea79a397ba8401543510c2baa593
     //videoSource = deviceInfos.filter(d => d.label === "Logitech QuickCam S5500")[0].deviceId;
     videoSource = deviceInfos[deviceInfos.length-1].deviceId;
-    setDeviceId(videoSource);
+
+    setDeviceId(`'Available devices:' ${JSON.stringify(deviceInfos)}`);
     console.log('Available devices:', deviceInfos);
 
     if(stream){
@@ -57,16 +60,21 @@ export const Camera = () => {
     };
     stream = await navigator.mediaDevices.getUserMedia(constraints);
     window.stream = stream;
+
+    setStream(`MediaStream: ${JSON.stringify(stream)}`);
     console.log('MediaStream: ', stream);
 
     try{
       if(video){
         video.srcObject = stream;
       }
+      setError("");
     }
     catch(error){
       src = window.URL.createObjectURL(stream);
+
       console.error('Error: ', error);
+      setError(`Error: ${JSON.stringify(error)}`);
     }
   }
 
@@ -87,7 +95,9 @@ export const Camera = () => {
                 width: "100%",
             }}
           />
-          {deviceId}
+          <p>{deviceId}</p>
+          <p>{streamObj}</p>
+          <p>{error}</p>
     </Fragment> 
   );
 }
