@@ -173,7 +173,7 @@ export const URLs = {
     "getDataByVinUrl": "https://vpic.nhtsa.dot.gov/api/vehicles/decodevin",
     "getImageByNameUrl": "https://pixabay.com/api/?key=",
     "getImagesByCarplateUrl_1": "https://platesmania.com/mobile/api_photo.php",
-    "getImagesByCarplateUrl_2": "https://avto-nomer.ru/mobile/api_photo.php",
+    "getImagesByCarplateUrl_2": "http://avto-nomer.ru/mobile/api_photo.php",
     "CarPlatesUrl": "https://platesmania.com",
     "CarPlatesUrl_2" : "https://avto-nomer.ru",
     "carPlateRecMlApiUrl": "",

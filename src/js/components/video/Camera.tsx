@@ -77,7 +77,7 @@ export const Camera = () => {
   return(
           <video
             autoPlay
-            muted={false}
+            muted
             src={src}
             playsInline
             /*ref={ref => {
@@ -87,6 +87,6 @@ export const Camera = () => {
                 height: "50vh",
                 width: "100%",
             }}
-            />
+          />
     );
   }
