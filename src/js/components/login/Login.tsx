@@ -17,6 +17,7 @@ import { login } from "../../redux/actions";
 const useStyles = makeStyles({
     avatar: {
       margin: 10,
+      cursor: 'pointer',
     },
     bigAvatar: {
       margin: 10,
@@ -161,6 +162,7 @@ export const Login = () => {
                 alt={state.loggedIn.profileName}
                 src={state.loggedIn.avatar} className={classes.avatar}
                 onClick={handleMenu2}
+                //className={}
             />
             <Menu
                         id="menu-appbar"
