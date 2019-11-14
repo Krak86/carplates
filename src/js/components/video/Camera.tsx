@@ -43,13 +43,7 @@ export const Camera = () => {
   const getStream = async (videoSource: string): Promise<void> => {
     const deviceInfos: MediaDeviceInfo[] = await UtilsAsync.getVideoDevices();
     window.deviceInfos = deviceInfos;
-    //3991eaf37b0a338f952e799f6c5c1fbf597bea79a397ba8401543510c2baa593
-    //videoSource = deviceInfos.filter(d => d.label === "Logitech QuickCam S5500")[0].deviceId;
     videoSource = deviceInfos[deviceInfos.length-1].deviceId;
-
-    setDeviceId(`'Available devices:' ${JSON.stringify(deviceInfos)}`);
-    console.log('Available devices:', deviceInfos);
-
     if(stream){
       stream.getTracks().forEach((track: MediaStreamTrack) => {
         track.stop();
@@ -60,8 +54,10 @@ export const Camera = () => {
     };
     stream = await navigator.mediaDevices.getUserMedia(constraints);
     window.stream = stream;
-
-    setStream(`MediaStream: ${JSON.stringify(stream.getTracks())}`);
+    //setStream(`${streamObj} ${JSON.stringify(stream)}`);
+    setDeviceId(`'Available devices:' ${JSON.stringify(deviceInfos)}`);
+    console.log('Available devices:', deviceInfos);
+    
     console.log('MediaStream: ', stream);
 
     try{
