@@ -40,41 +40,55 @@ export const Camera = () => {
   let src: string = null;
   let videoSource: string = "";
 
-  const getStream = async (videoSource: string): Promise<void> => {
+  const getDevices = (): Promise<MediaDeviceInfo[]> => {
+    return UtilsAsync.getVideoDevices();
+  }
+
+  const getStream = (deviceInfos: MediaDeviceInfo[]): Promise<MediaStream> => {
+    window.deviceInfos = deviceInfos;
     if(window.stream){
       window.stream.getTracks().forEach((track: MediaStreamTrack) => {
         track.stop();
       });
     }
-    const deviceInfos: MediaDeviceInfo[] = await UtilsAsync.getVideoDevices();
-    window.deviceInfos = deviceInfos;
     videoSource = deviceInfos[deviceInfos.length-1].deviceId;
-    
     const constraints = {
-      video: {deviceId: videoSource ? {exact: videoSource} : undefined}
+      video: {
+        deviceId: {
+          exact: videoSource
+        }
+      }
     };
-    stream = await navigator.mediaDevices.getUserMedia(constraints);
-    window.stream = stream;
+    return navigator.mediaDevices.getUserMedia(constraints);
+  }
 
-    try{
+  const gotStream = (stream: MediaStream) => {
+    window.stream = stream;
+    video.srcObject = stream
+    /*try{
       if(stream && video){
         video.srcObject = stream;
       }
-      //src = window.URL.createObjectURL(stream)
       setStream(`${streamObj}`);
-      setDeviceId(`'Available devices:' ${JSON.stringify(deviceInfos)}`);
+      setDeviceId(`'Available devices:' ${JSON.stringify(window.deviceInfos)}`);
       setError("");
-      console.log('Available devices:', deviceInfos);
-      console.log('MediaStream: ', stream);
+      console.log('Available devices:', window.deviceInfos);
+      console.log('MediaStream: ', window.stream);
     }
     catch(error){
-      //src = window.URL.createObjectURL(stream);
       console.error('Error: ', error);
       setError(`Error: ${JSON.stringify(error)}`);
-    }
+    }*/
   }
 
-  getStream(videoSource);
+  const handleError = (error) => {
+    console.error('Error: ', error);
+  }
+
+  getDevices()
+  .then(getStream)
+  .then(gotStream)
+  .catch(handleError);
     
   return(
     <Fragment> 
