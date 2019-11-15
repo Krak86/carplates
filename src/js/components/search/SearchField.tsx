@@ -142,9 +142,9 @@ export const SearchField = () => {
   const takeAPhoto = async () =>{
     if('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices){
       try{
-        await navigator.mediaDevices.getUserMedia({video: true});
-        const videoDevices = await UtilsAsync.getVideoDevices();
-        handleDevicesChange(videoDevices);
+        //await navigator.mediaDevices.getUserMedia({video: true});
+        //const videoDevices = await UtilsAsync.getVideoDevices();
+        //handleDevicesChange(videoDevices);
         handleClickOpenDialog();
       }
       catch(e){

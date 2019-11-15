@@ -207,7 +207,7 @@ var SnackbarContentWrapper = function (props) {
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
 /* harmony import */ var _utils_Utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
 /* harmony import */ var _utils_UtilsRia__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(38);
-/* harmony import */ var _utils_UtilsAsync__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(47);
+/* harmony import */ var _utils_UtilsAsync__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(62);
 /* harmony import */ var _data_Data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(15);
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -912,29 +912,28 @@ var items = [
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _utils_Utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(8);
-/* harmony import */ var _utils_UtilsAsync__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(47);
-/* harmony import */ var _locale__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(43);
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(110);
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(277);
-/* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(12);
-/* harmony import */ var _data_Data__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(15);
-/* harmony import */ var _snackbar_SnackbarContentWrapper__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(100);
-/* harmony import */ var _video_DialogVideoWindow__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(188);
-/* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(73);
-/* harmony import */ var _material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(270);
-/* harmony import */ var _material_ui_core_InputBase__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(278);
-/* harmony import */ var _material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(115);
-/* harmony import */ var _material_ui_core_Menu__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(276);
-/* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(268);
-/* harmony import */ var _material_ui_icons_Search__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(97);
-/* harmony import */ var _material_ui_icons_Search__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Search__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var _material_ui_icons_Clear__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(173);
-/* harmony import */ var _material_ui_icons_Clear__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Clear__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var _material_ui_icons_PhotoCamera__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(102);
-/* harmony import */ var _material_ui_icons_PhotoCamera__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_PhotoCamera__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var _material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(279);
+/* harmony import */ var _locale__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(7);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(43);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(110);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(277);
+/* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(12);
+/* harmony import */ var _data_Data__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(15);
+/* harmony import */ var _snackbar_SnackbarContentWrapper__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(100);
+/* harmony import */ var _video_DialogVideoWindow__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(188);
+/* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(73);
+/* harmony import */ var _material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(270);
+/* harmony import */ var _material_ui_core_InputBase__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(278);
+/* harmony import */ var _material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(115);
+/* harmony import */ var _material_ui_core_Menu__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(276);
+/* harmony import */ var _material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(268);
+/* harmony import */ var _material_ui_icons_Search__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(97);
+/* harmony import */ var _material_ui_icons_Search__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Search__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _material_ui_icons_Clear__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(173);
+/* harmony import */ var _material_ui_icons_Clear__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Clear__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var _material_ui_icons_PhotoCamera__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(102);
+/* harmony import */ var _material_ui_icons_PhotoCamera__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_PhotoCamera__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var _material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(279);
 var __assign = (undefined && undefined.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -1002,8 +1001,7 @@ var _this = undefined;
 
 
 
-
-var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])(function (theme) { return Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])({
+var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])(function (theme) { return Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])({
     root: {
         padding: '0px 0px',
         display: 'flex',
@@ -1074,13 +1072,13 @@ var SearchField = function () {
     var _e = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(false), openDialog = _e[0], setOpenDialog = _e[1];
     var _f = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState({ value: [] }), videoDevices = _f[0], setVideoDevices = _f[1];
     //mapStateToProps
-    var state = Object(react_redux__WEBPACK_IMPORTED_MODULE_4__[/* useSelector */ "d"])(function (state) { return state.Item; }, react_redux__WEBPACK_IMPORTED_MODULE_4__[/* shallowEqual */ "b"]);
+    var state = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__[/* useSelector */ "d"])(function (state) { return state.Item; }, react_redux__WEBPACK_IMPORTED_MODULE_3__[/* shallowEqual */ "b"]);
     //mapDispatchToProps
-    var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_4__[/* useDispatch */ "c"])();
+    var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__[/* useDispatch */ "c"])();
     //componentDidMounted, componentDidUpdated
     var searchInput = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
     Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-        document.title = Object(_locale__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(state.lang).documentTitle + " " + state.itemRequest;
+        document.title = Object(_locale__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(state.lang).documentTitle + " " + state.itemRequest;
     });
     Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
         searchInput.current.focus();
@@ -1091,51 +1089,41 @@ var SearchField = function () {
             if (isVin(hashValue)) {
                 var value = shapeDataVin(hashValue);
                 var url = shapeUrlVin(value, serviceUrlVIN);
-                dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_8__[/* itemFetchDataForVin */ "g"])(value, url));
+                dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_7__[/* itemFetchDataForVin */ "g"])(value, url));
             }
             else {
                 var value = shapeDataPlate(hashValue);
                 var url = shapeUrlPlate(value, serviceUrl);
-                dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_8__[/* itemFetchDataForPlate */ "f"])(value, url));
+                dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_7__[/* itemFetchDataForPlate */ "f"])(value, url));
             }
         }
         ;
     }, []);
-    var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_5__[/* useHistory */ "f"])();
+    var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__[/* useHistory */ "f"])();
     //hook styles
     var classes = useStyles({});
     //init
     var serviceUrl = "https://krak86.table.core.windows.net/CarsPartitions?sv=2018-03-28&si=CarsPartitions-AccessPolicy&tn=carspartitions&sig=XMI5pg9woSni13q9E%2BHH0wUkvcQ3bJtv8Hiny0a6xVM%3D" || false;
-    var serviceUrlVIN = process.env.VIN_SERVICE_URL || _data_Data__WEBPACK_IMPORTED_MODULE_9__[/* URLs */ "a"].getDataByVinUrl;
+    var serviceUrlVIN = process.env.VIN_SERVICE_URL || _data_Data__WEBPACK_IMPORTED_MODULE_8__[/* URLs */ "a"].getDataByVinUrl;
     var serviceRecognizeImageUrl = "https://carsdatabase.azurewebsites.net/api/platerecognizerservice?code=Gh3DFiMDDdQ9/b6edFSQSuz2MGaWeQG7nKOjaxK7pbdO3Hlb0EBXtQ==" || false;
-    var options = Object(_locale__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(state.lang).cameraActions;
+    var options = Object(_locale__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(state.lang).cameraActions;
     var ITEM_HEIGHT = 48;
     var attachImageID = "attachImage";
     var takeAPhoto = function () { return __awaiter(_this, void 0, void 0, function () {
-        var videoDevices_1, e_1;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    if (!('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices)) return [3 /*break*/, 5];
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 4, , 5]);
-                    return [4 /*yield*/, navigator.mediaDevices.getUserMedia({ video: true })];
-                case 2:
-                    _a.sent();
-                    return [4 /*yield*/, _utils_UtilsAsync__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"].getVideoDevices()];
-                case 3:
-                    videoDevices_1 = _a.sent();
-                    handleDevicesChange(videoDevices_1);
+            if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
+                try {
+                    //await navigator.mediaDevices.getUserMedia({video: true});
+                    //const videoDevices = await UtilsAsync.getVideoDevices();
+                    //handleDevicesChange(videoDevices);
                     handleClickOpenDialog();
-                    return [3 /*break*/, 5];
-                case 4:
-                    e_1 = _a.sent();
+                }
+                catch (e) {
                     setOpenSnackbar(true);
-                    handleSnackbarMessage(Object(_locale__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(state.lang).messageTurnOnCamera);
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                    handleSnackbarMessage(Object(_locale__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(state.lang).messageTurnOnCamera);
+                }
             }
+            return [2 /*return*/];
         });
     }); };
     var handleDevicesChange = function (values) {
@@ -1159,12 +1147,12 @@ var SearchField = function () {
         if (isVin(inputValue.value)) {
             value = shapeDataVin(inputValue.value);
             var url = shapeUrlVin(value, serviceUrlVIN);
-            dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_8__[/* itemFetchDataForVin */ "g"])(value, url));
+            dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_7__[/* itemFetchDataForVin */ "g"])(value, url));
         }
         else {
             value = shapeDataPlate(inputValue.value);
             var url = shapeUrlPlate(value, serviceUrl);
-            dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_8__[/* itemFetchDataForPlate */ "f"])(value, url));
+            dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_7__[/* itemFetchDataForPlate */ "f"])(value, url));
         }
         searchInput.current.focus();
         handleAddResultToHash(value);
@@ -1174,7 +1162,7 @@ var SearchField = function () {
     };
     var handleClearClick = function () {
         setInputValue(__assign({}, inputValue, { value: "" }));
-        dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_8__[/* setItemRequest */ "j"])(""));
+        dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_7__[/* setItemRequest */ "j"])(""));
         searchInput.current.focus();
     };
     var handlerKeyPress = function (e) {
@@ -1205,15 +1193,15 @@ var SearchField = function () {
         var file = value[0];
         if (!_utils_Utils__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].checkFileType(file.type)) {
             setOpenSnackbar(true);
-            handleSnackbarMessage(Object(_locale__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(state.lang).messageChooseImage);
+            handleSnackbarMessage(Object(_locale__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(state.lang).messageChooseImage);
             return;
         }
         if (!_utils_Utils__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].checkImageSize(file.size)) {
             setOpenSnackbar(true);
-            handleSnackbarMessage(Object(_locale__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(state.lang).messageImageLimit);
+            handleSnackbarMessage(Object(_locale__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(state.lang).messageImageLimit);
             return;
         }
-        dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_8__[/* imageFetchData */ "e"])(file, serviceRecognizeImageUrl));
+        dispatch(Object(_redux_actions__WEBPACK_IMPORTED_MODULE_7__[/* imageFetchData */ "e"])(file, serviceRecognizeImageUrl));
     };
     var handleCloseSnackBar = function (event, reason) {
         if (reason === 'clickaway') {
@@ -1225,28 +1213,28 @@ var SearchField = function () {
         setSnackbarMessage(message);
     };
     return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null,
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], { className: classes.root },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputBase__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], { className: classes.input, placeholder: Object(_locale__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(state.lang).searchInputPlaceholderText, inputProps: { 'aria-label': Object(_locale__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(state.lang).searchInputPlaceholderText }, onChange: handleChange('value'), value: inputValue.value, onKeyPress: handlerKeyPress, inputRef: searchInput }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_15__[/* default */ "a"], { className: classes.iconButton, "aria-label": "search", onClick: handleSearchClick },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Search__WEBPACK_IMPORTED_MODULE_18___default.a, null)),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_15__[/* default */ "a"], { className: classes.iconButton, "aria-label": "clear", onClick: handleClearClick },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Clear__WEBPACK_IMPORTED_MODULE_19___default.a, null)),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], { className: classes.divider, orientation: "vertical" }),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_15__[/* default */ "a"], { color: "primary", className: classes.iconButton, "aria-label": "camera", "aria-haspopup": "true", onClick: handleClick },
-                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_PhotoCamera__WEBPACK_IMPORTED_MODULE_20___default.a, null)),
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Menu__WEBPACK_IMPORTED_MODULE_16__[/* default */ "a"], { id: "menu", anchorEl: anchorEl, keepMounted: true, open: open, onClose: handleClose, PaperProps: {
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], { className: classes.root },
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_InputBase__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], { className: classes.input, placeholder: Object(_locale__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(state.lang).searchInputPlaceholderText, inputProps: { 'aria-label': Object(_locale__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"])(state.lang).searchInputPlaceholderText }, onChange: handleChange('value'), value: inputValue.value, onKeyPress: handlerKeyPress, inputRef: searchInput }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], { className: classes.iconButton, "aria-label": "search", onClick: handleSearchClick },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Search__WEBPACK_IMPORTED_MODULE_17___default.a, null)),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], { className: classes.iconButton, "aria-label": "clear", onClick: handleClearClick },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_Clear__WEBPACK_IMPORTED_MODULE_18___default.a, null)),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Divider__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], { className: classes.divider, orientation: "vertical" }),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], { color: "primary", className: classes.iconButton, "aria-label": "camera", "aria-haspopup": "true", onClick: handleClick },
+                react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_icons_PhotoCamera__WEBPACK_IMPORTED_MODULE_19___default.a, null)),
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Menu__WEBPACK_IMPORTED_MODULE_15__[/* default */ "a"], { id: "menu", anchorEl: anchorEl, keepMounted: true, open: open, onClose: handleClose, PaperProps: {
                     style: {
                         maxHeight: ITEM_HEIGHT * 4.5,
                         width: 200,
                     },
-                } }, options.map(function (option) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"], { key: option, onClick: function () { handleCameraClick(option); } }, option)); })),
+                } }, options.map(function (option) { return (react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_MenuItem__WEBPACK_IMPORTED_MODULE_16__[/* default */ "a"], { key: option, onClick: function () { handleCameraClick(option); } }, option)); })),
             react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", { accept: "image/*", className: classes.upload, id: attachImageID, type: "file", onChange: function (e) { return handleFiles(e.target.files); } })),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_21__[/* default */ "a"], { anchorOrigin: {
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Snackbar__WEBPACK_IMPORTED_MODULE_20__[/* default */ "a"], { anchorOrigin: {
                 vertical: 'bottom',
                 horizontal: 'left',
             }, open: openSnackbar, autoHideDuration: 6000, onClose: handleCloseSnackBar },
-            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_snackbar_SnackbarContentWrapper__WEBPACK_IMPORTED_MODULE_10__[/* SnackbarContentWrapper */ "a"], { onClose: handleCloseSnackBar, variant: "error", message: snackbarMessage })),
-        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_video_DialogVideoWindow__WEBPACK_IMPORTED_MODULE_11__[/* DialogVideoWindow */ "a"], { title: options[0], openDialog: openDialog, handleClickCloseDialog: handleClickCloseDialog })));
+            react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_snackbar_SnackbarContentWrapper__WEBPACK_IMPORTED_MODULE_9__[/* SnackbarContentWrapper */ "a"], { onClose: handleCloseSnackBar, variant: "error", message: snackbarMessage })),
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_video_DialogVideoWindow__WEBPACK_IMPORTED_MODULE_10__[/* DialogVideoWindow */ "a"], { title: options[0], openDialog: openDialog, handleClickCloseDialog: handleClickCloseDialog })));
 };
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(145)))
@@ -1307,7 +1295,7 @@ var PhotoCamera_default = /*#__PURE__*/__webpack_require__.n(PhotoCamera);
 var Data = __webpack_require__(15);
 
 // EXTERNAL MODULE: ./src/js/utils/UtilsAsync.ts
-var UtilsAsync = __webpack_require__(47);
+var UtilsAsync = __webpack_require__(62);
 
 // EXTERNAL MODULE: ./src/js/locale/index.ts + 3 modules
 var locale = __webpack_require__(5);
@@ -1357,6 +1345,7 @@ var Camera = function () {
     };
     var getStream = function (deviceInfos) {
         window.deviceInfos = deviceInfos;
+        console.log('Available devices:', window.deviceInfos);
         if (window.stream) {
             window.stream.getTracks().forEach(function (track) {
                 track.stop();
@@ -1374,20 +1363,18 @@ var Camera = function () {
     };
     var gotStream = function (stream) {
         window.stream = stream;
-        video.srcObject = stream;
+        console.log('MediaStream: ', window.stream);
         try {
             if (stream && video) {
                 video.srcObject = stream;
             }
-            setStream("" + streamObj);
-            setDeviceId("'Available devices:' " + JSON.stringify(window.deviceInfos));
-            setError("");
-            console.log('Available devices:', window.deviceInfos);
-            console.log('MediaStream: ', window.stream);
+            //setStream(`${streamObj}`);
+            //setDeviceId(`'Available devices:' ${JSON.stringify(window.deviceInfos)}`);
+            //setError("");      
         }
         catch (error) {
             console.error('Error: ', error);
-            setError("Error: " + JSON.stringify(error));
+            //setError(`Error: ${JSON.stringify(error)}`);
         }
     };
     var handleError = function (error) {
@@ -1395,7 +1382,7 @@ var Camera = function () {
     };
     getDevices()
         .then(getStream)
-        .then(function (stream) { return new Promise(function (resolve) { return setTimeout(function () { resolve(stream); }, 2000); }); })
+        //.then((stream: MediaStream) => new Promise((resolve) => setTimeout(() => {resolve(stream)}, 2000)))
         .then(gotStream)
         .catch(handleError);
     return (react_default.a.createElement(react["Fragment"], null,
@@ -2575,7 +2562,7 @@ var Share = __webpack_require__(107);
 var Share_default = /*#__PURE__*/__webpack_require__.n(Share);
 
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/MoreVert.js
-var MoreVert = __webpack_require__(48);
+var MoreVert = __webpack_require__(47);
 var MoreVert_default = /*#__PURE__*/__webpack_require__.n(MoreVert);
 
 // EXTERNAL MODULE: ./node_modules/@material-ui/icons/Send.js
@@ -3762,7 +3749,7 @@ function App() {
 }
 
 // EXTERNAL MODULE: ./node_modules/redux/es/redux.js
-var redux = __webpack_require__(54);
+var redux = __webpack_require__(53);
 
 // EXTERNAL MODULE: ./node_modules/redux-thunk/es/index.js
 var redux_thunk_es = __webpack_require__(186);
@@ -8869,79 +8856,6 @@ var UtilsRia_UtilsRia = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 47:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-var _this = undefined;
-var UtilsAsync = /** @class */ (function () {
-    function UtilsAsync() {
-    }
-    /**
-      * Function to play sound
-      * Sound source:
-      *      "https://notificationsounds.com/notification-sounds/sharp-592"
-      */
-    UtilsAsync.playNotification = function () {
-        var audio_source = "audio/sharp.mp3";
-        var audio = new Audio(audio_source);
-        audio.play();
-    };
-    /**     gets default device
-     */
-    UtilsAsync.getVideoDevices = function () { return __awaiter(_this, void 0, Promise, function () {
-        var deviceInfos;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, navigator.mediaDevices.enumerateDevices()];
-                case 1:
-                    deviceInfos = _a.sent();
-                    return [2 /*return*/, deviceInfos.filter(function (d) { return d.kind == "videoinput"; })];
-            }
-        });
-    }); };
-    return UtilsAsync;
-}());
-/* harmony default export */ __webpack_exports__["a"] = (UtilsAsync);
-
-
-/***/ }),
-
 /***/ 5:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -9196,6 +9110,79 @@ function locale_lang(Storelang) {
     }
 }
 ;
+
+
+/***/ }),
+
+/***/ 62:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var _this = undefined;
+var UtilsAsync = /** @class */ (function () {
+    function UtilsAsync() {
+    }
+    /**
+      * Function to play sound
+      * Sound source:
+      *      "https://notificationsounds.com/notification-sounds/sharp-592"
+      */
+    UtilsAsync.playNotification = function () {
+        var audio_source = "audio/sharp.mp3";
+        var audio = new Audio(audio_source);
+        audio.play();
+    };
+    /**     gets default device
+     */
+    UtilsAsync.getVideoDevices = function () { return __awaiter(_this, void 0, Promise, function () {
+        var deviceInfos;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, navigator.mediaDevices.enumerateDevices()];
+                case 1:
+                    deviceInfos = _a.sent();
+                    return [2 /*return*/, deviceInfos.filter(function (d) { return d.kind == "videoinput"; })];
+            }
+        });
+    }); };
+    return UtilsAsync;
+}());
+/* harmony default export */ __webpack_exports__["a"] = (UtilsAsync);
 
 
 /***/ }),

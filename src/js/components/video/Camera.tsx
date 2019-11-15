@@ -46,6 +46,7 @@ export const Camera = () => {
 
   const getStream = (deviceInfos: MediaDeviceInfo[]): Promise<MediaStream> => {
     window.deviceInfos = deviceInfos;
+    console.log('Available devices:', window.deviceInfos);
     if(window.stream){
       window.stream.getTracks().forEach((track: MediaStreamTrack) => {
         track.stop();
@@ -63,21 +64,20 @@ export const Camera = () => {
   }
   const gotStream = (stream: MediaStream) => {
     window.stream = stream;
-    video.srcObject = stream
+    console.log('MediaStream: ', window.stream);
     try{
      
       if(stream && video){
         video.srcObject = stream;
       }
-      setStream(`${streamObj}`);
-      setDeviceId(`'Available devices:' ${JSON.stringify(window.deviceInfos)}`);
-      setError("");
-      console.log('Available devices:', window.deviceInfos);
-      console.log('MediaStream: ', window.stream);
+      //setStream(`${streamObj}`);
+      //setDeviceId(`'Available devices:' ${JSON.stringify(window.deviceInfos)}`);
+      //setError("");      
+      
     }
     catch(error){
       console.error('Error: ', error);
-      setError(`Error: ${JSON.stringify(error)}`);
+      //setError(`Error: ${JSON.stringify(error)}`);
     }
   }
 
@@ -87,7 +87,7 @@ export const Camera = () => {
 
   getDevices()
   .then(getStream)
-  .then((stream: MediaStream) => new Promise((resolve) => setTimeout(() => {resolve(stream)}, 2000)))
+  //.then((stream: MediaStream) => new Promise((resolve) => setTimeout(() => {resolve(stream)}, 2000)))
   .then(gotStream)
   .catch(handleError);
     
