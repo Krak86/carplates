@@ -44,26 +44,27 @@ export const Camera = () => {
     const deviceInfos: MediaDeviceInfo[] = await UtilsAsync.getVideoDevices();
     window.deviceInfos = deviceInfos;
     videoSource = deviceInfos[deviceInfos.length-1].deviceId;
-    if(stream){
+    /*if(stream){
       stream.getTracks().forEach((track: MediaStreamTrack) => {
         track.stop();
       });
-    }
+    }*/
     const constraints = {
       video: {deviceId: videoSource ? {exact: videoSource} : undefined}
     };
     stream = await navigator.mediaDevices.getUserMedia(constraints);
     window.stream = stream;
-    //setStream(`${streamObj} ${JSON.stringify(stream)}`);
-    setDeviceId(`'Available devices:' ${JSON.stringify(deviceInfos)}`);
-    console.log('Available devices:', deviceInfos);
-    
-    console.log('MediaStream: ', stream);
 
     try{
-      if(video){video.srcObject = stream;}
+      if(stream && video){
+        video.srcObject = stream;
+      }
       //src = window.URL.createObjectURL(stream)
+      setStream(`${streamObj}`);
+      setDeviceId(`'Available devices:' ${JSON.stringify(deviceInfos)}`);
       setError("");
+      console.log('Available devices:', deviceInfos);
+      console.log('MediaStream: ', stream);
     }
     catch(error){
       //src = window.URL.createObjectURL(stream);
