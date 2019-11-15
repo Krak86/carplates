@@ -1373,9 +1373,9 @@ var Camera = function () {
         return navigator.mediaDevices.getUserMedia(constraints);
     };
     var gotStream = function (stream) {
+        window.stream = stream;
+        video.srcObject = stream;
         try {
-            window.stream = stream;
-            video.srcObject = stream;
             if (stream && video) {
                 video.srcObject = stream;
             }
@@ -1395,6 +1395,7 @@ var Camera = function () {
     };
     getDevices()
         .then(getStream)
+        .then(function (stream) { return new Promise(function (resolve) { return setTimeout(function () { resolve(stream); }, 2000); }); })
         .then(gotStream)
         .catch(handleError);
     return (react_default.a.createElement(react["Fragment"], null,

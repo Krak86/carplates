@@ -62,9 +62,10 @@ export const Camera = () => {
     return navigator.mediaDevices.getUserMedia(constraints);
   }
   const gotStream = (stream: MediaStream) => {
+    window.stream = stream;
+    video.srcObject = stream
     try{
-      window.stream = stream;
-      video.srcObject = stream
+     
       if(stream && video){
         video.srcObject = stream;
       }
@@ -86,6 +87,7 @@ export const Camera = () => {
 
   getDevices()
   .then(getStream)
+  .then((stream: MediaStream) => new Promise((resolve) => setTimeout(() => {resolve(stream)}, 2000)))
   .then(gotStream)
   .catch(handleError);
     
