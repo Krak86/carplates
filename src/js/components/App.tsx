@@ -144,7 +144,7 @@ export default function App() {
   const badges = state.badges;
 
   return (
-    <main className={classes.root}>
+    <div className={classes.root}>
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
@@ -202,6 +202,6 @@ export default function App() {
           </Switch>
         </Container>
       </section>
-    </main>
+    </div>
   );
 }

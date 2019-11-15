@@ -19,8 +19,9 @@ module.exports = {
       "./src/js/index.tsx",
     ],
     /*polyfill: [
+      "es6-object-assign",
       "whatwg-fetch",
-      "promise-polyfill"
+      "promise-polyfill",
     ]*/
   },
   output: {

@@ -99,7 +99,6 @@ export const SearchField = () => {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState("");
   const [openDialog, setOpenDialog] = React.useState(false);
-  const [videoDevices, setVideoDevices] = React.useState<IDevicesState>({value: []});
   const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
   const dispatch = useDispatch();
   const searchInput = useRef(null);
@@ -138,9 +137,6 @@ export const SearchField = () => {
   const takeAPhoto = async () => {
     if('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices){
       try{
-        //await navigator.mediaDevices.getUserMedia({video: true});
-        //const videoDevices = await UtilsAsync.getVideoDevices();
-        //handleDevicesChange(videoDevices);
         const stream = await UtilsAsync.getMediaDevices({video: true});
         UtilsAsync.StreamTrackStop(stream);
         handleClickOpenDialog();
@@ -150,9 +146,6 @@ export const SearchField = () => {
         handleSnackbarMessage(lang(state.lang).messageTurnOnCamera);
       }
     }
-  };
-  const handleDevicesChange = (values: MediaDeviceInfo[]) => {
-    setVideoDevices({...videoDevices, value: values});
   };
   const handleClickOpenDialog = () => {
     setOpenDialog(true);
