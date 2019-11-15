@@ -231,8 +231,8 @@ module.exports = {
         }
       }
     },
-    minimize: true,
-    minimizer: [
+    minimize: false,
+    /*minimizer: [
       new TerserPlugin({
           test: /\.js(\?.*)?$/i,
           cache: true,
@@ -266,7 +266,7 @@ module.exports = {
               discardComments: true
           },
       })
-    ]
+    ]*/
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"]
