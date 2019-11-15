@@ -1373,22 +1373,22 @@ var Camera = function () {
         return navigator.mediaDevices.getUserMedia(constraints);
     };
     var gotStream = function (stream) {
-        window.stream = stream;
-        video.srcObject = stream;
-        /*try{
-          if(stream && video){
+        try {
+            window.stream = stream;
             video.srcObject = stream;
-          }
-          setStream(`${streamObj}`);
-          setDeviceId(`'Available devices:' ${JSON.stringify(window.deviceInfos)}`);
-          setError("");
-          console.log('Available devices:', window.deviceInfos);
-          console.log('MediaStream: ', window.stream);
+            if (stream && video) {
+                video.srcObject = stream;
+            }
+            setStream("" + streamObj);
+            setDeviceId("'Available devices:' " + JSON.stringify(window.deviceInfos));
+            setError("");
+            console.log('Available devices:', window.deviceInfos);
+            console.log('MediaStream: ', window.stream);
         }
-        catch(error){
-          console.error('Error: ', error);
-          setError(`Error: ${JSON.stringify(error)}`);
-        }*/
+        catch (error) {
+            console.error('Error: ', error);
+            setError("Error: " + JSON.stringify(error));
+        }
     };
     var handleError = function (error) {
         console.error('Error: ', error);

@@ -61,11 +61,10 @@ export const Camera = () => {
     };
     return navigator.mediaDevices.getUserMedia(constraints);
   }
-
   const gotStream = (stream: MediaStream) => {
-    window.stream = stream;
-    video.srcObject = stream
-    /*try{
+    try{
+      window.stream = stream;
+      video.srcObject = stream
       if(stream && video){
         video.srcObject = stream;
       }
@@ -78,7 +77,7 @@ export const Camera = () => {
     catch(error){
       console.error('Error: ', error);
       setError(`Error: ${JSON.stringify(error)}`);
-    }*/
+    }
   }
 
   const handleError = (error) => {
