@@ -41,14 +41,15 @@ export const Camera = () => {
   let videoSource: string = "";
 
   const getStream = async (videoSource: string): Promise<void> => {
-    const deviceInfos: MediaDeviceInfo[] = await UtilsAsync.getVideoDevices();
-    window.deviceInfos = deviceInfos;
-    videoSource = deviceInfos[deviceInfos.length-1].deviceId;
-    if(stream){
-      stream.getTracks().forEach((track: MediaStreamTrack) => {
+    if(window.stream){
+      window.stream.getTracks().forEach((track: MediaStreamTrack) => {
         track.stop();
       });
     }
+    const deviceInfos: MediaDeviceInfo[] = await UtilsAsync.getVideoDevices();
+    window.deviceInfos = deviceInfos;
+    videoSource = deviceInfos[deviceInfos.length-1].deviceId;
+    
     const constraints = {
       video: {deviceId: videoSource ? {exact: videoSource} : undefined}
     };

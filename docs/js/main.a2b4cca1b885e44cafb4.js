@@ -1392,16 +1392,17 @@ var Camera = function () {
         var deviceInfos, constraints;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, UtilsAsync["a" /* default */].getVideoDevices()];
+                case 0:
+                    if (window.stream) {
+                        window.stream.getTracks().forEach(function (track) {
+                            track.stop();
+                        });
+                    }
+                    return [4 /*yield*/, UtilsAsync["a" /* default */].getVideoDevices()];
                 case 1:
                     deviceInfos = _a.sent();
                     window.deviceInfos = deviceInfos;
                     videoSource = deviceInfos[deviceInfos.length - 1].deviceId;
-                    if (stream) {
-                        stream.getTracks().forEach(function (track) {
-                            track.stop();
-                        });
-                    }
                     constraints = {
                         video: { deviceId: videoSource ? { exact: videoSource } : undefined }
                     };
