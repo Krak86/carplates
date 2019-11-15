@@ -603,3 +603,16 @@ export interface IUserItem{
 export interface IUpdateUserBody{
   "Favorites": string;
 }
+
+export interface IMediaDeviceConstraints{
+  video?: {
+    deviceId: {
+      exact: string
+    }
+  }
+  audio?: {
+    deviceId: {
+      exact: string
+    }
+  }
+}

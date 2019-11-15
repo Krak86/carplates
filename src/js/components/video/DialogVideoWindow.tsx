@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import { TransitionProps } from '@material-ui/core/transitions';
-import { WebcamCapture } from "./WebcamCapture";
+import { Camera } from './Camera';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     appBar: {
@@ -45,9 +45,8 @@ export const DialogVideoWindow = (props: IDialogVideoWindowProps) => {
                     </Typography>
                 </Toolbar>
                 </AppBar>
-                <WebcamCapture 
-                    close={handleClickCloseDialog}
-                    //videoDevices={videoDevices}
+                <Camera 
+                    close={handleClickCloseDialog}                   
                 />
             </Dialog>
         </Fragment>

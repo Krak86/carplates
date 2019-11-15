@@ -1,12 +1,20 @@
-import React, { SyntheticEvent, Fragment, useState, useRef, useEffect } from 'react';
+import React, { Fragment, useState, useRef, useEffect } from 'react';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { AppState } from "../../redux";
+import { ApplicationStates, IWebcamCaptureProps, IDevicesState } from "../../models/Interfaces";
+import { imageFetchData } from "../../redux/actions";
+import { URLs } from "../../data/Data";
 import Utils from "../../utils/Utils";
 import UtilsAsync from "../../utils/UtilsAsync";
-import lang from "../../locale";
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { useHistory } from "react-router-dom";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
+  button: {
+    margin: theme.spacing(1),
+    width: '50px'
+},
 }));
 
 declare global{
@@ -16,29 +24,25 @@ declare global{
   }
 }
 
-export const Camera = () => {
+export const Camera = (props: IWebcamCaptureProps) => {
+  const { close } = props;
+  const serviceRecognizeImageUrl = process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL || URLs.carPlateRecMlApiUrl;
   const classes = useStyles({});
-
-  const defaultProps = {
-        audio: true,
-        imageSmoothing: true,
-        mirrored: false,
-        onUserMedia: () => {},
-        onUserMediaError: () => {},
-        screenshotFormat: "image/webp",
-        screenshotQuality: 0.92,
-  };
-
-  const [deviceId, setDeviceId] = React.useState("");
-  const [streamObj, setStream] = React.useState("");
-  const [errorObj, setError] = React.useState("");
-
+  const dispatch = useDispatch();
   let canvas: HTMLCanvasElement | null = null;
   let ctx: CanvasRenderingContext2D | null = null;
-  let stream: MediaStream | null = null;
   let video: HTMLVideoElement | null = null;
-  let src: string = null;
-  let videoSource: string = "";
+
+  useEffect(() => {
+    getDevices()
+    .then(getStream)
+    .then(gotStream)
+    .catch(handleError);
+
+    return function streamTrackStop(){
+      UtilsAsync.StreamTrackStop(window.stream);
+    };
+  });
 
   const getDevices = (): Promise<MediaDeviceInfo[]> => {
     return UtilsAsync.getVideoDevices();
@@ -46,13 +50,10 @@ export const Camera = () => {
 
   const getStream = (deviceInfos: MediaDeviceInfo[]): Promise<MediaStream> => {
     window.deviceInfos = deviceInfos;
-    console.log('Available devices:', window.deviceInfos);
     if(window.stream){
-      window.stream.getTracks().forEach((track: MediaStreamTrack) => {
-        track.stop();
-      });
+      UtilsAsync.StreamTrackStop(window.stream);
     }
-    videoSource = deviceInfos[deviceInfos.length-1].deviceId;
+    const videoSource: string = deviceInfos[deviceInfos.length-1].deviceId;
     const constraints = {
       video: {
         deviceId: {
@@ -60,24 +61,18 @@ export const Camera = () => {
         }
       }
     };
-    return navigator.mediaDevices.getUserMedia(constraints);
+    return UtilsAsync.getMediaDevices(constraints);
   }
+
   const gotStream = (stream: MediaStream) => {
     window.stream = stream;
-    console.log('MediaStream: ', window.stream);
     try{
-     
       if(stream && video){
         video.srcObject = stream;
       }
-      //setStream(`${streamObj}`);
-      //setDeviceId(`'Available devices:' ${JSON.stringify(window.deviceInfos)}`);
-      //setError("");      
-      
     }
     catch(error){
       console.error('Error: ', error);
-      //setError(`Error: ${JSON.stringify(error)}`);
     }
   }
 
@@ -85,30 +80,58 @@ export const Camera = () => {
     console.error('Error: ', error);
   }
 
-  getDevices()
-  .then(getStream)
-  //.then((stream: MediaStream) => new Promise((resolve) => setTimeout(() => {resolve(stream)}, 2000)))
-  .then(gotStream)
-  .catch(handleError);
-    
+  const getScreenshot = () => {
+    canvas = getCanvas();
+    return (
+      canvas &&
+      canvas.toDataURL("image/webp", 0.92)
+    );
+  }
+
+  const getCanvas = () => {
+    if (!video) {
+      return null;
+    }
+    const canvas = document.createElement("canvas");
+    const aspectRatio = video.videoWidth / video.videoHeight;
+    canvas.width = video.clientWidth;
+    canvas.height = canvas.width / aspectRatio;
+    ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);    
+    return canvas;
+  }
+
+  const capture = () => {
+    const imageSrc = getScreenshot();
+    fetch(imageSrc)
+    .then(res => {
+      return res.blob();
+    })
+    .then(blob => {
+      const file = new File([blob], "File name");
+      dispatch(imageFetchData(file, serviceRecognizeImageUrl));
+      UtilsAsync.StreamTrackStop(window.stream);
+      close();
+    });
+  }
+
   return(
     <Fragment> 
-          <video
-            autoPlay
-            muted
-            //src={src}
-            playsInline
-            ref={ref => {
-              video = ref;
-            }}
-            style={{
-                height: "50vh",
-                width: "100%",
-            }}
-          />
-          <p>{deviceId}</p>
-          <p>{streamObj}</p>
-          <p>{errorObj}</p>
+      <video
+        autoPlay
+        muted
+        playsInline
+        ref={ref => {
+          video = ref;
+        }}
+        style={{
+          height: "50vh",
+          width: "100%",
+        }}
+      />
+      <Button variant="contained" color="primary" className={classes.button} onClick={capture}>
+        <PhotoCameraIcon />
+      </Button>
     </Fragment> 
   );
 }

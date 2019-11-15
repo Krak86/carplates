@@ -93,7 +93,6 @@ const shapeUrlVin = (value: string, url: string): string => {
 };
 
 export const SearchField = () => {
-  //constructor
   const [inputValue, setInputValue] = useState<ISearchFieldState>({value: ""});
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -101,12 +100,10 @@ export const SearchField = () => {
   const [snackbarMessage, setSnackbarMessage] = React.useState("");
   const [openDialog, setOpenDialog] = React.useState(false);
   const [videoDevices, setVideoDevices] = React.useState<IDevicesState>({value: []});
-  //mapStateToProps
   const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
-  //mapDispatchToProps
   const dispatch = useDispatch();
-  //componentDidMounted, componentDidUpdated
   const searchInput = useRef(null);
+
   useEffect(() => {
     document.title = `${lang(state.lang).documentTitle} ${state.itemRequest}`;
   });
@@ -129,9 +126,8 @@ export const SearchField = () => {
     };
   },[]);
   const history = useHistory();
-  //hook styles
   const classes = useStyles({});
-  //init
+ 
   const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || URLs.getDataByPlateUrl;
   const serviceUrlVIN = process.env.VIN_SERVICE_URL || URLs.getDataByVinUrl;
   const serviceRecognizeImageUrl = process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL || URLs.carPlateRecMlApiUrl;
@@ -139,12 +135,14 @@ export const SearchField = () => {
   const ITEM_HEIGHT = 48;
   const attachImageID = "attachImage";
 
-  const takeAPhoto = async () =>{
+  const takeAPhoto = async () => {
     if('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices){
       try{
         //await navigator.mediaDevices.getUserMedia({video: true});
         //const videoDevices = await UtilsAsync.getVideoDevices();
         //handleDevicesChange(videoDevices);
+        const stream = await UtilsAsync.getMediaDevices({video: true});
+        UtilsAsync.StreamTrackStop(stream);
         handleClickOpenDialog();
       }
       catch(e){
@@ -322,7 +320,6 @@ export const SearchField = () => {
         title={options[0]}
         openDialog={openDialog}
         handleClickCloseDialog={handleClickCloseDialog}
-        //videoDevices={videoDevices.value}
       />
     </Fragment>
   );
