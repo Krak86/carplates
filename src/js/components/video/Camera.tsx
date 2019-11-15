@@ -44,11 +44,11 @@ export const Camera = () => {
     const deviceInfos: MediaDeviceInfo[] = await UtilsAsync.getVideoDevices();
     window.deviceInfos = deviceInfos;
     videoSource = deviceInfos[deviceInfos.length-1].deviceId;
-    /*if(stream){
+    if(stream){
       stream.getTracks().forEach((track: MediaStreamTrack) => {
         track.stop();
       });
-    }*/
+    }
     const constraints = {
       video: {deviceId: videoSource ? {exact: videoSource} : undefined}
     };
