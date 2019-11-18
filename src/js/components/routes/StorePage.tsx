@@ -2,14 +2,16 @@ import React, {Fragment} from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { AppState } from "../../redux";
 import { ApplicationStates} from "../../models/Interfaces";
+import Typography from '@material-ui/core/Typography';
+import lang from "../../locale";
 
 export const StorePage = () => {
-    //connect to state
     const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
-    //constructor, componentDidMounted, componentDidUpdated
     return (
         <Fragment>
-            Store Page
+            <Typography variant="h6" color="textSecondary" align="center">
+                {lang(state.lang).url_store}
+            </Typography>
         </Fragment>
     )
 }

@@ -28,6 +28,7 @@ import Container from '@material-ui/core/Container';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import UtilsAppInsights from '../utils/UtilsAppInsights';
 
 const drawerWidth = 240;
 
@@ -127,6 +128,9 @@ export default function App() {
   const dispatch = useDispatch();
   const classes = useStyles({});
   const history = useHistory();
+  const azureAppInsightsKey = process.env.AZURE_APP_INSIGHTS_KEY || "";
+  
+  UtilsAppInsights.init(azureAppInsightsKey);
 
   const handleDrawerOpen = () => {
     dispatch(toggleDrawer(true));
