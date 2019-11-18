@@ -11,7 +11,10 @@ export function register(){
                     if (navigator.serviceWorker.controller) {
                       // new update available
                       console.log("New content is available and will be used when all tabs for this page are closed.");
-                      reg.update();
+                      reg.update()
+                      .then(() => {
+                        //window.location.reload(true);
+                      });
                     }
                     break;
                 }

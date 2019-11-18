@@ -22,7 +22,7 @@ export const StorePage = () => {
                 {lang(state.lang).url_store}
             </Typography>
             <Typography variant="body1" color="textSecondary" align="justify" className={classes.blocks}>
-                You will download apps for Android and IOS later
+                You will download apps for Android and IOS later.
             </Typography>
         </Fragment>
     )
