@@ -59,7 +59,9 @@ export const Camera = (props: IWebcamCaptureProps) => {
       video: {
         deviceId: {
           exact: videoSource
-        }
+        },
+        width: {min: 1280}, 
+        height: {min: 720}
       }
     };
     return UtilsAsync.getMediaDevices(constraints);
@@ -135,7 +137,7 @@ export const Camera = (props: IWebcamCaptureProps) => {
           video = ref;
         }}
         style={{
-          height: "50vh",
+          height: "100vh",
           width: "100%",
         }}
       />
