@@ -179,4 +179,9 @@ describe("Utils window methods", () => {
   test("removeObjectFromArray", () => {
     expect(Utils.removeObjectFromArray(items, items[0])).toStrictEqual([]);
   });
+  test("isCameraPhotoEmpty", () => {
+    const image = "data:image/webp;base64,UklGRmx4AQBXRUJQVlA4IGB4AQCQKgudASqAB6AFPikUiEMhoSMSKrTAMAKEtLduCVhk6n0FZH/MtMN6BC4ce8JkrIpbV/zeuv6Z/";
+    expect(Utils.isCameraPhotoEmpty("data:,")).toBe(true);
+    expect(Utils.isCameraPhotoEmpty(image)).toBe(false);
+  });
 });
