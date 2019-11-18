@@ -1,11 +1,11 @@
-import React, { Fragment, useMemo, forwardRef } from 'react';
+import React from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { Route, Switch, Link, LinkProps, useHistory } from "react-router-dom";
+import { Route, Switch, Link, useHistory } from "react-router-dom";
 import { Login } from "./login/Login";
 import lang from "../locale";
 import { toggleDrawer, ResetBadge } from "../redux/actions";
 import { AppState } from "../redux";
-import { ApplicationStates, ListItemLinkProps } from "../models/Interfaces";
+import { ApplicationStates } from "../models/Interfaces";
 import { routesLinks } from './routes/routesLinks';
 import { SearchPage } from './routes/SearchPage';
 import { FavoritesPage } from "./routes/FavoritesPage";
@@ -28,7 +28,6 @@ import Container from '@material-ui/core/Container';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import Button from '@material-ui/core/Button';
 
 const drawerWidth = 240;
 

@@ -11,7 +11,12 @@ export default class UtilsAsync {
       * Function to get user media devices
       */ 
     public static getMediaDevices = async (constraints: any): Promise<MediaStream> => {
-      return navigator.mediaDevices.getUserMedia(constraints);
+      try{
+        return navigator.mediaDevices.getUserMedia(constraints);
+      }
+      catch(err){
+        return err;
+      }      
     }
 
     public static StreamTrackStop(stream: MediaStream): void{

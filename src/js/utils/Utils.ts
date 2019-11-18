@@ -334,5 +334,13 @@ export default class Utils {
       ? true
       : false;
   }
+  /**
+    * Function to check if the camera photo is empty (for example, if camera permissions is denied)
+    */ 
+  public static isCameraPhotoEmpty(imageSrcBase64: string): boolean{
+    return imageSrcBase64.replace("data:,", "").length === 0
+      ? true
+      : false;
+  }
 
 }

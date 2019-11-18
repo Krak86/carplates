@@ -38,15 +38,16 @@ export const Camera = (props: IWebcamCaptureProps) => {
     .then(getStream)
     .then(gotStream)
     .catch(handleError);
-
     return function streamTrackStop(){
-      UtilsAsync.StreamTrackStop(window.stream);
+      if(window.stream){
+        UtilsAsync.StreamTrackStop(window.stream);
+      }
     };
   });
 
   const getDevices = (): Promise<MediaDeviceInfo[]> => {
     return UtilsAsync.getVideoDevices();
-  }
+  };
 
   const getStream = (deviceInfos: MediaDeviceInfo[]): Promise<MediaStream> => {
     window.deviceInfos = deviceInfos;
@@ -62,7 +63,7 @@ export const Camera = (props: IWebcamCaptureProps) => {
       }
     };
     return UtilsAsync.getMediaDevices(constraints);
-  }
+  };
 
   const gotStream = (stream: MediaStream) => {
     window.stream = stream;
@@ -74,7 +75,7 @@ export const Camera = (props: IWebcamCaptureProps) => {
     catch(error){
       console.error('Error: ', error);
     }
-  }
+  };
 
   const handleError = (error) => {
     console.error('Error: ', error);
@@ -86,7 +87,7 @@ export const Camera = (props: IWebcamCaptureProps) => {
       canvas &&
       canvas.toDataURL("image/webp", 0.92)
     );
-  }
+  };
 
   const getCanvas = () => {
     if (!video) {
@@ -99,10 +100,17 @@ export const Camera = (props: IWebcamCaptureProps) => {
     ctx = canvas.getContext("2d");
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);    
     return canvas;
-  }
+  };
 
   const capture = () => {
     const imageSrc = getScreenshot();
+    if(Utils.isCameraPhotoEmpty(imageSrc)){
+      if(window.stream){
+        UtilsAsync.StreamTrackStop(window.stream);
+      }
+      close();
+      return;
+    }
     fetch(imageSrc)
     .then(res => {
       return res.blob();
@@ -110,10 +118,12 @@ export const Camera = (props: IWebcamCaptureProps) => {
     .then(blob => {
       const file = new File([blob], "File name");
       dispatch(imageFetchData(file, serviceRecognizeImageUrl));
-      UtilsAsync.StreamTrackStop(window.stream);
+      if(window.stream){
+        UtilsAsync.StreamTrackStop(window.stream);
+      }
       close();
     });
-  }
+  };
 
   return(
     <Fragment> 
