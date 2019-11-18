@@ -12,6 +12,9 @@ export const lang: Locale = {
     login_google: "Увійти через Google",
     login_facebook: "Увійти через Facebook",
     loggedInText: "Ви увійшли через",
+    login_sync_text: "Увійдіть щоб Обране синхронізувати з хмарами",
+    logined_sync_text: "Обране синхронізоване з хмарами",
+    syncManually: "Синхронізувати дані вручну",
 
     rowKey: "Номер автівки",
     brand: "Бренд",

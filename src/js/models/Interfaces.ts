@@ -110,6 +110,9 @@ export interface Locale{
     login_google: string;
     login_facebook: string;
     loggedInText: string;
+    login_sync_text: string;
+    logined_sync_text: string;
+    syncManually: string;
 
     rowKey?: string;
     brand?: string;

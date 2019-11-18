@@ -309,7 +309,10 @@ export const removeFromFavoritesSync = (authStatus: ILoggedIn, favorites: Item[]
     dispatch(ItemsMerging(true));
     dispatch(userSync(authStatus.mail, favorites, item, false));
 };
-
+export const manualSync = (authStatus: ILoggedIn, favorites: Item[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+    dispatch(ItemsMerging(true));
+    dispatch(userSync(authStatus.mail, favorites, null, null));
+};
 export const userSync = (email: string, favorites: Item[], item: Item, addRemoveItem: boolean): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     const userKeys = Utils.generateRowKeyAndPartitionKey(email);
     const serviceUrl = `${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL}${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY}` || "";

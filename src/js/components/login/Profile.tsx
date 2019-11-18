@@ -71,7 +71,14 @@ export const Profile = () => {
     return (
     <Fragment>
         {state.loggedIn.vendor === 0 ? 
-            <Login />
+            <Card className={classes.card}>
+                <CardContent>
+                    <Login />
+                    <Typography className={classes.title} color="textSecondary">
+                        {lang(state.lang).login_sync_text}
+                    </Typography>
+                </CardContent>
+            </Card>
         :        
         <Card className={classes.card}>
             <CardHeader
@@ -79,7 +86,7 @@ export const Profile = () => {
                     <Avatar 
                         alt={state.loggedIn.profileName}
                         src={state.loggedIn.avatar}
-                    />                            
+                    />
                 }
                 action={
                     <IconButton 
@@ -115,10 +122,13 @@ export const Profile = () => {
                         </MenuItem>
             </Menu>
             <CardContent>
-                <Typography className={classes.title} color="textSecondary">
+                <Typography className={classes.title} color="textSecondary" component="p">
                     {lang(state.lang).loggedInText}{' '}{state.loggedIn.vendor === 1 
                         ? "Facebook"
                         : "Google" }.
+                </Typography>
+                <Typography className={classes.title} color="textSecondary" component="p">
+                    {lang(state.lang).logined_sync_text}
                 </Typography>
             </CardContent>
         </Card>

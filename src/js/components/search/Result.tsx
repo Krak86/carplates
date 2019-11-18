@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { AppState } from "../../redux";
 import { ApplicationStates, IVinResultValues, IRiaAds, IPlatesmaniaCars } from "../../models/Interfaces";
-import { ResultRiaCard } from "./ResultRiaCard";
-import { ResultCard } from "./ResultCard";
-import { ResultPlatesmaniaCard } from "./ResultPlatesmaniaCard";
+import { ResultRiaCard } from "../cards/ResultRiaCard";
+import { ResultCard } from "../cards/ResultCard";
+import { ResultPlatesmaniaCard } from "../cards/ResultPlatesmaniaCard";
 import lang from "../../locale";
 
 import Paper from '@material-ui/core/Paper';

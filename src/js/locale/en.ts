@@ -12,6 +12,9 @@ export const lang: Locale = {
     login_google: "Login with Google",
     login_facebook: "Login with Facebook",
     loggedInText: "You are logged in using",
+    login_sync_text: "Please login to sync your favorites with cloud",
+    logined_sync_text: "Favorites are synced with cloud",
+    syncManually: "Manually Sync data",
 
     rowKey: "Car plate",
     brand: "Brand",

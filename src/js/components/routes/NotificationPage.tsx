@@ -3,7 +3,7 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { AppState } from "../../redux";
 import { ResetBadge } from "../../redux/actions";
 import { ApplicationStates, Item, INotification } from "../../models/Interfaces";
-import { ResultNotificationCard } from "../search/ResultNotificationCard";
+import { ResultNotificationCard } from "../cards/ResultNotificationCard";
 import Typography from '@material-ui/core/Typography';
 import lang from "../../locale";
 
