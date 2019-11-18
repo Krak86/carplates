@@ -1,10 +1,26 @@
 export function register(){
     if('serviceWorker' in navigator){
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js').then(registration => {
-          //console.log('SW registered: ', registration);
-        }).catch(registrationError => {
-          console.log('SW registration failed: ', registrationError);
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => {
+            reg.onupdatefound = () => {
+              const installingWorker = reg.installing;
+              installingWorker.onstatechange = () => {
+                switch (installingWorker.state) {
+                  case 'installed':
+                    if (navigator.serviceWorker.controller) {
+                      // new update available
+                      console.log("New content is available and will be used when all tabs for this page are closed.");
+                      reg.update();
+                    }
+                    break;
+                }
+              };
+            };
+          //console.log('SW registered: ', reg);
+          })
+          .catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
         });
       });
     }
