@@ -11,7 +11,7 @@ cd "C:\Personal\rkor01\Downloads\cosmosDB";
 #sourceCSVfileName, example: "tz_opendata_z01012019_po01082019"
 $filename = "tz_opendata_z01012019_po01112019"; 
 $sourceCSV = "$($filename).csv";
-$rowsCount = 100000;
+$rowsCount = 200000;
 $rowsMaximum = 2000000;
 $startrow = 0;
 $counter = 1;
