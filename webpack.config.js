@@ -153,7 +153,11 @@ module.exports = {
       {
         from:'src/CNAME',
         to:''
-      }
+      },
+      {
+        from:'src/Policy.pdf',
+        to:''
+      },
     ]),
     new webpack.HotModuleReplacementPlugin(),
     new WorkboxPlugin.GenerateSW({
