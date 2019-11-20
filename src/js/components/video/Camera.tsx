@@ -137,7 +137,7 @@ export const Camera = (props: IWebcamCaptureProps) => {
           video = ref;
         }}
         style={{
-          height: "100vh",
+          height: "80vh",
           width: "100%",
         }}
       />
