@@ -155,8 +155,8 @@ module.exports = {
         to:''
       },
       {
-        from:'src/Policy.pdf',
-        to:''
+        from:'src/policy/policy.pdf',
+        to:'policy'
       },
     ]),
     new webpack.HotModuleReplacementPlugin(),
