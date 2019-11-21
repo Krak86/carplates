@@ -184,4 +184,17 @@ describe("Utils window methods", () => {
     expect(Utils.isCameraPhotoEmpty("data:,")).toBe(true);
     expect(Utils.isCameraPhotoEmpty(image)).toBe(false);
   });
+  test("generateBodyForPlatesManiaProxy", () => {
+    const item = "aa1212aa";
+    const body = {
+      "plate": JSON.stringify(item)
+    }
+    expect(Utils.generateBodyForPlatesManiaProxy(item)).toBe(JSON.stringify(body));    
+  });
+  test("replaceSiteName", () => {
+    const url = "https://avto-nomer.ru/ua/nomer13751739";
+    const name1 = "platesmania.com";
+    const name2 = "avto-nomer.ru";
+    expect(Utils.replaceSiteName(url, name2, name1)).toBe("https://platesmania.com/ua/nomer13751739");
+  });
 });
