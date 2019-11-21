@@ -16,12 +16,16 @@ export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, 
         Utils.cyrillicToLatinToMatrix,
         Utils.reducer);
     const key = process.env.PLATES_MANIA_KEY || "";
-    const url = Utils.generateUrlforPlatesmania(URLs.getImagesByCarplateUrl_2, key, carPlate);
-    fetch(url, {
+    //const url = Utils.generateUrlforPlatesmania(URLs.getImagesByCarplateUrl_2, key, carPlate);
+    const url = process.env.AZURE_PLATESMANIA_PROXY || URLs.getImagesByCarplateUrl_1;
+    const options = {
+        method: 'POST',
+        body: Utils.generateBodyForPlatesManiaProxy(carPlate),
         headers:{
-          'Accept': 'application/json'
+            'Accept': 'application/json'
         }
-    })
+    };
+    fetch(url, options)
     .then((response) => {
         if (!response.ok){
             throw Error(response.statusText);
@@ -34,10 +38,14 @@ export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, 
            const data = itemResponse.cars;
            dispatch(addPlatesmaniaCars(data));
         }
+        else{
+            dispatch(addPlatesmaniaCars([]));
+        }
         dispatch(imgCarsmaniaLoaded(true));
     })
     .catch((error) => {
         //dispatch(addPlatesmaniaCars(platesManiaDataTest));
+        dispatch(addPlatesmaniaCars([]));
         dispatch(imgCarsmaniaLoaded(true));
         console.log(error);
     });

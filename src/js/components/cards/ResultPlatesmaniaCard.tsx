@@ -66,7 +66,11 @@ export const ResultPlatesmaniaCard = (props: {item: IPlatesmaniaCars}) => {
     };
     const handleSiteClick = () => {
       window.open(
-        Utils.replaceHttpWithHttps(item.photo.link)
+        Utils.replaceSiteName(
+          Utils.replaceHttpWithHttps(item.photo.link),
+          URLs.CarPlatesName_2,
+          URLs.CarPlatesName_1
+        )        
       );
   };
     return (

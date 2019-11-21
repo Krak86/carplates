@@ -342,5 +342,20 @@ export default class Utils {
       ? true
       : false;
   }
+    /**
+    * Function to generate the body for PlatesMania Azure Proxy service
+    */ 
+   public static generateBodyForPlatesManiaProxy(item: string): string{
+    const body = {
+      "plate": JSON.stringify(item)
+    }
+    return JSON.stringify(body);
+  }
+    /**
+    * Function to replace https with https protocols in url
+    */ 
+   public static replaceSiteName(url: string, nameSrc: string, nameNew: string): string{
+    return url.replace(nameSrc, nameNew);
+  }
 
 }

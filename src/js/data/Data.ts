@@ -176,6 +176,8 @@ export const URLs = {
     "getImagesByCarplateUrl_2": "https://avto-nomer.ru/mobile/api_photo.php",
     "CarPlatesUrl": "https://platesmania.com",
     "CarPlatesUrl_2" : "https://avto-nomer.ru",
+    "CarPlatesName_1": "platesmania.com",
+    "CarPlatesName_2" : "avto-nomer.ru",
     "carPlateRecMlApiUrl": "",
     "riaUrl": "https://developers.ria.com/auto",
     "riaUrlPublic": "https://auto.ria.com",
