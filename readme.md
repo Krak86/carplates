@@ -37,8 +37,7 @@ Roadmap (see [projects](https://github.com/Krak86/carplates/projects)):
 * Integration/e2e tests
 * IE11 support
 * Add notification about new app version, for instance [react-toastify](https://github.com/fkhadra/react-toastify)
-* Add facebook hashtag posts, for instance https://www.facebook.com/hashtag/ве7116аа 
-* Setup content from [plartesmania](https://platesmania.com/) service
+* Add facebook hashtag posts, for instance https://www.facebook.com/hashtag/ве7116аа
 * Add crash test rating, for instance [one.nhtsa.gov](https://one.nhtsa.gov/webapi/api/SafetyRatings/modelyear/2016/make/VOLKSWAGEN/model/JETTA?format=json)
 * Add android and IOS apps using [React Native](https://facebook.github.io/react-native/)
 * Create BOT for facebook, telegram, viber, wasap
@@ -70,7 +69,7 @@ Afterwards you need to execute extra steps:
 
 * get you own keys (check .env_example file) (use .env to hide it from a project)
 * create your own azure table storage tables or use local emulator (you need 2 tables: for cars and for favorites)
-* create azure function and add code there (check azure folder)
+* create 2 azure functions, add code there (check azure folder)
 * manually download CSV files, parse it and upload to azure table using azure storage explorer or API (check powershell folder, azure folder and columns.csv as a template for columns)
 * adjust policy html file (check policy folder), manually generate PDF (use Chrome for convert html to pdf)
 * adjust CNAME file in case if you want to use custom domain name
