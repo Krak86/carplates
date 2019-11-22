@@ -68,3 +68,20 @@ steps:
     FACEBOOK_APP_SECRET: $(FACEBOOK_APP_SECRET)
     GOOGLE_CLIENT_ID: $(GOOGLE_CLIENT_ID)
     GOOGLE_APP_SECRET: $(GOOGLE_APP_SECRET)
+
+- task: DownloadSecureFile@1
+  inputs:
+    secureFile: deploy_key
+  displayName: 'Get the deploy key'
+
+- script: |
+    mkdir ~/.ssh && mv $DOWNLOADSECUREFILE_SECUREFILEPATH ~/.ssh/id_rsa
+    chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_rsa
+    ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+    git remote set-url --push origin git@github.com:krak86.github.io/carplates.io.git
+    git push origin HEAD:master
+  displayName: 'Publish GitHub Pages'
+  condition: |
+    and(not(eq(variables['Build.Reason'], 'PullRequest')),
+        eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+
