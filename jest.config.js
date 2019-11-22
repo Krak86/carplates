@@ -29,7 +29,7 @@ module.exports = {
             {
                 "suiteName": "jest tests",
                 "outputDirectory": "./__tests__",
-                "outputName": "ummary-jest-junit.xml"
+                "outputName": "summary-jest-junit.xml"
             } 
     ]
       

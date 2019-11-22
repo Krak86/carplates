@@ -11,10 +11,46 @@ pool:
 
 steps:
 
-- task: NodeTool@0
+- task: UseNode@1
+  displayName: 'Set Node.js version'
   inputs:
-    versionSpec: '12.x'
+    version: '12.x'  
+
+- task: Npm@1
   displayName: 'Install Node.js'
+  inputs:
+    command: 'install'
+    workingDir: '$(System.DefaultWorkingDirectory)'
+
+- task: Npm@1
+  displayName: 'run JEST tests'
+  inputs:
+    command: custom
+    workingDir: '$(System.DefaultWorkingDirectory)'
+    verbose: false
+    customCommand: 'run test'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results summary-jest-junit.xml'
+  inputs:
+    testResultsFiles: 'summary-jest-junit.xml'
+    searchFolder: '$(System.DefaultWorkingDirectory)/__tests__'
+    testRunTitle: 'Jest Unit Tests'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage from $(System.DefaultWorkingDirectory)/__tests__/cobertura-coverage.xml'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/__tests__/cobertura-coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/__tests__'
+    failIfCoverageEmpty: true
+
+- task: Npm@1
+  displayName: 'Build project'
+  inputs:
+    command: 'custom'
+    workingDir: '$(System.DefaultWorkingDirectory)'
+    customCommand: 'run build'
   env:
     PUBLIC_SITE_URL: $(PUBLIC_SITE_URL)
     DISQUS_SHORT_NAME: $(DISQUS_SHORT_NAME)
@@ -32,9 +68,3 @@ steps:
     FACEBOOK_APP_SECRET: $(FACEBOOK_APP_SECRET)
     GOOGLE_CLIENT_ID: $(GOOGLE_CLIENT_ID)
     GOOGLE_APP_SECRET: $(GOOGLE_APP_SECRET)
-
-- script: |
-    npm install
-    npm test
-    npm run build
-  displayName: 'npm install and build'
