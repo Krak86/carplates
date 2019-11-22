@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 steps:
 
@@ -27,7 +27,6 @@ steps:
     AZURE_PLATESMANIA_PROXY: $(AZURE_PLATESMANIA_PROXY)
     AZURE_APP_INSIGHTS_KEY: $(AZURE_APP_INSIGHTS_KEY)
     PLATES_MANIA_KEY: $(PLATES_MANIA_KEY)
-    GET_IMAGE_BY_NAME_KEY: $(GET_IMAGE_BY_NAME_KEY)
     RIA_KEY: $(RIA_KEY)
     FACEBOOK_CLIENT_ID: $(FACEBOOK_CLIENT_ID)
     FACEBOOK_APP_SECRET: $(FACEBOOK_APP_SECRET)
