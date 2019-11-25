@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/krak86/CarsuaDevOps/_apis/build/status/Krak86.carplates?branchName=master)](https://dev.azure.com/krak86/CarsuaDevOps/_build/latest?definitionId=1&branchName=master)
+
 ## UA car plates recognizer.
 
 It is offline-first, mobile-first, static, single page web application, that is hosted on github pages with custom domain: http://carsua.app
