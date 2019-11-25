@@ -69,33 +69,23 @@ steps:
     GOOGLE_CLIENT_ID: $(GOOGLE_CLIENT_ID)
     GOOGLE_APP_SECRET: $(GOOGLE_APP_SECRET)
 
+- task: Npm@1
+  displayName: 'Deploy project to github pages'
+  inputs:
+    command: 'custom'
+    workingDir: '$(System.DefaultWorkingDirectory)'
+    customCommand: 'run deploy'
 
-# - task: DownloadSecureFile@1
+# - task: ArchiveFiles@2
 #   inputs:
-#     secureFile: deploy_key
-#   displayName: 'Get the deploy key'
+#     rootFolderOrFile: '$(System.DefaultWorkingDirectory)/docs'
+#     includeRootFolder: true
+#     archiveType: 'zip'
+#     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+#     replaceExistingArchive: true
 
-# - script: |
-#     mkdir ~/.ssh && mv $DOWNLOADSECUREFILE_SECUREFILEPATH ~/.ssh/id_rsa
-#     chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_rsa
-#     ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-#     git remote set-url --push origin git@github.com:krak86.github.io/carplates.io.git
-#     git push origin HEAD:master
-#   displayName: 'Publish GitHub Pages'
-#   condition: |
-#     and(not(eq(variables['Build.Reason'], 'PullRequest')),
-#         eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/docs'
-    includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+#     ArtifactName: 'drop'
+#     publishLocation: 'Container'

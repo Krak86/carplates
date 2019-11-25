@@ -70,6 +70,7 @@
     "enzyme-to-json": "^3.4.0",
     "extract-loader": "^3.1.0",
     "file-loader": "4.2.0",
+    "gh-pages": "^2.1.1",
     "html-webpack-plugin": "^3.2.0",
     "identity-obj-proxy": "^3.0.0",
     "imagemin-gifsicle": "6.0.1",
@@ -102,6 +103,7 @@
   "scripts": {
     "dev": "webpack-dev-server --open --mode development",
     "build": "webpack --mode production && npm run pwa",
+    "deploy": "gh-pages -d docs",
     "pwa": "pwa-asset-generator ./docs/img/touch/homescreen.png ./docs/img/touch --icon-only --manifest=./docs/manifest.json --index=./docs/index.html",
     "test": "jest",
     "ngrok": "ngrok http 8080"
