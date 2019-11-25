@@ -87,17 +87,15 @@ steps:
 #         eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
 - task: ArchiveFiles@2
-  displayName: 'Archive sources'
   inputs:
-    rootFolderOrFile: $(Build.SourcesDirectory)
-    includeRootFolder: false
-
-- task: CopyFiles@2
-  displayName: 'Copy ARM templates'
-  inputs:
-    SourceFolder: deployment
-    Contents: '*.json'
-    TargetFolder: $(build.artifactstagingdirectory)/Templates
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/docs'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
