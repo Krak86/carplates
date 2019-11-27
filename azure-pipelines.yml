@@ -79,13 +79,9 @@ steps:
   inputs:
     docPath: '$(System.DefaultWorkingDirectory)/docs'
     githubusername: krak86
-    githubemail: PersonalEmail)
-    githubaccesstoken: PersonalAccessToken
+    githubemail: $(PersonalEmail)
+    githubaccesstoken: $(PersonalAccessToken)
     repositoryname: carplates
-env:
-    PersonalEmail: $(PersonalEmail)
-    PersonalAccessToken: $(PersonalAccessToken)
-
 
 #- task: AccidentalFish.githubpages-publish.AccidentalFish.GitHubPages-Publish.GitHubPagesPublish@1
 #  displayName: 'Publishes to GitHub Pages'
