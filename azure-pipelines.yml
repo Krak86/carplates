@@ -69,12 +69,17 @@ steps:
     GOOGLE_CLIENT_ID: $(GOOGLE_CLIENT_ID)
     GOOGLE_APP_SECRET: $(GOOGLE_APP_SECRET)
 
-- task: Npm@1
-  displayName: 'Deploy project to github pages'
+- task: whitesource.ws-bolt.bolt.wss.WhiteSource Bolt@19
+  displayName: 'WhiteSource Bolt'
   inputs:
-    command: 'custom'
-    workingDir: '$(System.DefaultWorkingDirectory)'
-    customCommand: 'run deploy'
+    cwd: WebGoat
+
+#- task: Npm@1
+#  displayName: 'Deploy project to github pages'
+#  inputs:
+#    command: 'custom'
+#    workingDir: '$(System.DefaultWorkingDirectory)'
+#    customCommand: 'run deploy'
 
 # - task: ArchiveFiles@2
 #   inputs:
