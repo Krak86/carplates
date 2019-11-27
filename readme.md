@@ -30,12 +30,12 @@ The extra services are using here:
 * [National Highway Traffic Safety Administration API (Vin recognizer as a Service)](https://vpic.nhtsa.dot.gov/api/vehicles/decodevin)
 * [Github Pages (hosting as a Service)](https://pages.github.com/)
 * [Let's Encrypt (certificate as a Service)](https://letsencrypt.org/)
+* [Azre DevOps (devOps as a Service)](https://azure.microsoft.com/en-us/services/devops/)
 
 The project is open for everyone, so don't hesitate to create [issues](https://github.com/Krak86/carplates/issues) and [pull request](https://github.com/Krak86/carplates/pulls).
 It is pretend to use the rules of [12 factors](https://12factor.net)
 
 Roadmap (see [projects](https://github.com/Krak86/carplates/projects)):
-* Setup CI/CD
 * Integration/e2e tests
 * IE11 support
 * Add notification about new app version, for instance [react-toastify](https://github.com/fkhadra/react-toastify)
