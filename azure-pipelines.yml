@@ -74,41 +74,16 @@ steps:
   inputs:
     cwd: WebGoat
 
-- task: AccidentalFish.githubpages-publish.AccidentalFish.GitHubPages-Publish.GitHubPagesPublish@1
-  displayName: 'Publish to GitHub Pages'
+- task: ArchiveFiles@2
   inputs:
-    docPath: '$(System.DefaultWorkingDirectory)/docs'
-    githubusername: krak86
-    githubemail: $(PersonalEmail)
-    githubaccesstoken: $(PersonalAccessToken)
-    repositoryname: carplates
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/docs'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 
-#- task: AccidentalFish.githubpages-publish.AccidentalFish.GitHubPages-Publish.GitHubPagesPublish@1
-#  displayName: 'Publishes to GitHub Pages'
-#  inputs:
-#    docPath: '$(System.DefaultWorkingDirectory)/docs'
-#    githubusername: krak86
-#    githubemail: 'rukrak86@gmail.com'
-#    githubaccesstoken: adef1e4f90755a001ad6eeb15d40cbb85f261f74
-#    repositoryname: carplates
-
-#- task: Npm@1
-#  displayName: 'Deploy project to github pages'
-#  inputs:
-#    command: 'custom'
-#    workingDir: '$(System.DefaultWorkingDirectory)'
-#    customCommand: 'run deploy'
-
-#- task: ArchiveFiles@2
-#  inputs:
-#    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/docs'
-#    includeRootFolder: true
-#    archiveType: 'zip'
-#    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-#    replaceExistingArchive: true
-
-#- task: PublishBuildArtifacts@1
-#  inputs:
-#    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#    ArtifactName: 'drop'
-#    publishLocation: 'Container'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
