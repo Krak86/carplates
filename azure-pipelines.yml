@@ -90,16 +90,16 @@ steps:
 #    workingDir: '$(System.DefaultWorkingDirectory)'
 #    customCommand: 'run deploy'
 
-#- task: ArchiveFiles@2
-#  inputs:
-#    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/docs'
-#    includeRootFolder: true
-#    archiveType: 'zip'
-#    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-#    replaceExistingArchive: true
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/docs'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
 
-#- task: PublishBuildArtifacts@1
-#  inputs:
-#    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#    ArtifactName: 'drop'
-#    publishLocation: 'Container'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
