@@ -1,4 +1,5 @@
 [![Build Status](https://dev.azure.com/krak86/CarsuaDevOps/_apis/build/status/Krak86.carplates?branchName=master)](https://dev.azure.com/krak86/CarsuaDevOps/_build/latest?definitionId=1&branchName=master)
+[![Beerpay](https://beerpay.io/Krak86/carplates/badge.svg?style=beer)](https://beerpay.io/Krak86/carplates)
 
 ## UA car plates recognizer.
 
