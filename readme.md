@@ -94,3 +94,8 @@ $ npm run test
 ## Check online
 https://krak86.github.io/carplates
 http://carsua.app
+
+## Support on Beerpay
+Hey dude! Help me out for a couple of :beers:!
+
+[![Beerpay](https://beerpay.io/Krak86/carplates/badge.svg?style=beer-square)](https://beerpay.io/Krak86/carplates)  [![Beerpay](https://beerpay.io/Krak86/carplates/make-wish.svg?style=flat-square)](https://beerpay.io/Krak86/carplates?focus=wish)
