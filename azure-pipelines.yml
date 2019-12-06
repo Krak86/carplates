@@ -73,9 +73,9 @@ steps:
   displayName: 'Publishes to GitHub Pages'
   inputs:
     docPath: '$(System.DefaultWorkingDirectory)\docs\*'
-    githubusername: '$(UserName)'
-    githubemail: '$(PersonalEmail)'
-    githubaccesstoken: '$(PersonalAccessToken)'
+    githubusername: krak86
+    githubemail: 'rukrak86@gmail.com'
+    githubaccesstoken: '4112652e4a1b6539bb53bc8f2f5ae468213e4776'
     repositoryname: carplates
 
 - task: whitesource.ws-bolt.bolt.wss.WhiteSource Bolt@19
