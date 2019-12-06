@@ -69,6 +69,15 @@ steps:
     GOOGLE_CLIENT_ID: $(GOOGLE_CLIENT_ID)
     GOOGLE_APP_SECRET: $(GOOGLE_APP_SECRET)
 
+- task: AccidentalFish.githubpages-publish.AccidentalFish.GitHubPages-Publish.GitHubPagesPublish@1
+  displayName: 'Publishes to GitHub Pages'
+  inputs:
+    docPath: '$(System.DefaultWorkingDirectory)\docs\*'
+    githubusername: krak86
+    githubemail: 'rukrak86@gmail.com'
+    githubaccesstoken: '$(PersonalAccessToken)'
+    repositoryname: carplates
+
 - task: whitesource.ws-bolt.bolt.wss.WhiteSource Bolt@19
   displayName: 'WhiteSource Bolt'
   inputs:
