@@ -73,7 +73,7 @@ steps:
   displayName: 'Publishes to GitHub Pages'
   inputs:
     docPath: '$(System.DefaultWorkingDirectory)\docs\*'
-    githubusername: krak86
+    githubusername: Krak86
     githubemail: 'rukrak86@gmail.com'
     githubaccesstoken: 218c3e2b3ef873fde09aeb4f484c2e9aa840b1bb
     repositoryname: carplates
