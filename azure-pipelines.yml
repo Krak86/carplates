@@ -75,7 +75,7 @@ steps:
     docPath: '$(System.DefaultWorkingDirectory)\docs\*'
     githubusername: krak86
     githubemail: 'rukrak86@gmail.com'
-    githubaccesstoken: '4112652e4a1b6539bb53bc8f2f5ae468213e4776'
+    githubaccesstoken: 218c3e2b3ef873fde09aeb4f484c2e9aa840b1bb
     repositoryname: carplates
 
 - task: whitesource.ws-bolt.bolt.wss.WhiteSource Bolt@19
