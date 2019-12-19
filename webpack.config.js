@@ -6,9 +6,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require("webpack");
-const Dotenv = require('dotenv-webpack');
 
 const dist = "docs";
 const pathToDist = __dirname + "/" + dist;
@@ -114,7 +112,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new Dotenv(),
     new CleanWebpackPlugin([dist]),
     new ImageminWebpWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -191,7 +188,6 @@ module.exports = {
       excludeWarnings: true, 
       alwaysNotify: true
     }),
-    //new BundleAnalyzerPlugin({reportFilename: 'BundleAnalyzerReport.html',})
   ],
   devServer: {
     publicPath: "/",
