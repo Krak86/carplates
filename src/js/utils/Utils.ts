@@ -8,6 +8,14 @@ export default class Utils {
    */
   public static getAbsoluteDomainUrl(windowObj: Window): string {
     return windowObj.location.protocol + "//" + windowObj.location.host;
+  }
+    /**
+   * Function to get Current Domain Url
+   * Samples:
+   *      "https://domain.sharepoint.com"
+   */
+  public static getDomainUrl(protocol: string, host: string): string {
+    return protocol + "//" + host;
   } 
   /**
     * The reduce() method executes a reducer function on each element of the array, resulting in a single output value
@@ -356,6 +364,10 @@ export default class Utils {
     */ 
    public static replaceSiteName(url: string, nameSrc: string, nameNew: string): string{
     return url.replace(nameSrc, nameNew);
+  }
+
+  public static getPolicyUrl(url: string, fileRelativePath: string): string{
+    return `${url}/${fileRelativePath}`;
   }
 
 }

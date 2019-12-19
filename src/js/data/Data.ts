@@ -233,3 +233,5 @@ export const items: Item[] = [
         "total_weight": "6800"
     }
 ];
+
+export const fileRelativePath: string = "policy/policy.pdf";

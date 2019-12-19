@@ -184,6 +184,7 @@ export interface Locale{
     about_7_mit_1: string;
     about_8_mit_2: string;
     about_9_mit_3: string;
+    policy_url: string;
 }
 export interface IVinResultValues{
   "Value": any;

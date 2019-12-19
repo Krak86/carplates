@@ -2,9 +2,13 @@ import React, {Fragment} from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { AppState } from "../../redux";
 import { ApplicationStates} from "../../models/Interfaces";
+import Utils from "../../utils/Utils";
 import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 import lang from "../../locale";
 import { makeStyles } from '@material-ui/core/styles';
+import { fileRelativePath } from '../../data/Data';
+import { Event } from '@microsoft/applicationinsights-web';
 
 const useStyles = makeStyles(theme => ({
     blocks: {
@@ -16,8 +20,17 @@ const useStyles = makeStyles(theme => ({
 export const AboutPage = () => {
     const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
     const classes = useStyles({});
+    const openPolicyHandler = (event: React.SyntheticEvent) => {
+        event.preventDefault();
+        window.open(
+            Utils.getPolicyUrl(Utils.getDomainUrl(window.location.protocol, window.location.host), fileRelativePath)
+          );
+    }
     return (
         <Fragment>
+            <Typography variant="h6" color="textSecondary" align="center" className={classes.blocks}>
+                {lang(state.lang).url_about}
+            </Typography>
             <Typography variant="body1" color="textSecondary" align="justify" className={classes.blocks}>
                 {lang(state.lang).about_1_app}
             </Typography>
@@ -47,6 +60,11 @@ export const AboutPage = () => {
             </Typography>
             <Typography variant="body1" color="textSecondary" align="justify" className={classes.blocks}>
                 {lang(state.lang).about_9_mit_3}
+            </Typography>
+            <Typography variant="body1" color="textSecondary" align="justify" className={classes.blocks}>
+                <Link href="#" onClick={(event: React.SyntheticEvent) => openPolicyHandler(event)} color="inherit">
+                    {lang(state.lang).policy_url}
+                </Link>
             </Typography>
         </Fragment>
     )
