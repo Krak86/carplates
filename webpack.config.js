@@ -7,6 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const webpack = require("webpack");
+const Dotenv = require('dotenv-webpack');
 
 const dist = "docs";
 const pathToDist = __dirname + "/" + dist;
@@ -112,6 +113,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new Dotenv(),
     new CleanWebpackPlugin([dist]),
     new ImageminWebpWebpackPlugin(),
     new HtmlWebpackPlugin({
