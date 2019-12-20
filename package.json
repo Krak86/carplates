@@ -32,6 +32,7 @@
     "@microsoft/applicationinsights-web": "2.3.1",
     "clsx": "1.0.4",
     "disqus-react": "^1.0.7",
+    "dotenv-webpack": "^1.7.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-facebook-login": "^4.1.1",
@@ -41,7 +42,7 @@
     "react-share": "^3.0.1",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"    
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
