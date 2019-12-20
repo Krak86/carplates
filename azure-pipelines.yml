@@ -47,7 +47,7 @@ steps:
 
 - powershell: |
    New-Item -Path $(System.DefaultWorkingDirectory) -Name ".env" -Force -Value @'
-   PUBLIC_SITE_URL: $env:PUBLIC_SITE_URL
+   PUBLIC_SITE_URL: "$(PUBLIC_SITE_URL)"
    DISQUS_SHORT_NAME: "$(DISQUS_SHORT_NAME)"
    AZURE_TABLE_SERVICE_URL: "$(AZURE_TABLE_SERVICE_URL)"
    AZURE_FUNC_PLATE_RECOGNIZER_URL: "$(AZURE_FUNC_PLATE_RECOGNIZER_URL)"
@@ -63,6 +63,8 @@ steps:
    GOOGLE_CLIENT_ID: "$(GOOGLE_CLIENT_ID)"
    '@
    Get-Content -Path .\.env
+   Get-ChildItem -Path .
+   Get-ChildItem -Path $(System.DefaultWorkingDirectory)
   displayName: 'Create .env'
 
 - task: Npm@1
