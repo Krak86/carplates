@@ -46,7 +46,7 @@ steps:
     failIfCoverageEmpty: true
 
 - powershell: |
-   New-Item -Path '$(System.DefaultWorkingDirectory) -Name ".env" -Force -Value @'
+   New-Item -Path $(System.DefaultWorkingDirectory) -Name ".env" -Force -Value @'
    PUBLIC_SITE_URL: $(PUBLIC_SITE_URL)
    DISQUS_SHORT_NAME: $(DISQUS_SHORT_NAME)
    AZURE_TABLE_SERVICE_URL: $(AZURE_TABLE_SERVICE_URL)
