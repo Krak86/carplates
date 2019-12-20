@@ -98,6 +98,7 @@
     "build": "webpack --mode production && npm run pwa",
     "deploy": "gh-pages -d docs",
     "pwa": "pwa-asset-generator ./docs/img/touch/homescreen.png ./docs/img/touch --icon-only --manifest=./docs/manifest.json --index=./docs/index.html",
-    "test": "jest"
+    "test": "jest",
+    "lighthouse": "lighthouse https://carsua.app --output=html --output-path=./__tests__lighthouse/report.html --save-assets --quiet --chrome-flags=\"--headless\""
   }
 }
