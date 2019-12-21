@@ -84,6 +84,7 @@ steps:
    }
    '@
    Get-Content -Path $(System.DefaultWorkingDirectory)\env.json
+   Get-ChildItem -Path $(System.DefaultWorkingDirectory)
   displayName: 'Create "env.json" file'
 
 - task: Npm@1
