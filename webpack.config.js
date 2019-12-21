@@ -17,11 +17,6 @@ module.exports = {
     main: [
       "./src/js/index.tsx",
     ],
-    /*polyfill: [
-      "es6-object-assign",
-      "whatwg-fetch",
-      "promise-polyfill",
-    ]*/
   },
   output: {
     filename: "js/[name].[hash].js",

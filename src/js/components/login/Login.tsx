@@ -61,8 +61,8 @@ export const Login = () => {
     let appIdFacebook = ""; 
     let appIdGoogle = "";
     if(process.env.NODE_ENV === "development"){
-        appIdFacebook = /*process.env.FACEBOOK_CLIENT_ID_DEV ||*/ config.FACEBOOK_CLIENT_ID_DEV;
-        appIdGoogle = /*process.env.GOOGLE_CLIENT_ID_DEV ||*/ config.GOOGLE_CLIENT_ID_DEV;
+        appIdFacebook = process.env.FACEBOOK_CLIENT_ID_DEV || config.FACEBOOK_CLIENT_ID_DEV;
+        appIdGoogle = process.env.GOOGLE_CLIENT_ID_DEV || config.GOOGLE_CLIENT_ID_DEV;
     }
     else{
         appIdFacebook = /*process.env.FACEBOOK_CLIENT_ID ||*/ config.FACEBOOK_CLIENT_ID; 

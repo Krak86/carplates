@@ -161,10 +161,10 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
     dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));
     dispatch(itemHasErrored(false));
-
     fetch(url, {
         headers:{
-          'Accept': 'application/json'
+            'Accept': 'application/json',
+            'Content-Type': 'application/json;charset=UTF-8'
         }
     })
     .then((response) => {
@@ -198,7 +198,7 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
     })
     .catch((error) => {
         dispatch(itemHasErrored(true));
-        console.log(error);
+        window.console.log(error);
     });
 };
 
