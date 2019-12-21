@@ -4,7 +4,7 @@ import { Item } from "../../models/Interfaces";
 import lang from "../../locale";
 import { regions, favoritsItemsLimit } from "../../data/Data";
 import { AppState } from "../../redux";
-import { ApplicationStates} from "../../models/Interfaces";
+import { ApplicationStates, IEnvConfig } from "../../models/Interfaces";
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { itemFetchDataForPlate, addToFavoritesSync, removeFromFavoritesSync } from "../../redux/actions";
@@ -31,6 +31,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { SnackbarContentWrapper } from "../snackbar/SnackbarContentWrapper";
 import Snackbar from '@material-ui/core/Snackbar';
+
+const config: IEnvConfig = require("../../../../env.json");
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     card: {
@@ -135,7 +137,7 @@ export const ResultCard = (props: {item: Item}) => {
     const reg_addr_koatuu = `${lang(state.lang).reg_addr_koatuu}: ${props.item.reg_addr_koatuu}`;
 
     const url = `${window.location.origin}/#/${props.item.n_reg_new}`;
-    const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || URLs.getDataByPlateUrl;
+    const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || config.AZURE_TABLE_SERVICE_URL;
 
     const colorClass = Utils.detectColor(props.item.color, classes);
 

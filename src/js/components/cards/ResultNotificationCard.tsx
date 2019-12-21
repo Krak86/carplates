@@ -4,7 +4,7 @@ import { INotification } from "../../models/Interfaces";
 import lang from "../../locale";
 import { regions } from "../../data/Data";
 import { AppState } from "../../redux";
-import { ApplicationStates} from "../../models/Interfaces";
+import { ApplicationStates, IEnvConfig } from "../../models/Interfaces";
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { itemFetchDataForPlate  } from "../../redux/actions";
@@ -21,6 +21,8 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import { orange, grey, yellow, green, brown, blue, purple, red } from '@material-ui/core/colors';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+
+const config: IEnvConfig = require("../../../../env.json");
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     card: {
@@ -103,7 +105,7 @@ export const ResultNotificationCard = (props: INotification) => {
     const history = useHistory();
     const primary = `${props.item.brand}/${props.item.model} (${props.item.make_year})`;
     const secondary = `${props.item.n_reg_new}, ${regions[props.item.PartitionKey]}`;
-    const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || URLs.getDataByPlateUrl;
+    const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || config.AZURE_TABLE_SERVICE_URL;
     const colorClass = Utils.detectColor(props.item.color, classes);
 
     const handleClose1 = (): void => {

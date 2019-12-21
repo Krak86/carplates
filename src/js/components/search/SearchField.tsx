@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { itemFetchDataForPlate, itemFetchDataForVin, setItemRequest, imageFetchData } from "../../redux/actions";
 import { AppState } from "../../redux";
-import { ApplicationStates, ISearchFieldState, IDevicesState } from "../../models/Interfaces";
+import { ApplicationStates, ISearchFieldState, IEnvConfig } from "../../models/Interfaces";
 import { URLs } from "../../data/Data";
 import { SnackbarContentWrapper } from "../snackbar/SnackbarContentWrapper";
 import { DialogVideoWindow } from "../video/DialogVideoWindow";
@@ -21,6 +21,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import Snackbar from '@material-ui/core/Snackbar';
+
+const config: IEnvConfig = require("../../../../env.json");
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
@@ -127,9 +129,9 @@ export const SearchField = () => {
   const history = useHistory();
   const classes = useStyles({});
  
-  const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || URLs.getDataByPlateUrl;
+  const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || config.AZURE_TABLE_SERVICE_URL;
   const serviceUrlVIN = process.env.VIN_SERVICE_URL || URLs.getDataByVinUrl;
-  const serviceRecognizeImageUrl = process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL || URLs.carPlateRecMlApiUrl;
+  const serviceRecognizeImageUrl = process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL || config.AZURE_FUNC_PLATE_RECOGNIZER_URL;
   const options = lang(state.lang).cameraActions;
   const ITEM_HEIGHT = 48;
   const attachImageID = "attachImage";

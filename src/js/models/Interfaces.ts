@@ -620,3 +620,27 @@ export interface IMediaDeviceConstraints{
     }
   }
 }
+export interface IEnvConfig{
+  PUBLIC_PATH?: string;
+  DEVSERVER_PUBLIC?: string;
+  DEVSERVER_HOST?: string;
+  DEVSERVER_POLL?: number;
+  DEVSERVER_PORT?: number;
+  DEVSERVER_HTTPS?: number;
+  PUBLIC_SITE_URL?: string;
+  DISQUS_SHORT_NAME?: string;
+  AZURE_TABLE_SERVICE_URL?: string;
+  AZURE_FUNC_PLATE_RECOGNIZER_URL?: string;
+  AZURE_FUNC_PLATE_RECOGNIZER_TOKEN?: string;
+  AZURE_FUNC_PLATE_RECOGNIZER_EXTERNAL_SERVICE_URL?: string;
+  AZURE_TABLE_FAVORITES_SERVICE_URL?: string;
+  AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY?: string;
+  AZURE_PLATESMANIA_PROXY?: string;
+  AZURE_APP_INSIGHTS_KEY?: string;
+  PLATES_MANIA_KEY?: string;
+  RIA_KEY?: string;
+  FACEBOOK_CLIENT_ID?: string;
+  GOOGLE_CLIENT_ID?: string;
+  FACEBOOK_CLIENT_ID_DEV?: string;
+  GOOGLE_CLIENT_ID_DEV?: string;
+}

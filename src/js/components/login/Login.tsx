@@ -8,11 +8,13 @@ import Menu from '@material-ui/core/Menu';
 import lang from "../../locale";
 import { authoriseUser } from "../../redux/actions";
 import { AppState } from "../../redux";
-import { ApplicationStates, IFacebook } from "../../models/Interfaces";
+import { ApplicationStates, IFacebook, IEnvConfig } from "../../models/Interfaces";
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import { loggedInDefault } from "../../data/Data";
 import { login } from "../../redux/actions";
+
+const config: IEnvConfig = require("../../../../env.json");
 
 const useStyles = makeStyles({
     avatar: {
@@ -59,12 +61,12 @@ export const Login = () => {
     let appIdFacebook = ""; 
     let appIdGoogle = "";
     if(process.env.NODE_ENV === "development"){
-        appIdFacebook = process.env.FACEBOOK_CLIENT_ID_DEV || "";
-        appIdGoogle = process.env.GOOGLE_CLIENT_ID_DEV || "";
+        appIdFacebook = process.env.FACEBOOK_CLIENT_ID_DEV || config.FACEBOOK_CLIENT_ID_DEV;
+        appIdGoogle = process.env.GOOGLE_CLIENT_ID_DEV || config.GOOGLE_CLIENT_ID_DEV;
     }
     else{
-        appIdFacebook = process.env.FACEBOOK_CLIENT_ID || ""; 
-        appIdGoogle = process.env.GOOGLE_CLIENT_ID || "";
+        appIdFacebook = process.env.FACEBOOK_CLIENT_ID || config.FACEBOOK_CLIENT_ID; 
+        appIdGoogle = process.env.GOOGLE_CLIENT_ID || config.GOOGLE_CLIENT_ID;
     }    
     const handleMenu1 = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);

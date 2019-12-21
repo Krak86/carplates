@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { AppState } from "../../redux";
-import { ApplicationStates} from "../../models/Interfaces";
+import { ApplicationStates, IEnvConfig } from "../../models/Interfaces";
 import Utils from "../../utils/Utils";
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
@@ -9,6 +9,8 @@ import lang from "../../locale";
 import { makeStyles } from '@material-ui/core/styles';
 import { fileRelativePath } from '../../data/Data';
 import { Event } from '@microsoft/applicationinsights-web';
+
+const config: IEnvConfig = require("../../../../env.json");
 
 const useStyles = makeStyles(theme => ({
     blocks: {
@@ -50,7 +52,7 @@ export const AboutPage = () => {
                 {lang(state.lang).about_6_mit}
             </Typography>
             <Typography variant="body1" color="textSecondary" align="justify" className={classes.blocks}>
-                {lang(state.lang).copyright}{' '}{new Date().getFullYear()}{' '}{process.env.PUBLIC_SITE_URL || window.location.host}
+                {lang(state.lang).copyright}{' '}{new Date().getFullYear()}{' '}{process.env.PUBLIC_SITE_URL || config.PUBLIC_SITE_URL}
             </Typography>
             <Typography variant="body1" color="textSecondary" align="justify" className={classes.blocks}>
                 {lang(state.lang).about_7_mit_1}

@@ -62,10 +62,29 @@ steps:
    FACEBOOK_CLIENT_ID: "$(FACEBOOK_CLIENT_ID)"
    GOOGLE_CLIENT_ID: "$(GOOGLE_CLIENT_ID)"
    '@
-   Get-Content -Path .\.env
-   Get-ChildItem -Path .
-   Get-ChildItem -Path $(System.DefaultWorkingDirectory)
   displayName: 'Create .env'
+
+- powershell: |
+   New-Item -Path $(System.DefaultWorkingDirectory) -Name "env.json" -Force -Value @'
+   {
+    "PUBLIC_SITE_URL": "$(PUBLIC_SITE_URL)",
+    "DISQUS_SHORT_NAME": "$(DISQUS_SHORT_NAME)",
+    "AZURE_TABLE_SERVICE_URL": "$(AZURE_TABLE_SERVICE_URL)",
+    "AZURE_FUNC_PLATE_RECOGNIZER_URL": "$(AZURE_FUNC_PLATE_RECOGNIZER_URL)",
+    "AZURE_FUNC_PLATE_RECOGNIZER_TOKEN": "$(AZURE_FUNC_PLATE_RECOGNIZER_TOKEN)",
+    "AZURE_FUNC_PLATE_RECOGNIZER_EXTERNAL_SERVICE_URL": "$(AZURE_FUNC_PLATE_RECOGNIZER_EXTERNAL_SERVICE_URL)",
+    "AZURE_TABLE_FAVORITES_SERVICE_URL": "$(AZURE_TABLE_FAVORITES_SERVICE_URL)",
+    "AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY": "$(AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY)",
+    "AZURE_PLATESMANIA_PROXY": "$(AZURE_PLATESMANIA_PROXY)",
+    "AZURE_APP_INSIGHTS_KEY": "$(AZURE_APP_INSIGHTS_KEY)",
+    "PLATES_MANIA_KEY": "$(PLATES_MANIA_KEY)",
+    "RIA_KEY": "$(RIA_KEY)",
+    "FACEBOOK_CLIENT_ID": "$(FACEBOOK_CLIENT_ID)",
+    "GOOGLE_CLIENT_ID": "$(GOOGLE_CLIENT_ID)"
+   }
+   '@
+   Get-Content -Path .\.env.json
+  displayName: 'Create env.json'
 
 - task: Npm@1
   displayName: 'Build project'

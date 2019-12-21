@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useRef, useEffect } from 'react';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { AppState } from "../../redux";
-import { ApplicationStates, IWebcamCaptureProps, IDevicesState } from "../../models/Interfaces";
+import { ApplicationStates, IWebcamCaptureProps, IEnvConfig } from "../../models/Interfaces";
 import { imageFetchData } from "../../redux/actions";
 import { URLs } from "../../data/Data";
 import Utils from "../../utils/Utils";
@@ -9,6 +9,8 @@ import UtilsAsync from "../../utils/UtilsAsync";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
+
+const config: IEnvConfig = require("../../../../env.json");
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   button: {
@@ -26,7 +28,7 @@ declare global{
 
 export const Camera = (props: IWebcamCaptureProps) => {
   const { close } = props;
-  const serviceRecognizeImageUrl = process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL || URLs.carPlateRecMlApiUrl;
+  const serviceRecognizeImageUrl = process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL || config.AZURE_FUNC_PLATE_RECOGNIZER_URL;
   const classes = useStyles({});
   const dispatch = useDispatch();
   let canvas: HTMLCanvasElement | null = null;

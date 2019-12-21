@@ -5,7 +5,7 @@ import { Login } from "./login/Login";
 import lang from "../locale";
 import { toggleDrawer, ResetBadge } from "../redux/actions";
 import { AppState } from "../redux";
-import { ApplicationStates } from "../models/Interfaces";
+import { ApplicationStates, IEnvConfig } from "../models/Interfaces";
 import { routesLinks } from './routes/routesLinks';
 import { SearchPage } from './routes/SearchPage';
 import { FavoritesPage } from "./routes/FavoritesPage";
@@ -30,6 +30,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import UtilsAppInsights from '../utils/UtilsAppInsights';
 
+const config: IEnvConfig = require("../../../env.json");
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -128,7 +129,7 @@ export default function App() {
   const dispatch = useDispatch();
   const classes = useStyles({});
   const history = useHistory();
-  const azureAppInsightsKey = process.env.AZURE_APP_INSIGHTS_KEY || "";
+  const azureAppInsightsKey = process.env.AZURE_APP_INSIGHTS_KEY || config.AZURE_APP_INSIGHTS_KEY;
   
   UtilsAppInsights.init(azureAppInsightsKey);
 

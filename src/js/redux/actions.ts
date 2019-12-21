@@ -1,23 +1,22 @@
 import  * as actions from "./types";
 import { Action } from "redux";
-import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse, Auth, IFacebook, IGoogle, IRiaCategories, IRiaSearch, 
-    IRiaAds, IRiaSearchData, IPlatesmania, IPlatesmaniaCars, Lang, INotification, ILoggedIn, IUserItem, IUser, IUserKeys } from "../models/Interfaces";
+import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse, IRiaCategories, IRiaSearch, 
+    IRiaAds, IRiaSearchData, IPlatesmania, IPlatesmaniaCars, Lang, INotification, ILoggedIn, IUserItem, IUserKeys, IEnvConfig } from "../models/Interfaces";
 import { ThunkAction } from "redux-thunk";
 import Utils from "../utils/Utils";
 import UtilsRia from "../utils/UtilsRia";
 import UtilsAsync from "../utils/UtilsAsync";
-import { URLs, platesManiaDataTest } from "../data/Data";
+import { URLs } from "../data/Data";
 
+const config: IEnvConfig = require("../../../env.json");
 export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(imgCarsmaniaLoaded(false));
     const carPlate = Utils.combineConvertedSymbols(
         Utils.trimData(itemRequest).toLocaleUpperCase(),
         Utils.cyrillicRange,
         Utils.cyrillicToLatinToMatrix,
-        Utils.reducer);
-    const key = process.env.PLATES_MANIA_KEY || "";
-    //const url = Utils.generateUrlforPlatesmania(URLs.getImagesByCarplateUrl_2, key, carPlate);
-    const url = process.env.AZURE_PLATESMANIA_PROXY || URLs.getImagesByCarplateUrl_1;
+        Utils.reducer);    
+    const url = process.env.AZURE_PLATESMANIA_PROXY || config.AZURE_PLATESMANIA_PROXY;
     const options = {
         method: 'POST',
         body: Utils.generateBodyForPlatesManiaProxy(carPlate),
@@ -44,7 +43,6 @@ export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, 
         dispatch(imgCarsmaniaLoaded(true));
     })
     .catch((error) => {
-        //dispatch(addPlatesmaniaCars(platesManiaDataTest));
         dispatch(addPlatesmaniaCars([]));
         dispatch(imgCarsmaniaLoaded(true));
         console.log(error);
@@ -68,7 +66,7 @@ export const fetchDataForRiaModel = (itemResponse: Item): ThunkAction<void, Appl
     else{
         return;
     }
-    const key = process.env.RIA_KEY || "";
+    const key = process.env.RIA_KEY || config.RIA_KEY;
     const url = UtilsRia.generateUrlToGetModelValue(URLs.riaUrl, categoryValue, brandValue, key);
 
     fetch(url, {
@@ -277,7 +275,7 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, Appli
                 Utils.latinToCyrillicMatrix, 
                 Utils.reducer
               );
-            const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || URLs.getDataByPlateUrl;
+            const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || config.AZURE_TABLE_SERVICE_URL;
             const url = Utils.shapeUrlPlate(serviceUrl, carPlate, Utils.extractPartitionKey(carPlate));
             dispatch(itemFetchDataForPlate(carPlate, url));
             dispatch(responseIsEmpty(false));
@@ -323,7 +321,7 @@ export const manualSync = (authStatus: ILoggedIn, favorites: Item[]): ThunkActio
 };
 export const userSync = (email: string, favorites: Item[], item: Item, addRemoveItem: boolean): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     const userKeys = Utils.generateRowKeyAndPartitionKey(email);
-    const serviceUrl = `${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL}${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY}` || "";
+    const serviceUrl = `${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL}${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY}` || config.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY;
     const url = Utils.shapeUrlPlate(
         serviceUrl,
         userKeys.RowKey,
@@ -355,8 +353,8 @@ export const userSync = (email: string, favorites: Item[], item: Item, addRemove
 };
 export const updateUser = (userKeys: IUserKeys, items: Item[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     const url = Utils.generateUrlToUpdateUser(
-        process.env.AZURE_TABLE_FAVORITES_SERVICE_URL || "",
-        process.env.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY || "",
+        process.env.AZURE_TABLE_FAVORITES_SERVICE_URL || config.AZURE_TABLE_FAVORITES_SERVICE_URL,
+        process.env.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY || config.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY,
         userKeys.PartitionKey,
         userKeys.RowKey
     );
