@@ -137,7 +137,7 @@ export const ResultCard = (props: {item: Item}) => {
     const reg_addr_koatuu = `${lang(state.lang).reg_addr_koatuu}: ${props.item.reg_addr_koatuu}`;
 
     const url = `${window.location.origin}/#/${props.item.n_reg_new}`;
-    const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || config.AZURE_TABLE_SERVICE_URL;
+    const serviceUrl = /*process.env.AZURE_TABLE_SERVICE_URL ||*/ config.AZURE_TABLE_SERVICE_URL;
 
     const colorClass = Utils.detectColor(props.item.color, classes);
 

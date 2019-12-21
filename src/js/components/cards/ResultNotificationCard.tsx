@@ -105,7 +105,7 @@ export const ResultNotificationCard = (props: INotification) => {
     const history = useHistory();
     const primary = `${props.item.brand}/${props.item.model} (${props.item.make_year})`;
     const secondary = `${props.item.n_reg_new}, ${regions[props.item.PartitionKey]}`;
-    const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || config.AZURE_TABLE_SERVICE_URL;
+    const serviceUrl = /*process.env.AZURE_TABLE_SERVICE_URL ||*/ config.AZURE_TABLE_SERVICE_URL;
     const colorClass = Utils.detectColor(props.item.color, classes);
 
     const handleClose1 = (): void => {

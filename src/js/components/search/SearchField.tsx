@@ -129,9 +129,9 @@ export const SearchField = () => {
   const history = useHistory();
   const classes = useStyles({});
  
-  const serviceUrl = process.env.AZURE_TABLE_SERVICE_URL || config.AZURE_TABLE_SERVICE_URL;
-  const serviceUrlVIN = process.env.VIN_SERVICE_URL || URLs.getDataByVinUrl;
-  const serviceRecognizeImageUrl = process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL || config.AZURE_FUNC_PLATE_RECOGNIZER_URL;
+  const serviceUrl = /*process.env.AZURE_TABLE_SERVICE_URL ||*/ config.AZURE_TABLE_SERVICE_URL;
+  const serviceUrlVIN = /*process.env.VIN_SERVICE_URL ||*/ URLs.getDataByVinUrl;
+  const serviceRecognizeImageUrl = /*process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL ||*/ config.AZURE_FUNC_PLATE_RECOGNIZER_URL;
   const options = lang(state.lang).cameraActions;
   const ITEM_HEIGHT = 48;
   const attachImageID = "attachImage";

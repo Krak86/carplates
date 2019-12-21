@@ -14,10 +14,10 @@ const useStyles = makeStyles(theme => ({
 export const DisqusComponent = () => {
     const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
     const classes = useStyles({});
-    const disqusShortname = process.env.DISQUS_SHORT_NAME || config.DISQUS_SHORT_NAME;
+    const disqusShortname = /*process.env.DISQUS_SHORT_NAME ||*/ config.DISQUS_SHORT_NAME;
     const disqusConfig = {
-      url: process.env.PUBLIC_SITE_URL || config.PUBLIC_SITE_URL,
-      identifier: process.env.PUBLIC_SITE_URL || config.PUBLIC_SITE_URL,
+      url: /*process.env.PUBLIC_SITE_URL ||*/ config.PUBLIC_SITE_URL,
+      identifier: /*process.env.PUBLIC_SITE_URL ||*/ config.PUBLIC_SITE_URL,
       title: disqusShortname
     }
     return (

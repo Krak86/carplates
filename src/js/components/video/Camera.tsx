@@ -28,7 +28,7 @@ declare global{
 
 export const Camera = (props: IWebcamCaptureProps) => {
   const { close } = props;
-  const serviceRecognizeImageUrl = process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL || config.AZURE_FUNC_PLATE_RECOGNIZER_URL;
+  const serviceRecognizeImageUrl = /*process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL ||*/ config.AZURE_FUNC_PLATE_RECOGNIZER_URL;
   const classes = useStyles({});
   const dispatch = useDispatch();
   let canvas: HTMLCanvasElement | null = null;

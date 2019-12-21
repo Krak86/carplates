@@ -52,7 +52,7 @@ export const AboutPage = () => {
                 {lang(state.lang).about_6_mit}
             </Typography>
             <Typography variant="body1" color="textSecondary" align="justify" className={classes.blocks}>
-                {lang(state.lang).copyright}{' '}{new Date().getFullYear()}{' '}{process.env.PUBLIC_SITE_URL || config.PUBLIC_SITE_URL}
+                {lang(state.lang).copyright}{' '}{new Date().getFullYear()}{' '}{/*process.env.PUBLIC_SITE_URL ||*/ config.PUBLIC_SITE_URL}
             </Typography>
             <Typography variant="body1" color="textSecondary" align="justify" className={classes.blocks}>
                 {lang(state.lang).about_7_mit_1}

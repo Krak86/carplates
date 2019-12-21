@@ -129,7 +129,7 @@ export default function App() {
   const dispatch = useDispatch();
   const classes = useStyles({});
   const history = useHistory();
-  const azureAppInsightsKey = process.env.AZURE_APP_INSIGHTS_KEY || config.AZURE_APP_INSIGHTS_KEY;
+  const azureAppInsightsKey = /*process.env.AZURE_APP_INSIGHTS_KEY ||*/ config.AZURE_APP_INSIGHTS_KEY;
   
   UtilsAppInsights.init(azureAppInsightsKey);
 
