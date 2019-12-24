@@ -40,7 +40,11 @@ const ListItemLink = (props: ListItemLinkProps) => {
       <ListItem 
         button 
         component={renderLink} 
-        onClick={() => callbackFunc()}
+        onClick={() => {
+          if(callbackFunc !== undefined){
+            callbackFunc();
+          }          
+        }}
       >
         {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
         <ListItemText primary={primary} />{nestedElement}

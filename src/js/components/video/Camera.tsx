@@ -28,7 +28,7 @@ declare global{
 
 export const Camera = (props: IWebcamCaptureProps) => {
   const { close } = props;
-  const serviceRecognizeImageUrl = /*process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL ||*/ config.AZURE_FUNC_PLATE_RECOGNIZER_URL;
+  const serviceRecognizeImageUrl = /*process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL ||*/ config.AZURE_FUNC_PLATE_RECOGNIZER_URL || "";
   const classes = useStyles({});
   const dispatch = useDispatch();
   let canvas: HTMLCanvasElement | null = null;
@@ -81,7 +81,7 @@ export const Camera = (props: IWebcamCaptureProps) => {
     }
   };
 
-  const handleError = (error) => {
+  const handleError = (error: any) => {
     console.error('Error: ', error);
   }
 
@@ -102,12 +102,15 @@ export const Camera = (props: IWebcamCaptureProps) => {
     canvas.width = video.clientWidth;
     canvas.height = canvas.width / aspectRatio;
     ctx = canvas.getContext("2d");
+    if(ctx === null){
+      return null
+    }
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);    
     return canvas;
   };
 
   const capture = () => {
-    const imageSrc = getScreenshot();
+    const imageSrc = getScreenshot() || "";
     if(Utils.isCameraPhotoEmpty(imageSrc)){
       if(window.stream){
         UtilsAsync.StreamTrackStop(window.stream);

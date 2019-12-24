@@ -26,13 +26,13 @@
   "engines": {
     "node": ">=12.1.0"
   },
-  "dependencies": {    
+  "dependencies": {
     "@material-ui/core": "4.4.0",
     "@material-ui/icons": "4.2.1",
     "@microsoft/applicationinsights-web": "2.3.1",
     "clsx": "1.0.4",
     "disqus-react": "^1.0.7",
-    "dotenv-webpack": "^1.7.0",    
+    "dotenv-webpack": "^1.7.0",
     "react": "^16.9.0",
     "react-app-polyfill": "^1.0.5",
     "react-dom": "^16.9.0",
@@ -52,10 +52,12 @@
     "@types/jest": "^24.0.18",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
+    "@types/react-facebook-login": "^4.1.0",
     "@types/react-redux": "^7.1.2",
     "@types/react-router-dom": "^5.1.0",
-    "@types/webpack": "^4.39.1",
+    "@types/react-share": "^3.0.3",
     "@types/react-test-renderer": "^16.9.0",
+    "@types/webpack": "^4.39.1",
     "@types/webpack-env": "^1.14.0",
     "clean-webpack-plugin": "^1.0.0",
     "copy-webpack-plugin": "4.6.0",
@@ -85,7 +87,7 @@
     "style-loader": "1.0.0",
     "terser-webpack-plugin": "1.4.1",
     "ts-jest": "^24.0.2",
-    "ts-loader": "5.3.2",
+    "ts-loader": "^5.3.2",
     "typescript": "3.2.2",
     "webpack": "4.28.2",
     "webpack-bundle-analyzer": "3.4.1",

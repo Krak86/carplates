@@ -5,11 +5,13 @@ export function register(){
           .then(reg => {
             reg.onupdatefound = () => {
               const installingWorker = reg.installing;
+              if(installingWorker === null){
+                return;
+              }
               installingWorker.onstatechange = () => {
                 switch (installingWorker.state) {
                   case 'installed':
-                    if (navigator.serviceWorker.controller) {
-                      // new update available
+                    if (navigator.serviceWorker.controller){
                       console.log("New content is available and will be used when all tabs for this page are closed.");
                       reg.update()
                       .then(() => {

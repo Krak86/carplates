@@ -16,7 +16,7 @@ export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, 
         Utils.cyrillicRange,
         Utils.cyrillicToLatinToMatrix,
         Utils.reducer);    
-    const url = /*process.env.AZURE_PLATESMANIA_PROXY ||*/ config.AZURE_PLATESMANIA_PROXY;
+    const url = /*process.env.AZURE_PLATESMANIA_PROXY ||*/ config.AZURE_PLATESMANIA_PROXY || "";
     const options = {
         method: 'POST',
         body: Utils.generateBodyForPlatesManiaProxy(carPlate),
@@ -66,7 +66,7 @@ export const fetchDataForRiaModel = (itemResponse: Item): ThunkAction<void, Appl
     else{
         return;
     }
-    const key = /*process.env.RIA_KEY ||*/ config.RIA_KEY;
+    const key = /*process.env.RIA_KEY ||*/ config.RIA_KEY || "";
     const url = UtilsRia.generateUrlToGetModelValue(URLs.riaUrl, categoryValue, brandValue, key);
 
     fetch(url, {
@@ -223,7 +223,7 @@ export const itemFetchDataForVin = (vinRequest: string, url: string): ThunkActio
     .then((response) => {
         return response.json(); })
     .then((itemResponse: VIN) => {
-        if(itemResponse.Results.length > 0){
+        if(itemResponse.Results && itemResponse.Results.length > 0){
             const data = itemResponse;
             dispatch(itemFetchDataVinSuccess(data));
             dispatch(addToVinsListList(data));
@@ -275,7 +275,7 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, Appli
                 Utils.latinToCyrillicMatrix, 
                 Utils.reducer
               );
-            const serviceUrl = /*process.env.AZURE_TABLE_SERVICE_URL ||*/ config.AZURE_TABLE_SERVICE_URL;
+            const serviceUrl = /*process.env.AZURE_TABLE_SERVICE_URL ||*/ config.AZURE_TABLE_SERVICE_URL || "";
             const url = Utils.shapeUrlPlate(serviceUrl, carPlate, Utils.extractPartitionKey(carPlate));
             dispatch(itemFetchDataForPlate(carPlate, url));
             dispatch(responseIsEmpty(false));
@@ -319,9 +319,9 @@ export const manualSync = (authStatus: ILoggedIn, favorites: Item[]): ThunkActio
     dispatch(ItemsMerging(true));
     dispatch(userSync(authStatus.mail, favorites, null, null));
 };
-export const userSync = (email: string, favorites: Item[], item: Item, addRemoveItem: boolean): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+export const userSync = (email: string, favorites: Item[], item: Item | null, addRemoveItem: boolean | null): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     const userKeys = Utils.generateRowKeyAndPartitionKey(email);
-    const serviceUrl = /*`${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL}${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY}` ||*/ `${config.AZURE_TABLE_FAVORITES_SERVICE_URL}${config.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY}`;
+    const serviceUrl = /*`${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL}${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY}` ||*/ `${config.AZURE_TABLE_FAVORITES_SERVICE_URL}${config.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY}` || "";
     const url = Utils.shapeUrlPlate(
         serviceUrl,
         userKeys.RowKey,
@@ -343,6 +343,10 @@ export const userSync = (email: string, favorites: Item[], item: Item, addRemove
     .then((itemResponse: IUserItem) => {
         const data = itemResponse.value;
         const items = Utils.mergeItems(data, favorites, item, addRemoveItem);
+        if(items === undefined){
+            dispatch(ItemsMerging(false));
+            return;
+        }
         dispatch(MergeLocalAndCloudFavorites(items));
         dispatch(updateUser(userKeys, items));
     })
@@ -353,8 +357,8 @@ export const userSync = (email: string, favorites: Item[], item: Item, addRemove
 };
 export const updateUser = (userKeys: IUserKeys, items: Item[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
     const url = Utils.generateUrlToUpdateUser(
-        /*process.env.AZURE_TABLE_FAVORITES_SERVICE_URL ||*/ config.AZURE_TABLE_FAVORITES_SERVICE_URL,
-        /*process.env.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY ||*/ config.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY,
+        /*process.env.AZURE_TABLE_FAVORITES_SERVICE_URL ||*/ config.AZURE_TABLE_FAVORITES_SERVICE_URL || "",
+        /*process.env.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY ||*/ config.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY || "",
         userKeys.PartitionKey,
         userKeys.RowKey
     );

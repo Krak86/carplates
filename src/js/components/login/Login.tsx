@@ -61,12 +61,12 @@ export const Login = () => {
     let appIdFacebook = ""; 
     let appIdGoogle = "";
     if(process.env.NODE_ENV === "development"){
-        appIdFacebook = process.env.FACEBOOK_CLIENT_ID_DEV || config.FACEBOOK_CLIENT_ID_DEV;
-        appIdGoogle = process.env.GOOGLE_CLIENT_ID_DEV || config.GOOGLE_CLIENT_ID_DEV;
+        appIdFacebook = process.env.FACEBOOK_CLIENT_ID_DEV || config.FACEBOOK_CLIENT_ID_DEV || "";
+        appIdGoogle = process.env.GOOGLE_CLIENT_ID_DEV || config.GOOGLE_CLIENT_ID_DEV || "";
     }
     else{
-        appIdFacebook = /*process.env.FACEBOOK_CLIENT_ID ||*/ config.FACEBOOK_CLIENT_ID; 
-        appIdGoogle = /*process.env.GOOGLE_CLIENT_ID ||*/ config.GOOGLE_CLIENT_ID;
+        appIdFacebook = /*process.env.FACEBOOK_CLIENT_ID ||*/ config.FACEBOOK_CLIENT_ID || ""; 
+        appIdGoogle = /*process.env.GOOGLE_CLIENT_ID ||*/ config.GOOGLE_CLIENT_ID || "";
     }    
     const handleMenu1 = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -77,9 +77,9 @@ export const Login = () => {
     const responseFacebook = (response: IFacebook): void => {
         dispatch(authoriseUser({
             vendor: 1,
-            avatar: response.picture.data.url,
-            profileName: response.name,
-            mail: response.email,
+            avatar: response.picture.data.url || "",
+            profileName: response.name || "",
+            mail: response.email || "",
         },
         state.favorites));
     }

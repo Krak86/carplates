@@ -224,12 +224,14 @@ export interface IFacebook{
   expiresIn?: string,
   id?: string,
   name?: string,
-  picture?: {data?: {
-    height?: number,
-    is_silhouette?: boolean,
-    url?: string,
-    width?: number
-  }},
+  picture: {
+      data: {
+        height?: number,
+        is_silhouette?: boolean,
+        url?: string,
+        width?: number
+    }
+  },
   signedRequest?: string, 
   userID?: string,
 }
@@ -643,4 +645,7 @@ export interface IEnvConfig{
   GOOGLE_CLIENT_ID?: string;
   FACEBOOK_CLIENT_ID_DEV?: string;
   GOOGLE_CLIENT_ID_DEV?: string;
+}
+export interface IRegions{
+  [key: string]: string;
 }

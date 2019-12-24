@@ -22,9 +22,6 @@ describe('<SearchField />', () => {
     beforeAll(() => {
       shallow = createShallow();
     });
-    it('should work', () => {
-      const container = shallow(element);
-    });
   });
 /*
 describe("<SearchField/> with no props>", () => {

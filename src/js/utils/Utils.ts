@@ -210,7 +210,7 @@ export default class Utils {
   /**
     * Function to detect color and return appropriate color
     */  
-  public static detectColor(color: string, classes): any {
+  public static detectColor(color: string, classes: any): any {
     switch(color.toUpperCase()){
         case 'БЕЖЕВИЙ':
             return classes.avatarBeige;
@@ -296,7 +296,7 @@ export default class Utils {
   /**
     * Function to merge the Item's arrays: from local storage and from cloud
     */ 
-  public static mergeItems(data: IUser[], favorites: Item[], item: Item, addRemoveItem: boolean): Item[]{
+  public static mergeItems(data: IUser[], favorites: Item[], item: Item | null, addRemoveItem: boolean | null): Item[] | undefined{
     if(data.length > 0){
       const cloudData: Item[] = JSON.parse(data[0].Favorites);
       const localStorageData = favorites;

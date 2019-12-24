@@ -8,7 +8,6 @@ import Link from '@material-ui/core/Link';
 import lang from "../../locale";
 import { makeStyles } from '@material-ui/core/styles';
 import { fileRelativePath } from '../../data/Data';
-import { Event } from '@microsoft/applicationinsights-web';
 
 const config: IEnvConfig = require("../../../../env.json");
 
@@ -52,7 +51,7 @@ export const AboutPage = () => {
                 {lang(state.lang).about_6_mit}
             </Typography>
             <Typography variant="body1" color="textSecondary" align="justify" className={classes.blocks}>
-                {lang(state.lang).copyright}{' '}{new Date().getFullYear()}{' '}{/*process.env.PUBLIC_SITE_URL ||*/ config.PUBLIC_SITE_URL}
+                {lang(state.lang).copyright}{' '}{new Date().getFullYear()}{' '}{/*process.env.PUBLIC_SITE_URL ||*/ config.PUBLIC_SITE_URL || ""}
             </Typography>
             <Typography variant="body1" color="textSecondary" align="justify" className={classes.blocks}>
                 {lang(state.lang).about_7_mit_1}

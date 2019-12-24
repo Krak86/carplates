@@ -103,7 +103,7 @@ export const SearchField = () => {
   const [openDialog, setOpenDialog] = React.useState(false);
   const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
   const dispatch = useDispatch();
-  const searchInput = useRef(null);
+  const searchInput: React.RefObject<any> = useRef(null);
 
   useEffect(() => {
     document.title = `${lang(state.lang).documentTitle} ${state.itemRequest}`;
@@ -129,10 +129,10 @@ export const SearchField = () => {
   const history = useHistory();
   const classes = useStyles({});
  
-  const serviceUrl = /*process.env.AZURE_TABLE_SERVICE_URL ||*/ config.AZURE_TABLE_SERVICE_URL;
-  const serviceUrlVIN = /*process.env.VIN_SERVICE_URL ||*/ URLs.getDataByVinUrl;
-  const serviceRecognizeImageUrl = /*process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL ||*/ config.AZURE_FUNC_PLATE_RECOGNIZER_URL;
-  const options = lang(state.lang).cameraActions;
+  const serviceUrl = /*process.env.AZURE_TABLE_SERVICE_URL ||*/ config.AZURE_TABLE_SERVICE_URL || "";
+  const serviceUrlVIN = /*process.env.VIN_SERVICE_URL ||*/ URLs.getDataByVinUrl || "";
+  const serviceRecognizeImageUrl = /*process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL ||*/ config.AZURE_FUNC_PLATE_RECOGNIZER_URL || "";
+  const options = lang(state.lang).cameraActions || [];
   const ITEM_HEIGHT = 48;
   const attachImageID = "attachImage";
 
@@ -142,7 +142,7 @@ export const SearchField = () => {
     }
     else{
       setOpenSnackbar(true);
-      handleSnackbarMessage(lang(state.lang).messageTurnOnCamera);
+      handleSnackbarMessage(lang(state.lang).messageTurnOnCamera || "");
     }
   };
   const handleClickOpenDialog = () => {
@@ -198,23 +198,29 @@ export const SearchField = () => {
       takeAPhoto();
     }
     else if(options[1] === option){
-      document.getElementById(attachImageID).click();
+      const attachImageIDElement = document.getElementById(attachImageID);
+      attachImageIDElement 
+        ? attachImageIDElement.click() 
+        : null;
     }
     handleClearClick();
   };
-  const handleFiles = (value: FileList): File => {
+  const handleFiles = (value: FileList | null): void => {
+    if(value === null){
+      return;
+    }
     if(value.length === 0){
       return;
     }
     let file = value[0];
     if(!Utils.checkFileType(file.type)){
       setOpenSnackbar(true);
-      handleSnackbarMessage(lang(state.lang).messageChooseImage);
+      handleSnackbarMessage(lang(state.lang).messageChooseImage || "");
       return;
     }
     if(!Utils.checkImageSize(file.size)){
       setOpenSnackbar(true);
-      handleSnackbarMessage(lang(state.lang).messageImageLimit);
+      handleSnackbarMessage(lang(state.lang).messageImageLimit || "");
       return;
     }
     dispatch(imageFetchData(file, serviceRecognizeImageUrl));  
@@ -289,7 +295,7 @@ export const SearchField = () => {
           className={classes.upload}
           id={attachImageID}
           type="file"
-          onChange={(e) => handleFiles(e.target.files) }
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFiles(e.target.files)}
         />
       </Paper>
       <Snackbar

@@ -1,4 +1,4 @@
-import { ApplicationStates, Item, itemSearching, VIN, IPlatesmaniaCars, ILoggedIn } from "../models/Interfaces";
+import { ApplicationStates, Item, itemSearching, VIN, IPlatesmaniaCars, ILoggedIn, IRegions } from "../models/Interfaces";
 
 export const favoritsItemsLimit: number = 50;
 
@@ -84,8 +84,7 @@ export const initialData: ApplicationStates = {
     badges: 0,
     itemsMerging: false,
 }
-
-export const regions = {
+export const regions: IRegions = {
 	"АА": "Київ",
     "КА": "Київ",
     
