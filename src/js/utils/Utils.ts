@@ -259,16 +259,19 @@ export default class Utils {
   /**
     * Function to generate the RowKey & PartitionKey to azure service to get user's data
     */ 
-  public static generateRowKeyAndPartitionKey(email: string): IUserKeys{
-    return Utils.checkIsUndefinedOrNull(email) === true 
-      ? { 
-        "PartitionKey": "",
-        "RowKey": ""
-      }
-      : {
+  public static generateRowKeyAndPartitionKey(email: string | null | undefined): IUserKeys{
+    if(email !== undefined && email !== null){
+      return {
         "PartitionKey": email,
         "RowKey": email.split("@")[1]
       }
+    }
+    else{
+      return { 
+        "PartitionKey": "",
+        "RowKey": ""
+      }
+    }
   }
   /**
     * Function to generate the url to azure service to update user's data
