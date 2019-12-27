@@ -36,6 +36,13 @@ The extra services are using here:
 The project is open for everyone, so don't hesitate to create [issues](https://github.com/Krak86/carplates/issues) and [pull request](https://github.com/Krak86/carplates/pulls).
 It is pretend to use the rules of [12 factors](https://12factor.net)
 
+The extra Linters Analysis are used:
+* [TSLint](https://palantir.github.io/tslint/)
+* [SonarTS](https://github.com/SonarSource/SonarTS)
+* [TSLint React](https://github.com/palantir/tslint-react)
+* [TSLint Rules of Hooks](https://github.com/palantir/tslint-react)
+* [Strict Type-Checking](https://www.typescriptlang.org/docs/handbook/type-checking-javascript-files.html)
+
 Roadmap (see [projects](https://github.com/Krak86/carplates/projects)):
 * Integration/e2e tests
 * IE11 support
