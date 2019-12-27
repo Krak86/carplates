@@ -1,5 +1,5 @@
-import React, { Fragment} from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import React, { Fragment} from "react";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { IRiaAds } from "../../models/Interfaces";
 import UtilsRia from "../../utils/UtilsRia";
 import Utils from "../../utils/Utils";
@@ -7,24 +7,24 @@ import { bodyStyles } from "../../data/DataStylesRia";
 import lang from "../../locale";
 import { URLs } from "../../data/Data";
 import { AppState } from "../../redux";
-import { ApplicationStates} from "../../models/Interfaces";
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { IApplicationStates} from "../../models/Interfaces";
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { ShareDrawerBottom } from "../share/ShareDrawerBottom";
-import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import SendIcon from '@material-ui/icons/Send';
+import clsx from "clsx";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Collapse from "@material-ui/core/Collapse";
+import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import { red } from "@material-ui/core/colors";
+import ShareIcon from "@material-ui/icons/Share";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import SendIcon from "@material-ui/icons/Send";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     card: {
@@ -33,23 +33,23 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     media: {
       height: 0,
-      paddingTop: '56.25%', // 16:9
+      paddingTop: "56.25%", // 16:9
     },
     expand: {
-      transform: 'rotate(0deg)',
-      marginLeft: 'auto',
-      transition: theme.transitions.create('transform', {
+      transform: "rotate(0deg)",
+      marginLeft: "auto",
+      transition: theme.transitions.create("transform", {
         duration: theme.transitions.duration.shortest,
       }),
     },
     expandOpen: {
-      transform: 'rotate(180deg)',
+      transform: "rotate(180deg)",
     },
     avatar: {
       backgroundColor: red[400],
     },
     link: {
-        display: 'none',
+        display: "none",
     },
     pos: {
         marginBottom: 12,
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 export const ResultRiaCard = (props: {item: IRiaAds}) => {
     const classes = useStyles({});
-    const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
+    const state: IApplicationStates = useSelector((stateInternal: AppState) => stateInternal.Item, shallowEqual);
     const [expanded, setExpanded] = React.useState(false);
     const [open, setOpen] = React.useState(false);
 
@@ -75,7 +75,6 @@ export const ResultRiaCard = (props: {item: IRiaAds}) => {
     const body = Utils.checkIsUndefinedOrNull(props.item.autoData.bodyId) ? "" : UtilsRia.detectBodyStyleByValue(bodyStyles, props.item.autoData.bodyId);
     const phone = Utils.checkIsUndefinedOrNull(props.item.userPhoneData.phone) ? "" : `+380${props.item.userPhoneData.phone}`;
     const url = Utils.checkIsUndefinedOrNull(props.item.linkToView) ? "" : `${URLs.riaUrlPublic}${props.item.linkToView}`;
-  
     const handleClose = () => {
         setOpen(false);
     };
@@ -98,7 +97,7 @@ export const ResultRiaCard = (props: {item: IRiaAds}) => {
                     </Avatar>
                     }
                     action={
-                    <IconButton 
+                    <IconButton
                         aria-label="settings"
                         title={lang(state.lang).card_settings}
                         onClick={handleShareClick}
@@ -116,18 +115,18 @@ export const ResultRiaCard = (props: {item: IRiaAds}) => {
                 />
                 <CardContent>
                     <Typography variant="body2" color="textSecondary" component="p">
-                    {description}         
+                    {description}
                     </Typography>
                 </CardContent>
-                <CardActions disableSpacing>
-                    <IconButton 
+                <CardActions disableSpacing={true}>
+                    <IconButton
                         aria-label="open original ads"
                         title={lang(state.lang).card_openOriginalAds}
                         onClick={handleRedirectClick}
                     >
                         <SendIcon />
                     </IconButton>
-                    <IconButton 
+                    <IconButton
                         aria-label="share"
                         title={lang(state.lang).card_share}
                         onClick={handleShareClick}
@@ -146,8 +145,8 @@ export const ResultRiaCard = (props: {item: IRiaAds}) => {
                         <ExpandMoreIcon />
                     </IconButton>
                 </CardActions>
-                <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <CardContent>   
+                <Collapse in={expanded} timeout="auto" unmountOnExit={true}>
+                    <CardContent>
                         <Typography variant="body2" component="p">
                             {`${lang(state.lang).race}: ${race}`}
                         </Typography>
@@ -171,5 +170,5 @@ export const ResultRiaCard = (props: {item: IRiaAds}) => {
             </Card>
             <ShareDrawerBottom open={open} onClose={handleClose} url={url} />
         </Fragment>
-    )
-}
+    );
+};

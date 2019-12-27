@@ -1,6 +1,6 @@
-import { Locale } from "../models/Interfaces";
+import { ILocale } from "../models/Interfaces";
 
-export const lang: Locale = {
+export const lang: ILocale = {
     searchInputPlaceholderText: "Enter plate or VIN",
     dashBoradTitle: "Cars UA",
     copyright: "Copyright © ",
@@ -31,7 +31,7 @@ export const lang: Locale = {
     fuel: "Fuel",
     kind: "Type",
     purpose: "Car purpose",
-    
+
     oper_code: "Vehicle registration code",
     oper_name: "Vehicle registration",
 
@@ -61,7 +61,7 @@ export const lang: Locale = {
     messageMaxFavsLimit: "You can follow 50 cars maximum!",
 
     url_search: "Search",
-    url_favs: "Favorites", 
+    url_favs: "Favorites",
     url_notifications: "Notifications",
     url_about: "About",
     url_profile: "Profile",
@@ -90,5 +90,5 @@ export const lang: Locale = {
     about_7_mit_1: "Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:",
     about_8_mit_2: "The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.",
     about_9_mit_3: "THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
-    policy_url: "Website Privacy Policy"
-}
+    policy_url: "Website Privacy Policy",
+};

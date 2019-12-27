@@ -1,12 +1,12 @@
 import "jest";
-import Utils from '../utils/Utils';
-import { Window, Item } from '../models/Interfaces';
-import { items } from '../data/Data';
+import Utils from "../utils/Utils";
+import { IWindow, IItem } from "../models/Interfaces";
+import { itemsTestData } from "../data/Data";
 
 describe("Utils window methods", () => {
   test("getAbsoluteDomainUrl", () => {
-    let window: Window = {
-      location: {}
+    const window: IWindow = {
+      location: {},
     };
     let resultFinal: string;
     let result: string;
@@ -23,9 +23,9 @@ describe("Utils window methods", () => {
     expect(result).toBe(resultFinal);
   });
   test("reducer", () => {
-    expect(Utils.reducer("","")).toBe("");
-    expect(Utils.reducer("<div>","</div>")).toBe("<div></div>");
-    expect(Utils.reducer("<div><ul>","</ul></div>")).toBe("<div><ul></ul></div>");
+    expect(Utils.reducer("", "")).toBe("");
+    expect(Utils.reducer("<div>", "</div>")).toBe("<div></div>");
+    expect(Utils.reducer("<div><ul>", "</ul></div>")).toBe("<div><ul></ul></div>");
   });
   test("latinRange", () => {
     expect(Utils.latinRange("A")).toBe(true);
@@ -70,15 +70,15 @@ describe("Utils window methods", () => {
     expect(Utils.cyrillicToLatinToMatrix("О")).toBe("O");
     expect(Utils.cyrillicToLatinToMatrix("Р")).toBe("P");
     expect(Utils.cyrillicToLatinToMatrix("Т")).toBe("T");
-   expect(Utils.cyrillicToLatinToMatrix("Х")).toBe("X");
+    expect(Utils.cyrillicToLatinToMatrix("Х")).toBe("X");
   });
   test("convertToCyrillic", () => {
     expect(Utils.combineConvertedSymbols("ABCH", Utils.latinRange, Utils.latinToCyrillicMatrix, Utils.reducer)).toBe("АВСН");
     expect(Utils.combineConvertedSymbols("MOPT", Utils.latinRange, Utils.latinToCyrillicMatrix, Utils.reducer)).toBe("МОРТ");
   });
   test("shapeUrlPlate", () => {
-    expect(Utils.shapeUrlPlate("http://localhost:8080/", "AB","ABCH")).toBe("http://localhost:8080/&$filter=RowKey eq 'AB' and PartitionKey eq 'ABCH'");
-    expect(Utils.shapeUrlPlate("http://localhost:8080/", "12","12CH")).toBe("http://localhost:8080/&$filter=RowKey eq '12' and PartitionKey eq '12CH'");
+    expect(Utils.shapeUrlPlate("http://localhost:8080/", "AB", "ABCH")).toBe("http://localhost:8080/&$filter=RowKey eq 'AB' and PartitionKey eq 'ABCH'");
+    expect(Utils.shapeUrlPlate("http://localhost:8080/", "12", "12CH")).toBe("http://localhost:8080/&$filter=RowKey eq '12' and PartitionKey eq '12CH'");
   });
   test("shapeUrlVin", () => {
     expect(Utils.shapeUrlVin("http://localhost:8080", "3VWD17AJ9GM299880")).toBe("http://localhost:8080/3VWD17AJ9GM299880?format=json");
@@ -88,8 +88,8 @@ describe("Utils window methods", () => {
     expect(Utils.replaceHttpWithHttps("http://localhost:8080")).toBe("https://localhost:8080");
   });
   test("isItemAlreadyAdded", () => {
-    expect(Utils.isItemAlreadyAdded(items, "АХ0168АА")).toBe(true);
-    expect(Utils.isItemAlreadyAdded(items, "BE2136CI")).toBe(false);
+    expect(Utils.isItemAlreadyAdded(itemsTestData, "АХ0168АА")).toBe(true);
+    expect(Utils.isItemAlreadyAdded(itemsTestData, "BE2136CI")).toBe(false);
   });
   test("extractPartitionKey", () => {
     expect(Utils.extractPartitionKey("3VWD17AJ9GM299880")).toBe("3V");
@@ -106,78 +106,77 @@ describe("Utils window methods", () => {
     expect(Utils.checkIsUndefinedOrNull("fb")).toBe(false);
   });
   test("generateUrlforPlatesmania", () => {
-    expect(Utils.generateUrlforPlatesmania('http://localhost:8080','key','ВН01791С')).toBe('http://localhost:8080?key=key&gal=2&nomer=ВН01791С');
+    expect(Utils.generateUrlforPlatesmania("http://localhost:8080", "key", "ВН01791С")).toBe("http://localhost:8080?key=key&gal=2&nomer=ВН01791С");
   });
   test("isUserAuthenticated", () => {
     expect(Utils.isUserAuthenticated(1)).toBe(true);
     expect(Utils.isUserAuthenticated(0)).toBe(false);
   });
   test("checkFileType", () => {
-    expect(Utils.checkFileType('image/png')).toBe(true);
-    expect(Utils.checkFileType('text/plain')).toBe(false);
+    expect(Utils.checkFileType("image/png")).toBe(true);
+    expect(Utils.checkFileType("text/plain")).toBe(false);
   });
   test("checkImageSize", () => {
     expect(Utils.checkImageSize(4102)).toBe(true);
     expect(Utils.checkImageSize(5000001)).toBe(false);
   });
   test("isItemAlreadyAdded", () => {
-    const items: Item[] = [{
-      "PartitionKey": "",
-      "RowKey": "",
-      "body": "",
-      "brand": "",
-      "capacity": "",
-      "color": "",
-      "d_reg": "",
-      "dep": "",
-      "dep_code": "",
-      "fuel": "",
-      "kind": "",
-      "make_year": "",
-      "model": "",
-      "n_reg_new": "AB1212AD",
-      "oper_code": "",
-      "oper_name": "",
-      "own_weight": "",
-      "person": "",
-      "purpose": "",
-      "reg_addr_koatuu": "",
-      "total_weight": "",
-      "region": "",
+    const itemsTest: IItem[] = [{
+      PartitionKey: "",
+      RowKey: "",
+      body: "",
+      brand: "",
+      capacity: "",
+      color: "",
+      d_reg: "",
+      dep: "",
+      dep_code: "",
+      fuel: "",
+      kind: "",
+      make_year: "",
+      model: "",
+      n_reg_new: "AB1212AD",
+      oper_code: "",
+      oper_name: "",
+      own_weight: "",
+      person: "",
+      purpose: "",
+      reg_addr_koatuu: "",
+      total_weight: "",
+      region: "",
     }];
     expect(Utils.isItemAlreadyAdded([], "AB1212AD")).toBe(false);
-    expect(Utils.isItemAlreadyAdded(items, "AB1212AD")).toBe(true);
+    expect(Utils.isItemAlreadyAdded(itemsTest, "AB1212AD")).toBe(true);
   });
   test("generateRowKeyAndPartitionKey", () => {
-    expect(Utils.generateRowKeyAndPartitionKey("aaa@bbb")).toStrictEqual({ 
-      "PartitionKey": "aaa@bbb",
-      "RowKey": "bbb"
+    expect(Utils.generateRowKeyAndPartitionKey("aaa@bbb")).toStrictEqual({
+      PartitionKey: "aaa@bbb",
+      RowKey: "bbb",
     });
-    expect(Utils.generateRowKeyAndPartitionKey(null)).toStrictEqual({ 
-      "PartitionKey": "",
-      "RowKey": ""
+    expect(Utils.generateRowKeyAndPartitionKey(null)).toStrictEqual({
+      PartitionKey: "",
+      RowKey: "",
     });
-    expect(Utils.generateRowKeyAndPartitionKey(undefined)).toStrictEqual({ 
-      "PartitionKey": "",
-      "RowKey": ""
+    expect(Utils.generateRowKeyAndPartitionKey(undefined)).toStrictEqual({
+      PartitionKey: "",
+      RowKey: "",
     });
   });
   test("generateBodyForUpdateUser", () => {
     const body = {
-      "Favorites": JSON.stringify(items)
-    }
-    expect(Utils.generateBodyForUpdateUser(items)).toBe(JSON.stringify(body));
-    
+      Favorites: JSON.stringify(itemsTestData),
+    };
+    expect(Utils.generateBodyForUpdateUser(itemsTestData)).toBe(JSON.stringify(body));
   });
   test("isLimitExceeded", () => {
-    expect(Utils.isLimitExceeded(20,50)).toBe(false);
-    expect(Utils.isLimitExceeded(50,50)).toBe(true);
+    expect(Utils.isLimitExceeded(20, 50)).toBe(false);
+    expect(Utils.isLimitExceeded(50, 50)).toBe(true);
   });
   test("removeDuplicateObjectsFromArray", () => {
-    expect(Utils.removeDuplicateObjectsFromArray([...items, ... items, ...items])).toStrictEqual(items);
+    expect(Utils.removeDuplicateObjectsFromArray([...itemsTestData, ... itemsTestData, ...itemsTestData])).toStrictEqual(itemsTestData);
   });
   test("removeObjectFromArray", () => {
-    expect(Utils.removeObjectFromArray(items, items[0])).toStrictEqual([]);
+    expect(Utils.removeObjectFromArray(itemsTestData, itemsTestData[0])).toStrictEqual([]);
   });
   test("isCameraPhotoEmpty", () => {
     const image = "data:image/webp;base64,UklGRmx4AQBXRUJQVlA4IGB4AQCQKgudASqAB6AFPikUiEMhoSMSKrTAMAKEtLduCVhk6n0FZH/MtMN6BC4ce8JkrIpbV/zeuv6Z/";
@@ -187,9 +186,9 @@ describe("Utils window methods", () => {
   test("generateBodyForPlatesManiaProxy", () => {
     const item = "aa1212aa";
     const body = {
-      "plate": JSON.stringify(item)
-    }
-    expect(Utils.generateBodyForPlatesManiaProxy(item)).toBe(JSON.stringify(body));    
+      plate: JSON.stringify(item),
+    };
+    expect(Utils.generateBodyForPlatesManiaProxy(item)).toBe(JSON.stringify(body));
   });
   test("replaceSiteName", () => {
     const url = "https://avto-nomer.ru/ua/nomer13751739";

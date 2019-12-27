@@ -1,36 +1,35 @@
-import React, { SyntheticEvent, Fragment, useState, useRef, useEffect } from 'react';
+import React, { SyntheticEvent, Fragment, useState, useRef, useEffect } from "react";
 import Utils from "../../utils/Utils";
-import UtilsAsync from "../../utils/UtilsAsync";
 import lang from "../../locale";
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { itemFetchDataForPlate, itemFetchDataForVin, setItemRequest, imageFetchData } from "../../redux/actions";
 import { AppState } from "../../redux";
-import { ApplicationStates, ISearchFieldState, IEnvConfig } from "../../models/Interfaces";
+import { IApplicationStates, ISearchFieldState, IEnvConfig } from "../../models/Interfaces";
 import { URLs } from "../../data/Data";
 import { SnackbarContentWrapper } from "../snackbar/SnackbarContentWrapper";
 import { DialogVideoWindow } from "../video/DialogVideoWindow";
-import Paper from '@material-ui/core/Paper';
-import Divider from '@material-ui/core/Divider';
-import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import SearchIcon from '@material-ui/icons/Search';
-import ClearIcon from '@material-ui/icons/Clear';
-import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
-import Snackbar from '@material-ui/core/Snackbar';
-
+import Paper from "@material-ui/core/Paper";
+import Divider from "@material-ui/core/Divider";
+import InputBase from "@material-ui/core/InputBase";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import SearchIcon from "@material-ui/icons/Search";
+import ClearIcon from "@material-ui/icons/Clear";
+import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
+import Snackbar from "@material-ui/core/Snackbar";
+/* tslint:disable no-var-requires */
 const config: IEnvConfig = require("../../../../env.json");
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
-      padding: '0px 0px',
-      display: 'flex',
-      alignItems: 'center',
+      padding: "0px 0px",
+      display: "flex",
+      alignItems: "center",
       maxWidth: 500,
-      marginBottom: '20px'
+      marginBottom: "20px",
     },
     input: {
       marginLeft: theme.spacing(1),
@@ -48,13 +47,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       flex: 1,
     },
     upload: {
-      display: 'none',
+      display: "none",
     },
     margin: {
       margin: theme.spacing(1),
     },
     appBar: {
-      position: 'relative',
+      position: "relative",
     },
     title: {
       marginLeft: theme.spacing(2),
@@ -63,13 +62,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 const isEmpty = (value: string): boolean => {
-  if(
+  if (
     Utils.trimData(value) === "" ||
     Utils.trimData(value) === undefined
-    ){
+    ) {
     return true;
-  }
-  else{
+  } else {
     return false;
   }
 };
@@ -77,11 +75,11 @@ const isVin = (value: string): boolean => {
   return (Utils.trimData(value).length === 17);
 };
 const shapeDataPlate = (value: string): string => {
-  return Utils.combineConvertedSymbols(      
+  return Utils.combineConvertedSymbols(
       Utils.trimData(value).toLocaleUpperCase(),
-      Utils.latinRange, 
-      Utils.latinToCyrillicMatrix, 
-      Utils.reducer
+      Utils.latinRange,
+      Utils.latinToCyrillicMatrix,
+      Utils.reducer,
     );
 };
 const shapeUrlPlate = (value: string, url: string): string => {
@@ -101,7 +99,7 @@ export const SearchField = () => {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState("");
   const [openDialog, setOpenDialog] = React.useState(false);
-  const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
+  const state: IApplicationStates = useSelector((stateInternal: AppState) => stateInternal.Item, shallowEqual);
   const dispatch = useDispatch();
   const searchInput: React.RefObject<any> = useRef(null);
 
@@ -110,25 +108,23 @@ export const SearchField = () => {
   });
   useEffect(() => {
     searchInput.current.focus();
-  },[]);
+  }, []);
   useEffect(() => {
     const hashValue = decodeURIComponent(window.location.hash.split("#/")[1].trim());
-    if(hashValue !== ""){
-      if(isVin(hashValue)){
+    if (hashValue !== "") {
+      if (isVin(hashValue)) {
         const value = shapeDataVin(hashValue);
         const url = shapeUrlVin(value, serviceUrlVIN);
         dispatch(itemFetchDataForVin(value, url));
-      }
-      else{
+      } else {
         const value = shapeDataPlate(hashValue);
         const url = shapeUrlPlate(value, serviceUrl);
         dispatch(itemFetchDataForPlate(value, url));
       }
-    };
-  },[]);
+    }
+  }, []);
   const history = useHistory();
   const classes = useStyles({});
- 
   const serviceUrl = /*process.env.AZURE_TABLE_SERVICE_URL ||*/ config.AZURE_TABLE_SERVICE_URL || "";
   const serviceUrlVIN = /*process.env.VIN_SERVICE_URL ||*/ URLs.getDataByVinUrl || "";
   const serviceRecognizeImageUrl = /*process.env.AZURE_FUNC_PLATE_RECOGNIZER_URL ||*/ config.AZURE_FUNC_PLATE_RECOGNIZER_URL || "";
@@ -137,10 +133,9 @@ export const SearchField = () => {
   const attachImageID = "attachImage";
 
   const takeAPhoto = async () => {
-    if('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices){
+    if ("mediaDevices" in navigator && "getUserMedia" in navigator.mediaDevices) {
       handleClickOpenDialog();
-    }
-    else{
+    } else {
       setOpenSnackbar(true);
       handleSnackbarMessage(lang(state.lang).messageTurnOnCamera || "");
     }
@@ -156,15 +151,14 @@ export const SearchField = () => {
   };
   const handleSearchClick = () => {
     let value = "";
-    if(isEmpty(inputValue.value)){
+    if (isEmpty(inputValue.value)) {
       return;
     }
-    if(isVin(inputValue.value)){
+    if (isVin(inputValue.value)) {
       value = shapeDataVin(inputValue.value);
       const url = shapeUrlVin(value, serviceUrlVIN);
       dispatch(itemFetchDataForVin(value, url));
-    }
-    else{
+    } else {
       value = shapeDataPlate(inputValue.value);
       const url = shapeUrlPlate(value, serviceUrl);
       dispatch(itemFetchDataForPlate(value, url));
@@ -181,7 +175,7 @@ export const SearchField = () => {
     searchInput.current.focus();
   };
   const handlerKeyPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.charCode == 13) {
+    if (e.charCode === 13) {
       handleSearchClick();
     }
   };
@@ -194,39 +188,39 @@ export const SearchField = () => {
   const handleCameraClick = (option: string) => {
     setAnchorEl(null);
 
-    if(options[0] === option){
+    if (options[0] === option) {
       takeAPhoto();
     }
-    else if(options[1] === option){
+    if (options[1] === option) {
       const attachImageIDElement = document.getElementById(attachImageID);
-      attachImageIDElement 
-        ? attachImageIDElement.click() 
-        : null;
+      if (attachImageIDElement !== null ) {
+        attachImageIDElement.click();
+      }
     }
     handleClearClick();
   };
   const handleFiles = (value: FileList | null): void => {
-    if(value === null){
+    if (value === null) {
       return;
     }
-    if(value.length === 0){
+    if (value.length === 0) {
       return;
     }
-    let file = value[0];
-    if(!Utils.checkFileType(file.type)){
+    const file = value[0];
+    if (!Utils.checkFileType(file.type)) {
       setOpenSnackbar(true);
       handleSnackbarMessage(lang(state.lang).messageChooseImage || "");
       return;
     }
-    if(!Utils.checkImageSize(file.size)){
+    if (!Utils.checkImageSize(file.size)) {
       setOpenSnackbar(true);
       handleSnackbarMessage(lang(state.lang).messageImageLimit || "");
       return;
     }
-    dispatch(imageFetchData(file, serviceRecognizeImageUrl));  
+    dispatch(imageFetchData(file, serviceRecognizeImageUrl));
   };
   const handleCloseSnackBar = (event?: SyntheticEvent, reason?: string) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setOpenSnackbar(false);
@@ -241,30 +235,30 @@ export const SearchField = () => {
         <InputBase
           className={classes.input}
           placeholder={lang(state.lang).searchInputPlaceholderText}
-          inputProps={{ 'aria-label': lang(state.lang).searchInputPlaceholderText }}
-          onChange={handleChange('value')}
+          inputProps={{ "aria-label": lang(state.lang).searchInputPlaceholderText }}
+          onChange={handleChange("value")}
           value={inputValue.value}
           onKeyPress={handlerKeyPress}
           inputRef={searchInput}
         />
-        <IconButton 
-          className={classes.iconButton} 
-          aria-label="search"  
-          onClick={handleSearchClick}      
+        <IconButton
+          className={classes.iconButton}
+          aria-label="search"
+          onClick={handleSearchClick}
         >
           <SearchIcon />
         </IconButton>
-        <IconButton 
-          className={classes.iconButton} 
+        <IconButton
+          className={classes.iconButton}
           aria-label="clear"
           onClick={handleClearClick}
         >
           <ClearIcon />
         </IconButton>
         <Divider className={classes.divider} orientation="vertical" />
-        <IconButton 
-          color="primary" 
-          className={classes.iconButton} 
+        <IconButton
+          color="primary"
+          className={classes.iconButton}
           aria-label="camera"
           aria-haspopup="true"
           onClick={handleClick}
@@ -274,7 +268,7 @@ export const SearchField = () => {
         <Menu
           id="menu"
           anchorEl={anchorEl}
-          keepMounted
+          keepMounted={true}
           open={open}
           onClose={handleClose}
           PaperProps={{
@@ -285,7 +279,7 @@ export const SearchField = () => {
           }}
         >
           {options.map((option: string) => (
-            <MenuItem key={option} onClick={() => {handleCameraClick(option)}}>
+            <MenuItem key={option} onClick={() => {handleCameraClick(option); }}>
               {option}
             </MenuItem>
           ))}
@@ -300,8 +294,8 @@ export const SearchField = () => {
       </Paper>
       <Snackbar
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
         open={openSnackbar}
         autoHideDuration={6000}
@@ -320,4 +314,4 @@ export const SearchField = () => {
       />
     </Fragment>
   );
-}
+};

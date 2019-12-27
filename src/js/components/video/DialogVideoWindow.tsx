@@ -1,19 +1,19 @@
-import React, { Fragment} from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import React, { Fragment} from "react";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { IDialogVideoWindowProps } from "../../models/Interfaces";
-import Dialog from '@material-ui/core/Dialog';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import CloseIcon from '@material-ui/icons/Close';
-import Slide from '@material-ui/core/Slide';
-import { TransitionProps } from '@material-ui/core/transitions';
-import { Camera } from './Camera';
+import Dialog from "@material-ui/core/Dialog";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import Slide from "@material-ui/core/Slide";
+import { TransitionProps } from "@material-ui/core/transitions";
+import { Camera } from "./Camera";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     appBar: {
-      position: 'relative',
+      position: "relative",
     },
     title: {
       marginLeft: theme.spacing(2),
@@ -21,11 +21,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     button: {
         margin: theme.spacing(1),
-        width: '50px'
+        width: "50px",
     },
 }));
 
-const Transition = React.forwardRef<unknown, TransitionProps>(function Transition(props, ref) {
+const TransitionFunctionComponent = React.forwardRef<unknown, TransitionProps>(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
@@ -34,7 +34,7 @@ export const DialogVideoWindow = (props: IDialogVideoWindowProps) => {
     const classes = useStyles({});
     return (
         <Fragment>
-            <Dialog fullScreen open={openDialog} onClose={handleClickCloseDialog} TransitionComponent={Transition}>
+            <Dialog fullScreen={true} open={openDialog} onClose={handleClickCloseDialog} TransitionComponent={TransitionFunctionComponent}>
                 <AppBar className={classes.appBar}>
                 <Toolbar>
                     <IconButton edge="start" color="inherit" onClick={handleClickCloseDialog} aria-label="close">
@@ -45,10 +45,10 @@ export const DialogVideoWindow = (props: IDialogVideoWindowProps) => {
                     </Typography>
                 </Toolbar>
                 </AppBar>
-                <Camera 
-                    close={handleClickCloseDialog}                   
+                <Camera
+                    close={handleClickCloseDialog}
                 />
             </Dialog>
         </Fragment>
   );
-}
+};

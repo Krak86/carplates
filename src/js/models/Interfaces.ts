@@ -1,11 +1,11 @@
-export interface ApplicationStates {
+export interface IApplicationStates {
   itemRequest: string;
   imageRequest: any;
-  itemResponse: Item;
+  itemResponse: IItem;
   itemsList: INotification[];
   imagesPlatesMania?: IPlatesmaniaCars[];
   imagesRia?: IRiaAds[];
-  navigation: Navigation;
+  navigation: INavigation;
   loggedIn: ILoggedIn;
   drawerToogled: boolean;
   itemIsLoading: boolean;
@@ -14,39 +14,39 @@ export interface ApplicationStates {
   responseIsEmpty: boolean;
   itemSearching: itemSearching;
   vinRequest: string;
-  vinResponse: VIN;
+  vinResponse: IVIN;
   vinsList: [];
   imageRiaLoaded: boolean;
   imageCarsmaniaLoaded: boolean;
   lang: Lang;
-  favorites: Item[];
+  favorites: IItem[];
   badges: number;
   itemsMerging: boolean;
 }
-export interface INotification{
-  item: Item;
+export interface INotification {
+  item: IItem;
   timestamp: string;
 }
-export enum Lang{
+export enum Lang {
   ua = 0,
   ru = 1,
   en = 2,
 }
-export enum itemSearching{
+export enum itemSearching {
   plate = 0,
   vin = 1,
   insurance = 2,
   imageAttach = 3,
   imageTake = 4,
 }
-export enum Auth{
+export enum Auth {
   none = 0,
   facebook = 1,
   google = 2,
   twitter = 3,
   github = 4,
   email = 5,
-  phone = 6
+  phone = 6,
 }
 export interface ILoggedIn {
   vendor: Auth;
@@ -54,7 +54,7 @@ export interface ILoggedIn {
   mail: string;
   avatar: string;
 }
-export interface Item {
+export interface IItem {
   "PartitionKey": string;
   "RowKey": string;
   "body": string;
@@ -73,22 +73,22 @@ export interface Item {
   "oper_name": string;
   "own_weight": string;
   "person": string;
-  "purpose":string;
+  "purpose": string;
   "reg_addr_koatuu": string;
   "total_weight": string;
   "region"?: string;
 }
-export interface Navigation {
+export interface INavigation {
   url: string;
 }
-export interface ServiceRespond{
+export interface IServiceRespond {
   "odata.metadata": string;
-  "value": Item[];
+  "value": IItem[];
 }
-export interface Window {
-  location: Location;
+export interface IWindow {
+  location: ILocation;
 }
-export interface Location {
+export interface ILocation {
   protocol?: string;
   hash?: string;
   host?: string;
@@ -98,7 +98,7 @@ export interface Location {
   pathname?: string;
   port?: string;
 }
-export interface Locale{
+export interface ILocale {
     searchInputPlaceholderText: string;
     dashBoradTitle: string;
     copyright: string;
@@ -186,60 +186,60 @@ export interface Locale{
     about_9_mit_3: string;
     policy_url: string;
 }
-export interface IVinResultValues{
+export interface IVinResultValues {
   "Value": any;
   "ValueId": any;
   "Variable": any;
   "VariableId": number;
 }
-export interface VIN{
+export interface IVIN {
   "Count"?: number;
   "Message"?: string;
   "SearchCriteria"?: string;
   "Results"?: IVinResultValues[];
 }
-export interface imageRecognizeResponse{
+export interface IImageRecognizeResponse {
   "processing_time": any;
   "timestamp": any;
-  "results": imageRecognizeResponseResult[],
+  "results": IImageRecognizeResponseResult[];
   "filename": string;
   "version": any;
   "camera_id": any;
 }
-export interface imageRecognizeResponseResult{
+export interface IImageRecognizeResponseResult {
   "box": {
     "xmin": number;
     "ymin": number;
     "ymax": number;
     "xmax": number;
-  },
+  };
   "plate": string;
   "score": any;
   "dscore": any;
 }
-export interface IFacebook{
-  accessToken?: string,
-  data_access_expiration_time?: string,
-  email?: string,
-  expiresIn?: string,
-  id?: string,
-  name?: string,
+export interface IFacebook {
+  accessToken?: string;
+  data_access_expiration_time?: string;
+  email?: string;
+  expiresIn?: string;
+  id?: string;
+  name?: string;
   picture: {
       data: {
         height?: number,
         is_silhouette?: boolean,
         url?: string,
-        width?: number
-    }
-  },
-  signedRequest?: string, 
-  userID?: string,
+        width?: number,
+    },
+  };
+  signedRequest?: string;
+  userID?: string;
 }
-export interface IGoogle{
-  El?: any,
-  Zi?: any,
-  accessToken?: any,
-  googleId?: any,
+export interface IGoogle {
+  El?: any;
+  Zi?: any;
+  accessToken?: any;
+  googleId?: any;
   profileObj?: {
     email?: string,
     familyName?: string,
@@ -247,31 +247,31 @@ export interface IGoogle{
     googleId?: string,
     imageUrl?: string,
     name?: string,
-  }
-  tokenId?: any
-  tokenObj?: any,
-  w3?: any,
+  };
+  tokenId?: any;
+  tokenObj?: any;
+  w3?: any;
 }
-export interface IRiaCategories { 
-  name: string, 
-  value: number 
+export interface IRiaCategories {
+  name: string;
+  value: number;
 }
-export interface IRiaSearchData{
-  "id": string,
-  "type": string
+export interface IRiaSearchData {
+  "id": string;
+  "type": string;
 }
-export interface IRiaSearch{
+export interface IRiaSearch {
   "additional_params": any;
   "result": {
       "search_result": {
           "ids": string[],
           "count": number,
-          "last_id": number
+          "last_id": number,
       },
       "search_result_common": {
           "count": number,
           "last_id": number,
-          "data": IRiaSearchData[]
+          "data": IRiaSearchData[],
       },
       "isCommonSearch": boolean,
       "active_state": any,
@@ -390,7 +390,7 @@ export interface IRiaSearch{
                   "bodystyle": [],
                   "sellerType": any,
                   "purpose": any,
-                  "class": any
+                  "class": any,
               },
               "cleaned": {
                   "category_id": string,
@@ -428,44 +428,44 @@ export interface IRiaSearch{
                   "body_id": [],
                   "bodyStyleId": [],
                   "matched_country": number,
-                  "bodystyle": []
-              }
+                  "bodystyle": [],
+              },
           },
-          "query_string": string
-      }
-  }
+          "query_string": string,
+      },
+  };
 }
-export interface IRiaAds{
-  "userId": number,
-  "userBlocked": [],
-  "chipsCount": number,
-  "locationCityName": string,
-  "cityLocative": string,
-  "auctionPossible": boolean,
-  "exchangePossible": boolean,
-  "realtyExchange": boolean,
-  "exchangeType": string,
-  "exchangeTypeId": 0,
-  "addDate": string,
-  "updateDate": string,
-  "expireDate": string,
-  "soldDate": string,
-  "userHideADSStatus": boolean,
+export interface IRiaAds {
+  "userId": number;
+  "userBlocked": [];
+  "chipsCount": number;
+  "locationCityName": string;
+  "cityLocative": string;
+  "auctionPossible": boolean;
+  "exchangePossible": boolean;
+  "realtyExchange": boolean;
+  "exchangeType": string;
+  "exchangeTypeId": 0;
+  "addDate": string;
+  "updateDate": string;
+  "expireDate": string;
+  "soldDate": string;
+  "userHideADSStatus": boolean;
   "userPhoneData": {
       "phoneId": string,
-      "phone": string
-  },
-  "USD": number,
-  "UAH": number,
-  "EUR": number,
-  "isAutoAddedByPartner": boolean,
-  "partnerId": number,
+      "phone": string,
+  };
+  "USD": number;
+  "UAH": number;
+  "EUR": number;
+  "isAutoAddedByPartner": boolean;
+  "partnerId": number;
   "levelData": {
       "level": number,
       "label": number,
       "hotType": string,
-      "expireDate": string
-  },
+      "expireDate": string,
+  };
   "autoData": {
       "active": boolean,
       "description": string,
@@ -487,23 +487,23 @@ export interface IRiaAds{
       "categoryId": number,
       "categoryNameEng": string,
       "subCategoryNameEng": string,
-      "custom": number
-  },
-  "markName": string,
-  "markNameEng": string,
-  "markId": number,
-  "modelName": string,
-  "modelNameEng": string,
-  "modelId": number,
+      "custom": number,
+  };
+  "markName": string;
+  "markNameEng": string;
+  "markId": number;
+  "modelName": string;
+  "modelNameEng": string;
+  "modelId": number;
   "photoData": {
       "count": number,
       "seoLinkM": string,
       "seoLinkSX": string,
       "seoLinkB": string,
-      "seoLinkF": string
-  },
-  "linkToView": string,
-  "title": string,
+      "seoLinkF": string,
+  };
+  "linkToView": string;
+  "title": string;
   "stateData": {
       "name": string,
       "regionName": string,
@@ -511,22 +511,22 @@ export interface IRiaAds{
       "linkToCatalog": string,
       "title": string,
       "stateId": number,
-      "cityId": number
-  },
+      "cityId": number,
+  };
   "oldTop": {
       "isActive": boolean,
-      "expireDate": ""
-  },
-  "canSetSpecificPhoneToAdvert": boolean,
-  "dontComment": number,
-  "sendComments": number,
-  "badges": [],
-  "VIN": string,
-  "haveInfotechReport": boolean,
-  "hasWebP": number,
-  "moderatedAbroad": boolean,
-  "secureKey": string,
-  "isLeasing": number,
+      "expireDate": "",
+  };
+  "canSetSpecificPhoneToAdvert": boolean;
+  "dontComment": number;
+  "sendComments": number;
+  "badges": [];
+  "VIN": string;
+  "haveInfotechReport": boolean;
+  "hasWebP": number;
+  "moderatedAbroad": boolean;
+  "secureKey": string;
+  "isLeasing": number;
   "dealer": {
       "link": string,
       "logo": string,
@@ -534,15 +534,15 @@ export interface IRiaAds{
       "id": number,
       "name": string,
       "packageId": number,
-      "typeId": number
-  },
-  "withInfoBar": boolean,
-  "infoBarText": string,
-  "optionStyles": [],
-  status?: number,
-  message?: string,
+      "typeId": number,
+  };
+  "withInfoBar": boolean;
+  "infoBarText": string;
+  "optionStyles": [];
+  status?: number;
+  message?: string;
 }
-export interface IPlatesmaniaCars{
+export interface IPlatesmaniaCars {
   "make": string;
   "model": string;
   "date": string;
@@ -550,10 +550,10 @@ export interface IPlatesmaniaCars{
       "link": string,
       "small": string,
       "medium": string,
-      "original": string
-  }
+      "original": string,
+  };
 }
-export interface IPlatesmania{
+export interface IPlatesmania {
   "error": number;
   "region": any;
   "informer": string;
@@ -565,64 +565,62 @@ export interface ISearchFieldState {
 export interface IDevicesState {
   value: MediaDeviceInfo[];
 }
-export interface IDialogVideoWindowProps{
+export interface IDialogVideoWindowProps {
   title: string;
   openDialog: boolean;
   handleClickCloseDialog: any;
-  //videoDevices: MediaDeviceInfo[];
 }
-export interface IWebcamCaptureProps{
+export interface IWebcamCaptureProps {
   close: any;
-  //videoDevices: MediaDeviceInfo[];
 }
-export interface ListItemLinkProps {
+export interface IListItemLinkProps {
   icon?: React.ReactElement;
   primary: string;
   to: string;
-  callbackFunc?: Function;
+  callbackFunc?: () => void;
   nestedElement?: React.ReactElement;
 }
-export interface IShareDialog{
-  open: boolean;    
+export interface IShareDialog {
+  open: boolean;
   onClose: () => void;
-  url: string
+  url: string;
 }
-export interface ISaveState{
-  favorites: Item[];
+export interface ISaveState {
+  favorites: IItem[];
   lang: Lang;
   itemsList: INotification[];
   loggedIn: ILoggedIn;
 }
-export interface IUserKeys{
+export interface IUserKeys {
   "PartitionKey": string;
   "RowKey": string;
 }
-export interface IUser extends IUserKeys{
+export interface IUser extends IUserKeys {
   "odata.etag"?: string;
   "Timestamp"?: string;
   "Favorites": string;
 }
-export interface IUserItem{
+export interface IUserItem {
   "odata.metadata": string;
-  "value": IUser[]
+  "value": IUser[];
 }
-export interface IUpdateUserBody{
+export interface IUpdateUserBody {
   "Favorites": string;
 }
 
-export interface IMediaDeviceConstraints{
+export interface IMediaDeviceConstraints {
   video?: {
     deviceId: {
-      exact: string
-    }
-  }
+      exact: string,
+    },
+  };
   audio?: {
     deviceId: {
-      exact: string
-    }
-  }
+      exact: string,
+    },
+  };
 }
-export interface IEnvConfig{
+export interface IEnvConfig {
   PUBLIC_PATH?: string;
   DEVSERVER_PUBLIC?: string;
   DEVSERVER_HOST?: string;
@@ -646,6 +644,6 @@ export interface IEnvConfig{
   FACEBOOK_CLIENT_ID_DEV?: string;
   GOOGLE_CLIENT_ID_DEV?: string;
 }
-export interface IRegions{
+export interface IRegions {
   [key: string]: string;
 }

@@ -1,12 +1,12 @@
-import React, {Fragment} from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import React, {Fragment} from "react";
+import { useSelector, shallowEqual } from "react-redux";
 import { AppState } from "../../redux";
-import { ApplicationStates} from "../../models/Interfaces";
-import Typography from '@material-ui/core/Typography';
+import { IApplicationStates} from "../../models/Interfaces";
+import Typography from "@material-ui/core/Typography";
 import lang from "../../locale";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
     blocks: {
       padding: 0,
       marginBottom: 10,
@@ -14,16 +14,13 @@ const useStyles = makeStyles(theme => ({
   }));
 
 export const StorePage = () => {
-    const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
+    const state: IApplicationStates = useSelector((stateInternal: AppState) => stateInternal.Item, shallowEqual);
     const classes = useStyles({});
     return (
         <Fragment>
             <Typography variant="h6" color="textSecondary" align="center">
                 {lang(state.lang).url_store}
             </Typography>
-            <Typography variant="body1" color="textSecondary" align="justify" className={classes.blocks}>
-                
-            </Typography>
         </Fragment>
-    )
-}
+    );
+};

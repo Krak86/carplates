@@ -8,6 +8,7 @@ const ImageminWebpWebpackPlugin = require('imagemin-webp-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const webpack = require("webpack");
 const Dotenv = require('dotenv-webpack');
+const TSLintPlugin = require('tslint-webpack-plugin');
 
 const dist = "docs";
 const pathToDist = __dirname + "/" + dist;
@@ -109,6 +110,7 @@ module.exports = {
   },
   plugins: [
     new Dotenv(),
+    new TSLintPlugin({files: ['./src/**/*.ts', './src/**/*.tsx']}),
     new CleanWebpackPlugin([dist]),
     new ImageminWebpWebpackPlugin(),
     new HtmlWebpackPlugin({

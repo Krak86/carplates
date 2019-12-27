@@ -1,131 +1,131 @@
 import * as actions from "./types";
 import { initialData } from "../data/Data";
-import { ApplicationStates } from "../models/Interfaces";
+import { IApplicationStates } from "../models/Interfaces";
 
 export const getReducer = (
-    state = initialData, 
-    action: any
-  ): ApplicationStates => {
+    state = initialData,
+    action: any,
+  ): IApplicationStates => {
     switch (action.type) {
       case actions.ITEMS_MERGING:
         return {
           ...state,
-          itemsMerging: action.payload
+          itemsMerging: action.payload,
         };
       case actions.MERGE_LOCAL_AND_CLOUD_FAVORITES:
         return {
           ...state,
-          favorites: action.payload
+          favorites: action.payload,
         };
       case actions.ADD_BADGE:
         return {
           ...state,
-          badges: state.badges + 1
+          badges: state.badges + 1,
         };
       case actions.RESET_BADGE:
         return {
           ...state,
-          badges: 0
+          badges: 0,
         };
       case actions.REMOVE_FROM_FAVORITES:
         return {
           ...state,
-          favorites: state.favorites.filter(item => item !== action.payload)
+          favorites: state.favorites.filter((item) => item !== action.payload),
         };
       case actions.ADD_TO_FAVORITES:
         return {
           ...state,
-          favorites: [action.payload, ...state.favorites]
+          favorites: [action.payload, ...state.favorites],
         };
       case actions.CHANGE_LANG:
         return {
           ...state,
-          lang: action.payload
+          lang: action.payload,
         };
       case actions.IMG_CARSMANIA_LOADED:
         return {
           ...state,
-          imageCarsmaniaLoaded: action.payload
+          imageCarsmaniaLoaded: action.payload,
         };
       case actions.IMG_RIA_LOADED:
         return {
           ...state,
-          imageRiaLoaded: action.payload
+          imageRiaLoaded: action.payload,
         };
       case actions.ADD_CARSMANIA_CARS:
         return {
           ...state,
-          imagesPlatesMania: action.payload
+          imagesPlatesMania: action.payload,
         };
       case actions.ADD_RIA_ADS:
         return {
           ...state,
-          imagesRia: action.payload
+          imagesRia: action.payload,
         };
       case actions.LOGIN:
         return {
           ...state,
-          loggedIn: action.payload
+          loggedIn: action.payload,
         };
       case actions.ITEM_FETCH_DATA_VIN_SUCCESS:
         return {
           ...state,
-          vinResponse: action.payload
+          vinResponse: action.payload,
         };
       case actions.SET_VIN_REQUEST:
         return {
           ...state,
-          vinRequest: action.payload
+          vinRequest: action.payload,
         };
       case actions.SET_SEARCHING_ITEM_TYPE:
         return {
           ...state,
-          itemSearching: action.payload
+          itemSearching: action.payload,
         };
       case actions.RESPONSE_IS_EMPTY:
         return {
           ...state,
-          responseIsEmpty: action.payload
+          responseIsEmpty: action.payload,
         };
       case actions.SET_ITEM_REQUEST:
         return {
           ...state,
-          itemRequest: action.payload
+          itemRequest: action.payload,
         };
       case actions.ITEM_FETCH_DATA_SUCCESS:
         return {
           ...state,
-          itemResponse: action.payload
+          itemResponse: action.payload,
         };
       case actions.GET_ITEMS:
         return {
-          ...state
+          ...state,
         };
       case actions.ADD_TO_ITEMS_LIST:
         return {
           ...state,
-          itemsList: [action.payload, ...state.itemsList]
+          itemsList: [action.payload, ...state.itemsList],
         };
       case actions.ITEM_IS_LOADING:
         return {
           ...state,
-          itemIsLoading: action.payload
-        };        
+          itemIsLoading: action.payload,
+        };
       case actions.ITEM_IS_LOADED:
         return {
           ...state,
-          itemIsLoaded: action.payload
+          itemIsLoaded: action.payload,
         };
       case actions.ITEM_HAS_ERRORED:
         return {
           ...state,
-          itemHasErrored: action.payload
+          itemHasErrored: action.payload,
         };
       case actions.TOGGLE_DRAWER:
         return {
           ...state,
-          drawerToogled: action.payload
-        }
+          drawerToogled: action.payload,
+        };
       default:
         return state;
     }

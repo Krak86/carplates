@@ -1,75 +1,76 @@
 import { IRiaCategories } from "../models/Interfaces";
-
+/* tslint:disable trailing-comma */
+/* tslint:disable object-literal-key-quotes */
 export const cars: IRiaCategories[] = [
     {
         "name": "Armstrong Siddeley",
         "value": 5276,
     },
-	    {
+    {
         "name": "Alfa Romeo",
         "value": 3
     },
-	    {
+    {
         "name": "Aston Martin",
         "value": 5
     },
-	    {
+    {
         "name": "Austin Healey",
         "value": 4355
     },
-	    {
+    {
         "name": "BMW Alpina",
         "value": 99
     },
-	    {
+    {
         "name": "Fiat Abarth",
         "value": 4459
     },
-	    {
+    {
         "name": "Bio Auto",
         "value": 3127
     },
-	    {
+    {
         "name": "Detroit Electric",
         "value": 4883
     },
-	    {
+    {
         "name": "De Lorean",
         "value": 3071
     },
-	    {
+    {
         "name": "Dr Motor",
         "value": 5051
     },
-	    {
+    {
         "name": "Iran Khodro",
         "value": 3821
     },
-	    {
+    {
         "name": "Great Wall",
         "value": 124
     },
-	    {
+    {
         "name": "Jinbei Minibusus",
         "value": 4549
     },
-	    {
+    {
         "name": "King Long",
         "value": 2676
     },
-	    {
+    {
         "name": "Land Rover",
         "value": 37
     },
-	    {
+    {
         "name": "Praga Baby",
         "value": 2728
     },
-	    {
+    {
         "name": "Ssang Yong",
         "value": 73
     },
-	    {
+    {
         "name": "Think Global",
         "value": 4237
     },
@@ -77,10 +78,10 @@ export const cars: IRiaCategories[] = [
         "name": "Thunder Tiger",
         "value": 4033
     },
-	    {
+    {
         "name": "Van Hool",
         "value": 206
-    },	
+    },
     {
         "name": "Abarth",
         "value": 5166
@@ -157,7 +158,7 @@ export const cars: IRiaCategories[] = [
         "name": "Barkas",
         "value": 103
     },
-	   {
+    {
         "name": "Баркас",
         "value": 103
     },
@@ -1065,7 +1066,7 @@ export const cars: IRiaCategories[] = [
         "name": "Москвич",
         "value": 94
     },
-	    {
+    {
         "name": "АЗЛК",
         "value": 94
     },

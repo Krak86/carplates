@@ -14,7 +14,7 @@ export function useAddToHomescreenPrompt(): [
   () => void
 ] {
   const [prompt, setState] = React.useState<IBeforeInstallPromptEvent | null>(
-    null
+    null,
   );
 
   const promptToInstall = () => {
@@ -23,8 +23,8 @@ export function useAddToHomescreenPrompt(): [
     }
     return Promise.reject(
       new Error(
-        'Tried installing before browser sent "beforeinstallprompt" event'
-      )
+        'Tried installing before browser sent "beforeinstallprompt" event',
+      ),
     );
   };
 

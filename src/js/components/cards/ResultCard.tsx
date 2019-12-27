@@ -1,37 +1,36 @@
-import React, { Fragment, SyntheticEvent} from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Item } from "../../models/Interfaces";
+import React, { Fragment, SyntheticEvent} from "react";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { IItem } from "../../models/Interfaces";
 import lang from "../../locale";
 import { regions, favoritsItemsLimit } from "../../data/Data";
 import { AppState } from "../../redux";
-import { ApplicationStates, IEnvConfig } from "../../models/Interfaces";
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { IApplicationStates, IEnvConfig } from "../../models/Interfaces";
+import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { itemFetchDataForPlate, addToFavoritesSync, removeFromFavoritesSync } from "../../redux/actions";
-import { URLs } from "../../data/Data";
 import Utils from "../../utils/Utils";
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import clsx from "clsx";
+import Card from "@material-ui/core/Card";
 import { ShareDrawerBottom } from "../share/ShareDrawerBottom";
-import CardHeader from '@material-ui/core/CardHeader';
-import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import { orange, grey, yellow, green, brown, blue, purple, red } from '@material-ui/core/colors';
-import ShareIcon from '@material-ui/icons/Share';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import CardHeader from "@material-ui/core/CardHeader";
+import DirectionsCarIcon from "@material-ui/icons/DirectionsCar";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Collapse from "@material-ui/core/Collapse";
+import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import { orange, grey, yellow, green, brown, blue, purple, red } from "@material-ui/core/colors";
+import ShareIcon from "@material-ui/icons/Share";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { SnackbarContentWrapper } from "../snackbar/SnackbarContentWrapper";
-import Snackbar from '@material-ui/core/Snackbar';
-
+import Snackbar from "@material-ui/core/Snackbar";
+/* tslint:disable no-var-requires */
 const config: IEnvConfig = require("../../../../env.json");
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -41,25 +40,25 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     media: {
       height: 0,
-      paddingTop: '56.25%', // 16:9
+      paddingTop: "56.25%", // 16:9
     },
     expand: {
-      transform: 'rotate(0deg)',
-      marginLeft: 'auto',
-      transition: theme.transitions.create('transform', {
+      transform: "rotate(0deg)",
+      marginLeft: "auto",
+      transition: theme.transitions.create("transform", {
         duration: theme.transitions.duration.shortest,
       }),
     },
     expandOpen: {
-      transform: 'rotate(180deg)',
+      transform: "rotate(180deg)",
     },
     link: {
-        display: 'none',
+        display: "none",
     },
     bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
+        display: "inline-block",
+        margin: "0 2px",
+        transform: "scale(0.8)",
     },
     title: {
         fontSize: 14,
@@ -104,10 +103,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const shapeUrlPlate = (value: string, url: string): string => {
     return Utils.shapeUrlPlate(url, value, Utils.extractPartitionKey(value));
-}
+};
 
-export const ResultCard = (props: {item: Item}) => {    
-    const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
+export const ResultCard = (props: {item: IItem}) => {
+    const state: IApplicationStates = useSelector((stateInternal: AppState) => stateInternal.Item, shallowEqual);
     const classes = useStyles({});
     const [expanded, setExpanded] = React.useState(false);
     const [open, setOpen] = React.useState(false);
@@ -118,11 +117,11 @@ export const ResultCard = (props: {item: Item}) => {
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
     const [snackbarMessage, setSnackbarMessage] = React.useState("");
     const dispatch = useDispatch();
-    const history = useHistory();    
+    const history = useHistory();
 
     const primary = `${props.item.brand}/${props.item.model} (${props.item.make_year})`;
     const secondary = `${props.item.n_reg_new}, ${regions[props.item.PartitionKey]}`;
-    
+
     const body = `${lang(state.lang).body}: ${props.item.body}`;
     const capacity = `${lang(state.lang).capacity}: ${props.item.capacity}`;
     const color = `${lang(state.lang).color}: ${props.item.color}`;
@@ -132,12 +131,12 @@ export const ResultCard = (props: {item: Item}) => {
     const kind = `${lang(state.lang).kind}: ${props.item.kind}`;
     const purpose = `${lang(state.lang).purpose}: ${props.item.purpose}`;
     const person = `${lang(state.lang).person}: ${props.item.person === "P" ? lang(state.lang).person_private : lang(state.lang).person_company}`;
-    const d_reg = `${lang(state.lang).d_reg}: ${props.item.d_reg}`;
-    const oper_name = `${lang(state.lang).oper_name}: ${props.item.dep} (${props.item.dep_code}), ${props.item.oper_name} (${props.item.oper_code})`;
-    const reg_addr_koatuu = `${lang(state.lang).reg_addr_koatuu}: ${props.item.reg_addr_koatuu}`;
+    const dReg = `${lang(state.lang).d_reg}: ${props.item.d_reg}`;
+    const operName = `${lang(state.lang).oper_name}: ${props.item.dep} (${props.item.dep_code}), ${props.item.oper_name} (${props.item.oper_code})`;
+    const regAddrKoatuu = `${lang(state.lang).reg_addr_koatuu}: ${props.item.reg_addr_koatuu}`;
 
     const url = `${window.location.origin}/#/${props.item.n_reg_new}`;
-    const serviceUrl = /*process.env.AZURE_TABLE_SERVICE_URL ||*/ config.AZURE_TABLE_SERVICE_URL || "";
+    const serviceUrl = /*process.env.AZURE_TABLE_SERVICE_URL ||*/config.AZURE_TABLE_SERVICE_URL || "";
 
     const colorClass = Utils.detectColor(props.item.color, classes);
 
@@ -153,14 +152,14 @@ export const ResultCard = (props: {item: Item}) => {
     };
     const handleAddToFavs = () => {
         setAnchorEl(null);
-        if(Utils.isLimitExceeded(state.favorites.length, favoritsItemsLimit) === true){
+        if (Utils.isLimitExceeded(state.favorites.length, favoritsItemsLimit) === true) {
             setOpenSnackbar(true);
             handleSnackbarMessage(lang(state.lang).messageMaxFavsLimit);
             return;
         }
         favorite === true
             ? dispatch(removeFromFavoritesSync(state.loggedIn, state.favorites, props.item))
-            : dispatch(addToFavoritesSync(state.loggedIn, state.favorites, props.item))
+            : dispatch(addToFavoritesSync(state.loggedIn, state.favorites, props.item));
     };
     const handleClose1 = (): void => {
         setAnchorEl(null);
@@ -168,25 +167,25 @@ export const ResultCard = (props: {item: Item}) => {
     const handleSearchMenuClick = (): void => {
         setAnchorEl(null);
         const value = props.item.n_reg_new;
-        const url = shapeUrlPlate(value, serviceUrl);
-        dispatch(itemFetchDataForPlate(value, url));
+        const plateUrl = shapeUrlPlate(value, serviceUrl);
+        dispatch(itemFetchDataForPlate(value, plateUrl));
         handleAddResultToHash(value);
     };
     const handleSettingsClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
-    }
+    };
     const handleAddResultToHash = (value: string) => {
         history.push(`/`);
     };
     const handleCloseSnackBar = (event?: SyntheticEvent, reason?: string) => {
-        if (reason === 'clickaway') {
+        if (reason === "clickaway") {
           return;
         }
         setOpenSnackbar(false);
-      };
-      const handleSnackbarMessage = (message: string) => {
+    };
+    const handleSnackbarMessage = (message: string) => {
         setSnackbarMessage(message);
-      };
+    };
 
     return(
         <Fragment>
@@ -198,7 +197,7 @@ export const ResultCard = (props: {item: Item}) => {
                     </Avatar>
                     }
                     action={
-                    <IconButton 
+                    <IconButton
                         aria-label="settings"
                         title={lang(state.lang).card_settings}
                         onClick={handleSettingsClick}
@@ -213,37 +212,37 @@ export const ResultCard = (props: {item: Item}) => {
                         id="menu-appbar"
                         anchorEl={anchorEl1}
                         anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
+                            vertical: "top",
+                            horizontal: "right",
                         }}
-                        keepMounted
+                        keepMounted={true}
                         transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
+                            vertical: "top",
+                            horizontal: "right",
                         }}
                         open={openSettingsMenu}
                         onClose={handleClose1}
                     >
-                        <MenuItem 
+                        <MenuItem
                             onClick={handleSearchMenuClick}
                         >
                             {lang(state.lang).url_search}
                         </MenuItem>
-                        <MenuItem 
+                        <MenuItem
                             onClick={handleAddToFavs}
                         >
-                            {favorite === true 
+                            {favorite === true
                                 ? lang(state.lang).card_removeFromToFavs
                                 : lang(state.lang).card_addToFavs}
                         </MenuItem>
-                        <MenuItem 
+                        <MenuItem
                             onClick={handleShareClick}
                         >
                             {lang(state.lang).card_share}
                         </MenuItem>
                     </Menu>
                 <CardContent>
-                    <Typography className={classes.title} color="textSecondary" gutterBottom>
+                    <Typography className={classes.title} color="textSecondary" gutterBottom={true}>
                         {body}
                     </Typography>
                     <Typography variant="h6" component="h2">
@@ -255,14 +254,14 @@ export const ResultCard = (props: {item: Item}) => {
                     <Typography variant="body2" component="p">
                         {fuel}
                     </Typography>
-                    <Typography variant="button" color="textSecondary" gutterBottom>
+                    <Typography variant="button" color="textSecondary" gutterBottom={true}>
                         {color}
                     </Typography>
                 </CardContent>
-                <CardActions disableSpacing>
-                    <IconButton 
+                <CardActions disableSpacing={true}>
+                    <IconButton
                         aria-label="share"
-                        title={favorite === true 
+                        title={favorite === true
                             ? lang(state.lang).card_removeFromToFavs
                             : lang(state.lang).card_addToFavs}
                         onClick={handleAddToFavs}
@@ -271,7 +270,7 @@ export const ResultCard = (props: {item: Item}) => {
                             ? <FavoriteIcon />
                             : <FavoriteBorderIcon />}
                     </IconButton>
-                    <IconButton 
+                    <IconButton
                         aria-label="share"
                         title={lang(state.lang).card_share}
                         onClick={handleShareClick}
@@ -290,45 +289,45 @@ export const ResultCard = (props: {item: Item}) => {
                         <ExpandMoreIcon />
                     </IconButton>
                 </CardActions>
-                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <Collapse in={expanded} timeout="auto" unmountOnExit={true}>
                     <CardContent>
                         <Typography variant="body2" component="p">
-                        {kind}
+                            {kind}
                         </Typography>
                         <Typography className={classes.pos} color="textSecondary">
-                        {purpose}
+                            {purpose}
                         </Typography>
                         <Typography variant="body2" component="p">
-                        {person}
+                            {person}
                         </Typography>
                         <Typography className={classes.pos} color="textSecondary">
-                        {d_reg}
+                            {dReg}
                         </Typography>
                         <Typography variant="body2" component="p">
-                        {oper_name}
+                            {operName}
                         </Typography>
                         <Typography className={classes.pos} color="textSecondary">
-                        {reg_addr_koatuu}
+                            {regAddrKoatuu}
                         </Typography>
                     </CardContent>
                 </Collapse>
             </Card>
             <Snackbar
                 anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
                 }}
                 open={openSnackbar}
                 autoHideDuration={6000}
                 onClose={handleCloseSnackBar}
             >
                 <SnackbarContentWrapper
-                onClose={handleCloseSnackBar}
-                variant="error"
-                message={snackbarMessage}
+                    onClose={handleCloseSnackBar}
+                    variant="error"
+                    message={snackbarMessage}
                 />
             </Snackbar>
             <ShareDrawerBottom open={open} onClose={handleClose} url={url} />
         </Fragment>
-    )
-}
+    );
+};

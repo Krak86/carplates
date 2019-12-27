@@ -1,4 +1,4 @@
-import { Item, VIN, Auth, IFacebook, IGoogle, IRiaAds, IPlatesmaniaCars, Lang, INotification, ILoggedIn } from "../models/Interfaces";
+import { IItem, IVIN, Auth, IFacebook, IGoogle, IRiaAds, IPlatesmaniaCars, Lang, INotification, ILoggedIn } from "../models/Interfaces";
 
 export const ITEM_FETCH_DATA_SUCCESS: string = "ITEM_FETCH_DATA_SUCCESS";
 export const SET_ITEM_REQUEST: string = "SET_ITEM_REQUEST";
@@ -28,116 +28,106 @@ export const PUT_USER_DATA: string = "PUT_USER_DATA";
 export const MERGE_LOCAL_AND_CLOUD_FAVORITES: string = "MERGE_LOCAL_AND_CLOUD_FAVORITES";
 export const ITEMS_MERGING: string = "ITEMS_MERGING";
 
-export interface ItemsMergingAction{
+export interface IItemsMergingAction {
     type: typeof ITEMS_MERGING;
     payload: boolean;
 }
-export interface MergeLocalAndCloudFavoritesAction{
+export interface IMergeLocalAndCloudFavoritesAction {
     type: typeof MERGE_LOCAL_AND_CLOUD_FAVORITES;
-    payload: Item[];
+    payload: IItem[];
 }
-export interface PutUserDataAction{
+export interface IPutUserDataAction {
     type: typeof PUT_USER_DATA;
 }
-export interface GetUserDataAction{
+export interface IGetUserDataAction {
     type: typeof GET_USER_DATA;
 }
-export interface ResetBadgeAction{
+export interface IResetBadgeAction {
     type: typeof RESET_BADGE;
 }
-export interface AddBadgeAction{
+export interface IAddBadgeAction {
     type: typeof ADD_BADGE;
 }
-export interface RemoveFromFavoritesAction{
+export interface IRemoveFromFavoritesAction {
     type: typeof REMOVE_FROM_FAVORITES;
-    payload: Item;
+    payload: IItem;
 }
-export interface AddToFavoritesAction{
+export interface IAddToFavoritesAction {
     type: typeof ADD_TO_FAVORITES;
-    payload: Item;
+    payload: IItem;
 }
-export interface ChangeLangAction{
+export interface IChangeLangAction {
     type: typeof CHANGE_LANG;
     payload: Lang;
 }
-export interface ImgCarsmaniaLoadedAction{
+export interface IImgCarsmaniaLoadedAction {
     type: typeof IMG_CARSMANIA_LOADED;
     payload: boolean;
 }
-export interface ImgRiaLoadedAction{
+export interface IImgRiaLoadedAction {
     type: typeof IMG_RIA_LOADED;
     payload: boolean;
 }
-export interface AddCarsmaniaCarsAction{
+export interface IAddCarsmaniaCarsAction {
     type: typeof ADD_CARSMANIA_CARS;
     payload: IPlatesmaniaCars[];
 }
-export interface AddRiaAdsAction{
+export interface IAddRiaAdsAction {
     type: typeof ADD_RIA_ADS;
     payload: IRiaAds[];
 }
-/*export interface LoginFacebookAction{
-    type: typeof LOGIN_FACEBOOK;
-    payload: IFacebook;
-}
-export interface LoginGoogleAction{
-    type: typeof LOGIN_GOOGLE;
-    payload: IGoogle;
-}*/
-export interface LoginAction{
+export interface ILoginAction {
     type: typeof LOGIN;
     payload: ILoggedIn;
 }
-export interface AddToVinsListListAction{
+export interface IAddToVinsListListAction {
     type: typeof ADD_TO_VINS_LIST;
-    payload: VIN;
+    payload: IVIN;
 }
-export interface ItemFetchDataVinSuccessAction{
+export interface IItemFetchDataVinSuccessAction {
     type: typeof ITEM_FETCH_DATA_VIN_SUCCESS;
-    payload: VIN;
+    payload: IVIN;
 }
-export interface SetVinRequestAction{
+export interface ISetVinRequestAction {
     type: typeof SET_VIN_REQUEST;
     payload: string;
 }
-export interface SetSearchingItemTypeAction{
+export interface ISetSearchingItemTypeAction {
     type: typeof SET_SEARCHING_ITEM_TYPE;
     payload: number;
 }
-export interface ResponseIsEmptyAction{
+export interface IResponseIsEmptyAction {
     type: typeof RESPONSE_IS_EMPTY;
     payload: boolean;
 }
-export interface ToggleDrawerAction{
+export interface IToggleDrawerAction {
     type: typeof TOGGLE_DRAWER;
     payload: boolean;
 }
-export interface SetItemRequestAction{
+export interface ISetItemRequestAction {
     type: typeof SET_ITEM_REQUEST;
     payload: string;
 }
-export interface ItemFetchDataSuccessAction{
+export interface IItemFetchDataSuccessAction {
     type: typeof ITEM_FETCH_DATA_SUCCESS;
-    payload: Item;
+    payload: IItem;
 }
-export interface ItemsIsLoadingAction{
+export interface IItemsIsLoadingAction {
     type: typeof ITEM_IS_LOADING;
     payload: boolean;
 }
-export interface ItemsIsLoadedAction{
+export interface IItemsIsLoadedAction {
     type: typeof ITEM_IS_LOADED;
     payload: boolean;
 }
-export interface ItemsHasErroredAction{
+export interface IItemsHasErroredAction {
     type: typeof ITEM_HAS_ERRORED;
     payload: boolean;
 }
-export interface GetItemAction{
+export interface IGetItemAction {
     type: typeof GET_ITEMS;
 }
-export interface AddToItemsListAction{
+export interface IAddToItemsListAction {
     type: typeof ADD_TO_ITEMS_LIST;
     payload: INotification;
 }
-
-//export type ActionType = SetItemRequestAction | GetItemAction | ItemFetchDataSuccessAction | ItemsIsLoadingAction | ItemsHasErroredAction | AddToItemsList | SetSearchingItemType;

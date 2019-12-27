@@ -1,13 +1,13 @@
-import React, {Fragment} from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import React, {Fragment} from "react";
+import { useSelector, shallowEqual } from "react-redux";
 import { AppState } from "../../redux";
-import { ApplicationStates} from "../../models/Interfaces";
-import Typography from '@material-ui/core/Typography';
+import { IApplicationStates} from "../../models/Interfaces";
+import Typography from "@material-ui/core/Typography";
 import lang from "../../locale";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import { DisqusComponent } from "../disqus/Disqus";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => ({
     blocks: {
       padding: 0,
       marginBottom: 10,
@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   }));
 
 export const DisqusPage = () => {
-    const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
+    const state: IApplicationStates = useSelector((stateInternal: AppState) => stateInternal.Item, shallowEqual);
     const classes = useStyles({});
     return (
         <Fragment>
@@ -24,5 +24,5 @@ export const DisqusPage = () => {
             </Typography>
             <DisqusComponent />
         </Fragment>
-    )
-}
+    );
+};

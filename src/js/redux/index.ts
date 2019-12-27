@@ -8,7 +8,7 @@ import { getReducer } from "./reducers";
 const persistedState = UtilsStorage.loadState();
 
 export const rootReducer = combineReducers({
-  Item: getReducer
+  Item: getReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
@@ -22,10 +22,10 @@ export const configureStore = () => {
     {
       Item: {
         ...initialData,
-        ...persistedState
-      }
+        ...persistedState,
+      },
     },
-    composeWithDevTools(middleWareEnhancer)
+    composeWithDevTools(middleWareEnhancer),
   );
   store.subscribe(() => {
     UtilsStorage.saveState({
@@ -33,9 +33,8 @@ export const configureStore = () => {
       lang: store.getState().Item.lang,
       itemsList: store.getState().Item.itemsList,
       loggedIn: store.getState().Item.loggedIn,
-    })
+    });
   });
 
   return store;
-}
-//https://codesandbox.io/s/redux-typescript-example-5bw4y
+};

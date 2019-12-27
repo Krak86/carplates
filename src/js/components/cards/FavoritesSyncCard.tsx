@@ -1,16 +1,16 @@
-import React, {Fragment} from 'react';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import React, {Fragment} from "react";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { AppState } from "../../redux";
-import { ApplicationStates} from "../../models/Interfaces";
+import { IApplicationStates} from "../../models/Interfaces";
 import { manualSync } from "../../redux/actions";
 import lang from "../../locale";
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import IconButton from "@material-ui/core/IconButton";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     card: {
@@ -19,25 +19,25 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
     media: {
       height: 0,
-      paddingTop: '56.25%', // 16:9
+      paddingTop: "56.25%", // 16:9
     },
     expand: {
-      transform: 'rotate(0deg)',
-      marginLeft: 'auto',
-      transition: theme.transitions.create('transform', {
+      transform: "rotate(0deg)",
+      marginLeft: "auto",
+      transition: theme.transitions.create("transform", {
         duration: theme.transitions.duration.shortest,
       }),
     },
     expandOpen: {
-      transform: 'rotate(180deg)',
+      transform: "rotate(180deg)",
     },
     link: {
-        display: 'none',
+        display: "none",
     },
     bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
+        display: "inline-block",
+        margin: "0 2px",
+        transform: "scale(0.8)",
     },
     title: {
         fontSize: 14,
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 export const FavoritesSyncCard = () => {
-    const state: ApplicationStates = useSelector((state: AppState) => state.Item, shallowEqual);
+    const state: IApplicationStates = useSelector((stateInternal: AppState) => stateInternal.Item, shallowEqual);
     const classes = useStyles({});
     const dispatch = useDispatch();
     const [anchorEl1, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -62,10 +62,10 @@ export const FavoritesSyncCard = () => {
     const handleManuallySyncDataAction = () => {
         setAnchorEl(null);
         dispatch(manualSync(state.loggedIn, state.favorites));
-    }
+    };
     return (
         <Fragment>
-            {state.loggedIn.vendor === 0 
+            {state.loggedIn.vendor === 0
             ?
                 <Card className={classes.card}>
                     <CardHeader
@@ -73,42 +73,38 @@ export const FavoritesSyncCard = () => {
                     />
                 </Card>
             :
-                <Card className={classes.card}>  
+                <Card className={classes.card}>
                     <CardHeader
                         action={
-                            <IconButton 
+                            <IconButton
                                 aria-label="settings"
                                 title={lang(state.lang).card_settings}
                                 onClick={handleSettingsClick}
                             >
                                 <MoreVertIcon />
                             </IconButton>
-                        }                       
+                        }
                         subheader={lang(state.lang).logined_sync_text}
                     />
-                     <Menu
+                    <Menu
                         id="menu-appbar"
                         anchorEl={anchorEl1}
                         anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
+                            vertical: "top",
+                            horizontal: "right",
                         }}
-                        keepMounted
+                        keepMounted={true}
                         transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
+                            vertical: "top",
+                            horizontal: "right",
                         }}
                         open={openSettingsMenu}
                         onClose={handleClose1}
                     >
-                        <MenuItem 
-                            onClick={handleManuallySyncDataAction}
-                        >
-                            {lang(state.lang).syncManually}
-                        </MenuItem>
+                        <MenuItem onClick={handleManuallySyncDataAction}>{lang(state.lang).syncManually}</MenuItem>
                     </Menu>
                 </Card>
             }
         </Fragment>
-    )
-}
+    );
+};

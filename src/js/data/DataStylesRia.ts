@@ -1,5 +1,6 @@
 import { IRiaCategories } from "../models/Interfaces";
-
+/* tslint:disable trailing-comma */
+/* tslint:disable object-literal-key-quotes */
 export const bodyStyles: IRiaCategories[] = [
     {
         "name": "Седан",
@@ -53,7 +54,7 @@ export const bodyStyles: IRiaCategories[] = [
         "name": "Родстер",
         "value": 315
     },
-	    {
+    {
         "name": "Вездеход-амфибия",
         "value": 43
     },
@@ -185,7 +186,7 @@ export const bodyStyles: IRiaCategories[] = [
         "name": "Трицикл",
         "value": 34
     },
-	    {
+    {
         "name": "Автовоз",
         "value": 178
     },
@@ -325,7 +326,7 @@ export const bodyStyles: IRiaCategories[] = [
         "name": "Шасси полуприцеп",
         "value": 162
     },
-	{
+    {
         "name": "Автовоз",
         "value": 207
     },
@@ -421,7 +422,7 @@ export const bodyStyles: IRiaCategories[] = [
         "name": "Эвакуатор",
         "value": 208
     },
-	 {
+    {
         "name": "Автобус",
         "value": 220
     },

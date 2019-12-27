@@ -1,43 +1,41 @@
-import  * as actions from "./types";
+import * as actions from "./types";
 import { Action } from "redux";
-import { ApplicationStates, Item, ServiceRespond, VIN, imageRecognizeResponse, IRiaCategories, IRiaSearch, 
-    IRiaAds, IRiaSearchData, IPlatesmania, IPlatesmaniaCars, Lang, INotification, ILoggedIn, IUserItem, IUserKeys, IEnvConfig } from "../models/Interfaces";
+import { IApplicationStates, IItem, IServiceRespond, IVIN, IImageRecognizeResponse, IRiaCategories, IRiaSearch, IRiaAds, IRiaSearchData, IPlatesmania, IPlatesmaniaCars, Lang, INotification, ILoggedIn, IUserItem, IUserKeys, IEnvConfig } from "../models/Interfaces";
 import { ThunkAction } from "redux-thunk";
 import Utils from "../utils/Utils";
 import UtilsRia from "../utils/UtilsRia";
 import UtilsAsync from "../utils/UtilsAsync";
 import { URLs } from "../data/Data";
-
+/* tslint:disable no-var-requires */
 const config: IEnvConfig = require("../../../env.json");
-export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(imgCarsmaniaLoaded(false));
     const carPlate = Utils.combineConvertedSymbols(
         Utils.trimData(itemRequest).toLocaleUpperCase(),
         Utils.cyrillicRange,
         Utils.cyrillicToLatinToMatrix,
-        Utils.reducer);    
-    const url = /*process.env.AZURE_PLATESMANIA_PROXY ||*/ config.AZURE_PLATESMANIA_PROXY || "";
+        Utils.reducer);
+    const url = /*process.env.AZURE_PLATESMANIA_PROXY ||*/config.AZURE_PLATESMANIA_PROXY || "";
     const options = {
-        method: 'POST',
+        method: "POST",
         body: Utils.generateBodyForPlatesManiaProxy(carPlate),
-        headers:{
-            'Accept': 'application/json'
-        }
+        headers: {
+            Accept: "application/json",
+        },
     };
     fetch(url, options)
     .then((response) => {
-        if (!response.ok){
+        if (!response.ok) {
             throw Error(response.statusText);
         }
         return response;
     })
-    .then(response => response.json())
+    .then((response) => response.json())
     .then((itemResponse: IPlatesmania) => {
-        if(itemResponse.cars.length > 0){
+        if (itemResponse.cars.length > 0) {
            const data = itemResponse.cars;
            dispatch(addPlatesmaniaCars(data));
-        }
-        else{
+        } else {
             dispatch(addPlatesmaniaCars([]));
         }
         dispatch(imgCarsmaniaLoaded(true));
@@ -45,11 +43,13 @@ export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, 
     .catch((error) => {
         dispatch(addPlatesmaniaCars([]));
         dispatch(imgCarsmaniaLoaded(true));
+        // TODO: implement system of logs (implicit or explicit) according to 12 factors
+        /* tslint:disable no-console */
         console.log(error);
     });
 };
 
-export const fetchDataForRiaModel = (itemResponse: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+export const fetchDataForRiaModel = (itemResponse: IItem): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(imgRiaLoaded(false));
     const brand = itemResponse.brand.trim();
     const model = itemResponse.model.trim();
@@ -60,55 +60,55 @@ export const fetchDataForRiaModel = (itemResponse: Item): ThunkAction<void, Appl
     const brandArray = UtilsRia.detectBrandMatrix(categoryValue);
     const brandWithoutModel = UtilsRia.excludeModelFromBrand(brand, model);
     let brandValue: number;
-    if(brandArray.length > 0){
+    if (brandArray.length > 0) {
         brandValue = UtilsRia.detectModelValue(brandArray, brandWithoutModel);
-    }
-    else{
+    } else {
         return;
     }
     const key = /*process.env.RIA_KEY ||*/ config.RIA_KEY || "";
     const url = UtilsRia.generateUrlToGetModelValue(URLs.riaUrl, categoryValue, brandValue, key);
 
     fetch(url, {
-        headers:{
-          'Accept': 'application/json'
-        }
+        headers: {
+          Accept: "application/json",
+        },
     })
-    .then(response => {
-        if (!response.ok){
+    .then((response) => {
+        if (!response.ok) {
             throw Error(response.statusText);
         }
         return response;
     })
-    .then(response => response.json())
+    .then((response) => response.json())
     .then((response: IRiaCategories[]) => {
-        if(response.length > 0){
+        if (response.length > 0) {
             const modelValue = response.filter((i: IRiaCategories) => {
-                if(i.name.toUpperCase() === model.toUpperCase()){
+                if (i.name.toUpperCase() === model.toUpperCase()) {
                     return i.value;
                 }
             });
             dispatch(fetchDataForRiaSearch(categoryValue, modelValue[0].value, brandValue, year, key));
-        }
-        else{
+        } else {
             return;
         }
     })
     .catch((error) => {
         dispatch(itemHasErrored(true));
+        // TODO: implement system of logs (implicit or explicit) according to 12 factors
+        /* tslint:disable no-console */
         console.log(error);
     });
 };
 
-export const fetchDataForRiaSearch = (categoryValue: number, modelValue: number, brandValue: number, year: string, key: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+export const fetchDataForRiaSearch = (categoryValue: number, modelValue: number, brandValue: number, year: string, key: string): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     const url = UtilsRia.generateUrlToSearchAdsIds(URLs.riaUrl, categoryValue, brandValue, modelValue, year, key);
     fetch(url, {
-        headers:{
-          'Accept': 'application/json'
-        }
+        headers: {
+          Accept: "application/json",
+        },
     })
     .then((response) => {
-        if (!response.ok){
+        if (!response.ok) {
             throw Error(response.statusText);
         }
         return response;
@@ -116,30 +116,31 @@ export const fetchDataForRiaSearch = (categoryValue: number, modelValue: number,
     .then((response) => {
         return response.json(); })
     .then((itemResponse: IRiaSearch) => {
-        if(itemResponse.result.search_result.count > 0){
+        if (itemResponse.result.search_result.count > 0) {
             const ads: IRiaSearchData[] = itemResponse.result.search_result_common.data;
             dispatch(fetchDataForRiaAds(key, ads));
-        }
-        else{
+        } else {
             return;
         }
     })
     .catch((error) => {
         dispatch(itemHasErrored(true));
+        // TODO: implement system of logs (implicit or explicit) according to 12 factors
+        /* tslint:disable no-console */
         console.log(error);
     });
 };
 
-export const fetchDataForRiaAds = (key: string, ads: IRiaSearchData[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+export const fetchDataForRiaAds = (key: string, ads: IRiaSearchData[]): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     const urls: string[] = ads.map((url: IRiaSearchData) => url.id);
     Promise.all(urls.map((url: string) =>
         fetch(UtilsRia.generateUrlToGetAdsContent(URLs.riaUrl, key, url), {
-            headers:{
-              'Accept': 'application/json'
-            }
+            headers: {
+              Accept: "application/json",
+            },
         })
         .then((response) => {
-            if (!response.ok){
+            if (!response.ok) {
                 throw Error(response.statusText);
             }
             return response;
@@ -147,8 +148,10 @@ export const fetchDataForRiaAds = (key: string, ads: IRiaSearchData[]): ThunkAct
         .then((response) =>  response.json())
         .catch((error) => {
             dispatch(itemHasErrored(true));
+            // TODO: implement system of logs (implicit or explicit) according to 12 factors
+            /* tslint:disable no-console */
             console.log(error);
-        })
+        }),
       ))
       .then((imagesRiaResponse: IRiaAds[]) => {
         dispatch(addRiaAds(imagesRiaResponse));
@@ -156,19 +159,19 @@ export const fetchDataForRiaAds = (key: string, ads: IRiaSearchData[]): ThunkAct
       });
 };
 
-export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => async (dispatch) => {
+export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAction<void, IApplicationStates, null, Action<string>> => async (dispatch) => {
     dispatch(setSearchingItemType(0));
     dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));
     dispatch(itemHasErrored(false));
     fetch(url, {
-        headers:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8'
-        }
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json;charset=UTF-8",
+        },
     })
     .then((response) => {
-        if (!response.ok){
+        if (!response.ok) {
             throw Error(response.statusText);
         }
         dispatch(itemIsLoading(false));
@@ -176,13 +179,13 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
     })
     .then((response) => {
         return response.json(); })
-    .then((itemResponse: ServiceRespond) => {
-        if(itemResponse.value.length > 0){
+    .then((itemResponse: IServiceRespond) => {
+        if (itemResponse.value.length > 0) {
             const data = itemResponse.value[0];
             dispatch(itemFetchDataSuccess(data));
             dispatch(addToItemsList({
                 item: data,
-                timestamp: Utils.generateCurrentDate()
+                timestamp: Utils.generateCurrentDate(),
             }));
             dispatch(setItemRequest(itemRequest));
             dispatch(responseIsEmpty(false));
@@ -190,31 +193,32 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
             dispatch(fetchDataForPlatesmania(itemRequest));
             dispatch(AddBadge());
             UtilsAsync.playNotification();
-        }
-        else{
+        } else {
             dispatch(responseIsEmpty(true));
         }
         dispatch(itemIsLoaded(true));
     })
     .catch((error) => {
         dispatch(itemHasErrored(true));
-        window.console.log(error);
+        // TODO: implement system of logs (implicit or explicit) according to 12 factors
+        /* tslint:disable no-console */
+        console.log(error);
     });
 };
 
-export const itemFetchDataForVin = (vinRequest: string, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+export const itemFetchDataForVin = (vinRequest: string, url: string): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(setSearchingItemType(1));
     dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));
     dispatch(itemHasErrored(false));
 
     fetch(url, {
-        headers:{
-          'Accept': 'application/json'
-        }
+        headers: {
+          Accept: "application/json",
+        },
     })
     .then((response) => {
-        if (!response.ok){
+        if (!response.ok) {
             throw Error(response.statusText);
         }
         dispatch(itemIsLoading(false));
@@ -222,42 +226,43 @@ export const itemFetchDataForVin = (vinRequest: string, url: string): ThunkActio
     })
     .then((response) => {
         return response.json(); })
-    .then((itemResponse: VIN) => {
-        if(itemResponse.Results && itemResponse.Results.length > 0){
+    .then((itemResponse: IVIN) => {
+        if (itemResponse.Results && itemResponse.Results.length > 0) {
             const data = itemResponse;
             dispatch(itemFetchDataVinSuccess(data));
             dispatch(addToVinsListList(data));
             dispatch(setVinRequest(vinRequest));
             dispatch(responseIsEmpty(false));
-        }
-        else{
+        } else {
             dispatch(responseIsEmpty(true));
         }
         dispatch(itemIsLoaded(true));
     })
     .catch((error) => {
         dispatch(itemHasErrored(true));
+        // TODO: implement system of logs (implicit or explicit) according to 12 factors
+        /* tslint:disable no-console */
         console.log(error);
     });
 };
 
-export const imageFetchData = (file: File, url: string): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+export const imageFetchData = (file: File, url: string): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(setSearchingItemType(3));
     dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));
     dispatch(itemHasErrored(false));
 
-    let formData = new FormData();
-    formData.append('file', file);
+    const formData = new FormData();
+    formData.append("file", file);
 
     const options = {
-        method: 'POST',
+        method: "POST",
         body: formData,
     };
 
     fetch(url, options)
     .then((response) => {
-        if (!response.ok){
+        if (!response.ok) {
             throw Error(response.statusText);
         }
         dispatch(itemIsLoading(false));
@@ -265,75 +270,76 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, Appli
     })
     .then((response) => {
         return response.json(); })
-    .then((imageResponse: imageRecognizeResponse) => {        
-        if(imageResponse.results.length > 0){
+    .then((imageResponse: IImageRecognizeResponse) => {
+        if (imageResponse.results.length > 0) {
             const carPlate = Utils.combineConvertedSymbols(
                 Utils.changeSymbols1toI(
-                    Utils.trimData(imageResponse.results[0].plate)
+                    Utils.trimData(imageResponse.results[0].plate),
                 ).toLocaleUpperCase(),
-                Utils.latinRange, 
-                Utils.latinToCyrillicMatrix, 
-                Utils.reducer
+                Utils.latinRange,
+                Utils.latinToCyrillicMatrix,
+                Utils.reducer,
               );
             const serviceUrl = /*process.env.AZURE_TABLE_SERVICE_URL ||*/ config.AZURE_TABLE_SERVICE_URL || "";
-            const url = Utils.shapeUrlPlate(serviceUrl, carPlate, Utils.extractPartitionKey(carPlate));
-            dispatch(itemFetchDataForPlate(carPlate, url));
+            const carPlateUrl = Utils.shapeUrlPlate(serviceUrl, carPlate, Utils.extractPartitionKey(carPlate));
+            dispatch(itemFetchDataForPlate(carPlate, carPlateUrl));
             dispatch(responseIsEmpty(false));
-        }
-        else{
+        } else {
             dispatch(responseIsEmpty(true));
         }
         dispatch(itemIsLoaded(true));
     })
     .catch((error) => {
         dispatch(itemHasErrored(true));
+        // TODO: implement system of logs (implicit or explicit) according to 12 factors
+        /* tslint:disable no-console */
         console.log(error);
     });
 };
 
-export const authoriseUser = (authStatus: ILoggedIn, favorites: Item[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+export const authoriseUser = (authStatus: ILoggedIn, favorites: IItem[]): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(login(authStatus));
-    if(!Utils.isUserAuthenticated(authStatus.vendor)){
+    if (!Utils.isUserAuthenticated(authStatus.vendor)) {
         return;
     }
     dispatch(ItemsMerging(true));
     dispatch(userSync(authStatus.mail, favorites, null, null));
 };
-export const addToFavoritesSync = (authStatus: ILoggedIn, favorites: Item[], item: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
-    if(!Utils.isUserAuthenticated(authStatus.vendor)){
+export const addToFavoritesSync = (authStatus: ILoggedIn, favorites: IItem[], item: IItem): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
+    if (!Utils.isUserAuthenticated(authStatus.vendor)) {
         dispatch(addToFavorites(item));
         return;
     }
     dispatch(ItemsMerging(true));
     dispatch(userSync(authStatus.mail, favorites, item, true));
 };
-export const removeFromFavoritesSync = (authStatus: ILoggedIn, favorites: Item[], item: Item): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
-    if(!Utils.isUserAuthenticated(authStatus.vendor)){
+export const removeFromFavoritesSync = (authStatus: ILoggedIn, favorites: IItem[], item: IItem): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
+    if (!Utils.isUserAuthenticated(authStatus.vendor)) {
         dispatch(removeFromFavorites(item));
         return;
     }
     dispatch(ItemsMerging(true));
     dispatch(userSync(authStatus.mail, favorites, item, false));
 };
-export const manualSync = (authStatus: ILoggedIn, favorites: Item[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+export const manualSync = (authStatus: ILoggedIn, favorites: IItem[]): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(ItemsMerging(true));
     dispatch(userSync(authStatus.mail, favorites, null, null));
 };
-export const userSync = (email: string, favorites: Item[], item: Item | null, addRemoveItem: boolean | null): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+export const userSync = (email: string, favorites: IItem[], item: IItem | null, addRemoveItem: boolean | null): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     const userKeys = Utils.generateRowKeyAndPartitionKey(email);
     const serviceUrl = /*`${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL}${process.env.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY}` ||*/ `${config.AZURE_TABLE_FAVORITES_SERVICE_URL}${config.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY}` || "";
     const url = Utils.shapeUrlPlate(
         serviceUrl,
         userKeys.RowKey,
-        userKeys.PartitionKey
-    );   
+        userKeys.PartitionKey,
+    );
     fetch(url, {
-        headers:{
-          'Accept': 'application/json'
-        }
+        headers: {
+          Accept: "application/json",
+        },
     })
     .then((response) => {
-        if (!response.ok){
+        if (!response.ok) {
             throw Error(response.statusText);
         }
         return response;
@@ -343,7 +349,7 @@ export const userSync = (email: string, favorites: Item[], item: Item | null, ad
     .then((itemResponse: IUserItem) => {
         const data = itemResponse.value;
         const items = Utils.mergeItems(data, favorites, item, addRemoveItem);
-        if(items === undefined){
+        if (items === undefined) {
             dispatch(ItemsMerging(false));
             return;
         }
@@ -351,136 +357,140 @@ export const userSync = (email: string, favorites: Item[], item: Item | null, ad
         dispatch(updateUser(userKeys, items));
     })
     .catch((error) => {
+        // TODO: implement system of logs (implicit or explicit) according to 12 factors
+        /* tslint:disable no-console */
         console.log(error);
         dispatch(ItemsMerging(false));
     });
 };
-export const updateUser = (userKeys: IUserKeys, items: Item[]): ThunkAction<void, ApplicationStates, null, Action<string>> => (dispatch) => {
+export const updateUser = (userKeys: IUserKeys, items: IItem[]): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     const url = Utils.generateUrlToUpdateUser(
         /*process.env.AZURE_TABLE_FAVORITES_SERVICE_URL ||*/ config.AZURE_TABLE_FAVORITES_SERVICE_URL || "",
         /*process.env.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY ||*/ config.AZURE_TABLE_FAVORITES_SERVICE_URL_QUERY || "",
         userKeys.PartitionKey,
-        userKeys.RowKey
+        userKeys.RowKey,
     );
     const options: RequestInit = {
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
         },
-        method: 'PUT',
+        method: "PUT",
         body: Utils.generateBodyForUpdateUser(items),
     };
 
     fetch(url, options)
     .then((response) => {
-        if (!response.ok){
+        if (!response.ok) {
             throw Error(response.statusText);
         }
         return response;
     })
-    .then(response => response)
+    .then((response) => response)
     .then((response: any) => {
         dispatch(ItemsMerging(false));
     })
     .catch((error) => {
+        // TODO: implement system of logs (implicit or explicit) according to 12 factors
+        /* tslint:disable no-console */
         console.log(error);
         dispatch(ItemsMerging(false));
     });
 };
-export const MergeLocalAndCloudFavorites = (items: Item[]): actions.MergeLocalAndCloudFavoritesAction => ({
+export const MergeLocalAndCloudFavorites = (items: IItem[]): actions.IMergeLocalAndCloudFavoritesAction => ({
     type: actions.MERGE_LOCAL_AND_CLOUD_FAVORITES,
-    payload: items
+    payload: items,
 });
-export const ItemsMerging = (payload: boolean): actions.ItemsMergingAction => ({
+export const ItemsMerging = (payloadData: boolean): actions.IItemsMergingAction => ({
     type: actions.ITEMS_MERGING,
-    payload: payload
+    payload: payloadData,
 });
 
-export const ResetBadge = (): actions.ResetBadgeAction => ({
-    type: actions.RESET_BADGE
+export const ResetBadge = (): actions.IResetBadgeAction => ({
+    type: actions.RESET_BADGE,
 });
-export const AddBadge = (): actions.AddBadgeAction => ({
-    type: actions.ADD_BADGE
+export const AddBadge = (): actions.IAddBadgeAction => ({
+    type: actions.ADD_BADGE,
 });
-export const removeFromFavorites = (item: Item): actions.RemoveFromFavoritesAction => ({
+export const removeFromFavorites = (item: IItem): actions.IRemoveFromFavoritesAction => ({
     type: actions.REMOVE_FROM_FAVORITES,
-    payload: item
+    payload: item,
 });
-export const addToFavorites = (item: Item): actions.AddToFavoritesAction => ({
+export const addToFavorites = (item: IItem): actions.IAddToFavoritesAction => ({
     type: actions.ADD_TO_FAVORITES,
-    payload: item
+    payload: item,
 });
-export const changeLang = (status: Lang): actions.ChangeLangAction => ({
+export const changeLang = (status: Lang): actions.IChangeLangAction => ({
     type: actions.CHANGE_LANG,
-    payload: status
+    payload: status,
 });
-export const imgCarsmaniaLoaded = (status: boolean): actions.ImgCarsmaniaLoadedAction => ({
+export const imgCarsmaniaLoaded = (status: boolean): actions.IImgCarsmaniaLoadedAction => ({
     type: actions.IMG_CARSMANIA_LOADED,
-    payload: status
+    payload: status,
 });
-export const imgRiaLoaded = (status: boolean): actions.ImgRiaLoadedAction => ({
+export const imgRiaLoaded = (status: boolean): actions.IImgRiaLoadedAction => ({
     type: actions.IMG_RIA_LOADED,
-    payload: status
+    payload: status,
 });
-export const addPlatesmaniaCars = (imagesPlatesmania: IPlatesmaniaCars[]): actions.AddCarsmaniaCarsAction => ({
+export const addPlatesmaniaCars = (imagesPlatesmania: IPlatesmaniaCars[]): actions.IAddCarsmaniaCarsAction => ({
     type: actions.ADD_CARSMANIA_CARS,
-    payload: imagesPlatesmania
+    payload: imagesPlatesmania,
 });
-export const addRiaAds = (imagesRia: IRiaAds[]): actions.AddRiaAdsAction => ({
+export const addRiaAds = (imagesRia: IRiaAds[]): actions.IAddRiaAdsAction => ({
     type: actions.ADD_RIA_ADS,
-    payload: imagesRia
+    payload: imagesRia,
 });
-export const login = (authStatus: ILoggedIn): actions.LoginAction => ({
+export const login = (authStatus: ILoggedIn): actions.ILoginAction => ({
     type: actions.LOGIN,
-    payload: authStatus
+    payload: authStatus,
 });
-export const addToVinsListList = (vinResponse: VIN): actions.AddToVinsListListAction => ({
+export const addToVinsListList = (vinResponse: IVIN): actions.IAddToVinsListListAction => ({
     type: actions.ADD_TO_VINS_LIST,
-    payload: vinResponse
+    payload: vinResponse,
 });
-export const itemFetchDataVinSuccess = (vinResponse: VIN): actions.ItemFetchDataVinSuccessAction => ({
+export const itemFetchDataVinSuccess = (vinResponse: IVIN): actions.IItemFetchDataVinSuccessAction => ({
     type: actions.ITEM_FETCH_DATA_VIN_SUCCESS,
-    payload: vinResponse
+    payload: vinResponse,
 });
-export const setVinRequest = (vinRequest: string): actions.SetVinRequestAction => ({
+export const setVinRequest = (vinRequest: string): actions.ISetVinRequestAction => ({
     type: actions.SET_VIN_REQUEST,
-    payload: vinRequest
+    payload: vinRequest,
 });
-export const setSearchingItemType = (response: number): actions.SetSearchingItemTypeAction => ({
+export const setSearchingItemType = (response: number): actions.ISetSearchingItemTypeAction => ({
     type: actions.SET_SEARCHING_ITEM_TYPE,
-    payload: response
+    payload: response,
 });
-export const responseIsEmpty = (response: boolean): actions.ResponseIsEmptyAction => ({
+export const responseIsEmpty = (response: boolean): actions.IResponseIsEmptyAction => ({
     type: actions.RESPONSE_IS_EMPTY,
-    payload: response
+    payload: response,
 });
-export const setItemRequest = (itemRequest: string): actions.SetItemRequestAction => ({
+export const setItemRequest = (itemRequest: string): actions.ISetItemRequestAction => ({
     type: actions.SET_ITEM_REQUEST,
-    payload: itemRequest
+    payload: itemRequest,
 });
-export const itemIsLoading = (bool: boolean): actions.ItemsIsLoadingAction => ({
+export const itemIsLoading = (bool: boolean): actions.IItemsIsLoadingAction => ({
     type: actions.ITEM_IS_LOADING,
-    payload: bool
+    payload: bool,
 });
-export const itemIsLoaded = (bool: boolean): actions.ItemsIsLoadedAction => ({
+export const itemIsLoaded = (bool: boolean): actions.IItemsIsLoadedAction => ({
     type: actions.ITEM_IS_LOADED,
-    payload: bool
+    payload: bool,
 });
-export const itemHasErrored = (bool: boolean): actions.ItemsHasErroredAction => ({   
+export const itemHasErrored = (bool: boolean): actions.IItemsHasErroredAction => ({
     type: actions.ITEM_HAS_ERRORED,
-    payload: bool
-});  
-export const itemFetchDataSuccess = (itemResponse: Item): actions.ItemFetchDataSuccessAction => ({
+    payload: bool,
+});
+export const itemFetchDataSuccess = (itemResponse: IItem): actions.IItemFetchDataSuccessAction => ({
     type: actions.ITEM_FETCH_DATA_SUCCESS,
-    payload: itemResponse
+    payload: itemResponse,
 });
-export const getItems = (): actions.GetItemAction => ({
-    type: actions.GET_ITEMS
+export const getItems = (): actions.IGetItemAction => ({
+    type: actions.GET_ITEMS,
 });
-export const addToItemsList = (itemResponse: INotification): actions.AddToItemsListAction => ({
+export const addToItemsList = (itemResponse: INotification): actions.IAddToItemsListAction => ({
     type: actions.ADD_TO_ITEMS_LIST,
-    payload: itemResponse
+    payload: itemResponse,
 });
-export const toggleDrawer = (drawerState: boolean): actions.ToggleDrawerAction => ({
+export const toggleDrawer = (drawerState: boolean): actions.IToggleDrawerAction => ({
     type: actions.TOGGLE_DRAWER,
-    payload: drawerState
+    payload: drawerState,
 });

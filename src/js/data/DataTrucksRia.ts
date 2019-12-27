@@ -1,5 +1,6 @@
 import { IRiaCategories } from "../models/Interfaces";
-
+/* tslint:disable trailing-comma */
+/* tslint:disable object-literal-key-quotes */
 export const trucks: IRiaCategories[] = [
     {
         "name": "AMCO-VEBA",
