@@ -69,14 +69,6 @@ export const RoutesLinks = () => {
   const dispatch = useDispatch();
   const classes = useStyles({});
   const [prompt, promptToInstall] = useAddToHomescreenPrompt();
-  const [isVisible, setVisibleState] = React.useState(false);
-  React.useEffect(() => {
-      if (prompt) {
-        setVisibleState(true);
-      }
-    },
-    [prompt],
-  );
   const handleInstallClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number,

@@ -112,8 +112,7 @@ export const ResultCard = (props: {item: IItem}) => {
     const [open, setOpen] = React.useState(false);
     const [anchorEl1, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const openSettingsMenu = Boolean(anchorEl1);
-    const isItemAlreadyAdded = Utils.isItemAlreadyAdded(state.favorites, props.item.n_reg_new);
-    const [favorite, setFavorite] = React.useState(isItemAlreadyAdded);
+    const favorite = Utils.isItemAlreadyAdded(state.favorites, props.item.n_reg_new);
     const [openSnackbar, setOpenSnackbar] = React.useState(false);
     const [snackbarMessage, setSnackbarMessage] = React.useState("");
     const dispatch = useDispatch();
