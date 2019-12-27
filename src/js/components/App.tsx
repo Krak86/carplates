@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { Route, Switch, Link, useHistory } from "react-router-dom";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Login } from "./login/Login";
 import lang from "../locale";
 import { toggleDrawer } from "../redux/actions";
