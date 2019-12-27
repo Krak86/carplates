@@ -1,4 +1,4 @@
-import { IWindow, IItem, Auth, IUserKeys, IUser, IUpdateUserBody } from "../models/Interfaces";
+import { IWindow, IItem, Auth, IUserKeys, IUser } from "../models/Interfaces";
  /**
   * Class to provide common utility functions
   */
@@ -30,7 +30,11 @@ export default class Utils {
    */
   public static latinRange(val: string): boolean {
     const code = val.charCodeAt(0);
-    return (code > 64 && code < 91) ? true : false;
+    if (code > 64 && code < 91) {
+      return true;
+    } else {
+      return false;
+    }
   }
   /**
    * Function to remove spaces surrounded a value
@@ -88,7 +92,11 @@ export default class Utils {
     */
    public static cyrillicRange(val: string): boolean {
     const code = val.charCodeAt(0);
-    return (code > 1029 && code < 1062) ? true : false;
+    if (code > 1029 && code < 1062) {
+      return true;
+    } else {
+      return false;
+    }
   }
    /**
     * Function to convert cyrillic symbols to latin, that looks similar: A,B,C,E,H,I,K,M,O,P,T,X
@@ -201,9 +209,12 @@ export default class Utils {
    * Function to detect if the item is already added to provided array
    */
   public static isItemAlreadyAdded(items: IItem[], rowNumber: string): boolean {
-    return items.filter((i: IItem) => i.n_reg_new === rowNumber).length > 0
-      ? true
-      : false;
+    const itemsFiltered = items.filter((i: IItem) => i.n_reg_new === rowNumber);
+    if (itemsFiltered.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /**
@@ -251,9 +262,11 @@ export default class Utils {
    * Function to check is user was Authenticated
    */
   public static isUserAuthenticated(vendor: Auth): boolean {
-    return vendor > 0
-      ? true
-      : false;
+    if (vendor > 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
   /**
    * Function to generate the RowKey & PartitionKey to azure service to get user's data
@@ -338,17 +351,22 @@ export default class Utils {
    * Function to check if the limit is exceeded
    */
   public static isLimitExceeded(count: number, limit: number): boolean {
-    return count >= limit
-      ? true
-      : false;
+    if (count >= limit) {
+      return true;
+    } else {
+      return false;
+    }
   }
   /**
    * Function to check if the camera photo is empty (for example, if camera permissions is denied)
    */
   public static isCameraPhotoEmpty(imageSrcBase64: string): boolean {
-    return imageSrcBase64.replace("data:,", "").length === 0
-      ? true
-      : false;
+    const imageSrcBase64Shaped = imageSrcBase64.replace("data:,", "");
+    if (imageSrcBase64Shaped.length === 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
    /**
     * Function to generate the body for PlatesMania Azure Proxy service
