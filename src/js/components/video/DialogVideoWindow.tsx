@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     },
 }));
 
-const TransitionFunctionComponent = React.forwardRef<unknown, TransitionProps>(function Transition(props, ref) {
+const TransitionFunctionComponent = React.forwardRef<unknown, TransitionProps>(function Transition(props, ref): JSX.Element {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
