@@ -3,6 +3,8 @@ import Utils from "../utils/Utils";
 import { IWindow, IItem } from "../models/Interfaces";
 import { itemsTestData } from "../data/Data";
 
+const localHost8080 = "http://localhost";
+
 describe("Utils window methods", () => {
   test("getAbsoluteDomainUrl", () => {
     const window: IWindow = {
@@ -77,15 +79,15 @@ describe("Utils window methods", () => {
     expect(Utils.combineConvertedSymbols("MOPT", Utils.latinRange, Utils.latinToCyrillicMatrix, Utils.reducer)).toBe("МОРТ");
   });
   test("shapeUrlPlate", () => {
-    expect(Utils.shapeUrlPlate("http://localhost:8080/", "AB", "ABCH")).toBe("http://localhost:8080/&$filter=RowKey eq 'AB' and PartitionKey eq 'ABCH'");
-    expect(Utils.shapeUrlPlate("http://localhost:8080/", "12", "12CH")).toBe("http://localhost:8080/&$filter=RowKey eq '12' and PartitionKey eq '12CH'");
+    expect(Utils.shapeUrlPlate(`${localHost8080}:8080/`, "AB", "ABCH")).toBe(`${localHost8080}:8080/&$filter=RowKey eq 'AB' and PartitionKey eq 'ABCH'`);
+    expect(Utils.shapeUrlPlate(`${localHost8080}:8080/`, "12", "12CH")).toBe(`${localHost8080}:8080/&$filter=RowKey eq '12' and PartitionKey eq '12CH'`);
   });
   test("shapeUrlVin", () => {
-    expect(Utils.shapeUrlVin("http://localhost:8080", "3VWD17AJ9GM299880")).toBe("http://localhost:8080/3VWD17AJ9GM299880?format=json");
-    expect(Utils.shapeUrlVin("http://localhost", "knad6814bk6246077")).toBe("http://localhost/knad6814bk6246077?format=json");
+    expect(Utils.shapeUrlVin(`${localHost8080}:8080`, "3VWD17AJ9GM299880")).toBe(`${localHost8080}:8080/3VWD17AJ9GM299880?format=json`);
+    expect(Utils.shapeUrlVin(`${localHost8080}`, "knad6814bk6246077")).toBe(`${localHost8080}/knad6814bk6246077?format=json`);
   });
   test("replaceHttpWithHttps", () => {
-    expect(Utils.replaceHttpWithHttps("http://localhost:8080")).toBe("https://localhost:8080");
+    expect(Utils.replaceHttpWithHttps(`${localHost8080}:8080`)).toBe(`https://localhost:8080`);
   });
   test("isItemAlreadyAdded", () => {
     expect(Utils.isItemAlreadyAdded(itemsTestData, "АХ0168АА")).toBe(true);
@@ -106,7 +108,7 @@ describe("Utils window methods", () => {
     expect(Utils.checkIsUndefinedOrNull("fb")).toBe(false);
   });
   test("generateUrlforPlatesmania", () => {
-    expect(Utils.generateUrlforPlatesmania("http://localhost:8080", "key", "ВН01791С")).toBe("http://localhost:8080?key=key&gal=2&nomer=ВН01791С");
+    expect(Utils.generateUrlforPlatesmania(`${localHost8080}:8080`, "key", "ВН01791С")).toBe(`${localHost8080}:8080?key=key&gal=2&nomer=ВН01791С`);
   });
   test("isUserAuthenticated", () => {
     expect(Utils.isUserAuthenticated(1)).toBe(true);

@@ -91,6 +91,7 @@
     "tslint": "^5.20.1",
     "tslint-react": "^4.1.0",
     "tslint-react-hooks": "^2.2.1",
+    "tslint-sonarts": "^1.9.0",
     "tslint-webpack-plugin": "^2.1.0",
     "typescript": "3.2.2",
     "webpack": "4.28.2",
@@ -106,6 +107,7 @@
     "deploy": "gh-pages -d docs",
     "pwa": "pwa-asset-generator ./docs/img/touch/homescreen.png ./docs/img/touch --icon-only --manifest=./docs/manifest.json --index=./docs/index.html",
     "test": "jest",
+    "lint": "tslint ['./src/**/*.ts', './src/**/*.tsx']",
     "lighthouse": "lighthouse https://carsua.app --output=html --output-path=./__tests__lighthouse/report.html --save-assets --quiet --chrome-flags=\"--headless\""
   }
 }

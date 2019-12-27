@@ -52,6 +52,7 @@ export default class Utils {
   /**
    * Function to convert latin symbols to cyrillic, that looks similar: A,B,C,E,H,I,K,M,O,P,T,X
    */
+  /* tslint:disable no-identical-functions */
   public static latinToCyrillicMatrix(i: string): string {
     switch (i.charCodeAt(0)) {
       case 65:
@@ -369,5 +370,22 @@ export default class Utils {
     */
   public static getPolicyUrl(url: string, fileRelativePath: string): string {
     return `${url}/${fileRelativePath}`;
+  }
+  /**
+   * Function to check is response OK from async redux thunk
+   */
+  public static isResponseOk(response: any): any {
+      if (!response.ok) {
+          throw Error(response.statusText);
+      }
+      return response;
+  }
+  /**
+   * Function to catch erros from async redux thunk
+   */
+  public static catchError(error: any): void {
+    // TODO: implement system of logs (implicit or explicit) according to 12 factors
+    /* tslint:disable no-console */
+    console.log(error);
   }
 }

@@ -169,12 +169,12 @@ export const ResultCard = (props: {item: IItem}) => {
         const value = props.item.n_reg_new;
         const plateUrl = shapeUrlPlate(value, serviceUrl);
         dispatch(itemFetchDataForPlate(value, plateUrl));
-        handleAddResultToHash(value);
+        handleAddResultToHash();
     };
     const handleSettingsClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleAddResultToHash = (value: string) => {
+    const handleAddResultToHash = () => {
         history.push(`/`);
     };
     const handleCloseSnackBar = (event?: SyntheticEvent, reason?: string) => {

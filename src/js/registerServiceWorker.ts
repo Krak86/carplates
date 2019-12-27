@@ -1,27 +1,22 @@
-export function register() {
+export const register = () => {
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
         navigator.serviceWorker.register("/service-worker.js")
           .then((reg) => {
             reg.onupdatefound = () => {
               const installingWorker = reg.installing;
-              if (installingWorker === null) {
-                return;
-              }
-              installingWorker.onstatechange = () => {
-                switch (installingWorker.state) {
-                  case "installed":
-                    if (navigator.serviceWorker.controller) {
-                      reg.update()
-                      .then(() => {
+              if (installingWorker) {
+                installingWorker.onstatechange = () => {
+                  if (installingWorker.state === "installed" && navigator.serviceWorker.controller) {
+                    reg.update()
+                    .then(() => {
                         // TODO: implement react-redux-toastr or something
                         /* tslint:disable no-console */
                         console.log("New content is available and will be used when all tabs for this page are closed.");
-                      });
-                    }
-                    break;
-                }
-              };
+                    });
+                  }
+                };
+              }
             };
           })
           .catch((registrationError) => {
@@ -31,12 +26,11 @@ export function register() {
         });
     });
   }
-}
-
-export function unregister() {
+};
+export const unregister = () => {
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.ready.then((registration) => {
       registration.unregister();
     });
   }
-}
+};

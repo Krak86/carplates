@@ -1,12 +1,11 @@
-import React, { Fragment} from "react";
+import React from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { IPlatesmaniaCars } from "../../models/Interfaces";
 import lang from "../../locale";
 import { AppState } from "../../redux";
 import { IApplicationStates} from "../../models/Interfaces";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";

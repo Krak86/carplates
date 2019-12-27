@@ -8,7 +8,7 @@ import lang from "../../locale";
 import { URLs } from "../../data/Data";
 import { AppState } from "../../redux";
 import { IApplicationStates} from "../../models/Interfaces";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 import { ShareDrawerBottom } from "../share/ShareDrawerBottom";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";

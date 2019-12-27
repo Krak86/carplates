@@ -6,12 +6,12 @@ import Utils from "../../utils/Utils";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import lang from "../../locale";
-import { makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { fileRelativePath } from "../../data/Data";
 /* tslint:disable no-var-requires */
 const config: IEnvConfig = require("../../../../env.json");
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
     blocks: {
       padding: 0,
       marginBottom: 10,

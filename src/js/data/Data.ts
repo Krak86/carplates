@@ -1,4 +1,4 @@
-import { IApplicationStates, IItem, itemSearching, IVIN, IPlatesmaniaCars, ILoggedIn, IRegions } from "../models/Interfaces";
+import { IApplicationStates, IItem, itemSearching, IVIN, IPlatesmaniaCars, ILoggedIn, IRegions, IHeaders } from "../models/Interfaces";
 
 export const favoritsItemsLimit: number = 50;
 
@@ -234,3 +234,8 @@ export const itemsTestData: IItem[] = [
 ];
 
 export const fileRelativePath: string = "policy/policy.pdf";
+export const Headers: IHeaders = {
+    "Accept": "application/json",
+    "Content-Type": "application/json;charset=UTF-8",
+};
+export const contentType: string = "Content-Type";

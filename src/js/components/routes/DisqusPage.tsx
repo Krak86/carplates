@@ -4,10 +4,10 @@ import { AppState } from "../../redux";
 import { IApplicationStates} from "../../models/Interfaces";
 import Typography from "@material-ui/core/Typography";
 import lang from "../../locale";
-import { makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { DisqusComponent } from "../disqus/Disqus";
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
     blocks: {
       padding: 0,
       marginBottom: 10,

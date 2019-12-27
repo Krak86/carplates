@@ -6,10 +6,10 @@ import { ResultCard } from "../cards/ResultCard";
 import { FavoritesSyncCard } from "../cards/FavoritesSyncCard";
 import Typography from "@material-ui/core/Typography";
 import lang from "../../locale";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
     linear: {
       maxWidth: 500,
     },

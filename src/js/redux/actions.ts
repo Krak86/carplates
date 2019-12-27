@@ -5,9 +5,10 @@ import { ThunkAction } from "redux-thunk";
 import Utils from "../utils/Utils";
 import UtilsRia from "../utils/UtilsRia";
 import UtilsAsync from "../utils/UtilsAsync";
-import { URLs } from "../data/Data";
+import { URLs, Headers } from "../data/Data";
 /* tslint:disable no-var-requires */
 const config: IEnvConfig = require("../../../env.json");
+
 export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(imgCarsmaniaLoaded(false));
     const carPlate = Utils.combineConvertedSymbols(
@@ -20,16 +21,11 @@ export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, 
         method: "POST",
         body: Utils.generateBodyForPlatesManiaProxy(carPlate),
         headers: {
-            Accept: "application/json",
+            Accept: Headers.Accept,
         },
     };
     fetch(url, options)
-    .then((response) => {
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response;
-    })
+    .then(Utils.isResponseOk)
     .then((response) => response.json())
     .then((itemResponse: IPlatesmania) => {
         if (itemResponse.cars.length > 0) {
@@ -43,9 +39,7 @@ export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, 
     .catch((error) => {
         dispatch(addPlatesmaniaCars([]));
         dispatch(imgCarsmaniaLoaded(true));
-        // TODO: implement system of logs (implicit or explicit) according to 12 factors
-        /* tslint:disable no-console */
-        console.log(error);
+        Utils.catchError(error);
     });
 };
 
@@ -70,15 +64,10 @@ export const fetchDataForRiaModel = (itemResponse: IItem): ThunkAction<void, IAp
 
     fetch(url, {
         headers: {
-          Accept: "application/json",
+          Accept: Headers.Accept,
         },
     })
-    .then((response) => {
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response;
-    })
+    .then(Utils.isResponseOk)
     .then((response) => response.json())
     .then((response: IRiaCategories[]) => {
         if (response.length > 0) {
@@ -94,9 +83,7 @@ export const fetchDataForRiaModel = (itemResponse: IItem): ThunkAction<void, IAp
     })
     .catch((error) => {
         dispatch(itemHasErrored(true));
-        // TODO: implement system of logs (implicit or explicit) according to 12 factors
-        /* tslint:disable no-console */
-        console.log(error);
+        Utils.catchError(error);
     });
 };
 
@@ -104,17 +91,11 @@ export const fetchDataForRiaSearch = (categoryValue: number, modelValue: number,
     const url = UtilsRia.generateUrlToSearchAdsIds(URLs.riaUrl, categoryValue, brandValue, modelValue, year, key);
     fetch(url, {
         headers: {
-          Accept: "application/json",
+          Accept: Headers.Accept,
         },
     })
-    .then((response) => {
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response;
-    })
-    .then((response) => {
-        return response.json(); })
+    .then(Utils.isResponseOk)
+    .then((response) => response.json())
     .then((itemResponse: IRiaSearch) => {
         if (itemResponse.result.search_result.count > 0) {
             const ads: IRiaSearchData[] = itemResponse.result.search_result_common.data;
@@ -125,9 +106,7 @@ export const fetchDataForRiaSearch = (categoryValue: number, modelValue: number,
     })
     .catch((error) => {
         dispatch(itemHasErrored(true));
-        // TODO: implement system of logs (implicit or explicit) according to 12 factors
-        /* tslint:disable no-console */
-        console.log(error);
+        Utils.catchError(error);
     });
 };
 
@@ -136,21 +115,14 @@ export const fetchDataForRiaAds = (key: string, ads: IRiaSearchData[]): ThunkAct
     Promise.all(urls.map((url: string) =>
         fetch(UtilsRia.generateUrlToGetAdsContent(URLs.riaUrl, key, url), {
             headers: {
-              Accept: "application/json",
+              Accept: Headers.Accept,
             },
         })
-        .then((response) => {
-            if (!response.ok) {
-                throw Error(response.statusText);
-            }
-            return response;
-        })
-        .then((response) =>  response.json())
+        .then(Utils.isResponseOk)
+        .then((response) => response.json())
         .catch((error) => {
             dispatch(itemHasErrored(true));
-            // TODO: implement system of logs (implicit or explicit) according to 12 factors
-            /* tslint:disable no-console */
-            console.log(error);
+            Utils.catchError(error);
         }),
       ))
       .then((imagesRiaResponse: IRiaAds[]) => {
@@ -166,20 +138,14 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
     dispatch(itemHasErrored(false));
     fetch(url, {
         headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json;charset=UTF-8",
+            Accept: Headers.Accept,
+            contentType: Headers["Content-Type"],
         },
     })
-    .then((response) => {
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
-        dispatch(itemIsLoading(false));
-        return response;
-    })
-    .then((response) => {
-        return response.json(); })
+    .then(Utils.isResponseOk)
+    .then((response) => response.json())
     .then((itemResponse: IServiceRespond) => {
+        dispatch(itemIsLoading(false));
         if (itemResponse.value.length > 0) {
             const data = itemResponse.value[0];
             dispatch(itemFetchDataSuccess(data));
@@ -200,9 +166,7 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
     })
     .catch((error) => {
         dispatch(itemHasErrored(true));
-        // TODO: implement system of logs (implicit or explicit) according to 12 factors
-        /* tslint:disable no-console */
-        console.log(error);
+        Utils.catchError(error);
     });
 };
 
@@ -214,19 +178,13 @@ export const itemFetchDataForVin = (vinRequest: string, url: string): ThunkActio
 
     fetch(url, {
         headers: {
-          Accept: "application/json",
+          Accept: Headers.Accept,
         },
     })
-    .then((response) => {
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
-        dispatch(itemIsLoading(false));
-        return response;
-    })
-    .then((response) => {
-        return response.json(); })
+    .then(Utils.isResponseOk)
+    .then((response) => response.json())
     .then((itemResponse: IVIN) => {
+        dispatch(itemIsLoading(false));
         if (itemResponse.Results && itemResponse.Results.length > 0) {
             const data = itemResponse;
             dispatch(itemFetchDataVinSuccess(data));
@@ -240,9 +198,7 @@ export const itemFetchDataForVin = (vinRequest: string, url: string): ThunkActio
     })
     .catch((error) => {
         dispatch(itemHasErrored(true));
-        // TODO: implement system of logs (implicit or explicit) according to 12 factors
-        /* tslint:disable no-console */
-        console.log(error);
+        Utils.catchError(error);
     });
 };
 
@@ -261,16 +217,10 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, IAppl
     };
 
     fetch(url, options)
-    .then((response) => {
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
-        dispatch(itemIsLoading(false));
-        return response;
-    })
-    .then((response) => {
-        return response.json(); })
+    .then(Utils.isResponseOk)
+    .then((response) => response.json())
     .then((imageResponse: IImageRecognizeResponse) => {
+        dispatch(itemIsLoading(false));
         if (imageResponse.results.length > 0) {
             const carPlate = Utils.combineConvertedSymbols(
                 Utils.changeSymbols1toI(
@@ -291,9 +241,7 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, IAppl
     })
     .catch((error) => {
         dispatch(itemHasErrored(true));
-        // TODO: implement system of logs (implicit or explicit) according to 12 factors
-        /* tslint:disable no-console */
-        console.log(error);
+        Utils.catchError(error);
     });
 };
 
@@ -335,17 +283,11 @@ export const userSync = (email: string, favorites: IItem[], item: IItem | null, 
     );
     fetch(url, {
         headers: {
-          Accept: "application/json",
+          Accept: Headers.Accept,
         },
     })
-    .then((response) => {
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response;
-    })
-    .then((response) => {
-        return response.json(); })
+    .then(Utils.isResponseOk)
+    .then((response) => response.json())
     .then((itemResponse: IUserItem) => {
         const data = itemResponse.value;
         const items = Utils.mergeItems(data, favorites, item, addRemoveItem);
@@ -357,10 +299,8 @@ export const userSync = (email: string, favorites: IItem[], item: IItem | null, 
         dispatch(updateUser(userKeys, items));
     })
     .catch((error) => {
-        // TODO: implement system of logs (implicit or explicit) according to 12 factors
-        /* tslint:disable no-console */
-        console.log(error);
         dispatch(ItemsMerging(false));
+        Utils.catchError(error);
     });
 };
 export const updateUser = (userKeys: IUserKeys, items: IItem[]): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
@@ -372,28 +312,21 @@ export const updateUser = (userKeys: IUserKeys, items: IItem[]): ThunkAction<voi
     );
     const options: RequestInit = {
         headers: {
-            "Content-Type": "application/json",
+            contentType: Headers["Content-Type"],
         },
         method: "PUT",
         body: Utils.generateBodyForUpdateUser(items),
     };
 
     fetch(url, options)
-    .then((response) => {
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response;
-    })
+    .then(Utils.isResponseOk)
     .then((response) => response)
-    .then((response: any) => {
+    .then(() => {
         dispatch(ItemsMerging(false));
     })
     .catch((error) => {
-        // TODO: implement system of logs (implicit or explicit) according to 12 factors
-        /* tslint:disable no-console */
-        console.log(error);
         dispatch(ItemsMerging(false));
+        Utils.catchError(error);
     });
 };
 export const MergeLocalAndCloudFavorites = (items: IItem[]): actions.IMergeLocalAndCloudFavoritesAction => ({

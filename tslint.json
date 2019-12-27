@@ -2,6 +2,7 @@
     "defaultSeverity": "error",
     "extends": [
         "tslint:recommended",
+        "tslint-sonarts",
         "tslint-react",
         "tslint-react-hooks"
     ],
@@ -19,7 +20,8 @@
             "options": {
                 "detect-hooks-from-non-react-namespace": true
             }
-        }
+        },
+        "no-big-function": false
     },
     "rulesDirectory": []
 }

@@ -647,3 +647,7 @@ export interface IEnvConfig {
 export interface IRegions {
   [key: string]: string;
 }
+export interface IHeaders {
+  "Accept": string;
+  "Content-Type": string;
+}
