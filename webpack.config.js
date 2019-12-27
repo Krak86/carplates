@@ -84,7 +84,7 @@ module.exports = {
       //CSS
       {
         test: /\.(css)$/,
-        use: [          
+        use: [
           {
             loader: 'file-loader',
             options: {
@@ -100,9 +100,9 @@ module.exports = {
             loader: 'css-loader',
             options: {
               importLoaders: 2,
-              sourceMap: true           
+              sourceMap: true
             }
-          },            
+          },
           'postcss-loader'
         ]
       }
@@ -114,7 +114,7 @@ module.exports = {
     new CleanWebpackPlugin([dist]),
     new ImageminWebpWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: "Phaser game",
+      title: "Car plates app",
       filename: "index.html",
       template: "./src/index.html",
       favicon: "./src/img/favicons/favicon.png",
@@ -183,8 +183,8 @@ module.exports = {
       ]
     }),
     new WebpackNotifierPlugin({
-      title: 'Webpack', 
-      excludeWarnings: true, 
+      title: 'Webpack',
+      excludeWarnings: true,
       alwaysNotify: true
     }),
   ],
