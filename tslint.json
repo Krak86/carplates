@@ -2,7 +2,8 @@
     "defaultSeverity": "error",
     "extends": [
         "tslint:recommended",
-        "tslint-react"
+        "tslint-react",
+        "tslint-react-hooks"
     ],
     "jsRules": {},
     "rules": {
@@ -12,7 +13,13 @@
         "max-line-length": false,
         "jsx-no-multiline-js": false,
         "jsx-wrap-multiline": false,
-        "jsx-no-lambda": false
+        "jsx-no-lambda": false,
+        "react-hooks-nesting": {
+            "severity": "error",
+            "options": {
+                "detect-hooks-from-non-react-namespace": true
+            }
+        }
     },
     "rulesDirectory": []
 }

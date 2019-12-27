@@ -4,10 +4,10 @@ import { Route, Switch, Link, useHistory } from "react-router-dom";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { Login } from "./login/Login";
 import lang from "../locale";
-import { toggleDrawer, ResetBadge } from "../redux/actions";
+import { toggleDrawer } from "../redux/actions";
 import { AppState } from "../redux";
 import { IApplicationStates, IEnvConfig } from "../models/Interfaces";
-import { routesLinks } from "./routes/routesLinks";
+import { RoutesLinks } from "./routes/RoutesLinks";
 import { SearchPage } from "./routes/SearchPage";
 import { FavoritesPage } from "./routes/FavoritesPage";
 import { AboutPage } from "./routes/AboutPage";
@@ -121,14 +121,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     cursor: "pointer",
   },
 }));
-
 export default function App() {
   const state: IApplicationStates = useSelector((stateInternal: AppState) => stateInternal.Item, shallowEqual);
   const open = state.drawerToogled;
   const dispatch = useDispatch();
   const classes = useStyles({});
   const history = useHistory();
-  const azureAppInsightsKey = /*process.env.AZURE_APP_INSIGHTS_KEY ||*/ config.AZURE_APP_INSIGHTS_KEY || "";
+  const azureAppInsightsKey = /*process.env.AZURE_APP_INSIGHTS_KEY ||*/config.AZURE_APP_INSIGHTS_KEY || "";
 
   UtilsAppInsights.init(azureAppInsightsKey);
 
@@ -137,9 +136,6 @@ export default function App() {
   };
   const handleDrawerClose = () => {
     dispatch(toggleDrawer(false));
-  };
-  const handleOnBadgeClick = () => {
-    dispatch(ResetBadge());
   };
   const handleClickHome = () => {
     history.push(`/`);
@@ -186,7 +182,7 @@ export default function App() {
           </IconButton>
         </div>
         <Divider />
-        {routesLinks()}
+        <RoutesLinks />
       </Drawer>
       <section className={classes.content}>
         <div className={classes.appBarSpacer} />

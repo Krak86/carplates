@@ -20,7 +20,7 @@ export const SearchPage = () => {
     return (
         <Fragment>
             <SearchField />
-                {itemIsLoading === true && <LinearProgress className={classes.linear} />}
+            {itemIsLoading === true && <LinearProgress className={classes.linear} />}
             <Result />
         </Fragment>
     );

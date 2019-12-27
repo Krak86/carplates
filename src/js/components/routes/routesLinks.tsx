@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   }),
 );
 
-export const routesLinks = () => {
+export const RoutesLinks = () => {
   const state: IApplicationStates = useSelector((stateInternal: AppState) => stateInternal.Item, shallowEqual);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const [open, setOpen] = React.useState(false);
@@ -70,7 +70,6 @@ export const routesLinks = () => {
   const classes = useStyles({});
   const [prompt, promptToInstall] = useAddToHomescreenPrompt();
   const [isVisible, setVisibleState] = React.useState(false);
-  const hide = () => setVisibleState(false);
   React.useEffect(() => {
       if (prompt) {
         setVisibleState(true);
