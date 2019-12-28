@@ -1,3 +1,5 @@
+import Utils from "./utils/Utils";
+
 export const register = () => {
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
@@ -19,10 +21,8 @@ export const register = () => {
               }
             };
           })
-          .catch((registrationError) => {
-            // TODO: implement system of logs (implicit or explicit) according to 12 factors
-            /* tslint:disable no-console */
-            console.log("SW registration failed: ", registrationError);
+          .catch((error) => {
+            Utils.catchError(error);
         });
     });
   }

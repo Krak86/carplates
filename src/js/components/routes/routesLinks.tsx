@@ -75,7 +75,7 @@ export const RoutesLinks = () => {
       setVisibleState(true);
     }
   },
-  [prompt]
+  [prompt],
 );
   const handleInstallClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,

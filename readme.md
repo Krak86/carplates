@@ -27,24 +27,23 @@ This is a project that allows user to search a ukrainian car plates using open d
 The extra services are using here:
 * [Disqus (Chat as a service)](https://disqus.com/)
 * [Automatic Number Plate Recognition API (Image recognizer as a Service)](https://platerecognizer.com/)
+* [PlatesMania (Image photo by plate number as a Service)](https://platesmania.com/api)
 * [RIA Auto API (Car ads as a Service)](https://developers.ria.com/)
 * [National Highway Traffic Safety Administration API (Vin recognizer as a Service)](https://vpic.nhtsa.dot.gov/api/vehicles/decodevin)
-* [Github Pages (hosting as a Service)](https://pages.github.com/)
-* [Let's Encrypt (certificate as a Service)](https://letsencrypt.org/)
-* [Azre DevOps (devOps as a Service)](https://azure.microsoft.com/en-us/services/devops/)
-
-The project is open for everyone, so don't hesitate to create [issues](https://github.com/Krak86/carplates/issues) and [pull request](https://github.com/Krak86/carplates/pulls).
-It is pretend to use the rules of [12 factors](https://12factor.net)
+* [Github Pages (Hosting as a Service)](https://pages.github.com/)
+* [Let's Encrypt (Certificate as a Service)](https://letsencrypt.org/)
+* [Azre DevOps (DevOps as a Service)](https://azure.microsoft.com/en-us/services/devops/)
+* [Application Insights (Logs as a Service)](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview)
 
 The extra Linters Analysis are used:
 * [TSLint](https://palantir.github.io/tslint/)
 * [SonarTS](https://github.com/SonarSource/SonarTS)
 * [TSLint React](https://github.com/palantir/tslint-react)
-* [TSLint Rules of Hooks](https://github.com/palantir/tslint-react)
-* [Strict Type-Checking](https://www.typescriptlang.org/docs/handbook/type-checking-javascript-files.html)
+* [TSLint React Hooks](https://github.com/Gelio/tslint-react-hooks)
+* [TS Strict Type-Checking](https://www.typescriptlang.org/docs/handbook/type-checking-javascript-files.html)
 
 Roadmap (see [projects](https://github.com/Krak86/carplates/projects)):
-* Integration/e2e tests
+* Integration/e2e tests, for instance [cypress](https://www.cypress.io/)
 * IE11 support
 * Add notification about new app version, for instance [react-toastify](https://github.com/fkhadra/react-toastify)
 * Add facebook hashtag posts, for instance https://www.facebook.com/hashtag/ве7116аа
@@ -52,7 +51,26 @@ Roadmap (see [projects](https://github.com/Krak86/carplates/projects)):
 * Add android and IOS apps using [React Native](https://facebook.github.io/react-native/)
 * Create BOT for facebook, telegram, viber, wasap
 * Create own ML service for image recognizer
-* Add [Auth0](https://auth0.com/) (Auth as a service)
+* Add [Auth0](https://auth0.com/) or [Azure Active Directory](https://azure.microsoft.com/en-us/services/active-directory/) (Auth as a service)
+
+The project is open for everyone, so don't hesitate to create [issues](https://github.com/Krak86/carplates/issues) and [pull request](https://github.com/Krak86/carplates/pulls).
+
+It is pretend to use the rules of [12 factors](https://12factor.net):
+<ol>
+<li>Codebase: Github</li>
+<li>Dependencies: npm</li>
+<li>Config: Dotenv</li>
+<li>Backing services: Azure Table Storage, Disqus, RIA, NHTSA, ANPR, PlatesMania</li>
+<li>Build, release, run:  Azure DevOps</li>
+<li>Processes: Azure Table Storage, Disqus, RIA, NHTSA, ANPR, PlatesMania</li>
+<li>Port binding: webpack</li>
+<li>Concurrency: Azure Table Storage, Disqus, RIA, NHTSA, ANPR, PlatesMania</li>
+<li>Disposability: Azure DevOps, webpack</li>
+<li>Dev/prod parity: Azure DevOps, webpack</li>
+<li>Logs: Application Insights</li>
+<li>Admin processes: Azure DevOps, Github</li>
+</ol>
+
 
 ## Setup
 You'll need to install a few things before you have a working copy of the project.

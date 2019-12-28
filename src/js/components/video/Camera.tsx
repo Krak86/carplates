@@ -1,6 +1,6 @@
-import React, { Fragment, useState, useRef, useEffect } from "react";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
-import { IApplicationStates, IWebcamCaptureProps, IEnvConfig } from "../../models/Interfaces";
+import React, { Fragment, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { IWebcamCaptureProps, IEnvConfig } from "../../models/Interfaces";
 import { imageFetchData } from "../../redux/actions";
 import Utils from "../../utils/Utils";
 import UtilsAsync from "../../utils/UtilsAsync";
@@ -73,16 +73,12 @@ export const Camera = (props: IWebcamCaptureProps) => {
         video.srcObject = stream;
       }
     } catch (error) {
-      // TODO: implement system of logs (implicit or explicit) according to 12 factors
-      /* tslint:disable no-console */
-      console.error("Error: ", error);
+      Utils.catchError(error);
     }
   };
 
   const handleError = (error: any) => {
-    // TODO: implement system of logs (implicit or explicit) according to 12 factors
-    /* tslint:disable no-console */
-    console.error("Error: ", error);
+    Utils.catchError(error);
   };
 
   const getScreenshot = () => {

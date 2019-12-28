@@ -1,5 +1,6 @@
 import { Lang, ISaveState } from "../models/Interfaces";
 import { loggedInDefault } from "../data/Data";
+import Utils from "./Utils";
  /**
   * Class to provide local storage utility functions
   */
@@ -25,9 +26,7 @@ export default class UtilsStorage {
                 return JSON.parse(serializedState);
             }
         } catch (err) {
-            // TODO: implement system of logs (implicit or explicit) according to 12 factors
-            /* tslint:disable no-console */
-            console.log(err);
+            Utils.catchError(err);
             return JSON.parse(
             JSON.stringify(defaultData));
         }
@@ -41,9 +40,7 @@ export default class UtilsStorage {
             const serializedState = JSON.stringify(favorites);
             localStorage.setItem(UtilsStorage.localStorageState, serializedState);
         } catch (err) {
-            // TODO: implement system of logs (implicit or explicit) according to 12 factors
-            /* tslint:disable no-console */
-            console.log(err);
+            Utils.catchError(err);
         }
     }
 }
