@@ -99,6 +99,8 @@ export interface ILocation {
   port?: string;
 }
 export interface ILocale {
+  lang_locale: string;
+  lang_display: string;
     searchInputPlaceholderText: string;
     dashBoradTitle: string;
     copyright: string;
