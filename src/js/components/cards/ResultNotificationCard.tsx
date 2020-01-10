@@ -115,12 +115,12 @@ export const ResultNotificationCard = (props: INotification) => {
         const value = props.item.n_reg_new;
         const url = shapeUrlPlate(value, serviceUrl);
         dispatch(itemFetchDataForPlate(value, url));
-        handleAddResultToHash(value);
+        handleAddResultToHash();
     };
     const handleSettingsClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleAddResultToHash = (value: string) => {
+    const handleAddResultToHash = () => {
         history.push(`/`);
     };
 

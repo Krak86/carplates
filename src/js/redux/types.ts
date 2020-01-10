@@ -1,4 +1,4 @@
-import { IItem, IVIN, Auth, IFacebook, IGoogle, IRiaAds, IPlatesmaniaCars, Lang, INotification, ILoggedIn } from "../models/Interfaces";
+import { IItem, IVIN, IRiaAds, IPlatesmaniaCars, Lang, INotification, ILoggedIn } from "../models/Interfaces";
 
 export const ITEM_FETCH_DATA_SUCCESS: string = "ITEM_FETCH_DATA_SUCCESS";
 export const SET_ITEM_REQUEST: string = "SET_ITEM_REQUEST";

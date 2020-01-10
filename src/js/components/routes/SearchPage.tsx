@@ -4,10 +4,10 @@ import { SearchField } from "../search/SearchField";
 import { Result } from "../search/Result";
 import { AppState } from "../../redux";
 import { IApplicationStates} from "../../models/Interfaces";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
     linear: {
       maxWidth: 500,
     },

@@ -74,6 +74,8 @@ export const RoutesLinks = () => {
     if (prompt) {
       setVisibleState(true);
     }
+    /* tslint:disable no-console */
+    console.log(isVisible);
   },
   [prompt],
 );
@@ -83,6 +85,8 @@ export const RoutesLinks = () => {
   ): void => {
     setSelectedIndex(index);
     promptToInstall();
+    /* tslint:disable no-console */
+    console.log(event);
   };
   const handleDrawerClose = () => {
     dispatch(toggleDrawer(false));

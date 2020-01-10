@@ -2,7 +2,7 @@ import { cars } from "../data/DataCarsRia";
 import { motos } from "../data/DataMotoRia";
 import { trucks } from "../data/DataTrucksRia";
 import { buses } from "../data/DataBusesRia";
-import { IRiaCategories, IRiaSearch } from "../models/Interfaces";
+import { IRiaCategories } from "../models/Interfaces";
 /**
  * Class to provide utility functions to work with "RIA cars" web site
  */

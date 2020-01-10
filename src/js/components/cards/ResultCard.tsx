@@ -181,6 +181,8 @@ export const ResultCard = (props: {item: IItem}) => {
           return;
         }
         setOpenSnackbar(false);
+        /* tslint:disable no-console */
+        console.log(event);
     };
     const handleSnackbarMessage = (message: string) => {
         setSnackbarMessage(message);

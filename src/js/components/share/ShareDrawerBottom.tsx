@@ -3,9 +3,9 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Drawer from "@material-ui/core/Drawer";
 import { AppState } from "../../redux";
 import { IApplicationStates, IShareDialog } from "../../models/Interfaces";
-import { useSelector, shallowEqual, useDispatch } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 import lang from "../../locale";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import {
     FacebookShareButton,
     LinkedinShareButton,
@@ -23,7 +23,7 @@ import {
     EmailIcon,
 } from "react-share";
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
+const useStyles = makeStyles(() => createStyles({
     network: {
         verticalAlign: "top",
         display: "inline-block",

@@ -8,8 +8,8 @@ import Menu from "@material-ui/core/Menu";
 import lang from "../../locale";
 import { authoriseUser } from "../../redux/actions";
 import { AppState } from "../../redux";
-import { IApplicationStates, IFacebook, IEnvConfig } from "../../models/Interfaces";
-import FacebookLogin from "react-facebook-login";
+import { IApplicationStates, IEnvConfig } from "../../models/Interfaces";
+import FacebookLogin, { ReactFacebookLoginInfo } from "react-facebook-login";
 import GoogleLogin from "react-google-login";
 import { loggedInDefault } from "../../data/Data";
 import { login } from "../../redux/actions";
@@ -70,7 +70,7 @@ export const Login = () => {
     const handleClose1 = (): void => {
         setAnchorEl(null);
     };
-    const responseFacebook = (response: IFacebook): void => {
+    const responseFacebook = (response: ReactFacebookLoginInfo): void => {
         dispatch(authoriseUser({
             vendor: 1,
             avatar: response.picture.data.url || "",

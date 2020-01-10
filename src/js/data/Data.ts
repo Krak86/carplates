@@ -239,3 +239,9 @@ export const Headers: IHeaders = {
     "Content-Type": "application/json;charset=UTF-8",
 };
 export const contentType: string = "Content-Type";
+export interface IDomElements {
+    searchComponent: string;
+}
+export const domElements: IDomElements = {
+    searchComponent: "searchId",
+};

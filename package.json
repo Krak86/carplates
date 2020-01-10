@@ -47,6 +47,7 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^9.4.0",
     "@types/dotenv": "^6.1.1",
     "@types/enzyme": "^3.10.3",
     "@types/enzyme-adapter-react-16": "^1.0.5",
@@ -94,7 +95,7 @@
     "tslint-react-hooks": "^2.2.1",
     "tslint-sonarts": "^1.9.0",
     "tslint-webpack-plugin": "^2.1.0",
-    "typescript": "3.2.2",
+    "typescript": "^3.8.0-dev.20200109",
     "webpack": "4.28.2",
     "webpack-bundle-analyzer": "3.4.1",
     "webpack-cli": "3.1.2",

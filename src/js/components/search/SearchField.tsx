@@ -20,6 +20,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import ClearIcon from "@material-ui/icons/Clear";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import Snackbar from "@material-ui/core/Snackbar";
+import { domElements } from "../../data/Data";
 /* tslint:disable no-var-requires */
 const config: IEnvConfig = require("../../../../env.json");
 
@@ -219,11 +220,13 @@ export const SearchField = () => {
     }
     dispatch(imageFetchData(file, serviceRecognizeImageUrl));
   };
-  const handleCloseSnackBar = (event?: SyntheticEvent, reason?: string) => {
+  const handleCloseSnackBar = (event?: SyntheticEvent | React.MouseEvent, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }
     setOpenSnackbar(false);
+    /* tslint:disable no-console */
+    console.log(event);
   };
   const handleSnackbarMessage = (message: string) => {
     setSnackbarMessage(message);
@@ -240,6 +243,7 @@ export const SearchField = () => {
           value={inputValue.value}
           onKeyPress={handlerKeyPress}
           inputRef={searchInput}
+          id={domElements.searchComponent}
         />
         <IconButton
           className={classes.iconButton}
