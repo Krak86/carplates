@@ -73,7 +73,7 @@ export const Login = () => {
     const responseFacebook = (response: ReactFacebookLoginInfo): void => {
         dispatch(authoriseUser({
             vendor: 1,
-            avatar: response.picture.data.url || "",
+            avatar: (response.picture && response.picture.data.url) || "",
             profileName: response.name || "",
             mail: response.email || "",
         },
