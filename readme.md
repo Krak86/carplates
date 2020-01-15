@@ -1,7 +1,7 @@
 [![Build Status](https://dev.azure.com/krak86/CarsuaDevOps/_apis/build/status/Krak86.carplates?branchName=master)](https://dev.azure.com/krak86/CarsuaDevOps/_build/latest?definitionId=1&branchName=master)
 [![Beerpay](https://beerpay.io/Krak86/carplates/badge.svg?style=beer)](https://beerpay.io/Krak86/carplates)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=bugs)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=code_smells)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=ncloc)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=alert_status)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=security_rating)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Krak86_carplates)
-## UA car plates recognizer.
+## UA car plates recognizer
 
 It is offline-first, mobile-first, static, single page web application, that is hosted on github pages with custom domain: http://carsua.app
 
@@ -71,6 +71,19 @@ It is pretend to use the rules of [12 factors](https://12factor.net):
 <li>Admin processes: Azure DevOps, Github</li>
 </ol>
 
+## Functional Testing Result
+According to [DTAP/SDLC](https://github.com/Krak86/carplates/wiki/DTAP:-Software-Development-Life-Cycle-(SDLC)) (Development Testing Acceptance Production/Software Development Life Cycle) here are the part of Testing/System testing/QA testing result:
+* License Risks and Compliance Testing: [WhiteSource Bolt](https://dev.azure.com/krak86/CarsuaDevOps/_apps/hub/whitesource.ws-bolt.build-hub.wss)
+* Linters Analysis: [SonarCloud](https://sonarcloud.io/dashboard?id=Krak86_carplates)
+* CSS validation: [jigsaw.w3.org](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fcarsua.pp.ua%2F%23%2F&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
+* HTML validation: [validator.w3.org](https://validator.w3.org/nu/?doc=https%3A%2F%2Fcarsua.pp.ua%2F)
+* Localization Testing: [validator.w3.org](https://validator.w3.org/i18n-checker/check?uri=https://carsua.pp.ua/#validate-by-uri+)
+* Accessibility Testing: [lighthouse](https://lighthouse-dot-webdotdevsite.appspot.com//lh/html?url=https://carsua.pp.ua)
+* SEO Testing: [lighthouse](https://lighthouse-dot-webdotdevsite.appspot.com//lh/html?url=https://carsua.pp.ua)
+* Best Practicies Testing: [lighthouse](https://lighthouse-dot-webdotdevsite.appspot.com//lh/html?url=https://carsua.pp.ua)
+* Performance Testing: [lighthouse](https://lighthouse-dot-webdotdevsite.appspot.com//lh/html?url=https://carsua.pp.ua)
+* Security Testing/Vulnerability Testing: [OWASP ZAP Proxy](https://krak86.github.io/carplatesQA)
+* Install/Uninstall Testing: [![Build Status](https://dev.azure.com/krak86/CarsuaDevOps/_apis/build/status/Krak86.carplates?branchName=master)](https://dev.azure.com/krak86/CarsuaDevOps/_build/latest?definitionId=1&branchName=master)
 
 ## Setup
 You'll need to install a few things before you have a working copy of the project.
@@ -117,9 +130,13 @@ Build the current application
 ```sh
 $ npm run test
 ```
-## Check online
-https://krak86.github.io/carplates
-http://carsua.app
+## DTAP: Software Development Life Cycle (SDLC)
+* Development/Testing/Acceptance env: [https://carsua.pp.ua](https://carsua.pp.ua)
+* Production env: [http://carsua.app](http://carsua.app)
+
+##WIKI
+* [DTAP/SDLC](https://github.com/Krak86/carplates/wiki/DTAP:-Software-Development-Life-Cycle-(SDLC)) (Development Testing Acceptance Production/Software Development Life Cycle)
+* [Security Testing](https://github.com/Krak86/carplates/wiki/Security-Testing)
 
 ## Support on Beerpay
 Hey dude! Help me out for a couple of :beers:!

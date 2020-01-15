@@ -14,7 +14,7 @@ steps:
 - task: UseNode@1
   displayName: 'Set Node.js version'
   inputs:
-    version: '12.x'  
+    version: '12.x'
 
 - task: Npm@1
   displayName: 'Install Node.js'
