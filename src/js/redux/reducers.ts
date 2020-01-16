@@ -7,6 +7,11 @@ export const getReducer = (
     action: any,
   ): IApplicationStates => {
     switch (action.type) {
+      case actions.FORCE_UPDATES:
+        return {
+          ...state,
+          updatesAvailable: action.payload,
+        };
       case actions.ITEMS_MERGING:
         return {
           ...state,

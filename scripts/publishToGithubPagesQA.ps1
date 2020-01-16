@@ -23,7 +23,7 @@ Write-Host "---Publish 'owaspzap', 'lighthouse' reports to QA branch"
 git clone https://${githubusername}:$githubaccesstoken@github.com/$githubusername/$repositoryname.git --branch=$branchName $to --quiet
 Remove-Item $to\* -Recurse
 Copy-Item -Path $docPath\* -Destination $to -Recurse
-Copy-Item -Path $lighthousePath\* -Destination $to -Recurse
+#Copy-Item -Path $lighthousePath\* -Destination $to -Recurse
 cd $to
 Rename-Item -Path "report.html" -NewName "index.html"
 git config core.autocrlf false

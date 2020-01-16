@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, SyntheticEvent } from "react";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { Route, Switch, Link, useHistory } from "react-router-dom";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import { Login } from "./login/Login";
 import lang from "../locale";
-import { toggleDrawer } from "../redux/actions";
+import { toggleDrawer, ForceUpdates } from "../redux/actions";
 import { AppState } from "../redux";
 import { IApplicationStates, IEnvConfig } from "../models/Interfaces";
 import { RoutesLinks } from "./routes/RoutesLinks";
@@ -29,6 +29,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import UtilsAppInsights from "../utils/UtilsAppInsights";
+import { SnackbarContentWrapper } from "./snackbar/SnackbarContentWrapper";
+import Snackbar from "@material-ui/core/Snackbar";
 /* tslint:disable no-var-requires */
 const config: IEnvConfig = require("../../../env.json");
 const drawerWidth = 240;
@@ -120,6 +122,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
     cursor: "pointer",
   },
+  snackbarStyle: {
+    cursor: "pointer",
+  },
 }));
 export default function App() {
   const state: IApplicationStates = useSelector((stateInternal: AppState) => stateInternal.Item, shallowEqual);
@@ -127,10 +132,11 @@ export default function App() {
   const dispatch = useDispatch();
   const classes = useStyles({});
   const history = useHistory();
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const badges = state.badges;
+  const updateAvailable = state.updatesAvailable;
   const azureAppInsightsKey = /*process.env.AZURE_APP_INSIGHTS_KEY ||*/config.AZURE_APP_INSIGHTS_KEY || "";
-
   UtilsAppInsights.init(azureAppInsightsKey);
-
   const handleDrawerOpen = () => {
     dispatch(toggleDrawer(true));
   };
@@ -140,7 +146,32 @@ export default function App() {
   const handleClickHome = () => {
     history.push(`/`);
   };
-  const badges = state.badges;
+  const onMessageReceivedFromIServiceWorker = React.useCallback( (event: MessageEvent) => {
+    if (event.data !== true) {
+      return;
+    }
+    setOpenSnackbar(true);
+    },
+    [updateAvailable],
+  );
+  useEffect(() => {
+    window.addEventListener("message", onMessageReceivedFromIServiceWorker);
+    return () =>
+      window.removeEventListener("message", onMessageReceivedFromIServiceWorker);
+  }, [onMessageReceivedFromIServiceWorker]);
+  const handleCloseSnackBar = (event?: SyntheticEvent, reason?: string) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
+    /* tslint:disable no-console */
+    console.log(event);
+  };
+  const handleClickUpdate = () => {
+    dispatch(ForceUpdates(true));
+
+    window.location.reload(true);
+  };
 
   return (
     <div className={classes.root}>
@@ -199,6 +230,23 @@ export default function App() {
           </Switch>
         </Container>
       </section>
+      <Snackbar
+        anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "center",
+        }}
+        open={openSnackbar}
+        autoHideDuration={null}
+        onClose={handleCloseSnackBar}
+        onClick={handleClickUpdate}
+        className={classes.snackbarStyle}
+      >
+        <SnackbarContentWrapper
+          onClose={handleCloseSnackBar}
+          variant="info"
+          message={lang(state.lang).update_available}
+        />
+      </Snackbar>
     </div>
   );
 }

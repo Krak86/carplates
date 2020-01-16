@@ -27,6 +27,12 @@ export const GET_USER_DATA: string = "GET_USER_DATA";
 export const PUT_USER_DATA: string = "PUT_USER_DATA";
 export const MERGE_LOCAL_AND_CLOUD_FAVORITES: string = "MERGE_LOCAL_AND_CLOUD_FAVORITES";
 export const ITEMS_MERGING: string = "ITEMS_MERGING";
+export const FORCE_UPDATES: string = "FORCE_UPDATES";
+
+export interface IForceUpdatesAction {
+    type: typeof FORCE_UPDATES;
+    payload: boolean;
+}
 
 export interface IItemsMergingAction {
     type: typeof ITEMS_MERGING;

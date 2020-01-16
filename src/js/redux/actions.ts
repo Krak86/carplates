@@ -329,6 +329,10 @@ export const updateUser = (userKeys: IUserKeys, items: IItem[]): ThunkAction<voi
         Utils.catchError(error);
     });
 };
+export const ForceUpdates = (response: boolean): actions.IForceUpdatesAction => ({
+    type: actions.FORCE_UPDATES,
+    payload: response,
+});
 export const MergeLocalAndCloudFavorites = (items: IItem[]): actions.IMergeLocalAndCloudFavoritesAction => ({
     type: actions.MERGE_LOCAL_AND_CLOUD_FAVORITES,
     payload: items,

@@ -25,14 +25,13 @@ module.exports = {
     ],
     "reporters": [
         "default",
-        [ "jest-junit", 
+        [ "jest-junit",
             {
                 "suiteName": "jest tests",
                 "outputDirectory": "./__tests__",
                 "outputName": "summary-jest-junit.xml"
-            } 
-    ]
-      
+            }
+      ]
     ],
     "coverageDirectory": "<rootDir>/__tests__",
     "coverageThreshold": {
@@ -44,4 +43,3 @@ module.exports = {
       }
     }
   }
-  

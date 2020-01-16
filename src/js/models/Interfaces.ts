@@ -22,6 +22,7 @@ export interface IApplicationStates {
   favorites: IItem[];
   badges: number;
   itemsMerging: boolean;
+  updatesAvailable: boolean;
 }
 export interface INotification {
   item: IItem;
@@ -187,6 +188,7 @@ export interface ILocale {
     about_8_mit_2: string;
     about_9_mit_3: string;
     policy_url: string;
+    update_available: string;
 }
 export interface IVinResultValues {
   "Value": any;

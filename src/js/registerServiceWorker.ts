@@ -1,5 +1,4 @@
 import Utils from "./utils/Utils";
-
 export const register = () => {
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
@@ -12,9 +11,7 @@ export const register = () => {
                   if (installingWorker.state === "installed" && navigator.serviceWorker.controller) {
                     reg.update()
                     .then(() => {
-                        // TODO: implement react-redux-toastr or something
-                        /* tslint:disable no-console */
-                        console.log("New content is available and will be used when all tabs for this page are closed.");
+                        window.postMessage(true, "*" || "");
                     });
                   }
                 };

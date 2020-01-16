@@ -83,6 +83,7 @@ export const initialData: IApplicationStates = {
     favorites: [],
     badges: 0,
     itemsMerging: false,
+    updatesAvailable: false,
 };
 export const regions: IRegions = {
     АА: "Київ",
