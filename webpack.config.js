@@ -154,6 +154,10 @@ module.exports = {
         from:'src/policy/policy.pdf',
         to:'policy'
       },
+      {
+        from:'src/sitemap.xml',
+        to:''
+      },
     ]),
     new webpack.HotModuleReplacementPlugin(),
     new WorkboxPlugin.GenerateSW({

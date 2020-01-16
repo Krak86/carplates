@@ -1,33 +1,21 @@
 import React, { useEffect, SyntheticEvent } from "react";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
-import { Route, Switch, Link, useHistory } from "react-router-dom";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import { Login } from "./login/Login";
 import lang from "../locale";
 import { toggleDrawer, ForceUpdates } from "../redux/actions";
 import { AppState } from "../redux";
 import { IApplicationStates, IEnvConfig } from "../models/Interfaces";
 import { RoutesLinks } from "./routes/RoutesLinks";
-import { SearchPage } from "./routes/SearchPage";
-import { FavoritesPage } from "./routes/FavoritesPage";
-import { AboutPage } from "./routes/AboutPage";
-import { ProfilePage } from "./routes/ProfilePage";
-import { DisqusPage } from "./routes/DisqusPage";
-import { StorePage } from "./routes/StorePage";
-import { NotificationPage } from "./routes/NotificationPage";
+import { Router } from "./routes/Router";
+import { ToolbarComponent } from "./toolbar/ToolbarComponent";
 import clsx from "clsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
 import Container from "@material-ui/core/Container";
-import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import UtilsAppInsights from "../utils/UtilsAppInsights";
 import { SnackbarContentWrapper } from "./snackbar/SnackbarContentWrapper";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -131,20 +119,12 @@ export default function App() {
   const open = state.drawerToogled;
   const dispatch = useDispatch();
   const classes = useStyles({});
-  const history = useHistory();
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
-  const badges = state.badges;
   const updateAvailable = state.updatesAvailable;
   const azureAppInsightsKey = /*process.env.AZURE_APP_INSIGHTS_KEY ||*/config.AZURE_APP_INSIGHTS_KEY || "";
   UtilsAppInsights.init(azureAppInsightsKey);
-  const handleDrawerOpen = () => {
-    dispatch(toggleDrawer(true));
-  };
   const handleDrawerClose = () => {
     dispatch(toggleDrawer(false));
-  };
-  const handleClickHome = () => {
-    history.push(`/`);
   };
   const onMessageReceivedFromIServiceWorker = React.useCallback( (event: MessageEvent) => {
     if (event.data !== true) {
@@ -177,29 +157,7 @@ export default function App() {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="end"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography component="h1" display="initial"  variant="h6" noWrap={true} className={classes.title} onClick={handleClickHome}>
-            {lang(state.lang).dashBoradTitle}
-          </Typography>
-
-          <Link to="/notifications">
-            <IconButton>
-              <Badge badgeContent={badges} color="secondary">
-                  <NotificationsIcon  color="action" />
-              </Badge>
-            </IconButton>
-          </Link>
-          <Login />
-        </Toolbar>
+        <ToolbarComponent />
       </AppBar>
       <Drawer
         variant="temporary"
@@ -218,16 +176,7 @@ export default function App() {
       <section className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Switch>
-            <Route exact={true} path="/" component={SearchPage} />
-            <Route path="/favorites" component={FavoritesPage} />
-            <Route path="/notifications" component={NotificationPage} />
-            <Route path="/about" component={AboutPage} />
-            <Route path="/profile" component={ProfilePage} />
-            <Route path="/disqus" component={DisqusPage} />
-            <Route path="/store" component={StorePage} />
-            <Route component={SearchPage} />
-          </Switch>
+          <Router />
         </Container>
       </section>
       <Snackbar
