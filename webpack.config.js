@@ -1,3 +1,4 @@
+const fs = require('fs');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -193,10 +194,15 @@ module.exports = {
     }),
   ],
   devServer: {
+    https: {
+      key: fs.readFileSync('./certs/server.key'),
+      cert: fs.readFileSync('./certs/server.crt'),
+      cacert: fs.readFileSync('./certs/ca.crt')
+    },
     publicPath: "/",
     compress: true,
     hot: true,
-    public: process.env.DEVSERVER_PUBLIC || "http://localhost:8080",
+    public: process.env.DEVSERVER_PUBLIC || "https://localhost:8080",
     contentBase: pathToDist,
     host: process.env.DEVSERVER_HOST || "localhost",
     port: process.env.DEVSERVER_PORT || 8080,

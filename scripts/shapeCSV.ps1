@@ -9,14 +9,14 @@
 #path to unziped csv file
 cd "C:\Path\To\Source\csv";
 #sourceCSVfileName, example: "tz_opendata_z01012019_po01082019"
-$filename = "sourceCSVfileName"; 
+$filename = "sourceCSVfileName";
 $sourceCSV = "$($filename).csv";
 $rowsCount = 100000;
 $rowsMaximum = 2000000;
 $startrow = 0;
 $counter = 1;
 while ($startrow -lt $rowsMaximum){
-    $ob = Import-CSV -Delimiter ';' $sourceCSV | select-object -skip $startrow -first $rowsCount 
+    $ob = Import-CSV -Delimiter ';' $sourceCSV | select-object -skip $startrow -first $rowsCount
     foreach ($item in $ob){
         $item | Add-Member -MemberType NoteProperty -Name "PartitionKey" -Value $item.n_reg_new.Trim().Substring(0,2)
         $item | Add-Member -MemberType NoteProperty -Name "RowKey" -Value $item.n_reg_new.Trim()

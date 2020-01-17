@@ -33,7 +33,6 @@
     "clsx": "1.0.4",
     "disqus-react": "^1.0.7",
     "dotenv-webpack": "^1.7.0",
-    "fs": "0.0.1-security",
     "react": "^16.9.0",
     "react-app-polyfill": "^1.0.5",
     "react-dom": "^16.9.0",
@@ -70,6 +69,7 @@
     "enzyme-to-json": "^3.4.0",
     "extract-loader": "^3.1.0",
     "file-loader": "4.2.0",
+    "fs": "0.0.1-security",
     "gh-pages": "^2.1.1",
     "html-webpack-plugin": "^3.2.0",
     "identity-obj-proxy": "^3.0.0",
@@ -104,7 +104,7 @@
     "workbox-webpack-plugin": "^4.3.1"
   },
   "scripts": {
-    "run": "webpack-dev-server --open --mode development",
+    "run": "webpack-dev-server --https --open --mode development",
     "build": "webpack --mode production && npm run pwa",
     "deploy": "gh-pages -d docs",
     "pwa": "pwa-asset-generator ./docs/img/touch/homescreen.png ./docs/img/touch --icon-only --manifest=./docs/manifest.json --index=./docs/index.html",

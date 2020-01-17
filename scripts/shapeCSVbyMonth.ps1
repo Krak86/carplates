@@ -9,7 +9,7 @@
 #path to unziped csv file
 cd "C:\Personal\rkor01\Downloads\cosmosDB";
 #sourceCSVfileName, example: "tz_opendata_z01012019_po01082019"
-$filename = "tz_opendata_z01012019_po01112019"; 
+$filename = "tz_opendata_z01012019_po01112019";
 $sourceCSV = "$($filename).csv";
 $rowsCount = 200000;
 $rowsMaximum = 2000000;
@@ -20,11 +20,11 @@ while ($startrow -lt $rowsMaximum){
     $ob_source = Import-CSV -Delimiter ';' $sourceCSV | select-object -skip $startrow -first $rowsCount
     $ob_filtered = @()
     foreach ($item in $ob_source){
-        if(($item.d_reg -Like $separateByMonthValue) -and ($item.n_reg_new -ne "")){            
+        if(($item.d_reg -Like $separateByMonthValue) -and ($item.n_reg_new -ne "")){
             $item | Add-Member -MemberType NoteProperty -Name "PartitionKey" -Value $item.n_reg_new.Trim().Substring(0,2)
             $item | Add-Member -MemberType NoteProperty -Name "RowKey" -Value $item.n_reg_new.Trim()
             $ob_filtered = $ob_filtered + $item
-        }       
+        }
     }
     if($ob_filtered.Length -ne 0){
         $ob_filtered | Export-CSV "$($filename)_$($counter).csv" -Encoding UTF8 -NoTypeInformation
