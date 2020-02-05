@@ -1,6 +1,8 @@
 [![Build Status](https://dev.azure.com/krak86/CarsuaDevOps/_apis/build/status/Krak86.carplates?branchName=master)](https://dev.azure.com/krak86/CarsuaDevOps/_build/latest?definitionId=1&branchName=master)
 [![Beerpay](https://beerpay.io/Krak86/carplates/badge.svg?style=beer)](https://beerpay.io/Krak86/carplates)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=bugs)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=code_smells)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=ncloc)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=alert_status)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=security_rating)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Krak86_carplates)
+[![Codeac](https://static.codeac.io/badges/2-206787914.svg "Codeac.io")](https://app.codeac.io/github/Krak86/carplates)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b71b6799c1034e8c91638cfd8634ad74)](https://www.codacy.com/manual/Krak86/carplates?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Krak86/carplates&amp;utm_campaign=Badge_Grade)
 ## UA car plates recognizer
 
 It is offline-first, mobile-first, static, single page web application, that is hosted on github pages with custom domain: http://carsua.app
@@ -45,7 +47,6 @@ The extra Linters Analysis are used:
 Roadmap (see [projects](https://github.com/Krak86/carplates/projects)):
 * Integration/e2e tests, for instance [cypress](https://www.cypress.io/)
 * IE11 support
-* Add notification about new app version, for instance [react-toastify](https://github.com/fkhadra/react-toastify)
 * Add facebook hashtag posts, for instance https://www.facebook.com/hashtag/ве7116аа
 * Add crash test rating, for instance [one.nhtsa.gov](https://one.nhtsa.gov/webapi/api/SafetyRatings/modelyear/2016/make/VOLKSWAGEN/model/JETTA?format=json)
 * Add android and IOS apps using [React Native](https://facebook.github.io/react-native/)
