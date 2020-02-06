@@ -3,6 +3,7 @@
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=bugs)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=code_smells)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=ncloc)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=alert_status)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=security_rating)](https://sonarcloud.io/dashboard?id=Krak86_carplates) [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Krak86_carplates&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Krak86_carplates)
 [![Codeac](https://static.codeac.io/badges/2-206787914.svg "Codeac.io")](https://app.codeac.io/github/Krak86/carplates)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b71b6799c1034e8c91638cfd8634ad74)](https://www.codacy.com/manual/Krak86/carplates?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Krak86/carplates&amp;utm_campaign=Badge_Grade)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FKrak86%2Fcarplates.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FKrak86%2Fcarplates?ref=badge_shield)
 ## UA car plates recognizer
 
 It is offline-first, mobile-first, static, single page web application, that is hosted on github pages with custom domain: http://carsua.app
@@ -143,3 +144,7 @@ $ npm run test
 Hey dude! Help me out for a couple of :beers:!
 
 [![Beerpay](https://beerpay.io/Krak86/carplates/badge.svg?style=beer-square)](https://beerpay.io/Krak86/carplates)  [![Beerpay](https://beerpay.io/Krak86/carplates/make-wish.svg?style=flat-square)](https://beerpay.io/Krak86/carplates?focus=wish)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FKrak86%2Fcarplates.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FKrak86%2Fcarplates?ref=badge_large)
