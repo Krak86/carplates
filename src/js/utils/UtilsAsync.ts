@@ -49,8 +49,8 @@ export default class UtilsAsync {
       return new Promise<IServiceRespond>((resolve, reject) => {
         fetch(url, {
           headers: {
-              Accept: Headers.Accept,
-              contentType: Headers["Content-Type"],
+            Accept: Headers.Accept,
+            contentType: Headers["Content-Type"],
           },
         })
         .then(Utils.isResponseOk)
@@ -216,7 +216,7 @@ export default class UtilsAsync {
       return new Promise<void>((resolve, reject) => {
         const options: RequestInit = {
           headers: {
-              contentType: Headers["Content-Type"],
+            "Content-Type": "application/json",
           },
           method: "PUT",
           body: Utils.generateBodyForUpdateUser(items),

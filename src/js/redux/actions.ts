@@ -5,7 +5,7 @@ import { ThunkAction } from "redux-thunk";
 import Utils from "../utils/Utils";
 import UtilsRia from "../utils/UtilsRia";
 import UtilsAsync from "../utils/UtilsAsync";
-import { URLs, Headers } from "../data/Data";
+import { URLs } from "../data/Data";
 /* tslint:disable no-var-requires */
 const config: IEnvConfig = require("../../../env.json");
 
@@ -17,7 +17,6 @@ export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, 
         Utils.cyrillicToLatinToMatrix,
         Utils.reducer);
     const url = /*process.env.AZURE_PLATESMANIA_PROXY ||*/config.AZURE_PLATESMANIA_PROXY || "";
-
     UtilsAsync.fetchDataForPlatesmaniaApi(carPlate, url)
     .then((itemResponse: IPlatesmania) => {
         if (itemResponse.cars && itemResponse.cars.length && itemResponse.cars.length > 0) {
@@ -41,7 +40,6 @@ export const fetchDataForRiaModel = (itemResponse: IItem): ThunkAction<void, IAp
     const model = itemResponse.model.trim();
     const kind = itemResponse.kind.trim();
     const year = itemResponse.make_year.trim();
-
     const categoryValue = UtilsRia.detectCategory(kind);
     const brandArray = UtilsRia.detectBrandMatrix(categoryValue);
     const brandWithoutModel = UtilsRia.excludeModelFromBrand(brand, model);
@@ -53,7 +51,6 @@ export const fetchDataForRiaModel = (itemResponse: IItem): ThunkAction<void, IAp
     }
     const key = /*process.env.RIA_KEY ||*/ config.RIA_KEY || "";
     const url = UtilsRia.generateUrlToGetModelValue(URLs.riaUrl, categoryValue, brandValue, key);
-
     UtilsAsync.fetchDataForRiaModelApi(url)
     .then((response: IRiaCategories[]) => {
         if (response.length && response.length > 0) {
@@ -75,7 +72,6 @@ export const fetchDataForRiaModel = (itemResponse: IItem): ThunkAction<void, IAp
 
 export const fetchDataForRiaSearch = (categoryValue: number, modelValue: number, brandValue: number, year: string, key: string): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     const url = UtilsRia.generateUrlToSearchAdsIds(URLs.riaUrl, categoryValue, brandValue, modelValue, year, key);
-
     UtilsAsync.fetchDataForRiaSearchApi(url)
     .then((itemResponse: IRiaSearch) => {
         if (itemResponse.result && itemResponse.result.search_result && itemResponse.result.search_result.count && itemResponse.result.search_result.count > 0) {
@@ -110,7 +106,6 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
     dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));
     dispatch(itemHasErrored(false));
-
     UtilsAsync.fetchDataForPlateApi(url)
     .then((itemResponse: IServiceRespond) => {
         dispatch(itemIsLoading(false));
@@ -143,7 +138,6 @@ export const itemFetchDataForVin = (vinRequest: string, url: string): ThunkActio
     dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));
     dispatch(itemHasErrored(false));
-
     UtilsAsync.fetchDataForVinApi(url)
     .then((itemResponse: IVIN) => {
         dispatch(itemIsLoading(false));
@@ -169,7 +163,6 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, IAppl
     dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));
     dispatch(itemHasErrored(false));
-
     UtilsAsync.imageFetchDataApi(file, url)
     .then((imageResponse: IImageRecognizeResponse) => {
         dispatch(itemIsLoading(false));
@@ -233,7 +226,6 @@ export const userSync = (email: string, favorites: IItem[], item: IItem | null, 
         userKeys.RowKey,
         userKeys.PartitionKey,
     );
-
     UtilsAsync.userSyncApi(url)
     .then((itemResponse: IUserItem) => {
         const data = itemResponse.value;
@@ -257,7 +249,6 @@ export const updateUser = (userKeys: IUserKeys, items: IItem[]): ThunkAction<voi
         userKeys.PartitionKey,
         userKeys.RowKey,
     );
-
     UtilsAsync.updateUserApi(url, items)
     .then(() => {
         dispatch(ItemsMerging(false));
