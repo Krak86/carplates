@@ -5,7 +5,7 @@ import { ThunkAction } from "redux-thunk";
 import Utils from "../utils/Utils";
 import UtilsRia from "../utils/UtilsRia";
 import UtilsAsync from "../utils/UtilsAsync";
-import { URLs, Headers } from "../data/Data";
+import { URLs } from "../data/Data";
 /* tslint:disable no-var-requires */
 const config: IEnvConfig = require("../../../env.json");
 
@@ -17,18 +17,9 @@ export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, 
         Utils.cyrillicToLatinToMatrix,
         Utils.reducer);
     const url = /*process.env.AZURE_PLATESMANIA_PROXY ||*/config.AZURE_PLATESMANIA_PROXY || "";
-    const options = {
-        method: "POST",
-        body: Utils.generateBodyForPlatesManiaProxy(carPlate),
-        headers: {
-            Accept: Headers.Accept,
-        },
-    };
-    fetch(url, options)
-    .then(Utils.isResponseOk)
-    .then((response) => response.json())
+    UtilsAsync.fetchDataForPlatesmaniaApi(carPlate, url)
     .then((itemResponse: IPlatesmania) => {
-        if (itemResponse.cars.length > 0) {
+        if (itemResponse.cars && itemResponse.cars.length && itemResponse.cars.length > 0) {
            const data = itemResponse.cars;
            dispatch(addPlatesmaniaCars(data));
         } else {
@@ -49,28 +40,20 @@ export const fetchDataForRiaModel = (itemResponse: IItem): ThunkAction<void, IAp
     const model = itemResponse.model.trim();
     const kind = itemResponse.kind.trim();
     const year = itemResponse.make_year.trim();
-
     const categoryValue = UtilsRia.detectCategory(kind);
     const brandArray = UtilsRia.detectBrandMatrix(categoryValue);
     const brandWithoutModel = UtilsRia.excludeModelFromBrand(brand, model);
     let brandValue: number;
-    if (brandArray.length > 0) {
+    if (brandArray.length && brandArray.length > 0) {
         brandValue = UtilsRia.detectModelValue(brandArray, brandWithoutModel);
     } else {
         return;
     }
     const key = /*process.env.RIA_KEY ||*/ config.RIA_KEY || "";
     const url = UtilsRia.generateUrlToGetModelValue(URLs.riaUrl, categoryValue, brandValue, key);
-
-    fetch(url, {
-        headers: {
-          Accept: Headers.Accept,
-        },
-    })
-    .then(Utils.isResponseOk)
-    .then((response) => response.json())
+    UtilsAsync.fetchDataForRiaModelApi(url)
     .then((response: IRiaCategories[]) => {
-        if (response.length > 0) {
+        if (response.length && response.length > 0) {
             const modelValue = response.filter((i: IRiaCategories) => {
                 if (i.name.toUpperCase() === model.toUpperCase()) {
                     return i.value;
@@ -89,15 +72,9 @@ export const fetchDataForRiaModel = (itemResponse: IItem): ThunkAction<void, IAp
 
 export const fetchDataForRiaSearch = (categoryValue: number, modelValue: number, brandValue: number, year: string, key: string): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     const url = UtilsRia.generateUrlToSearchAdsIds(URLs.riaUrl, categoryValue, brandValue, modelValue, year, key);
-    fetch(url, {
-        headers: {
-          Accept: Headers.Accept,
-        },
-    })
-    .then(Utils.isResponseOk)
-    .then((response) => response.json())
+    UtilsAsync.fetchDataForRiaSearchApi(url)
     .then((itemResponse: IRiaSearch) => {
-        if (itemResponse.result.search_result.count > 0) {
+        if (itemResponse.result && itemResponse.result.search_result && itemResponse.result.search_result.count && itemResponse.result.search_result.count > 0) {
             const ads: IRiaSearchData[] = itemResponse.result.search_result_common.data;
             dispatch(fetchDataForRiaAds(key, ads));
         } else {
@@ -112,23 +89,16 @@ export const fetchDataForRiaSearch = (categoryValue: number, modelValue: number,
 
 export const fetchDataForRiaAds = (key: string, ads: IRiaSearchData[]): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     const urls: string[] = ads.map((url: IRiaSearchData) => url.id);
-    Promise.all(urls.map((url: string) =>
-        fetch(UtilsRia.generateUrlToGetAdsContent(URLs.riaUrl, key, url), {
-            headers: {
-              Accept: Headers.Accept,
-            },
-        })
-        .then(Utils.isResponseOk)
-        .then((response) => response.json())
-        .catch((error) => {
-            dispatch(itemHasErrored(true));
-            Utils.catchError(error);
-        }),
+    Promise.all(urls.map((url: string) => UtilsAsync.fetchDataForRiaAdsApi(UtilsRia.generateUrlToGetAdsContent(URLs.riaUrl, key, url)),
       ))
       .then((imagesRiaResponse: IRiaAds[]) => {
         dispatch(addRiaAds(imagesRiaResponse));
         dispatch(imgRiaLoaded(true));
-      });
+      })
+      .catch((error) => {
+        dispatch(itemHasErrored(true));
+        Utils.catchError(error);
+    });
 };
 
 export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAction<void, IApplicationStates, null, Action<string>> => async (dispatch) => {
@@ -136,17 +106,10 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
     dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));
     dispatch(itemHasErrored(false));
-    fetch(url, {
-        headers: {
-            Accept: Headers.Accept,
-            contentType: Headers["Content-Type"],
-        },
-    })
-    .then(Utils.isResponseOk)
-    .then((response) => response.json())
+    UtilsAsync.fetchDataForPlateApi(url)
     .then((itemResponse: IServiceRespond) => {
         dispatch(itemIsLoading(false));
-        if (itemResponse.value.length > 0) {
+        if (itemResponse.value &&  itemResponse.value.length && itemResponse.value.length > 0) {
             const data = itemResponse.value[0];
             dispatch(itemFetchDataSuccess(data));
             dispatch(addToItemsList({
@@ -175,17 +138,10 @@ export const itemFetchDataForVin = (vinRequest: string, url: string): ThunkActio
     dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));
     dispatch(itemHasErrored(false));
-
-    fetch(url, {
-        headers: {
-          Accept: Headers.Accept,
-        },
-    })
-    .then(Utils.isResponseOk)
-    .then((response) => response.json())
+    UtilsAsync.fetchDataForVinApi(url)
     .then((itemResponse: IVIN) => {
         dispatch(itemIsLoading(false));
-        if (itemResponse.Results && itemResponse.Results.length > 0) {
+        if (itemResponse.Results && itemResponse.Results.length && itemResponse.Results.length > 0) {
             const data = itemResponse;
             dispatch(itemFetchDataVinSuccess(data));
             dispatch(addToVinsListList(data));
@@ -207,21 +163,10 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, IAppl
     dispatch(itemIsLoaded(false));
     dispatch(itemIsLoading(true));
     dispatch(itemHasErrored(false));
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const options = {
-        method: "POST",
-        body: formData,
-    };
-
-    fetch(url, options)
-    .then(Utils.isResponseOk)
-    .then((response) => response.json())
+    UtilsAsync.imageFetchDataApi(file, url)
     .then((imageResponse: IImageRecognizeResponse) => {
         dispatch(itemIsLoading(false));
-        if (imageResponse.results.length > 0) {
+        if (imageResponse.results && imageResponse.results.length && imageResponse.results.length > 0) {
             const carPlate = Utils.combineConvertedSymbols(
                 Utils.changeSymbols1toI(
                     Utils.trimData(imageResponse.results[0].plate),
@@ -281,13 +226,7 @@ export const userSync = (email: string, favorites: IItem[], item: IItem | null, 
         userKeys.RowKey,
         userKeys.PartitionKey,
     );
-    fetch(url, {
-        headers: {
-          Accept: Headers.Accept,
-        },
-    })
-    .then(Utils.isResponseOk)
-    .then((response) => response.json())
+    UtilsAsync.userSyncApi(url)
     .then((itemResponse: IUserItem) => {
         const data = itemResponse.value;
         const items = Utils.mergeItems(data, favorites, item, addRemoveItem);
@@ -310,17 +249,7 @@ export const updateUser = (userKeys: IUserKeys, items: IItem[]): ThunkAction<voi
         userKeys.PartitionKey,
         userKeys.RowKey,
     );
-    const options: RequestInit = {
-        headers: {
-            contentType: Headers["Content-Type"],
-        },
-        method: "PUT",
-        body: Utils.generateBodyForUpdateUser(items),
-    };
-
-    fetch(url, options)
-    .then(Utils.isResponseOk)
-    .then((response) => response)
+    UtilsAsync.updateUserApi(url, items)
     .then(() => {
         dispatch(ItemsMerging(false));
     })
