@@ -655,3 +655,18 @@ export interface IHeaders {
   "Accept": string;
   "Content-Type": string;
 }
+export interface IFetchData {
+  itemRequest: string;
+  url: string;
+}
+export interface IFetchFile {
+  itemRequest: File;
+  url: string;
+}
+export interface IAuthorise {
+  authStatus: ILoggedIn;
+  favorites: IItem[];
+}
+export interface IFavorites extends IAuthorise {
+  item: IItem;
+}

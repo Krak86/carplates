@@ -4,9 +4,10 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import UtilsStorage from "../utils/UtilsStorage";
 import { initialData } from "../data/Data";
 import { getReducer } from "./reducers";
-// import { rootSaga } from "../sagas";
+import { rootSaga } from "../sagas";
 /* tslint:disable no-commented-code */
-import thunkMiddleware from "redux-thunk";
+// needed for thunk
+// import thunkMiddleware from "redux-thunk";
 
 const persistedState = UtilsStorage.loadState();
 
@@ -15,10 +16,11 @@ export const rootReducer = combineReducers({
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
-
-const sagaMiddleware = createSagaMiddleware();
 export const configureStore = () => {
-  const middlewares = [thunkMiddleware/*sagaMiddleware*/];
+  /* tslint:disable no-commented-code */
+  // needed for saga
+  const sagaMiddleware = createSagaMiddleware();
+  const middlewares = [/*thunkMiddleware*/sagaMiddleware];
   const middleWareEnhancer =  applyMiddleware(...middlewares);
 
   const store = createStore(
@@ -39,7 +41,8 @@ export const configureStore = () => {
       loggedIn: store.getState().Item.loggedIn,
     });
   });
+  /* tslint:disable no-commented-code */
+  // needed for saga
+  sagaMiddleware.run(rootSaga);
   return store;
 };
-
-// sagaMiddleware.run(rootSaga);

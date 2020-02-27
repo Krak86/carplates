@@ -1,22 +1,58 @@
 import * as actions from "./types";
-import { IItem, IVIN, IRiaAds, IPlatesmaniaCars, Lang, INotification, ILoggedIn } from "../models/Interfaces";
+import { IItem, IVIN, IRiaAds, IPlatesmaniaCars, Lang, INotification, ILoggedIn, IFetchData, IFetchFile, IAuthorise, IFavorites } from "../models/Interfaces";
 /* tslint:disable no-commented-code */
-// needed for thunk
-import * as actionsThunk from "./actionsThunk";
-
-export const fetchDataForPlatesmania = actionsThunk.fetchDataForPlatesmaniaThunk;
-export const fetchDataForRiaModel = actionsThunk.fetchDataForRiaModelThunk;
-export const fetchDataForRiaSearch = actionsThunk.fetchDataForRiaSearchThunk;
-export const fetchDataForRiaAds = actionsThunk.fetchDataForRiaAdsThunk;
-export const itemFetchDataForPlate = actionsThunk.itemFetchDataForPlateThunk;
-export const itemFetchDataForVin = actionsThunk.itemFetchDataForVinThunk;
-export const imageFetchData = actionsThunk.imageFetchDataThunk;
-export const authoriseUser = actionsThunk.authoriseUserThunk;
-export const addToFavoritesSync = actionsThunk.addToFavoritesSyncThunk;
-export const removeFromFavoritesSync = actionsThunk.removeFromFavoritesSyncThunk;
-export const manualSync = actionsThunk.manualSyncThunk;
-export const userSync = actionsThunk.userSyncThunk;
-export const updateUser = actionsThunk.updateUserThunk;
+/*
+ * needed for thunk
+ *
+    import * as actionsThunk from "./actionsThunk";
+    export const fetchDataForPlatesmania = actionsThunk.fetchDataForPlatesmaniaThunk;
+    export const fetchDataForRiaModel = actionsThunk.fetchDataForRiaModelThunk;
+    export const fetchDataForRiaSearch = actionsThunk.fetchDataForRiaSearchThunk;
+    export const fetchDataForRiaAds = actionsThunk.fetchDataForRiaAdsThunk;
+    export const itemFetchDataForPlate = actionsThunk.itemFetchDataForPlateThunk;
+    export const itemFetchDataForVin = actionsThunk.itemFetchDataForVinThunk;
+    export const imageFetchData = actionsThunk.imageFetchDataThunk;
+    export const authoriseUser = actionsThunk.authoriseUserThunk;
+    export const addToFavoritesSync = actionsThunk.addToFavoritesSyncThunk;
+    export const removeFromFavoritesSync = actionsThunk.removeFromFavoritesSyncThunk;
+    export const manualSync = actionsThunk.manualSyncThunk;
+    export const userSync = actionsThunk.userSyncThunk;
+    export const updateUser = actionsThunk.updateUserThunk;
+*/
+export const itemFetchDataForPlate = (value: string, url: string): actions.IItemFetchDataForPlate => ({
+    type: actions.ITEM_FETCH_DATA_FOR_PLATE,
+    payload: {
+        itemRequest: value,
+        url,
+    },
+});
+export const itemFetchDataForVin = (value: string, url: string): actions.IItemFetchDataForVin => ({
+    type: actions.ITEM_FETCH_DATA_FOR_VIN,
+    payload: {
+        itemRequest: value,
+        url,
+    },
+});
+export const imageFetchData = (response: IFetchFile): actions.IImageFetchData => ({
+    type: actions.IMAGE_FETCH_DATA,
+    payload: response,
+});
+export const authoriseUser = (response: IAuthorise): actions.IAuthoriseUser => ({
+    type: actions.AUTHORISE_USER,
+    payload: response,
+});
+export const addToFavoritesSync = (response: IFavorites): actions.IAddToFavoritesSync => ({
+    type: actions.ADD_TO_FAVORITES_SYNC,
+    payload: response,
+});
+export const removeFromFavoritesSync = (response: IFavorites): actions.IRemoveFromFavoritesSync => ({
+    type: actions.REMOVE_FROM_FAVORITES_SYNC,
+    payload: response,
+});
+export const manualSync = (response: IAuthorise): actions.IManualSync => ({
+    type: actions.MANUAL_SYNC,
+    payload: response,
+});
 
 export const ForceUpdates = (response: boolean): actions.IForceUpdatesAction => ({
     type: actions.FORCE_UPDATES,
