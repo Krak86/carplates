@@ -33,7 +33,6 @@ export const fetchDataForPlatesmania = (itemRequest: string): ThunkAction<void, 
         Utils.catchError(error);
     });
 };
-
 export const fetchDataForRiaModel = (itemResponse: IItem): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(imgRiaLoaded(false));
     const brand = itemResponse.brand.trim();
@@ -59,7 +58,11 @@ export const fetchDataForRiaModel = (itemResponse: IItem): ThunkAction<void, IAp
                     return i.value;
                 }
             });
-            dispatch(fetchDataForRiaSearch(categoryValue, modelValue[0].value, brandValue, year, key));
+            if (modelValue.length > 0 && modelValue[0].value) {
+                dispatch(fetchDataForRiaSearch(categoryValue, modelValue[0].value, brandValue, year, key));
+            } else {
+                return;
+            }
         } else {
             return;
         }
@@ -69,7 +72,6 @@ export const fetchDataForRiaModel = (itemResponse: IItem): ThunkAction<void, IAp
         Utils.catchError(error);
     });
 };
-
 export const fetchDataForRiaSearch = (categoryValue: number, modelValue: number, brandValue: number, year: string, key: string): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     const url = UtilsRia.generateUrlToSearchAdsIds(URLs.riaUrl, categoryValue, brandValue, modelValue, year, key);
     UtilsAsync.fetchDataForRiaSearchApi(url)
@@ -86,7 +88,6 @@ export const fetchDataForRiaSearch = (categoryValue: number, modelValue: number,
         Utils.catchError(error);
     });
 };
-
 export const fetchDataForRiaAds = (key: string, ads: IRiaSearchData[]): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     const urls: string[] = ads.map((url: IRiaSearchData) => url.id);
     Promise.all(urls.map((url: string) => UtilsAsync.fetchDataForRiaAdsApi(UtilsRia.generateUrlToGetAdsContent(URLs.riaUrl, key, url)),
@@ -100,7 +101,6 @@ export const fetchDataForRiaAds = (key: string, ads: IRiaSearchData[]): ThunkAct
         Utils.catchError(error);
     });
 };
-
 export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAction<void, IApplicationStates, null, Action<string>> => async (dispatch) => {
     dispatch(setSearchingItemType(0));
     dispatch(itemIsLoaded(false));
@@ -109,7 +109,7 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
     UtilsAsync.fetchDataForPlateApi(url)
     .then((itemResponse: IServiceRespond) => {
         dispatch(itemIsLoading(false));
-        if (itemResponse.value &&  itemResponse.value.length && itemResponse.value.length > 0) {
+        if (itemResponse.value && itemResponse.value.length && itemResponse.value.length > 0) {
             const data = itemResponse.value[0];
             dispatch(itemFetchDataSuccess(data));
             dispatch(addToItemsList({
@@ -132,7 +132,6 @@ export const itemFetchDataForPlate = (itemRequest: string, url: string): ThunkAc
         Utils.catchError(error);
     });
 };
-
 export const itemFetchDataForVin = (vinRequest: string, url: string): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(setSearchingItemType(1));
     dispatch(itemIsLoaded(false));
@@ -157,7 +156,6 @@ export const itemFetchDataForVin = (vinRequest: string, url: string): ThunkActio
         Utils.catchError(error);
     });
 };
-
 export const imageFetchData = (file: File, url: string): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(setSearchingItemType(3));
     dispatch(itemIsLoaded(false));
@@ -189,7 +187,6 @@ export const imageFetchData = (file: File, url: string): ThunkAction<void, IAppl
         Utils.catchError(error);
     });
 };
-
 export const authoriseUser = (authStatus: ILoggedIn, favorites: IItem[]): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(login(authStatus));
     if (!Utils.isUserAuthenticated(authStatus.vendor)) {
