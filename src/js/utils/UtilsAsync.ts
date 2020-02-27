@@ -49,8 +49,8 @@ export default class UtilsAsync {
       return new Promise<IServiceRespond>((resolve, reject) => {
         fetch(url, {
           headers: {
-            Accept: Headers.Accept,
-            contentType: Headers["Content-Type"],
+            "Accept": Headers.Accept,
+            "Content-Type": "application/json",
           },
         })
         .then(Utils.isResponseOk)
@@ -68,12 +68,7 @@ export default class UtilsAsync {
      */
     public static fetchDataForVinApi(url: string): Promise<IVIN> {
       return new Promise<IVIN>((resolve, reject) => {
-        fetch(url, {
-          headers: {
-              Accept: Headers.Accept,
-              contentType: Headers["Content-Type"],
-          },
-        })
+        fetch(url)
         .then(Utils.isResponseOk)
         .then((response) => response.json())
         .then((itemResponse: IVIN) => {

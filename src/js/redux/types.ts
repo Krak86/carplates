@@ -28,6 +28,11 @@ export const PUT_USER_DATA: string = "PUT_USER_DATA";
 export const MERGE_LOCAL_AND_CLOUD_FAVORITES: string = "MERGE_LOCAL_AND_CLOUD_FAVORITES";
 export const ITEMS_MERGING: string = "ITEMS_MERGING";
 export const FORCE_UPDATES: string = "FORCE_UPDATES";
+/* tslint:disable no-commented-code */
+// saga's action types
+export const ITEM_FETCH_DATA_FOR_PLATE: string = "ITEM_FETCH_DATA_FOR_PLATE";
+export const ITEM_FETCH_DATA_FOR_VIN: string = "ITEM_FETCH_DATA_FOR_VIN";
+export const IMAGE_FETCH_DATA: string = "IMAGE_FETCH_DATA";
 
 export interface IForceUpdatesAction {
     type: typeof FORCE_UPDATES;
