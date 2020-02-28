@@ -656,11 +656,11 @@ export interface IHeaders {
   "Content-Type": string;
 }
 export interface IFetchData {
-  itemRequest: string;
+  value: string;
   url: string;
 }
 export interface IFetchFile {
-  itemRequest: File;
+  value: File;
   url: string;
 }
 export interface IAuthorise {

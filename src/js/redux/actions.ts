@@ -22,36 +22,53 @@ import { IItem, IVIN, IRiaAds, IPlatesmaniaCars, Lang, INotification, ILoggedIn,
 export const itemFetchDataForPlate = (value: string, url: string): actions.IItemFetchDataForPlate => ({
     type: actions.ITEM_FETCH_DATA_FOR_PLATE,
     payload: {
-        itemRequest: value,
+        value,
         url,
     },
 });
 export const itemFetchDataForVin = (value: string, url: string): actions.IItemFetchDataForVin => ({
     type: actions.ITEM_FETCH_DATA_FOR_VIN,
     payload: {
-        itemRequest: value,
+        value,
         url,
     },
 });
-export const imageFetchData = (response: IFetchFile): actions.IImageFetchData => ({
+export const imageFetchData = (value: File, url: string): actions.IImageFetchData => ({
     type: actions.IMAGE_FETCH_DATA,
-    payload: response,
+    payload: {
+        value,
+        url,
+    },
 });
-export const authoriseUser = (response: IAuthorise): actions.IAuthoriseUser => ({
+export const authoriseUser = (authStatus: ILoggedIn, favorites: IItem[]): actions.IAuthoriseUser => ({
     type: actions.AUTHORISE_USER,
-    payload: response,
+    payload: {
+        authStatus,
+        favorites,
+    },
 });
-export const addToFavoritesSync = (response: IFavorites): actions.IAddToFavoritesSync => ({
+export const addToFavoritesSync = (authStatus: ILoggedIn, favorites: IItem[], item: IItem): actions.IAddToFavoritesSync => ({
     type: actions.ADD_TO_FAVORITES_SYNC,
-    payload: response,
+    payload: {
+        authStatus,
+        favorites,
+        item,
+    },
 });
-export const removeFromFavoritesSync = (response: IFavorites): actions.IRemoveFromFavoritesSync => ({
+export const removeFromFavoritesSync = (authStatus: ILoggedIn, favorites: IItem[], item: IItem): actions.IRemoveFromFavoritesSync => ({
     type: actions.REMOVE_FROM_FAVORITES_SYNC,
-    payload: response,
+    payload: {
+        authStatus,
+        favorites,
+        item,
+    },
 });
-export const manualSync = (response: IAuthorise): actions.IManualSync => ({
+export const manualSync = (authStatus: ILoggedIn, favorites: IItem[]): actions.IManualSync => ({
     type: actions.MANUAL_SYNC,
-    payload: response,
+    payload: {
+        authStatus,
+        favorites,
+    },
 });
 
 export const ForceUpdates = (response: boolean): actions.IForceUpdatesAction => ({
