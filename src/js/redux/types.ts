@@ -1,4 +1,4 @@
-import { IItem, IVIN, IRiaAds, IPlatesmaniaCars, Lang, INotification, ILoggedIn } from "../models/Interfaces";
+import { IItem, IVIN, IRiaAds, IPlatesmaniaCars, Lang, INotification, ILoggedIn, IFetchData, IFetchFile, IAuthorise, IFavorites } from "../models/Interfaces";
 
 export const ITEM_FETCH_DATA_SUCCESS: string = "ITEM_FETCH_DATA_SUCCESS";
 export const SET_ITEM_REQUEST: string = "SET_ITEM_REQUEST";
@@ -28,6 +28,44 @@ export const PUT_USER_DATA: string = "PUT_USER_DATA";
 export const MERGE_LOCAL_AND_CLOUD_FAVORITES: string = "MERGE_LOCAL_AND_CLOUD_FAVORITES";
 export const ITEMS_MERGING: string = "ITEMS_MERGING";
 export const FORCE_UPDATES: string = "FORCE_UPDATES";
+/* tslint:disable no-commented-code */
+// saga's action types
+export const ITEM_FETCH_DATA_FOR_PLATE: string = "ITEM_FETCH_DATA_FOR_PLATE";
+export const ITEM_FETCH_DATA_FOR_VIN: string = "ITEM_FETCH_DATA_FOR_VIN";
+export const IMAGE_FETCH_DATA: string = "IMAGE_FETCH_DATA";
+export const AUTHORISE_USER: string = "AUTHORISE_USER";
+export const ADD_TO_FAVORITES_SYNC: string = "ADD_TO_FAVORITES_SYNC";
+export const REMOVE_FROM_FAVORITES_SYNC: string = "REMOVE_FROM_FAVORITES_SYNC";
+export const MANUAL_SYNC: string = "MANUAL_SYNC";
+
+export interface IItemFetchDataForPlate {
+    type: typeof ITEM_FETCH_DATA_FOR_PLATE;
+    payload: IFetchData;
+}
+export interface IItemFetchDataForVin {
+    type: typeof ITEM_FETCH_DATA_FOR_VIN;
+    payload: IFetchData;
+}
+export interface IImageFetchData {
+    type: typeof ITEM_FETCH_DATA_FOR_VIN;
+    payload: IFetchFile;
+}
+export interface IAuthoriseUser {
+    type: typeof AUTHORISE_USER;
+    payload: IAuthorise;
+}
+export interface IAddToFavoritesSync {
+    type: typeof ADD_TO_FAVORITES_SYNC;
+    payload: IFavorites;
+}
+export interface IRemoveFromFavoritesSync {
+    type: typeof REMOVE_FROM_FAVORITES_SYNC;
+    payload: IFavorites;
+}
+export interface IManualSync {
+    type: typeof MANUAL_SYNC;
+    payload: IAuthorise;
+}
 
 export interface IForceUpdatesAction {
     type: typeof FORCE_UPDATES;

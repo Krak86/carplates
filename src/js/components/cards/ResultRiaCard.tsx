@@ -63,17 +63,17 @@ export const ResultRiaCard = (props: {item: IRiaAds}) => {
     const [open, setOpen] = React.useState(false);
 
     const title = Utils.checkIsUndefinedOrNull(props.item.title) ? "" : props.item.title;
-    const year = Utils.checkIsUndefinedOrNull(props.item.autoData.year) ? "" : `(${props.item.autoData.year})`;
+    const year = Utils.checkIsUndefinedOrNull(props.item.autoData && props.item.autoData.year) ? "" : `(${props.item.autoData.year})`;
     const USD = Utils.checkIsUndefinedOrNull(props.item.USD) ? "" : `${props.item.USD} $, `;
-    const stateData = Utils.checkIsUndefinedOrNull(props.item.stateData.name) ? "" : props.item.stateData.name;
-    const image = Utils.checkIsUndefinedOrNull(props.item.photoData.seoLinkB) ? "" : props.item.photoData.seoLinkB;
-    const description = Utils.checkIsUndefinedOrNull(props.item.autoData.description) ? "" : props.item.autoData.description;
-    const race = Utils.checkIsUndefinedOrNull(props.item.autoData.race) ? "" : props.item.autoData.race;
-    const category = Utils.checkIsUndefinedOrNull(props.item.autoData.categoryId) ? "" : UtilsRia.detectTypeByCategory(props.item.autoData.categoryId);
-    const fuelName = Utils.checkIsUndefinedOrNull(props.item.autoData.fuelName) ? "" : props.item.autoData.fuelName;
-    const gearboxName = Utils.checkIsUndefinedOrNull(props.item.autoData.gearboxName) ? "" : props.item.autoData.gearboxName;
-    const body = Utils.checkIsUndefinedOrNull(props.item.autoData.bodyId) ? "" : UtilsRia.detectBodyStyleByValue(bodyStyles, props.item.autoData.bodyId);
-    const phone = Utils.checkIsUndefinedOrNull(props.item.userPhoneData.phone) ? "" : `+380${props.item.userPhoneData.phone}`;
+    const stateData = Utils.checkIsUndefinedOrNull(props.item.stateData && props.item.stateData.name) ? "" : props.item.stateData.name;
+    const image = Utils.checkIsUndefinedOrNull(props.item.photoData && props.item.photoData.seoLinkB) ? "" : props.item.photoData.seoLinkB;
+    const description = Utils.checkIsUndefinedOrNull(props.item.autoData && props.item.autoData.description) ? "" : props.item.autoData.description;
+    const race = Utils.checkIsUndefinedOrNull(props.item.autoData && props.item.autoData.race) ? "" : props.item.autoData.race;
+    const category = Utils.checkIsUndefinedOrNull(props.item.autoData && props.item.autoData.categoryId) ? "" : UtilsRia.detectTypeByCategory(props.item.autoData.categoryId);
+    const fuelName = Utils.checkIsUndefinedOrNull(props.item.autoData && props.item.autoData.fuelName) ? "" : props.item.autoData.fuelName;
+    const gearboxName = Utils.checkIsUndefinedOrNull(props.item.autoData && props.item.autoData.gearboxName) ? "" : props.item.autoData.gearboxName;
+    const body = Utils.checkIsUndefinedOrNull(props.item.autoData && props.item.autoData.bodyId) ? "" : UtilsRia.detectBodyStyleByValue(bodyStyles, props.item.autoData.bodyId);
+    const phone = Utils.checkIsUndefinedOrNull(props.item.autoData && props.item.userPhoneData.phone) ? "" : `+380${props.item.userPhoneData.phone}`;
     const url = Utils.checkIsUndefinedOrNull(props.item.linkToView) ? "" : `${URLs.riaUrlPublic}${props.item.linkToView}`;
     const handleClose = () => {
         setOpen(false);
