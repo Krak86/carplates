@@ -26,8 +26,8 @@ export const itemFetchDataForPlateThunk = (itemRequest: string, url: string): Th
             }));
             dispatch(actionCreators.setItemRequest(itemRequest));
             dispatch(actionCreators.responseIsEmpty(false));
-            dispatch(actionCreators.fetchDataForRiaModel(data));
-            dispatch(actionCreators.fetchDataForPlatesmania(itemRequest));
+            dispatch(fetchDataForRiaModelThunk(data));
+            dispatch(fetchDataForPlatesmaniaThunk(itemRequest));
             dispatch(actionCreators.AddBadge());
             UtilsAsync.playNotification();
         } else {
@@ -147,7 +147,7 @@ export const fetchDataForRiaModelThunk = (itemResponse: IItem): ThunkAction<void
                 }
             });
             if (modelValue.length > 0 && modelValue[0].value) {
-                dispatch(actionCreators.fetchDataForRiaSearch(categoryValue, modelValue[0].value, brandValue, year, key));
+                dispatch(fetchDataForRiaSearchThunk(categoryValue, modelValue[0].value, brandValue, year, key));
             } else {
                 return;
             }
@@ -166,7 +166,7 @@ export const fetchDataForRiaSearchThunk = (categoryValue: number, modelValue: nu
     .then((itemResponse: IRiaSearch) => {
         if (itemResponse.result && itemResponse.result.search_result && itemResponse.result.search_result.count && itemResponse.result.search_result.count > 0) {
             const ads: IRiaSearchData[] = itemResponse.result.search_result_common.data;
-            dispatch(actionCreators.fetchDataForRiaAds(key, ads));
+            dispatch(fetchDataForRiaAdsThunk(key, ads));
         } else {
             return;
         }
@@ -196,7 +196,7 @@ export const authoriseUserThunk = (authStatus: ILoggedIn, favorites: IItem[]): T
         return;
     }
     dispatch(actionCreators.ItemsMerging(true));
-    dispatch(actionCreators.userSync(authStatus.mail, favorites, null, null));
+    dispatch(userSyncThunk(authStatus.mail, favorites, null, null));
 };
 export const addToFavoritesSyncThunk = (authStatus: ILoggedIn, favorites: IItem[], item: IItem): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     if (!Utils.isUserAuthenticated(authStatus.vendor)) {
@@ -204,7 +204,7 @@ export const addToFavoritesSyncThunk = (authStatus: ILoggedIn, favorites: IItem[
         return;
     }
     dispatch(actionCreators.ItemsMerging(true));
-    dispatch(actionCreators.userSync(authStatus.mail, favorites, item, true));
+    dispatch(userSyncThunk(authStatus.mail, favorites, item, true));
 };
 export const removeFromFavoritesSyncThunk = (authStatus: ILoggedIn, favorites: IItem[], item: IItem): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     if (!Utils.isUserAuthenticated(authStatus.vendor)) {
@@ -212,11 +212,11 @@ export const removeFromFavoritesSyncThunk = (authStatus: ILoggedIn, favorites: I
         return;
     }
     dispatch(actionCreators.ItemsMerging(true));
-    dispatch(actionCreators.userSync(authStatus.mail, favorites, item, false));
+    dispatch(userSyncThunk(authStatus.mail, favorites, item, false));
 };
 export const manualSyncThunk = (authStatus: ILoggedIn, favorites: IItem[]): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     dispatch(actionCreators.ItemsMerging(true));
-    dispatch(actionCreators.userSync(authStatus.mail, favorites, null, null));
+    dispatch(userSyncThunk(authStatus.mail, favorites, null, null));
 };
 export const userSyncThunk = (email: string, favorites: IItem[], item: IItem | null, addRemoveItem: boolean | null): ThunkAction<void, IApplicationStates, null, Action<string>> => (dispatch) => {
     const userKeys = Utils.generateRowKeyAndPartitionKey(email);
@@ -235,7 +235,7 @@ export const userSyncThunk = (email: string, favorites: IItem[], item: IItem | n
             return;
         }
         dispatch(actionCreators.MergeLocalAndCloudFavorites(items));
-        dispatch(actionCreators.updateUser(userKeys, items));
+        dispatch(updateUserThunk(userKeys, items));
     })
     .catch((error) => {
         dispatch(actionCreators.ItemsMerging(false));
