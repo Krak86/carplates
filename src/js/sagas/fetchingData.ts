@@ -138,38 +138,35 @@ function* fetchDataForRiaModel(value: IItem) {
         const brandArray = UtilsRia.detectBrandMatrix(categoryValue);
         const brandWithoutModel = UtilsRia.excludeModelFromBrand(brand, model);
         let brandValue: number;
-        if (brandArray.length && brandArray.length > 0) {
-            brandValue = UtilsRia.detectModelValue(brandArray, brandWithoutModel);
-        } else {
+        if (brandArray.length && brandArray.length === 0) {
             return;
+        } else {
+            brandValue = UtilsRia.detectModelValue(brandArray, brandWithoutModel);
         }
         const key = /*process.env.RIA_KEY ||*/ config.RIA_KEY || "";
         const urlRiaModel = UtilsRia.generateUrlToGetModelValue(URLs.riaUrl, categoryValue, brandValue, key);
         const response: IRiaCategories[] = yield call(UtilsAsync.fetchDataForRiaModelApi, urlRiaModel);
-        if (response.length && response.length > 0) {
-            const modelValue = response.filter((i: IRiaCategories) => {
-                if (i.name.toUpperCase() === model.toUpperCase()) {
-                    return i.value;
-                }
-            });
-            if (modelValue.length > 0 && modelValue[0].value) {
-                const urlRiaSearch = UtilsRia.generateUrlToSearchAdsIds(URLs.riaUrl, categoryValue, brandValue, modelValue[0].value, year, key);
-                const responseRiaSearch: IRiaSearch = yield call(UtilsAsync.fetchDataForRiaSearchApi, urlRiaSearch);
-                if (responseRiaSearch.result && responseRiaSearch.result.search_result && responseRiaSearch.result.search_result.count && responseRiaSearch.result.search_result.count > 0) {
-                    const ads: IRiaSearchData[] = responseRiaSearch.result.search_result_common.data;
-                    const urls: string[] = ads.map((url: IRiaSearchData) => url.id);
-                    const imagesRiaResponse: IRiaAds[] = yield all(urls.map((url: string) => call(UtilsAsync.fetchDataForRiaAdsApi, UtilsRia.generateUrlToGetAdsContent(URLs.riaUrl, key, url))));
-                    yield put(actionCreators.addRiaAds(imagesRiaResponse));
-                    yield put(actionCreators.imgRiaLoaded(true));
-                } else {
-                    return;
-                }
-            } else {
-                return;
-            }
-        } else {
+        if (response.length && response.length === 0) {
             return;
         }
+        const modelValue = response.filter((i: IRiaCategories) => {
+            if (i.name.toUpperCase() === model.toUpperCase()) {
+                return i.value;
+            }
+        });
+        if (modelValue.length === 0 && modelValue[0].value) {
+            return;
+        }
+        const urlRiaSearch = UtilsRia.generateUrlToSearchAdsIds(URLs.riaUrl, categoryValue, brandValue, modelValue[0].value, year, key);
+        const responseRiaSearch: IRiaSearch = yield call(UtilsAsync.fetchDataForRiaSearchApi, urlRiaSearch);
+        if (responseRiaSearch.result && responseRiaSearch.result.search_result && responseRiaSearch.result.search_result.count && responseRiaSearch.result.search_result.count === 0) {
+            return;
+        }
+        const ads: IRiaSearchData[] = responseRiaSearch.result.search_result_common.data;
+        const urls: string[] = ads.map((url: IRiaSearchData) => url.id);
+        const imagesRiaResponse: IRiaAds[] = yield all(urls.map((url: string) => call(UtilsAsync.fetchDataForRiaAdsApi, UtilsRia.generateUrlToGetAdsContent(URLs.riaUrl, key, url))));
+        yield put(actionCreators.addRiaAds(imagesRiaResponse));
+        yield put(actionCreators.imgRiaLoaded(true));
     } catch (error) {
         yield put(actionCreators.itemHasErrored(true));
         Utils.catchError(error);
