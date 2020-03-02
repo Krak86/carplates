@@ -1,5 +1,5 @@
 import * as actions from "./types";
-import { IItem, IVIN, IRiaAds, IPlatesmaniaCars, Lang, INotification, ILoggedIn, IFetchData, IFetchFile, IAuthorise, IFavorites } from "../models/Interfaces";
+import { IItem, IVIN, IRiaAds, IPlatesmaniaCars, Lang, INotification, ILoggedIn } from "../models/Interfaces";
 /* tslint:disable no-commented-code */
 /*
  * needed for thunk
