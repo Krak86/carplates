@@ -158,7 +158,7 @@ function* fetchDataForRiaModel(value: IItem) {
                 if (responseRiaSearch.result && responseRiaSearch.result.search_result && responseRiaSearch.result.search_result.count && responseRiaSearch.result.search_result.count > 0) {
                     const ads: IRiaSearchData[] = responseRiaSearch.result.search_result_common.data;
                     const urls: string[] = ads.map((url: IRiaSearchData) => url.id);
-                    const imagesRiaResponse: IRiaAds[] = yield all(urls.map((url: string) => call(UtilsRia.generateUrlToGetAdsContent, URLs.riaUrl, key, url)));
+                    const imagesRiaResponse: IRiaAds[] = yield all(urls.map((url: string) => call(UtilsAsync.fetchDataForRiaAdsApi, UtilsRia.generateUrlToGetAdsContent(URLs.riaUrl, key, url))));
                     yield put(actionCreators.addRiaAds(imagesRiaResponse));
                     yield put(actionCreators.imgRiaLoaded(true));
                 } else {
