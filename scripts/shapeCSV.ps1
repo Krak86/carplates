@@ -13,7 +13,7 @@ $filename = "sourceCSVfileName";
 $sourceCSV = "$($filename).csv";
 $rowsCount = 100000;
 $rowsMaximum = 2000000;
-$startrow = 0;
+$startrow = 1;
 $counter = 1;
 while ($startrow -lt $rowsMaximum){
     $ob = Import-CSV `
