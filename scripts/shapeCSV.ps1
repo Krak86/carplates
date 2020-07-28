@@ -16,11 +16,13 @@ $rowsMaximum = 2000000;
 $startrow = 0;
 $counter = 1;
 while ($startrow -lt $rowsMaximum){
-    $ob = Import-CSV -Delimiter ';' $sourceCSV | select-object -skip $startrow -first $rowsCount
+    $ob = Import-CSV `
+    -Header "person","reg_addr_koatuu","oper_code","oper_name","d_reg","dep_code","dep","brand","model","make_year","color","kind","body","purpose","fuel","capacity","own_weight","total_weight","n_reg_new" `
+    -Delimiter ';' $sourceCSV | select-object -skip $startrow -first $rowsCount
     foreach ($item in $ob){
         if ($item.n_reg_new -ne "") {
-            $item | Add-Member -MemberType NoteProperty -Name "PartitionKey" -Value $item.n_reg_new.Trim().Substring(0,2)
-            $item | Add-Member -MemberType NoteProperty -Name "RowKey" -Value $item.n_reg_new.Trim()
+            $item | Add-Member -MemberType NoteProperty -Name "PartitionKey" -Value $item.n_reg_new.Trim().Replace("/","").Substring(0,2)
+            $item | Add-Member -MemberType NoteProperty -Name "RowKey" -Value $item.n_reg_new.Trim().Replace("/","")
         }
     }
     $ob | Export-CSV "$($filename)_$($counter).csv" -Encoding UTF8 -NoTypeInformation
