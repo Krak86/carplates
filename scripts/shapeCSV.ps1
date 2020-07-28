@@ -18,8 +18,10 @@ $counter = 1;
 while ($startrow -lt $rowsMaximum){
     $ob = Import-CSV -Delimiter ';' $sourceCSV | select-object -skip $startrow -first $rowsCount
     foreach ($item in $ob){
-        $item | Add-Member -MemberType NoteProperty -Name "PartitionKey" -Value $item.n_reg_new.Trim().Substring(0,2)
-        $item | Add-Member -MemberType NoteProperty -Name "RowKey" -Value $item.n_reg_new.Trim()
+        if ($item.n_reg_new -ne "") {
+            $item | Add-Member -MemberType NoteProperty -Name "PartitionKey" -Value $item.n_reg_new.Trim().Substring(0,2)
+            $item | Add-Member -MemberType NoteProperty -Name "RowKey" -Value $item.n_reg_new.Trim()
+        }
     }
     $ob | Export-CSV "$($filename)_$($counter).csv" -Encoding UTF8 -NoTypeInformation
     $startrow += $rowsCount ;
