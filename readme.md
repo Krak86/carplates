@@ -49,13 +49,13 @@ The extra Linters Analysis are used:
 
 Roadmap (see [projects](https://github.com/Krak86/carplates/projects)):
 * Integration/e2e tests, for instance [cypress](https://www.cypress.io/)
-* ~~~~IE11 support~~~~
-* ~~~~Add facebook hashtag posts, for instance https://www.facebook.com/hashtag/ве7116аа~~~~
+* ~~IE11 support~~
+* ~~Add facebook hashtag posts, for instance https://www.facebook.com/hashtag/ве7116аа~~
 * Add crash test rating, for instance [one.nhtsa.gov](https://one.nhtsa.gov/webapi/api/SafetyRatings/modelyear/2016/make/VOLKSWAGEN/model/JETTA?format=json)
 * Add android and IOS apps using [React Native](https://facebook.github.io/react-native/)
 * Create BOT for facebook, telegram, viber, wasap
 * Create own ML service for image recognizer
-* ~~~~Add [Auth0](https://auth0.com/) or [Azure Active Directory](https://azure.microsoft.com/en-us/services/active-directory/) (Auth as a service)~~~~
+* ~~Add [Auth0](https://auth0.com/) or [Azure Active Directory](https://azure.microsoft.com/en-us/services/active-directory/) (Auth as a service)~~
 
 The project is open for everyone, so don't hesitate to create [issues](https://github.com/Krak86/carplates/issues) and [pull request](https://github.com/Krak86/carplates/pulls).
 
