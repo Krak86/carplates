@@ -14,8 +14,10 @@ This is a project that allows user to search a ukrainian car plates using open d
 * [Webpack](https://webpack.js.org/)
 * [React](https://reactjs.org/)
 * [Redux](https://redux.js.org/)
+* [Redux Saga](https://redux-saga.js.org/)
 * [React Router](https://reacttraining.com/react-router/web/guides/quick-start)
 * [Material UI](https://material-ui.com/)
+* [Immer](https://immerjs.github.io/immer/docs/introduction)
 * [Workbox](https://developers.google.com/web/tools/workbox)
 * [PWA](https://developers.google.com/web/progressive-web-apps)
 * [Jest](https://jestjs.io/)
@@ -47,13 +49,13 @@ The extra Linters Analysis are used:
 
 Roadmap (see [projects](https://github.com/Krak86/carplates/projects)):
 * Integration/e2e tests, for instance [cypress](https://www.cypress.io/)
-* IE11 support
-* Add facebook hashtag posts, for instance https://www.facebook.com/hashtag/ве7116аа
+* ~~~~IE11 support~~~~
+* ~~~~Add facebook hashtag posts, for instance https://www.facebook.com/hashtag/ве7116аа~~~~
 * Add crash test rating, for instance [one.nhtsa.gov](https://one.nhtsa.gov/webapi/api/SafetyRatings/modelyear/2016/make/VOLKSWAGEN/model/JETTA?format=json)
 * Add android and IOS apps using [React Native](https://facebook.github.io/react-native/)
 * Create BOT for facebook, telegram, viber, wasap
 * Create own ML service for image recognizer
-* Add [Auth0](https://auth0.com/) or [Azure Active Directory](https://azure.microsoft.com/en-us/services/active-directory/) (Auth as a service)
+* ~~~~Add [Auth0](https://auth0.com/) or [Azure Active Directory](https://azure.microsoft.com/en-us/services/active-directory/) (Auth as a service)~~~~
 
 The project is open for everyone, so don't hesitate to create [issues](https://github.com/Krak86/carplates/issues) and [pull request](https://github.com/Krak86/carplates/pulls).
 
@@ -85,6 +87,7 @@ According to [DTAP/SDLC](https://github.com/Krak86/carplates/wiki/DTAP:-Software
 * Best Practicies Testing: [lighthouse](https://lighthouse-dot-webdotdevsite.appspot.com//lh/html?url=https://carsua.pp.ua)
 * Performance Testing: [lighthouse](https://lighthouse-dot-webdotdevsite.appspot.com//lh/html?url=https://carsua.pp.ua)
 * Security Testing/Vulnerability Testing: [OWASP ZAP Proxy](https://krak86.github.io/carplatesQA)
+* Security Headers Testing: [securityheaders](https://securityheaders.com/?q=carsua.app&followRedirects=on)
 * Install/Uninstall Testing: [![Build Status](https://dev.azure.com/krak86/CarsuaDevOps/_apis/build/status/Krak86.carplates?branchName=master)](https://dev.azure.com/krak86/CarsuaDevOps/_build/latest?definitionId=1&branchName=master)
 
 ## Setup

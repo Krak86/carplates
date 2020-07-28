@@ -65,6 +65,7 @@
     "clean-webpack-plugin": "^1.0.0",
     "copy-webpack-plugin": "4.6.0",
     "css-loader": "3.2.0",
+    "cypress": "^4.11.0",
     "dotenv": "^8.1.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
@@ -111,6 +112,9 @@
     "deploy": "gh-pages -d docs",
     "pwa": "pwa-asset-generator ./docs/img/touch/homescreen.png ./docs/img/touch --icon-only --manifest=./docs/manifest.json --index=./docs/index.html",
     "test": "jest",
-    "lighthouse": "lighthouse https://carsua.pp.ua --output=html --output-path=./__tests__lighthouse/lighthouse.html --save-assets --quiet --chrome-flags=\"--headless\""
+    "lighthouse": "lighthouse https://carsua.pp.ua --output=html --output-path=./__tests__lighthouse/lighthouse.html --save-assets --quiet --chrome-flags=\"--headless\"",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:info": "cypress info"
   }
 }
