@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 export interface IApplicationStates {
   itemRequest: string;
   imageRequest: any;
