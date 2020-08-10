@@ -64,9 +64,9 @@ context('Assertions', () => {
         })
         it('Check Notification Badges Incriment', () => {
             cy
-            .typePlate(plates[0])
+            .typePlate(plates[4])
             .wait(1000)
-            .typePlate(plates[1])
+            .typePlate(plates[3])
             .wait(1000)
             .typePlate(plates[2])
             .wait(1000)
@@ -84,7 +84,7 @@ context('Assertions', () => {
             .typePlate(plates[1])
             .wait(1000)
             .typePlate(plates[2])
-            .wait(1000)
+            .wait(2000)
 
             .get('span[class*="MuiBadge-badge MuiBadge-anchorOriginTopRightRectangle MuiBadge-colorSecondary"]')
             .should('have.text', '3')
