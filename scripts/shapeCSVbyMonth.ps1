@@ -13,16 +13,18 @@ $filename = "tz_opendata_z01012019_po01112019";
 $sourceCSV = "$($filename).csv";
 $rowsCount = 200000;
 $rowsMaximum = 2000000;
-$startrow = 0;
+$startrow = 1;
 $counter = 1;
 $separateByMonthValue = "*.08.2019";
 while ($startrow -lt $rowsMaximum){
-    $ob_source = Import-CSV -Delimiter ';' $sourceCSV | select-object -skip $startrow -first $rowsCount
+    $ob_source = Import-CSV `
+    -Header "person","reg_addr_koatuu","oper_code","oper_name","d_reg","dep_code","dep","brand","model","make_year","color","kind","body","purpose","fuel","capacity","own_weight","total_weight","n_reg_new" `
+    -Delimiter ';' $sourceCSV | select-object -skip $startrow -first $rowsCount
     $ob_filtered = @()
     foreach ($item in $ob_source){
         if(($item.d_reg -Like $separateByMonthValue) -and ($item.n_reg_new -ne "")){
-            $item | Add-Member -MemberType NoteProperty -Name "PartitionKey" -Value $item.n_reg_new.Trim().Substring(0,2)
-            $item | Add-Member -MemberType NoteProperty -Name "RowKey" -Value $item.n_reg_new.Trim()
+            $item | Add-Member -MemberType NoteProperty -Name "PartitionKey" -Value $item.n_reg_new.Trim().Replace("/","").Substring(0,2)
+            $item | Add-Member -MemberType NoteProperty -Name "RowKey" -Value $item.n_reg_new.Trim().Replace("/","")
             $ob_filtered = $ob_filtered + $item
         }
     }
