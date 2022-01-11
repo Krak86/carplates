@@ -58,8 +58,6 @@ function* requestFetchDataForPlate(action: actionTypes.IItemFetchDataForPlate) {
       yield put(actionCreators.setItemRequest(action.payload.value));
       yield put(actionCreators.responseIsEmpty(false));
       yield put(actionCreators.AddBadge());
-      /* tslint:disable no-commented-code */
-      // UtilsAsync.playNotification();
 
       yield fork(fetchDataForRiaModel, data);
       yield fork(fetchDataForPlatesmania, action.payload.value);

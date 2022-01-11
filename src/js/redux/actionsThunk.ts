@@ -55,7 +55,6 @@ export const itemFetchDataForPlateThunk =
           dispatch(fetchDataForRiaModelThunk(data));
           dispatch(fetchDataForPlatesmaniaThunk(itemRequest));
           dispatch(actionCreators.AddBadge());
-          // UtilsAsync.playNotification();
         } else {
           dispatch(actionCreators.responseIsEmpty(true));
         }
