@@ -33,6 +33,7 @@
     "clsx": "1.0.4",
     "disqus-react": "^1.0.7",
     "dotenv-webpack": "^1.7.0",
+    "immer": "^5.3.6",
     "react": "^16.9.0",
     "react-app-polyfill": "^1.0.5",
     "react-dom": "^16.9.0",
